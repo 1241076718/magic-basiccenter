@@ -1,0 +1,225 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <artifactId>magic-basiccenter</artifactId>
+        <groupId>com.magic</groupId>
+        <version>0.0.1-SNAPSHOT</version>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+
+    <artifactId>basiccenter-boot</artifactId>
+    <packaging>jar</packaging>
+    <properties>
+        <java.version>1.8</java.version>
+        <maven-jar-plugin.version>3.1.1</maven-jar-plugin.version>
+        <basiccenter-infrastructure.version>0.0.1-SNAPSHOT</basiccenter-infrastructure.version>
+        <basiccenter-application.version>0.0.1-SNAPSHOT</basiccenter-application.version>
+        <profile.dev>src/profile/spring-boot/dev</profile.dev>
+        <profile.prod>src/profile/spring-boot/prod</profile.prod>
+        <profile.uat1>src/profile/spring-boot/uat1</profile.uat1>
+        <profile.test>src/profile/spring-boot/test</profile.test>
+        <maven.test.skip>false</maven.test.skip>
+        <start-class>com.magic.basiccenter.BasicCenterApplication</start-class>
+        <project.finalName>magic-basiccenter</project.finalName>
+        <spring-boot.content.root>META-INF</spring-boot.content.root>
+    </properties>
+    <dependencies>
+        <!--内部依赖开始-->
+        <dependency>
+            <groupId>com.magic</groupId>
+            <artifactId>basiccenter-infrastructure</artifactId>
+            <version>${basiccenter-infrastructure.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.magic</groupId>
+            <artifactId>basiccenter-application</artifactId>
+            <version>${basiccenter-application.version}</version>
+        </dependency>
+        <!--内部依赖结束-->
+        <dependency>
+            <groupId>org.yaml</groupId>
+            <artifactId>snakeyaml</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.data</groupId>
+            <artifactId>spring-data-redis</artifactId>
+        </dependency>
+
+        <!--eureka-->
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
+            <version>2.1.1.RELEASE</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-openfeign</artifactId>
+            <version>2.2.0.RELEASE</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.junit.vintage</groupId>
+                    <artifactId>junit-vintage-engine</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-actuator</artifactId>
+        </dependency>
+    </dependencies>
+
+
+
+
+    <build>
+        <finalName>${project.name}</finalName>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.1</version>
+                <configuration>
+                    <source>1.8</source>
+                    <target>1.8</target>
+                    <encoding>utf8</encoding>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <configuration>
+                    <testFailureIgnore>true</testFailureIgnore>
+                    <forkMode>once</forkMode>
+                    <argLine>-Dfile.encoding=UTF-8 -Dprofile.directory=${profile.directory}</argLine>
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <configuration>
+                    <mainClass>${start-class}</mainClass>
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-resources-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>compile</id>
+                        <phase>compile</phase>
+                        <goals>
+                            <goal>copy-resources</goal>
+                        </goals>
+                        <configuration>
+                            <outputDirectory>target/classes/${spring-boot.content.root}</outputDirectory>
+                            <resources>
+                                <resource>
+                                    <directory>${profile.directory}</directory>
+                                    <excludes>
+                                        <exclude>classes/**</exclude>
+                                    </excludes>
+                                    <filtering>true</filtering>
+                                </resource>
+                            </resources>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>copy-resource-classes</id>
+                        <phase>compile</phase>
+                        <goals>
+                            <goal>copy-resources</goal>
+                        </goals>
+                        <configuration>
+                            <outputDirectory>target</outputDirectory>
+                            <resources>
+                                <resource>
+                                    <directory>${profile.directory}</directory>
+                                    <includes>
+                                        <includes>classes/**</includes>
+                                    </includes>
+                                    <filtering>true</filtering>
+                                </resource>
+                            </resources>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-antrun-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>package</id>
+                        <phase>package</phase>
+                        <configuration>
+                            <target>
+                                <copyfile dest="../target/${project.name}.jar" src="target/${project.name}.jar"/>
+                            </target>
+                        </configuration>
+                        <goals>
+                            <goal>run</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+
+
+    </build>
+    <profiles>
+        <!-- 环境配置信息 -->
+        <!-- product配置 -->
+        <profile>
+            <id>prod</id>
+            <properties>
+                <project.name>magic-basiccenter</project.name>
+                <profile.directory>${profile.prod}</profile.directory>
+            </properties>
+        </profile>
+
+        <!-- test配置 -->
+        <profile>
+            <id>test</id>
+            <properties>
+                <project.name>magic-basiccenter</project.name>
+                <profile.directory>${profile.test}</profile.directory>
+            </properties>
+        </profile>
+
+        <!-- dev -->
+        <profile>
+            <id>dev</id>
+            <properties>
+                <project.name>magic-basiccenter</project.name>
+                <profile.directory>${profile.dev}</profile.directory>
+            </properties>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+        </profile>
+
+        <!--uat1配置 -->
+        <profile>
+            <id>uat1</id>
+            <properties>
+                <project.name>magic-basiccenter</project.name>
+                <profile.directory>${profile.uat1}</profile.directory>
+            </properties>
+        </profile>
+    </profiles>
+
+</project>
