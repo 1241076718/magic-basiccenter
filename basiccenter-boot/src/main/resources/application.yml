@@ -54,7 +54,6 @@ spring:
     password: Ifp0p9o8i7u
     port: 6379
     databasic: 0
-
 common-rpc:
   debugger: true
   contextPath: /
