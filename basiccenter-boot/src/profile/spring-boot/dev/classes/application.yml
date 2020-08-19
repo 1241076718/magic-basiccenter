@@ -13,7 +13,7 @@ spring:
     driver-class-name: com.mysql.cj.jdbc.Driver
     username: root
     password: root
-    url: jdbc:mysql://localhost:3306/magic-basiccenter?characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=false&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=GMT%2B8
+    url: jdbc:mysql://47.100.119.48:3306/magic-basiccenter?characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=false&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=GMT%2B8
     druid:
       # 连接池的配置信息
       # 初始化大小，最小，最大
@@ -50,8 +50,7 @@ spring:
         url-pattern: "/*"
         exclusions: "*.js,*.gif,*.jpg,*.bmp,*.png,*.css,*.ico,/druid/*"
   redis:
-    host: 127.0.0.1
-    password: Ifp0p9o8i7u
+    host: 47.100.119.48
     port: 6379
     databasic: 0
 
