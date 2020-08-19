@@ -23,12 +23,21 @@
     </properties>
     <dependencies>
         <!--领域工程服务接口定义依赖开始-->
-
-
+		<dependency>
+            <groupId>com.gift</groupId>
+            <artifactId>gift-core</artifactId>
+            <version>1.0.0</version>
+            <exclusions>
+                <exclusion>
+                    <artifactId>fastjson</artifactId>
+                    <groupId>com.alibaba</groupId>
+                </exclusion>
+            </exclusions>
+        </dependency>
 
 
         <!--领域工程依赖结束-->
-
+		
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
@@ -51,6 +60,10 @@
             <artifactId>mapstruct-processor</artifactId>
             <version>${org.mapstruct.version}</version>
             <scope>provided</scope>
+        </dependency>
+        <dependency>
+        	<groupId>com.magic</groupId>
+        	<artifactId>basiccenter-infrastructure</artifactId>
         </dependency>
     </dependencies>
 </project>
