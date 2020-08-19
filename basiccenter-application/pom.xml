@@ -52,5 +52,25 @@
             <version>${org.mapstruct.version}</version>
             <scope>provided</scope>
         </dependency>
+        <dependency>
+            <groupId>com.magic</groupId>
+            <artifactId>basiccenter-infrastructure</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.gift</groupId>
+            <artifactId>domain-infrastructure</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>com.gift</groupId>
+            <artifactId>gift-core</artifactId>
+            <version>1.0.0</version>
+            <exclusions>
+                <exclusion>
+                    <artifactId>fastjson</artifactId>
+                    <groupId>com.alibaba</groupId>
+                </exclusion>
+            </exclusions>
+        </dependency>
     </dependencies>
 </project>
