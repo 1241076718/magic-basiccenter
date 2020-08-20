@@ -14,9 +14,13 @@ import com.magic.basiccenter.model.dto.AddAdvertInfoDTO;
 import com.magic.basiccenter.model.dto.AddAdvertInfoOutDTO;
 import com.magic.basiccenter.model.dto.DelAdvertInfoDTO;
 import com.magic.basiccenter.model.dto.DelAdvertInfoOutDTO;
+import com.magic.basiccenter.model.dto.UpdAdvertInfoDTO;
+import com.magic.basiccenter.model.dto.UpdAdvertInfoOutDTO;
 import com.magic.basiccenter.model.entity.BsAdvertInf;
 import com.magic.basiccenter.model.service.IAdvertService;
 import com.magic.basiccenter.model.service.IBsAdvertInfService;
+
+import java.time.LocalDateTime;
 
 /**
  * <p>广告配置数据交互接口实现类</P>
@@ -34,18 +38,30 @@ public class AdvertServiceImpl implements IAdvertService {
     @Autowired
     private IBsAdvertInfService bsAdvertInfService;
 
-    @Override
+	/**
+	 * 广告配置表数据新增
+	 * @param inputDTO
+	 * @return
+	 */
+	@Override
     public AddAdvertInfoOutDTO addAdvertInfo(AddAdvertInfoDTO inputDTO) {
         AddAdvertInfoOutDTO outData = new AddAdvertInfoOutDTO();
 
         BsAdvertInf bsAdvertInf = new BsAdvertInf();
         //bsAdvertInf.setAiAdvId(inputDTO.getAiAdvId());
         BeanUtils.copyProperties(inputDTO, bsAdvertInf);
+        bsAdvertInf.setAiAdvCreateTime(LocalDateTime.now()).setAiAdvUpdateTime(LocalDateTime.now());
         bsAdvertInfService.save(bsAdvertInf);
+
         return outData;
     }
 
-    @Override
+	/**
+	 * 广告列表查询
+	 * @param advertSelDTO
+	 * @return
+	 */
+	@Override
     public AdvertSelOutPageDTO advertSelPageCond(AdvertSelDTO advertSelDTO) {
     	AdvertSelOutPageDTO advertSelOutPageDTO = new AdvertSelOutPageDTO();
     	Integer currentPage = advertSelDTO.getCurrentPage();
@@ -65,14 +81,37 @@ public class AdvertServiceImpl implements IAdvertService {
     	.setTurnPageShowNum(page.getSize());
     	return advertSelOutPageDTO;
     }
-    
-    @Override
+
+	/**
+	 * 删除广告
+	 * @param advertDTO 通过主键id删除广告
+	 * @return
+	 */
+	@Override
 	public DelAdvertInfoOutDTO deleteAdvert(DelAdvertInfoDTO advertDTO) {
 		DelAdvertInfoOutDTO outDTO = new DelAdvertInfoOutDTO();
 		BsAdvertInf bsAdvertInf = new BsAdvertInf();
 		Integer advId = bsAdvertInf.getAiAdvId();
 		bsAdvertInfService.removeById(advId);
 		return outDTO;	
+	}
+
+	/**
+	 * 广告配置表数据修改
+	 * @param updDTO
+	 * @return
+	 */
+	@Override
+	public UpdAdvertInfoOutDTO updAdvertInfo(UpdAdvertInfoDTO updDTO) {
+		UpdAdvertInfoOutDTO  updOutDate= new UpdAdvertInfoOutDTO();
+
+		BsAdvertInf bsAdvertInf = new BsAdvertInf();
+		bsAdvertInf.setAiAdvCreateTime(LocalDateTime.now())
+				.setAiAdvUpdateTime(LocalDateTime.now());
+		BeanUtils.copyProperties(updDTO, bsAdvertInf);
+		bsAdvertInfService.updateById(bsAdvertInf);
+
+		return updOutDate;
 	}
 
 }

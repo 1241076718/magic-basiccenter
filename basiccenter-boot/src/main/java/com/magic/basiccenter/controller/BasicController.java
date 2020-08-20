@@ -4,6 +4,10 @@ import com.magic.application.infrastructure.service.dto.MagicDTO;
 import com.magic.application.infrastructure.service.dto.MagicOutDTO;
 import com.magic.basiccenter.dto.AdvertAddDTO;
 import com.magic.basiccenter.dto.AdvertAddOutDTO;
+import com.magic.basiccenter.dto.AdvertSelDTO;
+import com.magic.basiccenter.dto.AdvertSelOutPageDTO;
+import com.magic.basiccenter.dto.AdvertUpdDTO;
+import com.magic.basiccenter.dto.AdvertUpdOutDTO;
 import com.magic.basiccenter.dto.DelAdvertDTO;
 import com.magic.basiccenter.dto.DelAdvertOutDTO;
 import com.magic.basiccenter.service.IAdvertManageService;
@@ -24,6 +28,9 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("basic")
 public class BasicController {
+    /**
+     * 广告管理模块服务
+     */
     @Autowired
     private IAdvertManageService advertManageService;
 
@@ -36,17 +43,35 @@ public class BasicController {
     public MagicOutDTO<AdvertAddOutDTO> addAdvertInfo(@RequestBody MagicDTO<AdvertAddDTO> requestDTO) {
         return advertManageService.addAdvertInfo(requestDTO);
     }
-    
+
+    /**
+     * 广告列表查询
+     * @param requestDTO
+     * @return
+     */
+    @PostMapping("/advert/advertSelCond")
+    public MagicOutDTO<AdvertSelOutPageDTO> advertSelCond(@RequestBody MagicDTO<AdvertSelDTO> requestDTO){
+        return advertManageService.advertSelCond(requestDTO);
+    }
+
     /**
      * 删除广告
      * @param requestDTO
      * @return
      */
     @PostMapping("advert/delAdvert")
-	public MagicOutDTO<DelAdvertOutDTO>delAdvertInfo(@RequestBody MagicDTO<DelAdvertDTO>requestDTO){
+	public MagicOutDTO<DelAdvertOutDTO> delAdvertInfo(@RequestBody MagicDTO<DelAdvertDTO> requestDTO){
 		return advertManageService.deleteAdvert(requestDTO);
-		
-		
 	}
-    
+
+    /**
+     * 广告配置修改
+     * @param requestDTO
+     * @return
+     */
+    @PostMapping("/advert/updAdvertInfo")
+    public MagicOutDTO<AdvertUpdOutDTO> updAdvertInfo(@RequestBody MagicDTO<AdvertUpdDTO> requestDTO) {
+        return advertManageService.updAdvertInfo(requestDTO);
+    }
+
 }

@@ -4,6 +4,10 @@ import com.magic.application.infrastructure.service.dto.MagicDTO;
 import com.magic.application.infrastructure.service.dto.MagicOutDTO;
 import com.magic.basiccenter.dto.AdvertAddDTO;
 import com.magic.basiccenter.dto.AdvertAddOutDTO;
+import com.magic.basiccenter.dto.AdvertSelDTO;
+import com.magic.basiccenter.dto.AdvertSelOutPageDTO;
+import com.magic.basiccenter.dto.AdvertUpdDTO;
+import com.magic.basiccenter.dto.AdvertUpdOutDTO;
 import com.magic.basiccenter.dto.DelAdvertDTO;
 import com.magic.basiccenter.dto.DelAdvertOutDTO;
 
@@ -23,10 +27,25 @@ public interface IAdvertManageService {
      * @return
      */
     public MagicOutDTO<AdvertAddOutDTO> addAdvertInfo(MagicDTO<AdvertAddDTO> requestDTO);
+
+    /**
+     * 广告列表查询
+     * @param requestDTO
+     * @return
+     */
+    public MagicOutDTO<AdvertSelOutPageDTO> advertSelCond (MagicDTO<AdvertSelDTO> requestDTO);
+
     /**
      * 删除广告
      * @param dto
      * @return 
      */
-    public MagicOutDTO<DelAdvertOutDTO>deleteAdvert(MagicDTO<DelAdvertDTO>dto);
+    public MagicOutDTO<DelAdvertOutDTO> deleteAdvert(MagicDTO<DelAdvertDTO> dto);
+
+    /**
+     * 广告配置修改
+     * @param requestDTO
+     * @return
+     */
+    public MagicOutDTO<AdvertUpdOutDTO> updAdvertInfo(MagicDTO<AdvertUpdDTO> requestDTO);
 }
