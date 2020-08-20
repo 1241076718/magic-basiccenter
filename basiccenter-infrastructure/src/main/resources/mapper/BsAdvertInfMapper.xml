@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.magic.basiccenter.model.mapper.BsAdvertInfMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.magic.basiccenter.model.entity.BsAdvertInf">
+        <id column="AI_ADV_ID" property="aiAdvId" />
+        <result column="AI_ADV_STATUS" property="aiAdvStatus" />
+        <result column="AI_ADV_THEME" property="aiAdvTheme" />
+        <result column="AI_ADV_DESC" property="aiAdvDesc" />
+        <result column="AI_ADV_COLU" property="aiAdvColu" />
+        <result column="AI_ADV_COLU_ID" property="aiAdvColuId" />
+        <result column="AI_ADV_WORD_LEFT" property="aiAdvWordLeft" />
+        <result column="AI_ADV_WORD_RIGHT" property="aiAdvWordRight" />
+        <result column="AI_ADV_URL" property="aiAdvUrl" />
+        <result column="AI_ADV_COVER" property="aiAdvCover" />
+        <result column="AI_ADV_CREATE_USER" property="aiAdvCreateUser" />
+        <result column="AI_ADV_CREATE_TIME" property="aiAdvCreateTime" />
+        <result column="AI_ADV_UPDATE_USER" property="aiAdvUpdateUser" />
+        <result column="AI_ADV_UPDATE_TIME" property="aiAdvUpdateTime" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List" >
+       AI_ADV_ID,AI_ADV_STATUS,AI_ADV_THEME,AI_ADV_DESC,AI_ADV_COLU,AI_ADV_COLU_ID,AI_ADV_WORD_LEFT,AI_ADV_WORD_RIGHT,AI_ADV_URL,AI_ADV_COVER,AI_ADV_CREATE_USER,AI_ADV_CREATE_TIME,AI_ADV_UPDATE_USER,AI_ADV_UPDATE_TIME
+    </sql>
+
+</mapper>

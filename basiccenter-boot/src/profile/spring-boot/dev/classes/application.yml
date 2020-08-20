@@ -1,5 +1,5 @@
 server:
-  port: 9601
+  port: 9606
   servlet:
     context-path: /basic-center
 spring:
@@ -51,7 +51,7 @@ spring:
         exclusions: "*.js,*.gif,*.jpg,*.bmp,*.png,*.css,*.ico,/druid/*"
   redis:
     host: 127.0.0.1
-    password: 12345
+    password: Ifp0p9o8i7u
     port: 6379
     databasic: 0
 
