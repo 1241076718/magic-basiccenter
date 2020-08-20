@@ -33,15 +33,13 @@ public class BasicController {
         MagicOutDTO<QueryNoticeInfoOutDTO> querynoticeinfo = service.querynoticeinfo();
         System.out.println(querynoticeinfo);
         return  querynoticeinfo;
-
     }
+
     @PostMapping("/select")
     public MagicOutDTO<QueryNoticeInfoOutDTO> test012(@RequestBody MagicDTO<QueryNoticeInfoInDTO> queryNoticeInfoInDTO){
         System.out.println(queryNoticeInfoInDTO+"==============test02================================");
-//        MagicOutDTO<QueryNoticeInfoOutDTO> querynoticeinfo = service.queryOperatorList4CustId(queryNoticeInfoInDTO);
-//        System.out.println(querynoticeinfo);
-//        return  querynoticeinfo;
-        return  null;
+        MagicOutDTO<QueryNoticeInfoOutDTO> querynoticeinfo = service.queryNoticeList(queryNoticeInfoInDTO);
+        return  querynoticeinfo;
 
     }
 }
