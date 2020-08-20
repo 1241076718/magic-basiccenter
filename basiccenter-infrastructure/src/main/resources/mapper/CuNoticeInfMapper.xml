@@ -25,7 +25,7 @@
     <!--<sql id="Base_Column_List">-->
     <!--NI_NTC_ID, NI_NTC_NAME, NI_NTC_STATUS, NI_NTC_ID_RELEASE_TIME, NI_NTC_CREATOR, NI_NTC_TEXT, NI_NTC_START_TIME, NI_NTC_END_TIME, NI_NTC_COUNT, NI_NTC_REMIND_STATUS, NI_NTC_GMT_CREATE, NI_NTC_GMT_MODIFIED, NI_NTC_GMT_MODIFIER-->
     <!--</sql>-->
-    <select id="selectNotice"  parameterType="com.magic.basiccenter.dto.QueryNoticeInfoInDTO"    resultType="com.magic.basiccenter.model.entity.CuNoticeInf">
+    <select id="selectNotice"  parameterType="com.magic.basiccenter.model.dto.QueryNoticeDTO"    resultType="com.magic.basiccenter.model.dto.QueryNoticeOutDTO">
 
         select * from bs_notice_inf
         <where>

@@ -24,19 +24,13 @@ public class NoticeServiceDaoImpl implements NoticeService{
 
 	@Override
 	public List<QueryNoticeOutDTO> queryNotice(QueryNoticeDTO inputDTO) {
-
 		QueryNoticeOutDTO outData = new QueryNoticeOutDTO();
 		BsNoticeInfServiceImpl bean = SpringContextUtils.getBean(BsNoticeInfServiceImpl.class);
-
-//		List<CuNoticeInf> bNoticeInf = bsNoticeInfService.
 		CuNoticeInfMapper baseMapper = bean.getBaseMapper();
-		List<CuNoticeInf> cuNoticeInfs = baseMapper.selectNotice(inputDTO);
+		List<QueryNoticeOutDTO> cuNoticeInfs = baseMapper.selectNotice(inputDTO);
 
-//		String state = bNoticeInf.getNiNtcSta();
 
-//		outData.setNoticeState(state);
-
-		return null;
+		return cuNoticeInfs;
 	}
 
 }

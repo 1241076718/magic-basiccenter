@@ -7,6 +7,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.magic.application.infrastructure.service.dto.MagicDTO;
 import com.magic.basiccenter.dto.QueryNoticeInfoInDTO;
 import com.magic.basiccenter.model.dto.QueryNoticeDTO;
+import com.magic.basiccenter.model.dto.QueryNoticeOutDTO;
 import com.magic.basiccenter.model.entity.CuNoticeInf;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
@@ -27,7 +28,7 @@ import java.util.List;
 @Repository
 public interface CuNoticeInfMapper extends BaseMapper<CuNoticeInf> {
 
-    List<CuNoticeInf>  selectNotice(QueryNoticeDTO dto);
+    List<QueryNoticeOutDTO>  selectNotice(QueryNoticeDTO dto);
 
 
 }
