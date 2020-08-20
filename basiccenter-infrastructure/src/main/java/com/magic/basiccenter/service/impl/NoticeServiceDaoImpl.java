@@ -16,12 +16,8 @@ import java.util.List;
 
 @Service
 public class NoticeServiceDaoImpl implements NoticeService{
-
 	@Autowired
 	private IBsNoticeInfService bsNoticeInfService;
-
-
-
 	@Override
 	public List<QueryNoticeOutDTO> queryNotice(QueryNoticeDTO inputDTO) {
 		QueryNoticeOutDTO outData = new QueryNoticeOutDTO();
