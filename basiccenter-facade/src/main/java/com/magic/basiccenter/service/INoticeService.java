@@ -21,9 +21,7 @@ public interface INoticeService {
      * @param requestDTO
      * @return
      */
-    MagicOutDTO<QueryNoticeInfoOutDTO> queryOperatorList4CustId(MagicDTO<QueryNoticeInfoInDTO> requestDTO);
-
-
+    MagicOutDTO<QueryNoticeInfoOutDTO> queryNoticeList(MagicDTO<QueryNoticeInfoInDTO>  requestDTO);
 
 
 
@@ -33,12 +31,6 @@ public interface INoticeService {
 
 
 
-    /**
-     * 网银根据客户id查询操作员列表
-     *
-     * @param requestDTO
-     * @return
-     */
 
 
 }

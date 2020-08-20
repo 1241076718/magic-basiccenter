@@ -18,31 +18,35 @@ import java.io.Serializable;
 @Data
 public class QueryNoticeInfoInDTO implements Serializable {
 
-    private Integer ni_ntc_id;
+    private Integer niNtcId;
 
-    private String ni_ntc_name;
+    private String niNtcName;
 
-    private Integer ni_ntc_status;
+    private Integer niNtcStatus;
 
-    private java.sql.Timestamp ni_ntc_id_release_time;
+    private java.sql.Timestamp niNtcIdReleaseTime;
 
-    private String ni_ntc_creator;
+    private String niNtcCreator;
 
-    private String ni_ntc_text;
+    private String niNtcText;
 
-    private java.sql.Timestamp ni_ntc_start_time;
+    private java.sql.Timestamp niNtcStartTime;
 
-    private java.sql.Timestamp ni_ntc_end_time;
+    private java.sql.Timestamp niNtcEndTime;
 
-    private Integer ni_ntc_count;
+    private Integer niNtcCount;
 
-    private Integer ni_ntc_remind_status;
+    private Integer niNtcRemindStatus;
 
-    private java.sql.Timestamp ni_ntc_gmt_create;
+    private java.sql.Timestamp niNtcGmtCreate;
 
-    private java.sql.Timestamp ni_ntc_gmt_modified;
+    private java.sql.Timestamp niNtcGmtModified;
 
-    private String ni_ntc_gmt_modifier;
+    private String niNtcGmtModifier;
+
+    private Integer nowsPage;//当前页数
+
+    private Integer pageSize;//页面显示条数
 
 
 }

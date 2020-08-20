@@ -41,6 +41,15 @@
             <artifactId>druid-spring-boot-starter</artifactId>
             <version>${druid.version}</version>
         </dependency>
+        <dependency>
+            <groupId>com.magic</groupId>
+            <artifactId>basiccenter-facade</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>com.magic</groupId>
+            <artifactId>basiccenter-application</artifactId>
+        </dependency>
         <!--        databasic config end-->
     </dependencies>
 
