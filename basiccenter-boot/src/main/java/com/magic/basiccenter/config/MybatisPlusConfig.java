@@ -1,3 +1,10 @@
+package com.magic.basiccenter.config;
+
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+
+import com.baomidou.mybatisplus.extension.plugins.PaginationInterceptor;
+
 //package com.magic.basiccenter.config;
 //
 //import com.baomidou.mybatisplus.extension.plugins.PaginationInterceptor;
@@ -24,3 +31,16 @@
 //        return paginationInterceptor;
 //    }
 //}
+@Configuration
+public class MybatisPlusConfig {
+    /**
+     * 分页插件
+     */
+    @Bean
+    public PaginationInterceptor paginationInterceptor() {
+        PaginationInterceptor paginationInterceptor = new PaginationInterceptor();
+        //最大条数
+        paginationInterceptor.setLimit(100);
+        return paginationInterceptor;
+    }
+}

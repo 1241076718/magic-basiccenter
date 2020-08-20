@@ -1,5 +1,7 @@
 package com.magic.basiccenter.model.service;
 
+import com.magic.basiccenter.dto.AdvertSelDTO;
+import com.magic.basiccenter.dto.AdvertSelOutPageDTO;
 import com.magic.basiccenter.model.dto.AddAdvertInfoDTO;
 import com.magic.basiccenter.model.dto.AddAdvertInfoOutDTO;
 
@@ -19,4 +21,11 @@ public interface IAdvertService {
      * @return
      */
     public AddAdvertInfoOutDTO addAdvertInfo(AddAdvertInfoDTO inputDTO);
+    
+    /**
+     * 广告分页查询
+     * @param advertSelDTO
+     * @return
+     */
+    public AdvertSelOutPageDTO advertSelPageCond(AdvertSelDTO advertSelDTO);
 }

@@ -4,6 +4,8 @@ import com.magic.application.infrastructure.service.dto.MagicDTO;
 import com.magic.application.infrastructure.service.dto.MagicOutDTO;
 import com.magic.basiccenter.dto.AdvertAddDTO;
 import com.magic.basiccenter.dto.AdvertAddOutDTO;
+import com.magic.basiccenter.dto.AdvertSelDTO;
+import com.magic.basiccenter.dto.AdvertSelOutPageDTO;
 
 /**
  * <p>广告管理接口</P>
@@ -21,4 +23,10 @@ public interface IAdvertManageService {
      * @return
      */
     public MagicOutDTO<AdvertAddOutDTO> addAdvertInfo(MagicDTO<AdvertAddDTO> requestDTO);
+    /**
+     * 广告列表查询
+     * @param requestDTO
+     * @return
+     */
+    public MagicOutDTO<AdvertSelOutPageDTO> advertSelCond (MagicDTO<AdvertSelDTO> requestDTO);
 }
