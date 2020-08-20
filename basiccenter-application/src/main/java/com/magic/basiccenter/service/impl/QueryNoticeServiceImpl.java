@@ -7,7 +7,7 @@ import com.magic.basiccenter.dto.QueryNoticeInfoOutDTO;
 
 import com.magic.basiccenter.model.dto.QueryNoticeDTO;
 import com.magic.basiccenter.model.dto.QueryNoticeOutDTO;
-import com.magic.basiccenter.model.service.NoticeService;
+import com.magic.basiccenter.model.service.IQueryNoticeService;
 import com.magic.basiccenter.service.INoticeService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,40 +26,55 @@ import java.util.List;
 
 @Component
 @Transactional(rollbackFor = Exception.class)
-public class NoticeServiceImpl implements INoticeService {
+public class QueryNoticeServiceImpl implements INoticeService {
 
 
     //    @Autowired(required = false)
 //    private CuNoticeInfMapper mapper;
     @Autowired
-    NoticeService service;
+    IQueryNoticeService service;
 
 
     @Override
     public MagicOutDTO<QueryNoticeInfoOutDTO> queryNoticeList(MagicDTO<QueryNoticeInfoInDTO> requestDTO) {
+        System.out.println(requestDTO + ")==========================queryNoticeList=======================11================");
+        System.out.println(requestDTO.getBody());
         MagicOutDTO<QueryNoticeInfoOutDTO> result = new MagicOutDTO<>();
         QueryNoticeDTO queryNoticeDTO = new QueryNoticeDTO();
+
         QueryNoticeInfoInDTO body = requestDTO.getBody();
-        queryNoticeDTO.setNiNtcCreator(body.getNiNtcCreator());
-        queryNoticeDTO.setNiNtcId(body.getNiNtcId());
-        queryNoticeDTO.setNiNtcName(body.getNiNtcName());
-        queryNoticeDTO.setNiNtcStatus(body.getNiNtcStatus());
-        queryNoticeDTO.setNiNtcStartTime(body.getNiNtcStartTime());
-        queryNoticeDTO.setNiNtcEndTime(body.getNiNtcEndTime());
-        queryNoticeDTO.setNowsPage(body.getNowsPage());
-        queryNoticeDTO.setPageSize(body.getPageSize());
+//
+//        queryNoticeDTO.setNiNtcCreator(body.getNiNtcCreator());
+//
+//        queryNoticeDTO.setNiNtcId(body.getNiNtcId());
+//
+//        queryNoticeDTO.setNiNtcName(body.getNiNtcName());
+//
+//        queryNoticeDTO.setNiNtcStatus(body.getNiNtcStatus());
+//
+//        queryNoticeDTO.setNiNtcStartTime(body.getNiNtcStartTime());
+//        queryNoticeDTO.setNiNtcEndTime(body.getNiNtcEndTime());
+//       if( body.getNowsPage() !=null &&  body.getPageSize() !=null){
+//           queryNoticeDTO.setNowsPage((body.getNowsPage()-1)*body.getPageSize());
+//           queryNoticeDTO.setPageSize(body.getPageSize()*body.getNowsPage());
+//
+//       }
+        BeanUtils.copyProperties(body,queryNoticeDTO);
+
         List<QueryNoticeOutDTO> queryNoticeOutDTOS = service.queryNotice(queryNoticeDTO);
         queryNoticeDTO.setPageSize(null);
         List<QueryNoticeOutDTO> totalNotices = service.queryNotice(queryNoticeDTO);
         QueryNoticeInfoOutDTO outDTOd = new QueryNoticeInfoOutDTO();
-        System.out.println(requestDTO + "==============queryOperatorList4CustId==11================");
-        System.out.println(requestDTO.getBody());
-        outDTOd.setData(queryNoticeOutDTOS);
-        outDTOd.setTotal(totalNotices.size());
-        outDTOd.setCode(200);
-        outDTOd.setMsg("成功");
-        result.setBody(outDTOd);
-        System.out.println("NoticeServiceDaoImpl=========11====================");
+       if (!queryNoticeOutDTOS.isEmpty()) {
+           outDTOd.setData(queryNoticeOutDTOS);
+           outDTOd.setTotal(totalNotices.size());
+           outDTOd.setCode(200);
+           outDTOd.setMsg("成功");
+           result.setBody(outDTOd);
+       }else {
+           outDTOd.setCode(500);
+           outDTOd.setMsg("失败");
+       }
         return result;
     }
 
@@ -67,6 +82,7 @@ public class NoticeServiceImpl implements INoticeService {
     @Override
     public MagicOutDTO<QueryNoticeInfoOutDTO> querynoticeinfo() {
         MagicOutDTO<QueryNoticeInfoOutDTO> result = new MagicOutDTO<>();
+
         return result;
 
 
