@@ -2,6 +2,8 @@ package com.magic.basiccenter.service.impl;
 
 import com.magic.basiccenter.model.dto.AddAdvertInfoDTO;
 import com.magic.basiccenter.model.dto.AddAdvertInfoOutDTO;
+import com.magic.basiccenter.model.dto.DelAdvertInfoDTO;
+import com.magic.basiccenter.model.dto.DelAdvertInfoOutDTO;
 import com.magic.basiccenter.model.entity.BsAdvertInf;
 import com.magic.basiccenter.model.service.IAdvertService;
 import com.magic.basiccenter.model.service.IBsAdvertInfService;
@@ -33,7 +35,16 @@ public class AdvertServiceImpl implements IAdvertService {
         //bsAdvertInf.setAiAdvId(inputDTO.getAiAdvId());
         BeanUtils.copyProperties(inputDTO, bsAdvertInf);
         bsAdvertInfService.save(bsAdvertInf);
-
         return outData;
     }
+    
+    @Override
+	public DelAdvertInfoOutDTO deleteAdvert(DelAdvertInfoDTO advertDTO) {
+		DelAdvertInfoOutDTO outDTO = new DelAdvertInfoOutDTO();
+		BsAdvertInf bsAdvertInf = new BsAdvertInf();
+		Integer advId = bsAdvertInf.getAiAdvId();
+		bsAdvertInfService.removeById(advId);
+		return outDTO;	
+	}
+    
 }

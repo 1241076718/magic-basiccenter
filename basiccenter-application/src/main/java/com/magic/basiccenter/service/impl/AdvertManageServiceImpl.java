@@ -5,13 +5,17 @@ import com.magic.application.infrastructure.service.dto.MagicOutDTO;
 import com.magic.application.infrastructure.service.dto.data.RespHeader;
 import com.magic.basiccenter.dto.AdvertAddDTO;
 import com.magic.basiccenter.dto.AdvertAddOutDTO;
+import com.magic.basiccenter.dto.DelAdvertDTO;
+import com.magic.basiccenter.dto.DelAdvertOutDTO;
 import com.magic.basiccenter.error.AdvertErrorEnum;
 import com.magic.basiccenter.model.dto.AddAdvertInfoDTO;
 import com.magic.basiccenter.model.dto.AddAdvertInfoOutDTO;
+import com.magic.basiccenter.model.dto.DelAdvertInfoDTO;
 import com.magic.basiccenter.model.service.IAdvertService;
 import com.magic.basiccenter.service.IAdvertManageService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 /**
  * <p>广告管理接口实现类</P>
@@ -21,6 +25,7 @@ import org.springframework.beans.factory.annotation.Autowired;
  * @className AdvertManageServiceImpl
  * @sine 2020/8/19 10:18
  */
+@Service
 public class AdvertManageServiceImpl implements IAdvertManageService {
     /**
      * 广告配置表数据交互服务
@@ -57,4 +62,27 @@ public class AdvertManageServiceImpl implements IAdvertManageService {
 
         return magicOutDTO;
     }
+
+	@Override
+	public MagicOutDTO<DelAdvertOutDTO>deleteAdvert(MagicDTO<DelAdvertDTO> dto) {
+		DelAdvertOutDTO bodyDTO=new DelAdvertOutDTO();
+		MagicOutDTO<DelAdvertOutDTO> magicOutDTO = new MagicOutDTO<>(bodyDTO);
+		RespHeader header = new RespHeader();
+		magicOutDTO.setHeader(header);
+		try{
+			Integer advId = dto.getBody().getAiAdvId();
+			DelAdvertInfoDTO advertNoticeDTO = new DelAdvertInfoDTO();
+			advertNoticeDTO.setAiAdvId(advId);
+			advertService.deleteAdvert(advertNoticeDTO);
+			header.setErrorCode(AdvertErrorEnum.SUCCESS.code());
+			header.setErrorMsg(AdvertErrorEnum.SUCCESS.msg());
+		}catch(Exception e){
+			e.getStackTrace();
+			header.setErrorCode("-1");
+			header.setErrorMsg(e.getMessage());
+		}
+		return magicOutDTO;
+	}
+
+	
 }

@@ -2,6 +2,8 @@ package com.magic.basiccenter.model.service;
 
 import com.magic.basiccenter.model.dto.AddAdvertInfoDTO;
 import com.magic.basiccenter.model.dto.AddAdvertInfoOutDTO;
+import com.magic.basiccenter.model.dto.DelAdvertInfoDTO;
+import com.magic.basiccenter.model.dto.DelAdvertInfoOutDTO;
 
 /**
  * <p>广告配置数据交互接口</P>
@@ -19,4 +21,11 @@ public interface IAdvertService {
      * @return
      */
     public AddAdvertInfoOutDTO addAdvertInfo(AddAdvertInfoDTO inputDTO);
+    
+    /**
+     * 删除广告
+     * @param advertDTO 通过主键id删除广告
+     * @return
+     */
+    public DelAdvertInfoOutDTO deleteAdvert(DelAdvertInfoDTO advertDTO);
 }
