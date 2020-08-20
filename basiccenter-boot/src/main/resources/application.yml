@@ -12,8 +12,8 @@ spring:
     type: com.alibaba.druid.pool.DruidDataSource
     driver-class-name: com.mysql.cj.jdbc.Driver
     username: root
-    password: root
-    url: jdbc:mysql://localhost:3306/magic-basiccenter?characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=false&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=GMT%2B8
+    password: 123456
+    url: jdbc:mysql://localhost:3306/notice?characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=false&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=GMT%2B8
     druid:
       # 连接池的配置信息
       # 初始化大小，最小，最大
@@ -51,7 +51,7 @@ spring:
         exclusions: "*.js,*.gif,*.jpg,*.bmp,*.png,*.css,*.ico,/druid/*"
   redis:
     host: 127.0.0.1
-    password: Ifp0p9o8i7u
+#    password: Ifp0p9o8i7u
     port: 6379
     databasic: 0
 common-rpc:
@@ -86,7 +86,8 @@ mybatis-plus:
   type-aliases-package: com.magic.basiccenter.model.entity
   configuration:
     # slf4j打印
-    log-impl: org.apache.ibatis.logging.slf4j.Slf4jImpl
+#    log-impl: org.apache.ibatis.logging.slf4j.Slf4jImpl
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
 ynet:
   sequence:
     #序列中心数据中心ID（每个中心不相同 ，最大值31）
