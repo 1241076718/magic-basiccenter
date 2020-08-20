@@ -22,7 +22,7 @@ public class QueryNoticeInfoOutDTO <T> implements Serializable {
 
     private Integer code;
     private String msg;
-    private Integer tatal;
+    private Integer total;
     private List<T> data;
 
 }

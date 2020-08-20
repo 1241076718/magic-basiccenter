@@ -1,8 +1,10 @@
 package com.magic.basiccenter.model.dto;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 
 import java.io.Serializable;
+import java.util.Date;
 
 @Data
 public class QueryNoticeDTO implements Serializable {
@@ -17,24 +19,33 @@ public class QueryNoticeDTO implements Serializable {
 	private String niNtcName;
 
 	private Integer niNtcStatus;
-
-	private java.sql.Timestamp niNtcIdReleaseTime;
+	@JsonFormat(
+			pattern = "yyyy-MM-dd",
+			timezone = "GMT+8"
+	)
+	private Date niNtcIdReleaseTime;
 
 	private String niNtcCreator;
 
 	private String niNtcText;
 
-	private java.sql.Timestamp niNtcStartTime;
+	private String niNtcStartTime;
 
-	private java.sql.Timestamp niNtcEndTime;
+	private String niNtcEndTime;
 
 	private Integer niNtcCount;
 
 	private Integer niNtcRemindStatus;
-
-	private java.sql.Timestamp niNtcGmtCreate;
-
-	private java.sql.Timestamp niNtcGmtModified;
+	@JsonFormat(
+			pattern = "yyyy-MM-dd",
+			timezone = "GMT+8"
+	)
+	private Date niNtcGmtCreate;
+	@JsonFormat(
+			pattern = "yyyy-MM-dd",
+			timezone = "GMT+8"
+	)
+	private Date niNtcGmtModified;
 
 	private String niNtcGmtModifier;
 

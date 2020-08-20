@@ -10,6 +10,7 @@ import lombok.experimental.Accessors;
 import org.springframework.stereotype.Component;
 
 import java.io.Serializable;
+import java.util.Date;
 
 @Data
 @EqualsAndHashCode(callSuper = false)
@@ -70,7 +71,7 @@ public class CuNoticeInf implements Serializable{
   private Integer niNtcStatus;
 
   @TableField("NI_NTC_ID_RELEASE_TIME")
-  private java.sql.Timestamp niNtcIdReleaseTime;
+  private Date niNtcIdReleaseTime;
 
   @TableField("NI_NTC_CREATOR")
   private String niNtcCreator;
@@ -79,10 +80,10 @@ public class CuNoticeInf implements Serializable{
   private String niNtcText;
 
   @TableField("NI_NTC_START_TIME")
-  private java.sql.Timestamp niNtcStartTime;
+  private String niNtcStartTime;
 
   @TableField("NI_NTC_END_TIME")
-  private java.sql.Timestamp niNtcEndTime;
+  private String niNtcEndTime;
 
   @TableField("NI_NTC_COUNT")
   private Integer niNtcCount;
@@ -91,10 +92,10 @@ public class CuNoticeInf implements Serializable{
   private Integer niNtcRemindStatus;
 
   @TableField("NI_NTC_GMT_CREATE")
-  private java.sql.Timestamp niNtcGmtCreate;
+  private Date niNtcGmtCreate;
 
   @TableField("NI_NTC_GMT_MODIFIED")
-  private java.sql.Timestamp niNtcGmtModified;
+  private Date niNtcGmtModified;
 
   @TableField("NI_NTC_GMT_MODIFIER")
   private String niNtcGmtModifier;

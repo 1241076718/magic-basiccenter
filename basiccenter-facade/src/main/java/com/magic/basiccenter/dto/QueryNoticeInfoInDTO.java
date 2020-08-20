@@ -3,6 +3,7 @@ package com.magic.basiccenter.dto;
 import lombok.Data;
 
 import java.io.Serializable;
+import java.util.Date;
 
 /**
  * 公告查询列表
@@ -24,23 +25,23 @@ public class QueryNoticeInfoInDTO implements Serializable {
 
     private Integer niNtcStatus;
 
-    private java.sql.Timestamp niNtcIdReleaseTime;
+    private Date niNtcIdReleaseTime;
 
     private String niNtcCreator;
 
     private String niNtcText;
 
-    private java.sql.Timestamp niNtcStartTime;
+    private String niNtcStartTime;
 
-    private java.sql.Timestamp niNtcEndTime;
+    private String niNtcEndTime;
 
     private Integer niNtcCount;
 
     private Integer niNtcRemindStatus;
 
-    private java.sql.Timestamp niNtcGmtCreate;
+    private Date niNtcGmtCreate;
 
-    private java.sql.Timestamp niNtcGmtModified;
+    private Date niNtcGmtModified;
 
     private String niNtcGmtModifier;
 
