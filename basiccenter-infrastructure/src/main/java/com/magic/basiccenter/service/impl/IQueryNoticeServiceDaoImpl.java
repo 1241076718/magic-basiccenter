@@ -9,7 +9,6 @@ import com.magic.basiccenter.model.service.IQueryNoticeService;
 import com.magic.basiccenter.model.service.impl.BsNoticeInfServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import java.util.List;
 
 @Service
@@ -17,8 +16,6 @@ public class IQueryNoticeServiceDaoImpl implements IQueryNoticeService {
 
 	@Autowired
 	private IBsNoticeInfService bsNoticeInfService;
-
-
 
 	@Override
 	public List<QueryNoticeOutDTO> queryNotice(QueryNoticeDTO inputDTO) {
