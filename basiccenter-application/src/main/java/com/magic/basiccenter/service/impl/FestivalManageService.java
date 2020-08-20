@@ -98,7 +98,7 @@ public class FestivalManageService implements IFestivalService {
         for (FestivalManageInf festivalmanageInf : selectList) {
             FestivalQueryListOutDTO queryFestivalListOutDTO=new FestivalQueryListOutDTO();
             queryFestivalListOutDTO.setFestivalYear(festivalmanageInf.getFestivalYear());
-            queryFestivalListOutDTO.setFestivalYear(festivalmanageInf.getFestivalType());
+            queryFestivalListOutDTO.setFestivalType(festivalmanageInf.getFestivalType());
             queryFestivalListOutDTO.setFestivalDeploy(festivalmanageInf.getFestivalDeploy());
             queryFestivalListOutDTO.setFestivalName(festivalmanageInf.getFestivalName());
             queryFestivalListOutDTO.setFestivalPutPerson(festivalmanageInf.getFestivalPutPerson());
@@ -133,7 +133,6 @@ public class FestivalManageService implements IFestivalService {
         magicDTO.setBody(result);
         return magicDTO;
     }
-
 
     /**
      * 删除功能
