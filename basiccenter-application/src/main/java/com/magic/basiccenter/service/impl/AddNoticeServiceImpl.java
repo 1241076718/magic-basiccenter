@@ -31,6 +31,9 @@ public class AddNoticeServiceImpl implements IAddNoticeService {
         if (rows<1){
             respHead.setErrorCode("-1");
             respHead.setErrorMsg("添加公告失败");
+        }else{
+            addNoticeInfoOutDTO.setMsg("添加公告成功");
+            addNoticeInfoOutDTO.setCode(0);
         }
         magicOutDTO.setHeader(respHead);
         magicOutDTO.setBody(addNoticeInfoOutDTO);
