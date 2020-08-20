@@ -1,10 +1,11 @@
 package com.magic.basiccenter.model.dto;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
-import lombok.Data;
-
 import java.io.Serializable;
 import java.util.Date;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
+
+import lombok.Data;
 
 @Data
 public class QueryNoticeDTO implements Serializable {
@@ -46,21 +47,8 @@ public class QueryNoticeDTO implements Serializable {
 			timezone = "GMT+8"
 	)
 	private Date niNtcGmtModified;
-
 	private java.sql.Timestamp niNtcGmtCreate;
-
-	private java.sql.Timestamp niNtcGmtModified;
-
 	private String niNtcGmtModifier;
-
 	private Integer nowsPage;//当前页数
-
-	private Integer pageSize;//页面显示条数
-}
-
-	private String niNtcGmtModifier;
-
-	private Integer nowsPage;//当前页数
-
 	private Integer pageSize;//页面显示条数
 }
