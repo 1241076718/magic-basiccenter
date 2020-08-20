@@ -1,6 +1,7 @@
 package com.magic.basiccenter.model.entity;
 
 
+import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
@@ -10,6 +11,7 @@ import lombok.experimental.Accessors;
 import org.springframework.stereotype.Component;
 
 import java.io.Serializable;
+import java.util.Date;
 
 @Data
 @EqualsAndHashCode(callSuper = false)
@@ -17,7 +19,7 @@ import java.io.Serializable;
 @TableName(value = "bs_notice_inf")
 public class CuNoticeInf implements Serializable{
 
-  @TableId("NI_NTC_ID") //niNtcId
+  @TableId(value = "NI_NTC_ID",type = IdType.AUTO)
   private Integer niNtcId;
 
   @TableField("NI_NTC_NAME")
@@ -27,7 +29,7 @@ public class CuNoticeInf implements Serializable{
   private Integer niNtcStatus;
 
   @TableField("NI_NTC_ID_RELEASE_TIME")
-  private java.sql.Timestamp niNtcIdReleaseTime;
+  private Date niNtcIdReleaseTime;
 
   @TableField("NI_NTC_CREATOR")
   private String niNtcCreator;
@@ -36,10 +38,10 @@ public class CuNoticeInf implements Serializable{
   private String niNtcText;
 
   @TableField("NI_NTC_START_TIME")
-  private java.sql.Timestamp niNtcStartTime;
+  private Date niNtcStartTime;
 
   @TableField("NI_NTC_END_TIME")
-  private java.sql.Timestamp niNtcEndTime;
+  private Date niNtcEndTime;
 
   @TableField("NI_NTC_COUNT")
   private Integer niNtcCount;
@@ -48,10 +50,10 @@ public class CuNoticeInf implements Serializable{
   private Integer niNtcRemindStatus;
 
   @TableField("NI_NTC_GMT_CREATE")
-  private java.sql.Timestamp niNtcGmtCreate;
+  private Date niNtcGmtCreate;
 
   @TableField("NI_NTC_GMT_MODIFIED")
-  private java.sql.Timestamp niNtcGmtModified;
+  private Date niNtcGmtModified;
 
   @TableField("NI_NTC_GMT_MODIFIER")
   private String niNtcGmtModifier;

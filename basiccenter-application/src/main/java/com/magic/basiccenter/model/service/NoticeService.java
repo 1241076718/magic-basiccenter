@@ -1,6 +1,5 @@
 package com.magic.basiccenter.model.service;
 
-
 import com.magic.basiccenter.model.dto.QueryNoticeDTO;
 import com.magic.basiccenter.model.dto.QueryNoticeOutDTO;
 
@@ -14,5 +13,6 @@ import java.util.List;
 public interface NoticeService {
 
 	public List<QueryNoticeOutDTO> queryNotice(QueryNoticeDTO inputDTO);
-	
+
+
 }

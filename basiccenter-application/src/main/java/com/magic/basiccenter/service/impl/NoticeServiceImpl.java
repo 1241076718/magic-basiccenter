@@ -9,6 +9,7 @@ import com.magic.basiccenter.model.dto.QueryNoticeDTO;
 import com.magic.basiccenter.model.dto.QueryNoticeOutDTO;
 import com.magic.basiccenter.model.service.NoticeService;
 import com.magic.basiccenter.service.INoticeService;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
@@ -54,7 +55,7 @@ public class NoticeServiceImpl implements INoticeService {
         System.out.println(requestDTO + "==============queryOperatorList4CustId==11================");
         System.out.println(requestDTO.getBody());
         outDTOd.setData(queryNoticeOutDTOS);
-        outDTOd.setTatal(totalNotices.size());
+        outDTOd.setTotal(totalNotices.size());
         outDTOd.setCode(200);
         outDTOd.setMsg("成功");
         result.setBody(outDTOd);
@@ -66,7 +67,6 @@ public class NoticeServiceImpl implements INoticeService {
     @Override
     public MagicOutDTO<QueryNoticeInfoOutDTO> querynoticeinfo() {
         MagicOutDTO<QueryNoticeInfoOutDTO> result = new MagicOutDTO<>();
-
         return result;
 
 
