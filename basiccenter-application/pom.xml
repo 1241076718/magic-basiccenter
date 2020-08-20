@@ -24,9 +24,6 @@
     <dependencies>
         <!--领域工程服务接口定义依赖开始-->
 
-
-
-
         <!--领域工程依赖结束-->
 
         <dependency>
@@ -51,6 +48,12 @@
             <artifactId>mapstruct-processor</artifactId>
             <version>${org.mapstruct.version}</version>
             <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.baomidou</groupId>
+            <artifactId>mybatis-plus-core</artifactId>
+            <version>3.1.2</version>
+            <scope>compile</scope>
         </dependency>
     </dependencies>
 </project>

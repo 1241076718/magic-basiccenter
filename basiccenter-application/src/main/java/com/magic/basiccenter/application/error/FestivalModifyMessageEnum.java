@@ -15,7 +15,11 @@ public enum FestivalModifyMessageEnum {
 	/**
 	 * 修改失败,节假日日期冲突
 	 */
-	FAIL_FESTIVAL_CONFLICT("修改失败", "节假日日期冲突");
+	FAIL_FESTIVAL_CONFLICT("修改失败", "节假日日期冲突"),
+	/**
+	 * 修改失败,传入的修改日期无效
+	 */
+	FAIL_IN_FESTIVAL_INVALID("修改失败", "传入的修改日期无效");
 
 	private Map<String, String> map = new HashMap<>();
 
