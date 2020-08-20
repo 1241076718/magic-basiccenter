@@ -1,7 +1,5 @@
 package com.magic.basiccenter.dto;
 
-import com.magic.basiccenter.dto.entity.Bs_notice_inf;
-import com.magic.basiccenter.dto.entity.Notice;
 import lombok.Data;
 
 import java.io.Serializable;
@@ -20,11 +18,11 @@ import java.util.List;
 
 
 @Data
-public class QueryNoticeInfoOutDTO implements Serializable {
+public class QueryNoticeInfoOutDTO <T> implements Serializable {
 
     private Integer code;
     private String msg;
     private Integer tatal;
-    private List<Bs_notice_inf> notice_infs;
+    private List<T> data;
 
 }

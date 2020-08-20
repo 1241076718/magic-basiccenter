@@ -52,10 +52,7 @@
             <version>${org.mapstruct.version}</version>
             <scope>provided</scope>
         </dependency>
-        <dependency>
-            <groupId>com.magic</groupId>
-            <artifactId>basiccenter-infrastructure</artifactId>
-        </dependency>
+
         <dependency>
             <groupId>com.gift</groupId>
             <artifactId>domain-infrastructure</artifactId>

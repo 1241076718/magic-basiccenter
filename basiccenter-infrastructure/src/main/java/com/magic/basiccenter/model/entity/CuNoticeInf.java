@@ -12,8 +12,8 @@ import org.springframework.stereotype.Component;
 import java.io.Serializable;
 
 @Data
-//@EqualsAndHashCode(callSuper = false)
-//@Accessors(chain = true)
+@EqualsAndHashCode(callSuper = false)
+@Accessors(chain = true)
 @TableName(value = "bs_notice_inf")
 //@Component
 public class CuNoticeInf implements Serializable{
