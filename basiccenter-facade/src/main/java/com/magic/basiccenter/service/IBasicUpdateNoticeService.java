@@ -22,5 +22,6 @@ public interface IBasicUpdateNoticeService {
 	 * @param requestDTO
 	 * @return
 	 */
+
 	MagicOutDTO<AppNoticeStateOutDTO> updateNotice(MagicDTO<AppNoticeStateDTO> requestDTO);
 }
