@@ -12,6 +12,7 @@ import com.magic.basiccenter.model.service.IBsNoticeStatusInfService;
 import com.magic.basiccenter.model.service.UpdateNoticeService;
 import com.magic.basiccenter.model.service.impl.BsNoticeStatusInfServiceImpl;
 
+
 @Service
 public class UpdateNoticeServiceDaoImpl implements UpdateNoticeService{
 	@Autowired

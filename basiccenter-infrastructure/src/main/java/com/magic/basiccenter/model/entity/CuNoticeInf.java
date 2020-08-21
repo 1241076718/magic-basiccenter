@@ -62,7 +62,7 @@ public class CuNoticeInf implements Serializable{
 
 
   @TableId("NI_NTC_ID") //niNtcId
-  private Integer niNtcId;
+  private String niNtcId;
 
   @TableField("NI_NTC_NAME")
   private String niNtcName;
