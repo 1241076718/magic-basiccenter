@@ -11,10 +11,10 @@ spring:
   datasource:
     type: com.alibaba.druid.pool.DruidDataSource
     driver-class-name: com.mysql.cj.jdbc.Driver
-    username: root
-    password: root
-    url: jdbc:mysql://localhost:3306/magic-basiccenter?characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=false&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=GMT%2B8
-    druid:
+    username: ifpcloud
+    password: ifpcloud&1q2w3e4r
+    url: jdbc:mysql://139.9.1.216:3306/magic-basiccenter?characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=false&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=GMT%2B8
+  druid:
       # 连接池的配置信息
       # 初始化大小，最小，最大
       initial-size: 5
@@ -53,7 +53,7 @@ spring:
     host: 127.0.0.1
     password: Ifp0p9o8i7u
     port: 6379
-    databasic: 0
+    database: 0
 common-rpc:
   debugger: true
   contextPath: /
@@ -66,11 +66,14 @@ eureka:
   client:
     service-url:
       defaultZone: http://127.0.0.1:8081/eureka
-    fetch-registry: false
+    healthcheck:
+      enabled: true
+    disable-delta: true
   instance:
     prefer-ip-address: true
     ip-address: 127.0.0.1
     hostname: ${eureka.instance.ip-address}
+    lease-expiration-duration-in-seconds: 90
 #eureka:
 #  client:
 #    service-url:
@@ -104,3 +107,11 @@ ynet:
 ribbon:
   ReadTimeout: 60000
   ConnectTimeout: 60000
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  endpoint:
+    health:
+      show-details: ALWAYS
