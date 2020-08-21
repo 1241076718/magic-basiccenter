@@ -31,8 +31,8 @@ public class QueryNoticeServiceImpl implements INoticeService {
 
     //    @Autowired(required = false)
 //    private CuNoticeInfMapper mapper;
-    @Autowired
-    IQueryNoticeService service;
+    @Autowired()
+    IQueryNoticeService IQueryNoticeServiceDaoImpl;
 
 
     @Override
@@ -61,9 +61,9 @@ public class QueryNoticeServiceImpl implements INoticeService {
 //       }
         BeanUtils.copyProperties(body,queryNoticeDTO);
 
-        List<QueryNoticeOutDTO> queryNoticeOutDTOS = service.queryNotice(queryNoticeDTO);
+        List<QueryNoticeOutDTO> queryNoticeOutDTOS = IQueryNoticeServiceDaoImpl.queryNotice(queryNoticeDTO);
         queryNoticeDTO.setPageSize(null);
-        List<QueryNoticeOutDTO> totalNotices = service.queryNotice(queryNoticeDTO);
+        List<QueryNoticeOutDTO> totalNotices = IQueryNoticeServiceDaoImpl.queryNotice(queryNoticeDTO);
         QueryNoticeInfoOutDTO outDTOd = new QueryNoticeInfoOutDTO();
        if (!queryNoticeOutDTOS.isEmpty()) {
            outDTOd.setData(queryNoticeOutDTOS);

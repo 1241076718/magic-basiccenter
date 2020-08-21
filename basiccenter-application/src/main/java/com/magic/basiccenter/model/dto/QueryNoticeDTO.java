@@ -47,7 +47,7 @@ public class QueryNoticeDTO implements Serializable {
 			timezone = "GMT+8"
 	)
 	private Date niNtcGmtModified;
-	private java.sql.Timestamp niNtcGmtCreate;
+	//private java.sql.Timestamp niNtcGmtCreate;
 	private String niNtcGmtModifier;
 	private Integer nowsPage;//当前页数
 	private Integer pageSize;//页面显示条数
