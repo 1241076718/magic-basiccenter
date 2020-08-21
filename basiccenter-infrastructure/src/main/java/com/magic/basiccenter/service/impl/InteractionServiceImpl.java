@@ -2,9 +2,12 @@ package com.magic.basiccenter.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.gift.domain.sequence.factory.SequenceFactory;
+import com.gift.domain.sequence.model.entity.PublicIdSegment;
 import com.magic.basiccenter.dto.DocumentFacadeDto;
 import com.magic.basiccenter.model.dto.*;
 import com.magic.basiccenter.model.entity.DocumentEntity;
+import com.magic.basiccenter.model.entity.constart.Constart;
 import com.magic.basiccenter.model.service.DocumentService;
 import com.magic.basiccenter.model.service.InteractionService;
 import org.springframework.beans.BeanUtils;
@@ -20,6 +23,8 @@ import java.util.List;
 public class InteractionServiceImpl implements InteractionService {
     @Autowired
     DocumentService documentService;
+    @Autowired
+    SequenceFactory sequenceFactory;
     /**
      * 数据回显
      * @param documentIdDto
@@ -97,9 +102,15 @@ public class InteractionServiceImpl implements InteractionService {
 
         int total = (int)iPage.getTotal();
         List<DocumentEntity> docsList = iPage.getRecords();
+        DocumentFacadeDto dto = new DocumentFacadeDto();
+        List<DocumentFacadeDto> list = null;
+        for(int i = 0;i < docsList.size(); i++){
+            DocumentEntity entity = docsList.get(i);
+            BeanUtils.copyProperties(entity,dto);
+            list.add(dto);
+        }
 
-
-        outData.setDocsList(docsList);
+        outData.setDocsList(list);
         outData.setTotal(total);
 
         return outData;
@@ -119,8 +130,14 @@ public class InteractionServiceImpl implements InteractionService {
 
         int total = (int)iPage.getTotal();
         List<DocumentEntity> docsList = iPage.getRecords();
-
-        outData.setDocsList(docsList);
+        DocumentFacadeDto dto = new DocumentFacadeDto();
+        List<DocumentFacadeDto> list = null;
+        for(int i = 0;i < docsList.size(); i++){
+            DocumentEntity entity = docsList.get(i);
+            BeanUtils.copyProperties(entity,dto);
+            list.add(dto);
+        }
+        outData.setDocsList(list);
         outData.setTotal(total);
 
         return outData;
@@ -140,8 +157,14 @@ public class InteractionServiceImpl implements InteractionService {
 
         int total = (int)iPage.getTotal();
         List<DocumentEntity> docsList = iPage.getRecords();
-
-        outData.setDocsList(docsList);
+        DocumentFacadeDto dto = new DocumentFacadeDto();
+        List<DocumentFacadeDto> list = null;
+        for(int i = 0;i < docsList.size(); i++){
+            DocumentEntity entity = docsList.get(i);
+            BeanUtils.copyProperties(entity,dto);
+            list.add(dto);
+        }
+        outData.setDocsList(list);
         outData.setTotal(total);
 
         return outData;
@@ -157,11 +180,14 @@ public class InteractionServiceImpl implements InteractionService {
 
         DocmentUpdataDto document =new DocmentUpdataDto();
         DocumentEntity entity = new DocumentEntity();
-        inputDTO.setDocumentCtime(new SimpleDateFormat().format(new Date()))
-                .setDocumentMtime(new SimpleDateFormat().format(new Date()));
+        inputDTO.setDocumentCtime(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()))
+                .setDocumentMtime(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()));
+        String id = sequenceFactory.getSegmentFillZeroId(Constart.DOC_ID);
         BeanUtils.copyProperties(inputDTO,entity);
+        entity.setDocsId(id);
+
         boolean b = documentService.save(entity);
-        document.setDocumentUpdataStat(b ? 0 : 1);
+        document.setDocumentUpdataStat(b ? 0 : 2);
         return document;
     }
 }

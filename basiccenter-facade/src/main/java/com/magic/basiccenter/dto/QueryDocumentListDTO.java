@@ -9,7 +9,7 @@ import java.io.Serializable;
 public class QueryDocumentListDTO implements Serializable {
 	
 	/**
-	 * 
+	 * 序列号
 	 */
 	private static final long serialVersionUID = -3056442781619793847L;
 	/**

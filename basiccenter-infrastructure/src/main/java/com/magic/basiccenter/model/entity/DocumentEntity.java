@@ -25,7 +25,7 @@ public class DocumentEntity implements Serializable {
      * 文档编号
      */
     @TableId(value = "DOC_ID")
-    private Integer docsId;
+    private String docsId;
     /**
      * 文档标题
      */

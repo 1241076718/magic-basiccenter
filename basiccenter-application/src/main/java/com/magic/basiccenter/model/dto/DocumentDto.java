@@ -14,9 +14,13 @@ import java.util.Date;
 @Accessors(chain = true)
 public class DocumentDto implements Serializable {
     /**
+     * 序列号
+     */
+    private static final long serialVersionUID = 4912085102147959511L;
+    /**
      * 文档编号
      */
-    private Integer docsId;
+    private String docsId;
     /**
      * 文档标题
      */

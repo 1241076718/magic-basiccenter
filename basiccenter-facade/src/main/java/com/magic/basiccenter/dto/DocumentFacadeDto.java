@@ -15,7 +15,11 @@ public class DocumentFacadeDto implements Serializable {
     /**
      * 文档编号
      */
-    private Integer docsId;
+    private static final long serialVersionUID = 1396306900926885526L;
+    /**
+     * 文档编号
+     */
+    private String docsId;
     /**
      * 文档标题
      */

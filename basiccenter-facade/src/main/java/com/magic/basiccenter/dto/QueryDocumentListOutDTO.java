@@ -1,6 +1,5 @@
 package com.magic.basiccenter.dto;
 
-import com.magic.basiccenter.model.entity.DocumentEntity;
 import lombok.Data;
 
 import java.io.Serializable;
@@ -16,7 +15,7 @@ public class QueryDocumentListOutDTO implements Serializable {
 	/**
 	 * 返回文档列表
 	 */
-	private List<DocumentEntity> docsList;
+	private List<DocumentFacadeDto> docsList;
 
 	/**
 	 * 返回页码

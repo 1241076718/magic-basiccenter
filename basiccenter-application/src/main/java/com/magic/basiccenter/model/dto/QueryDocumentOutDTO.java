@@ -1,7 +1,6 @@
 package com.magic.basiccenter.model.dto;
 
 import com.magic.basiccenter.dto.DocumentFacadeDto;
-import com.magic.basiccenter.model.entity.DocumentEntity;
 import lombok.Data;
 
 import javax.swing.event.DocumentEvent;
@@ -12,14 +11,14 @@ import java.util.List;
 public class QueryDocumentOutDTO implements Serializable {
 	
 	/**
-	 * 
+	 * 序列号
 	 */
 	private static final long serialVersionUID = -1024716140048009045L;
 
 	/**
 	 * 返回文档列表
 	 */
-	private List<DocumentEntity> docsList;
+	private List<DocumentFacadeDto> docsList;
 
 	/**
 	 * 返回列表总数

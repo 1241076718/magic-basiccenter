@@ -51,7 +51,7 @@ spring:
         exclusions: "*.js,*.gif,*.jpg,*.bmp,*.png,*.css,*.ico,/druid/*"
   redis:
     host: 127.0.0.1
-    password: Ifp0p9o8i7u
+    #password: Ifp0p9o8i7u
     port: 6379
     databasic: 0
 

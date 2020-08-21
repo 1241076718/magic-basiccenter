@@ -1,5 +1,6 @@
 package com.magic.basiccenter.model.serviceimpl;
 
+
 import com.magic.application.infrastructure.service.dto.MagicDTO;
 import com.magic.application.infrastructure.service.dto.MagicOutDTO;
 import com.magic.application.infrastructure.service.dto.data.RespHeader;
@@ -8,11 +9,12 @@ import com.magic.basiccenter.error.BasicErrorEnum;
 import com.magic.basiccenter.model.dto.*;
 import com.magic.basiccenter.model.service.InteractionService;
 import com.magic.basiccenter.service.ModifyService;
+import net.bytebuddy.asm.Advice;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-@Service
+
 public class ModifyServiceImpl implements ModifyService {
 
     /**
@@ -20,7 +22,6 @@ public class ModifyServiceImpl implements ModifyService {
      */
     @Autowired
     InteractionService service;
-
     /**
      * 数据回显
      * @param requestDTO
@@ -35,17 +36,21 @@ public class ModifyServiceImpl implements ModifyService {
         documentFacadeDtoMagicDTO.setHeader(respHead);
         try {
 
-            Integer Document = requestDTO.getBody().getDocsId();
+            String Document = requestDTO.getBody().getDocsId();
 
             DocumentIdDto documentDto = new DocumentIdDto();
             documentDto.setDocsId(Document);
 
             DocumentDto documentDto1 = service.queryData(documentDto);
 
-            dto.setDocsContents(documentDto1.getDocsContents());
-            respHead.setErrorCode(BasicErrorEnum.SUCCESS.code());
-            respHead.setErrorMsg(BasicErrorEnum.SUCCESS.msg());
-
+            BeanUtils.copyProperties(documentDto1,dto);
+            if(dto == null) {
+                respHead.setErrorCode(BasicErrorEnum.FAIL.code());
+                respHead.setErrorMsg(BasicErrorEnum.FAIL.msg());
+            }else {
+                respHead.setErrorCode(BasicErrorEnum.SUCCESS.code());
+                respHead.setErrorMsg(BasicErrorEnum.SUCCESS.msg());
+            }
         } catch (Exception e) {
             e.printStackTrace();
             respHead.setErrorCode("-1");
@@ -77,9 +82,13 @@ public class ModifyServiceImpl implements ModifyService {
             DocmentUpdataDto docmentUpdataDto = service.queryModify(documentDto);
 
             dto.setDocumentUpdataStat(docmentUpdataDto.getDocumentUpdataStat());
-            respHead.setErrorCode(BasicErrorEnum.SUCCESS.code());
-            respHead.setErrorMsg(BasicErrorEnum.SUCCESS.msg());
-
+            if (dto.getDocumentUpdataStat() == 2){
+                respHead.setErrorCode(BasicErrorEnum.FAIL.code());
+                respHead.setErrorMsg(BasicErrorEnum.FAIL.msg());
+            }else {
+                respHead.setErrorCode(BasicErrorEnum.SUCCESS.code());
+                respHead.setErrorMsg(BasicErrorEnum.SUCCESS.msg());
+            }
         } catch (Exception e) {
             e.printStackTrace();
             respHead.setErrorCode("-1");
@@ -111,9 +120,13 @@ public class ModifyServiceImpl implements ModifyService {
             DocumentOutDTO publish = service.publish(documentDto);
 
             dto.setState(publish.getState());
-            respHead.setErrorCode(BasicErrorEnum.SUCCESS.code());
-            respHead.setErrorMsg(BasicErrorEnum.SUCCESS.msg());
-
+            if (dto.getState() == 2){
+                respHead.setErrorCode(BasicErrorEnum.FAIL.code());
+                respHead.setErrorMsg(BasicErrorEnum.FAIL.msg());
+            }else {
+                respHead.setErrorCode(BasicErrorEnum.SUCCESS.code());
+                respHead.setErrorMsg(BasicErrorEnum.SUCCESS.msg());
+            }
         } catch (Exception e) {
             e.printStackTrace();
             respHead.setErrorCode("-1");
@@ -145,9 +158,13 @@ public class ModifyServiceImpl implements ModifyService {
             DocmentUpdataDto delete = service.delete(documentIdDto);
 
             dto.setDocumentUpdataStat(delete.getDocumentUpdataStat());
-            respHead.setErrorCode(BasicErrorEnum.SUCCESS.code());
-            respHead.setErrorMsg(BasicErrorEnum.SUCCESS.msg());
-
+            if (dto.getDocumentUpdataStat() == 2){
+                respHead.setErrorCode(BasicErrorEnum.FAIL.code());
+                respHead.setErrorMsg(BasicErrorEnum.FAIL.msg());
+            }else {
+                respHead.setErrorCode(BasicErrorEnum.SUCCESS.code());
+                respHead.setErrorMsg(BasicErrorEnum.SUCCESS.msg());
+            }
         } catch (Exception e) {
             e.printStackTrace();
             respHead.setErrorCode("-1");
@@ -211,9 +228,13 @@ public class ModifyServiceImpl implements ModifyService {
                 outData.setTotal(queryPubdateList.getTotal());
                 outData.setDocsList(queryPubdateList.getDocsList());
             }
-            respHead.setErrorCode(BasicErrorEnum.SUCCESS.code());
-            respHead.setErrorMsg(BasicErrorEnum.SUCCESS.msg());
-
+            if (outData == null){
+                respHead.setErrorCode(BasicErrorEnum.FAIL.code());
+                respHead.setErrorMsg(BasicErrorEnum.FAIL.msg());
+            }else {
+                respHead.setErrorCode(BasicErrorEnum.SUCCESS.code());
+                respHead.setErrorMsg(BasicErrorEnum.SUCCESS.msg());
+            }
         } catch (Exception e) {
             e.printStackTrace();
             respHead.setErrorCode("-1");
@@ -236,7 +257,6 @@ public class ModifyServiceImpl implements ModifyService {
         RespHeader respHead = new RespHeader();
         documentFacadeDtoMagicDTO.setHeader(respHead);
         try {
-
             DocumentFacadeDto body = requestDTO.getBody();
 
             DocumentDto documentDto = new DocumentDto();
@@ -244,9 +264,13 @@ public class ModifyServiceImpl implements ModifyService {
 
             DocmentUpdataDto updataDto = service.addDocumentState(documentDto);
 
-            respHead.setErrorCode(BasicErrorEnum.SUCCESS.code());
-            respHead.setErrorMsg(BasicErrorEnum.SUCCESS.msg());
-
+            if (updataDto.getDocumentUpdataStat() == 2){
+                respHead.setErrorCode(BasicErrorEnum.FAIL.code());
+                respHead.setErrorMsg(BasicErrorEnum.FAIL.msg());
+            }else {
+                respHead.setErrorCode(BasicErrorEnum.SUCCESS.code());
+                respHead.setErrorMsg(BasicErrorEnum.SUCCESS.msg());
+            }
         } catch (Exception e) {
             e.printStackTrace();
             respHead.setErrorCode("-1");
