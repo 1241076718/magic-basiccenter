@@ -3,7 +3,7 @@ package com.magic.basiccenter.model.mapper;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.magic.basiccenter.model.dto.QueryNoticeDTO;
 import com.magic.basiccenter.model.dto.QueryNoticeOutDTO;
-import com.magic.basiccenter.model.entity.CuNoticeInf;
+import com.magic.basiccenter.model.entity.BsNoticeInf;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -18,7 +18,7 @@ import java.util.List;
  */
 
 @Repository
-public interface CuNoticeInfMapper extends BaseMapper<CuNoticeInf> {
+public interface BsNoticeInfMapper extends BaseMapper<BsNoticeInf> {
 
     List<QueryNoticeOutDTO>  selectNotice(QueryNoticeDTO dto);
 

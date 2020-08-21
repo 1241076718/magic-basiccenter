@@ -1,5 +1,7 @@
 package com.magic.basiccenter.dto;
 
+import com.magic.application.infrastructure.service.dto.SelectPageDTO;
+import com.magic.application.infrastructure.service.dto.SelectPageOutDTO;
 import lombok.Data;
 
 import java.io.Serializable;
@@ -10,19 +12,21 @@ import java.util.List;
  * 返回数据
  *
  * @author ：wzr
- * @date ：Created in 2020/7/20 15:45
- * @description：查询账户信息
+ * @date ：
+ * @description
  * @modified By：
  * @version: $
  */
 
 
 @Data
-public class QueryNoticeInfoOutDTO <T> implements Serializable {
+public class QueryNoticeInfoOutDTO<T>  extends SelectPageOutDTO implements Serializable {
 
-    private Integer code;
-    private String msg;
-    private Integer total;
+
+    private static final long serialVersionUID = -39884965805778633L;
+
     private List<T> data;
+
+
 
 }

@@ -9,7 +9,9 @@ import lombok.experimental.Accessors;
 @Data
 @Accessors(chain=true)
 public class UpdateNoticeInfoOutDTO implements Serializable{
-	private static final long serialVersionUID = 431130515358930868L;
+
+
+	private static final long serialVersionUID = -7679344017046727787L;
 	private String niNtcName;
 	private String niNtcText;
 	private Integer niNtcCount;

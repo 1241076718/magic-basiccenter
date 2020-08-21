@@ -1,5 +1,6 @@
 package com.magic.basiccenter.dto;
 
+import com.magic.application.infrastructure.service.dto.SelectPageDTO;
 import lombok.Data;
 
 import java.io.Serializable;
@@ -17,7 +18,10 @@ import java.util.Date;
 
 
 @Data
-public class QueryNoticeInfoInDTO implements Serializable {
+public class QueryNoticeInfoInDTO  extends SelectPageDTO implements Serializable {
+
+
+    private static final long serialVersionUID = -1095173736782363598L;
 
     private String niNtcId;
 
@@ -45,9 +49,7 @@ public class QueryNoticeInfoInDTO implements Serializable {
 
     private String niNtcGmtModifier;
 
-    private Integer nowsPage;//当前页数
 
-    private Integer pageSize;//页面显示条数
 
 
 }

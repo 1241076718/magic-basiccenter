@@ -12,10 +12,10 @@ import lombok.experimental.Accessors;
 @Accessors(chain=true)
 public class QueryNoticeOutDTO implements Serializable {
 
+	private static final long serialVersionUID = 1184931488178595716L;
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = -5253003295671746450L;
 
 	private String niNtcId;
 
@@ -58,8 +58,6 @@ public class QueryNoticeOutDTO implements Serializable {
 
 	private String niNtcGmtModifier;
 
-//	private Integer nowsPage;//当前页数
-//
-//	private Integer pageSize;//页面显示条数
+
 	
 }

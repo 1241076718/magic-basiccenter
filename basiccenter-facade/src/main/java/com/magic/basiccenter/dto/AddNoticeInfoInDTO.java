@@ -5,11 +5,13 @@ import lombok.Data;
 import java.io.Serializable;
 import java.util.Date;
 
+/**
+ *
+ */
 @Data
 public class AddNoticeInfoInDTO implements Serializable {
     private static final long serialVersionUID = -7046586321043892538L;
 
-    // private Integer niNtcId;
 
     private String niNtcName;
 
