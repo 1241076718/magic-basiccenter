@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+
 /**
  * <p>基础中心--控制器</P>
  *
@@ -23,7 +24,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @Slf4j
 @RequestMapping("/notice")
-public class BasicController {
+public class NoticeQueryController {
 
     @Autowired(required = false)
     INoticeService service;
@@ -34,6 +35,7 @@ public class BasicController {
         System.out.println(querynoticeinfo);
         return  querynoticeinfo;
     }
+
 
     @PostMapping("/select")
     public MagicOutDTO<QueryNoticeInfoOutDTO> test012(@RequestBody MagicDTO<QueryNoticeInfoInDTO> queryNoticeInfoInDTO){
