@@ -15,7 +15,6 @@ import org.springframework.context.annotation.ImportResource;
  * @className basicCenterApplication
  * @sine 2020/8/17 9:15
  */
-
 @SpringBootApplication
 @ImportResource(locations = {"classpath*:rpc-provider.xml", "classpath*:rpc-consumer.xml"})
 @ComponentScan(basePackages = {"com.gift", "com.magic.basiccenter"})
