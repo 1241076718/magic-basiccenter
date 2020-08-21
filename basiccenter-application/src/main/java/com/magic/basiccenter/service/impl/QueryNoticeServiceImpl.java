@@ -43,38 +43,37 @@ public class QueryNoticeServiceImpl implements INoticeService {
         QueryNoticeDTO queryNoticeDTO = new QueryNoticeDTO();
 
         QueryNoticeInfoInDTO body = requestDTO.getBody();
-//
-//        queryNoticeDTO.setNiNtcCreator(body.getNiNtcCreator());
-//
-//        queryNoticeDTO.setNiNtcId(body.getNiNtcId());
-//
-//        queryNoticeDTO.setNiNtcName(body.getNiNtcName());
-//
-//        queryNoticeDTO.setNiNtcStatus(body.getNiNtcStatus());
-//
-//        queryNoticeDTO.setNiNtcStartTime(body.getNiNtcStartTime());
-//        queryNoticeDTO.setNiNtcEndTime(body.getNiNtcEndTime());
-//       if( body.getNowsPage() !=null &&  body.getPageSize() !=null){
-//           queryNoticeDTO.setNowsPage((body.getNowsPage()-1)*body.getPageSize());
-//           queryNoticeDTO.setPageSize(body.getPageSize()*body.getNowsPage());
-//
-//       }
-        BeanUtils.copyProperties(body,queryNoticeDTO);
 
+        queryNoticeDTO.setNiNtcCreator(body.getNiNtcCreator());
+
+        queryNoticeDTO.setNiNtcId(body.getNiNtcId());
+
+        queryNoticeDTO.setNiNtcName(body.getNiNtcName());
+
+        queryNoticeDTO.setNiNtcStatus(body.getNiNtcStatus());
+
+        queryNoticeDTO.setNiNtcStartTime(body.getNiNtcStartTime());
+        queryNoticeDTO.setNiNtcEndTime(body.getNiNtcEndTime());
+        if (body.getNowsPage() != null && body.getPageSize() != null) {
+            queryNoticeDTO.setNowsPage((body.getNowsPage() - 1) * body.getPageSize());
+            queryNoticeDTO.setPageSize(body.getPageSize() * body.getNowsPage());
+
+        }
+//        BeanUtils.copyProperties(body,queryNoticeDTO);
         List<QueryNoticeOutDTO> queryNoticeOutDTOS = service.queryNotice(queryNoticeDTO);
         queryNoticeDTO.setPageSize(null);
         List<QueryNoticeOutDTO> totalNotices = service.queryNotice(queryNoticeDTO);
         QueryNoticeInfoOutDTO outDTOd = new QueryNoticeInfoOutDTO();
-       if (!queryNoticeOutDTOS.isEmpty()) {
-           outDTOd.setData(queryNoticeOutDTOS);
-           outDTOd.setTotal(totalNotices.size());
-           outDTOd.setCode(200);
-           outDTOd.setMsg("成功");
-           result.setBody(outDTOd);
-       }else {
-           outDTOd.setCode(500);
-           outDTOd.setMsg("失败");
-       }
+        if (!queryNoticeOutDTOS.isEmpty()) {
+            outDTOd.setData(queryNoticeOutDTOS);
+            outDTOd.setTotal(totalNotices.size());
+            outDTOd.setCode(200);
+            outDTOd.setMsg("成功");
+            result.setBody(outDTOd);
+        } else {
+            outDTOd.setCode(500);
+            outDTOd.setMsg("失败");
+        }
         return result;
     }
 

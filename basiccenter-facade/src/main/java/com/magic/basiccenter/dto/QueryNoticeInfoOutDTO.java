@@ -25,4 +25,6 @@ public class QueryNoticeInfoOutDTO <T> implements Serializable {
     private Integer total;
     private List<T> data;
 
+
+
 }

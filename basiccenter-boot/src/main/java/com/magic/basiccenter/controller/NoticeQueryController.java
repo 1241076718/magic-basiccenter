@@ -37,6 +37,14 @@ public class NoticeQueryController {
     }
 
 
+    /**
+     * 查询接口
+     *
+     *
+     * @param queryNoticeInfoInDTO
+     * @return
+     */
+
     @PostMapping("/select")
     public MagicOutDTO<QueryNoticeInfoOutDTO> test012(@RequestBody MagicDTO<QueryNoticeInfoInDTO> queryNoticeInfoInDTO){
         System.out.println(queryNoticeInfoInDTO+"==============test02================================");
