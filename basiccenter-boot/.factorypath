@@ -1,4 +1,7 @@
 <factorypath>
+    <factorypathentry kind="VARJAR" id="M2_REPO/com/gift/gift-sequence-domain/0.0.1-SNAPSHOT/gift-sequence-domain-0.0.1-SNAPSHOT.jar" enabled="true" runInBatchMode="false"/>
+    <factorypathentry kind="VARJAR" id="M2_REPO/com/gift/gift-sequence-facade/0.0.1-SNAPSHOT/gift-sequence-facade-0.0.1-SNAPSHOT.jar" enabled="true" runInBatchMode="false"/>
+    <factorypathentry kind="VARJAR" id="M2_REPO/com/gift/gift-sequence-infrastructure/0.0.1-SNAPSHOT/gift-sequence-infrastructure-0.0.1-SNAPSHOT.jar" enabled="true" runInBatchMode="false"/>
     <factorypathentry kind="VARJAR" id="M2_REPO/com/baomidou/mybatis-plus-boot-starter/3.3.1.tmp/mybatis-plus-boot-starter-3.3.1.tmp.jar" enabled="true" runInBatchMode="false"/>
     <factorypathentry kind="VARJAR" id="M2_REPO/com/baomidou/mybatis-plus/3.3.1.tmp/mybatis-plus-3.3.1.tmp.jar" enabled="true" runInBatchMode="false"/>
     <factorypathentry kind="VARJAR" id="M2_REPO/org/springframework/boot/spring-boot-autoconfigure/2.2.4.RELEASE/spring-boot-autoconfigure-2.2.4.RELEASE.jar" enabled="true" runInBatchMode="false"/>
