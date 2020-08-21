@@ -31,9 +31,9 @@ public class QueryNoticeInfoInDTO implements Serializable {
 
     private String niNtcText;
 
-    private String niNtcStartTime;
+    private Date niNtcStartTime;
 
-    private String niNtcEndTime;
+    private Date niNtcEndTime;
 
     private Integer niNtcCount;
 
