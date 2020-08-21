@@ -1,12 +1,15 @@
 package com.magic.basiccenter.model.dto;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
-import lombok.Data;
-
 import java.io.Serializable;
 import java.util.Date;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
+import lombok.Data;
+import lombok.experimental.Accessors;
+
 @Data
+@Accessors(chain=true)
 public class QueryNoticeOutDTO implements Serializable {
 
 	/**

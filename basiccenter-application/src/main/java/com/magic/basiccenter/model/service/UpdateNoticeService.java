@@ -1,9 +1,8 @@
 package com.magic.basiccenter.model.service;
 
-import com.magic.basiccenter.model.dto.UpdateNoticeDTO;
-import com.magic.basiccenter.model.dto.UpdateNoticeOutDTO;
+import com.magic.basiccenter.model.dto.QueryNoticeDTO;
+import com.magic.basiccenter.model.dto.QueryNoticeOutDTO;
 
 public interface UpdateNoticeService {
-	public UpdateNoticeOutDTO selectNoticeById(UpdateNoticeDTO requestDTO);
-	public UpdateNoticeOutDTO updateNotice(UpdateNoticeDTO requestDTO);
+	public QueryNoticeOutDTO updateNotice(QueryNoticeDTO requestDTO);
 }

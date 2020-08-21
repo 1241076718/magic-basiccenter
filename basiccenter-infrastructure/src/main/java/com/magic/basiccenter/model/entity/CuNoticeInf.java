@@ -80,10 +80,10 @@ public class CuNoticeInf implements Serializable{
   private String niNtcText;
 
   @TableField("NI_NTC_START_TIME")
-  private String niNtcStartTime;
+  private Date niNtcStartTime;
 
   @TableField("NI_NTC_END_TIME")
-  private String niNtcEndTime;
+  private Date niNtcEndTime;
 
   @TableField("NI_NTC_COUNT")
   private Integer niNtcCount;
