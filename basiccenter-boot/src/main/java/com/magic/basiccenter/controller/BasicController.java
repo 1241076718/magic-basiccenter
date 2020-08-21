@@ -32,7 +32,6 @@ public class BasicController {
     private FestivalManageService festivalManageService;
 
 
-
     /**
      * 节假日管理--新增
      * @param magicDTO
@@ -40,9 +39,8 @@ public class BasicController {
      */
     @PostMapping("/festival/festivalAdd")
     public MagicOutDTO<FestivalAddOutDTO> FestivalAdd(@RequestBody MagicDTO<FestivalAddDTO> magicDTO){
-        System.out.println("进入添加方法");
+        System.out.println(1);
         return festivalManageService.AddFestival(magicDTO);
-
     }
 
     /**
@@ -50,8 +48,8 @@ public class BasicController {
      * @return
      */
     @PostMapping("/festival/festivalGetList")
-    public MagicDTO<List<FestivalQueryListOutDTO>> FestivalList(){
-        return festivalManageService.queryFestivalList();
+    public MagicOutDTO<FestivalQueryListOutDTO> FestivalList(@RequestBody MagicDTO<FestivalQueryListDTO> magicDTO){
+        return festivalManageService.QueryFestivalList(magicDTO);
 
     }
 
@@ -61,11 +59,9 @@ public class BasicController {
      * @return
      */
     @PostMapping("/festival/festivalGet")
-    public MagicDTO<List<FestivalQueryListOutDTO>> FestivalYear(@RequestBody MagicDTO<FestivalQueryDTO> magicDTO){
-        FestivalQueryDTO body = magicDTO.getBody();
+    public MagicOutDTO<FestivalQueryListOutDTO> FestivalYear(@RequestBody MagicDTO<FestivalQueryDTO> magicDTO){
 
-        System.out.println(body.getFestivalYear());
-        return festivalManageService.accordingFestivalYearQueryFestivalList(body.getFestivalYear());
+        return festivalManageService.QueryFestival(magicDTO);
     }
 
 
@@ -75,8 +71,7 @@ public class BasicController {
      * @return
      */
     @PostMapping("/festival/festivalDelete")
-    public MagicOutDTO<FestivaldeleteOutDTO> DeleteFestival(@RequestBody MagicDTO<FestivaldeleteDTO> deleteDTO){
-        System.out.println("------------------------------------");
+    public MagicOutDTO<FestivaldeleteOutDTO> FestivalDelete(@RequestBody MagicDTO<FestivaldeleteDTO> deleteDTO){
         return festivalManageService.DeleteFestival(deleteDTO);
     }
 
@@ -85,8 +80,8 @@ public class BasicController {
      * 节假日管理--修改
      */
     @PostMapping("/festival/festivalModify")
-    public MagicOutDTO<FestivalManageModifyOutDTO> festivalManageModify(@RequestBody MagicDTO<FestivalManageModifyDTO> magicDTO){
-        return festivalManageService.festivalManageModify(magicDTO);
+    public MagicOutDTO<FestivalManageModifyOutDTO> FestivalModify(@RequestBody MagicDTO<FestivalManageModifyDTO> magicDTO){
+        return festivalManageService.ModifyFestival(magicDTO);
     }
 
 

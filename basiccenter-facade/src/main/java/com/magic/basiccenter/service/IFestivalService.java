@@ -12,21 +12,26 @@ import java.util.List;
 public interface IFestivalService {
 
 
-
+    /**
+     * 新增
+     * @param magicDTO
+     * @return
+     */
     MagicOutDTO<FestivalAddOutDTO> AddFestival(MagicDTO<FestivalAddDTO> magicDTO);
+
     /**
      * 查询节假日列表
      * @param
      * @return
      */
-    MagicDTO<List<FestivalQueryListOutDTO>> queryFestivalList();
+    MagicOutDTO<FestivalQueryListOutDTO> QueryFestivalList(MagicDTO<FestivalQueryListDTO> magicDTO);
 
     /**
      * 根据节假日年份查询节假日列表
      * @param festivalYear 节假日年份
      * @return
      */
-    MagicDTO<List<FestivalQueryListOutDTO>> accordingFestivalYearQueryFestivalList(String festivalYear);
+    MagicOutDTO<FestivalQueryListOutDTO> QueryFestival(MagicDTO<FestivalQueryDTO> magicDTO);
 
 
     /**
@@ -34,14 +39,14 @@ public interface IFestivalService {
      * @param requsetDTO
      * @return
      */
-    MagicOutDTO<FestivaldeleteOutDTO> DeleteFestival(MagicDTO<FestivaldeleteDTO> requsetDTO);
+    MagicOutDTO<FestivaldeleteOutDTO> DeleteFestival(MagicDTO<FestivaldeleteDTO> magicDTO);
 
     /**
      * 节假日修改日期冲突检查
      * @param magicDTO
      * @return
      */
-    MagicOutDTO<FestivalManageModifyOutDTO> festivalManageModify(MagicDTO<FestivalManageModifyDTO> magicDTO);
+    MagicOutDTO<FestivalManageModifyOutDTO> ModifyFestival(MagicDTO<FestivalManageModifyDTO> magicDTO);
 
 
 }
