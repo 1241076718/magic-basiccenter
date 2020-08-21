@@ -6,7 +6,8 @@ import java.util.Map;
 public enum AdvertErrorEnum {
 
     SUCCESS("0","执行成功"),
-    FAIL("2","执行失败");
+    FAIL("2","执行失败"),
+	ERROR("-1","执行异常");
 
     private final Map<String, String> errorMap = new HashMap<String, String>();
 

@@ -63,7 +63,7 @@ public class AdvertManageServiceImpl implements IAdvertManageService {
             respHeader.setErrorMsg(AdvertErrorEnum.SUCCESS.msg());
         } catch (Exception e) {
             e.printStackTrace();
-            respHeader.setErrorCode("-1");
+            respHeader.setErrorCode(AdvertErrorEnum.ERROR.code());
             respHeader.setErrorMsg(e.getMessage());
         }
 
@@ -78,7 +78,7 @@ public class AdvertManageServiceImpl implements IAdvertManageService {
     @Override
     public MagicOutDTO<AdvertSelOutPageDTO> advertSelCond(MagicDTO<AdvertSelDTO> requestDTO) {
         AdvertSelOutPageDTO advertSelOutPageDTO = new AdvertSelOutPageDTO<>();
-        MagicOutDTO<AdvertSelOutPageDTO> magicOutDTO = new MagicOutDTO<>(advertSelOutPageDTO);
+        MagicOutDTO<AdvertSelOutPageDTO> magicOutDTO = new MagicOutDTO<>();
         RespHeader respHeader = new RespHeader();
         magicOutDTO.setHeader(respHeader);
         ReqHeader reqHead = requestDTO.getHeader();
@@ -91,7 +91,7 @@ public class AdvertManageServiceImpl implements IAdvertManageService {
             ApplicationServiceUtil.supplementaryRespHeader(reqHead, respHeader);
         } catch (Exception e) {
             e.printStackTrace();
-            respHeader.setErrorCode("-1");
+            respHeader.setErrorCode(AdvertErrorEnum.ERROR.code());
             respHeader.setErrorMsg(e.getMessage());
         }
         return magicOutDTO;
@@ -117,7 +117,7 @@ public class AdvertManageServiceImpl implements IAdvertManageService {
 			header.setErrorMsg(AdvertErrorEnum.SUCCESS.msg());
 		} catch (Exception e) {
 			e.getStackTrace();
-			header.setErrorCode("-1");
+			header.setErrorCode(AdvertErrorEnum.ERROR.code());
 			header.setErrorMsg(e.getMessage());
 		}
 		return magicOutDTO;
@@ -145,7 +145,7 @@ public class AdvertManageServiceImpl implements IAdvertManageService {
             respHeader.setErrorMsg(AdvertErrorEnum.SUCCESS.msg());
         } catch (Exception e) {
             e.printStackTrace();
-            respHeader.setErrorCode("-1");
+            respHeader.setErrorCode(AdvertErrorEnum.ERROR.code());
             respHeader.setErrorMsg(e.getMessage());
         }
 
