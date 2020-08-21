@@ -8,8 +8,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.magic.application.infrastructure.service.dto.MagicDTO;
 import com.magic.application.infrastructure.service.dto.MagicOutDTO;
-import com.magic.basiccenter.dto.AppNoticeStateDTO;
-import com.magic.basiccenter.dto.AppNoticeStateOutDTO;
+import com.magic.basiccenter.dto.QueryNoticeInfoInDTO;
+import com.magic.basiccenter.dto.UpdateNoticeInfoOutDTO;
 import com.magic.basiccenter.service.IBasicUpdateNoticeService;
 
 /**
@@ -26,21 +26,12 @@ public class BasicUpdateNoticeController {
 	@Autowired
 	private IBasicUpdateNoticeService updateNoticeService;
 	/**
-	 * 根据主键id查询数据
-	 * @return
-	 */
-	@PostMapping("/notice/selectById")
-	public MagicOutDTO<AppNoticeStateOutDTO> selectNoticeById(@RequestBody MagicDTO<AppNoticeStateDTO> requestDTO) {
-		return updateNoticeService.selectNoticeById(requestDTO);
-	}
-	
-	/**
 	 * 修改数据返回
 	 * @param requestDTO
 	 * @return
 	 */
 	@PostMapping("/notice/updateNotice")
-	public MagicOutDTO<AppNoticeStateOutDTO> updateNoticeData(@RequestBody MagicDTO<AppNoticeStateDTO> requestDTO) {
+	public MagicOutDTO<UpdateNoticeInfoOutDTO> updateNoticeData(@RequestBody MagicDTO<QueryNoticeInfoInDTO> requestDTO) {
 		return updateNoticeService.updateNotice(requestDTO);
 	}
 }
