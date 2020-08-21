@@ -19,7 +19,7 @@ import java.util.Date;
 @Data
 public class QueryNoticeInfoInDTO implements Serializable {
 
-    private Integer niNtcId;
+    private String niNtcId;
 
     private String niNtcName;
 

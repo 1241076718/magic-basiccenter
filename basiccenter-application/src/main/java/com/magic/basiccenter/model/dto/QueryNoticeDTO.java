@@ -17,7 +17,7 @@ public class QueryNoticeDTO implements Serializable {
 	 */
 	private static final long serialVersionUID = -7279657644945871746L;
 
-	private Integer niNtcId;
+	private String niNtcId;
 
 	private String niNtcName;
 

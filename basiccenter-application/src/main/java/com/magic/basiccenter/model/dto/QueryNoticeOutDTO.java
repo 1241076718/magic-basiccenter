@@ -17,7 +17,7 @@ public class QueryNoticeOutDTO implements Serializable {
 	 */
 	private static final long serialVersionUID = -5253003295671746450L;
 
-	private Integer niNtcId;
+	private String niNtcId;
 
 	private String niNtcName;
 
