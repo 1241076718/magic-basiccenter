@@ -55,7 +55,6 @@ public class AdvertManageServiceImpl implements IAdvertManageService {
         magicOutDTO.setHeader(respHeader);
 
         try {
-            //int aiAdvId = requestDTO.getBody().getAiAdvId();
             AddAdvertInfoDTO addAdvertInfoDTO = new AddAdvertInfoDTO();
             BeanUtils.copyProperties(requestDTO.getBody(), addAdvertInfoDTO);
             AddAdvertInfoOutDTO addAdvertInfoOutDTO = advertService.addAdvertInfo(addAdvertInfoDTO);
@@ -138,7 +137,6 @@ public class AdvertManageServiceImpl implements IAdvertManageService {
         magicOutDTO.setHeader(respHeader);
 
         try {
-            //int aiAdvId = requestDTO.getBody().getAiAdvId();
             UpdAdvertInfoDTO updAdvertInfoDTO = new UpdAdvertInfoDTO();
             BeanUtils.copyProperties(requestDTO.getBody(), updAdvertInfoDTO);
             UpdAdvertInfoOutDTO updAdvertInfoOutDTO = advertService.updAdvertInfo(updAdvertInfoDTO);

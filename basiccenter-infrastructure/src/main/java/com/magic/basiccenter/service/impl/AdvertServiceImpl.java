@@ -48,7 +48,6 @@ public class AdvertServiceImpl implements IAdvertService {
         AddAdvertInfoOutDTO outData = new AddAdvertInfoOutDTO();
 
         BsAdvertInf bsAdvertInf = new BsAdvertInf();
-        //bsAdvertInf.setAiAdvId(inputDTO.getAiAdvId());
         BeanUtils.copyProperties(inputDTO, bsAdvertInf);
         bsAdvertInf.setAiAdvCreateTime(LocalDateTime.now()).setAiAdvUpdateTime(LocalDateTime.now());
         bsAdvertInfService.save(bsAdvertInf);
@@ -90,10 +89,9 @@ public class AdvertServiceImpl implements IAdvertService {
 	@Override
 	public DelAdvertInfoOutDTO deleteAdvert(DelAdvertInfoDTO advertDTO) {
 		DelAdvertInfoOutDTO outDTO = new DelAdvertInfoOutDTO();
-		BsAdvertInf bsAdvertInf = new BsAdvertInf();
-		Integer advId = bsAdvertInf.getAiAdvId();
+		Integer advId = advertDTO.getAiAdvId();
 		bsAdvertInfService.removeById(advId);
-		return outDTO;	
+		return outDTO;
 	}
 
 	/**
@@ -106,8 +104,7 @@ public class AdvertServiceImpl implements IAdvertService {
 		UpdAdvertInfoOutDTO  updOutDate= new UpdAdvertInfoOutDTO();
 
 		BsAdvertInf bsAdvertInf = new BsAdvertInf();
-		bsAdvertInf.setAiAdvCreateTime(LocalDateTime.now())
-				.setAiAdvUpdateTime(LocalDateTime.now());
+		bsAdvertInf.setAiAdvUpdateTime(LocalDateTime.now());
 		BeanUtils.copyProperties(updDTO, bsAdvertInf);
 		bsAdvertInfService.updateById(bsAdvertInf);
 
