@@ -13,7 +13,7 @@ spring:
     driver-class-name: com.mysql.cj.jdbc.Driver
     username: root
     password: root
-    url: jdbc:mysql://localhost:3306/magic-basiccenter?characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=false&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=GMT%2B8
+    url: jdbc:mysql://localhost:3306/notice?characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=false&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=GMT%2B8
     druid:
       # 连接池的配置信息
       # 初始化大小，最小，最大
@@ -104,4 +104,112 @@ ynet:
 #        readTimeout: 60000
 ribbon:
   ReadTimeout: 60000
+=======
+server:
+  port: 9601
+  servlet:
+    context-path: /basic-center
+spring:
+  application:
+    name: basic-center
+  cloud:
+    discovery:
+      enabled: true
+  datasource:
+    type: com.alibaba.druid.pool.DruidDataSource
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: root
+    password: 123456
+    url: jdbc:mysql://localhost:3306/notice?characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=false&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=GMT%2B8
+    druid:
+      # 连接池的配置信息
+      # 初始化大小，最小，最大
+      initial-size: 5
+      min-idle: 5
+      maxActive: 20
+      # 配置获取连接等待超时的时间
+      maxWait: 60000
+      # 配置间隔多久才进行一次检测，检测需要关闭的空闲连接，单位是毫秒
+      timeBetweenEvictionRunsMillis: 60000
+      # 配置一个连接在池中最小生存的时间，单位是毫秒
+      minEvictableIdleTimeMillis: 300000
+      validationQuery: SELECT 1 FROM DUAL
+      testWhileIdle: true
+      testOnBorrow: false
+      testOnReturn: false
+      # 打开PSCache，并且指定每个连接上PSCache的大小
+      poolPreparedStatements: true
+      maxPoolPreparedStatementPerConnectionSize: 20
+      # 配置监控统计拦截的filters，去掉后监控界面sql无法统计，'wall'用于防火墙
+      # DruidFilterConfiguration
+      filter:
+        slf4j:
+          enabled: true
+        wall:
+          enabled: true
+        stat:
+          enabled: true
+      # 通过connectProperties属性来打开mergeSql功能；慢SQL记录
+      connectionProperties: druid.stat.mergeSql\=true;druid.stat.slowSqlMillis\=5000
+      # 配置DruidStatFilter
+      web-stat-filter:
+        enabled: true
+        url-pattern: "/*"
+        exclusions: "*.js,*.gif,*.jpg,*.bmp,*.png,*.css,*.ico,/druid/*"
+  redis:
+    host: 127.0.0.1
+#    password: Ifp0p9o8i7u
+    port: 6379
+    databasic: 0
+common-rpc:
+  debugger: true
+  contextPath: /
+  controllers:
+    - package: com.magic.basiccenter.application.service
+      controllerType: spring
+      feignClientName: basic-center
+      contextPath: /
+eureka:
+  client:
+    service-url:
+      defaultZone: http://127.0.0.1:8081/eureka
+    fetch-registry: false
+  instance:
+    prefer-ip-address: true
+    ip-address: 127.0.0.1
+    hostname: ${eureka.instance.ip-address}
+#eureka:
+#  client:
+#    service-url:
+#      defaultZone: http://127.0.0.1:8081/eureka
+#  instance:
+#    prefer-ip-address: true
+logging:
+  config: classpath:logback-spring.xml
+  file:
+    path: /logs/app_logs/magic-basiccenter
+mybatis-plus:
+  mapper-locations: classpath*:mapper/*.xml
+  type-aliases-package: com.magic.basiccenter.model.entity
+  configuration:
+    # slf4j打印
+#    log-impl: org.apache.ibatis.logging.slf4j.Slf4jImpl
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+ynet:
+  sequence:
+    #序列中心数据中心ID（每个中心不相同 ，最大值31）
+    datacenterid: 1
+    #序列中心应用ID（每台几不相同，最大值31）
+    workid: 1
+  common:
+    centerid: SE
+#feign:
+#  client:
+#    config:
+#      default:
+#        connectTimeout: 60000  #单位毫秒
+#        readTimeout: 60000
+ribbon:
+  ReadTimeout: 60000
+>>>>>>> branch 'notice' of http://notice@120.79.13.116:8080/r/magic-basiccenter.git
   ConnectTimeout: 60000

@@ -10,7 +10,7 @@ import java.util.List;
  * @author huangmm
  *
  */
-public interface NoticeService {
+public interface IQueryNoticeService {
 
 	public List<QueryNoticeOutDTO> queryNotice(QueryNoticeDTO inputDTO);
 

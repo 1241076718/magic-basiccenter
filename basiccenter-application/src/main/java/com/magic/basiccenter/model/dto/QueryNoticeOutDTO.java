@@ -1,10 +1,15 @@
 package com.magic.basiccenter.model.dto;
 
-import lombok.Data;
-
 import java.io.Serializable;
+import java.util.Date;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
+
+import lombok.Data;
+import lombok.experimental.Accessors;
 
 @Data
+@Accessors(chain=true)
 public class QueryNoticeOutDTO implements Serializable {
 
 	/**
@@ -17,24 +22,39 @@ public class QueryNoticeOutDTO implements Serializable {
 	private String niNtcName;
 
 	private Integer niNtcStatus;
-
-	private java.sql.Timestamp niNtcIdReleaseTime;
+	@JsonFormat(
+			pattern = "yyyy-MM-dd",
+			timezone = "GMT+8"
+	)
+	private Date niNtcIdReleaseTime;
 
 	private String niNtcCreator;
 
 	private String niNtcText;
-
-	private java.sql.Timestamp niNtcStartTime;
-
-	private java.sql.Timestamp niNtcEndTime;
+	@JsonFormat(
+			pattern = "yyyy-MM-dd",
+			timezone = "GMT+8"
+	)
+	private Date niNtcStartTime;
+	@JsonFormat(
+			pattern = "yyyy-MM-dd",
+			timezone = "GMT+8"
+	)
+	private Date niNtcEndTime;
 
 	private Integer niNtcCount;
 
 	private Integer niNtcRemindStatus;
-
-	private java.sql.Timestamp niNtcGmtCreate;
-
-	private java.sql.Timestamp niNtcGmtModified;
+	@JsonFormat(
+			pattern = "yyyy-MM-dd",
+			timezone = "GMT+8"
+	)
+	private Date niNtcGmtCreate;
+	@JsonFormat(
+			pattern = "yyyy-MM-dd",
+			timezone = "GMT+8"
+	)
+	private Date niNtcGmtModified;
 
 	private String niNtcGmtModifier;
 

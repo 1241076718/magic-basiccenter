@@ -1,8 +1,11 @@
 package com.magic.basiccenter.model.dto;
 
-import lombok.Data;
-
 import java.io.Serializable;
+import java.util.Date;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
+
+import lombok.Data;
 
 @Data
 public class QueryNoticeDTO implements Serializable {
@@ -17,28 +20,34 @@ public class QueryNoticeDTO implements Serializable {
 	private String niNtcName;
 
 	private Integer niNtcStatus;
-
-	private java.sql.Timestamp niNtcIdReleaseTime;
+	@JsonFormat(
+			pattern = "yyyy-MM-dd",
+			timezone = "GMT+8"
+	)
+	private Date niNtcIdReleaseTime;
 
 	private String niNtcCreator;
 
 	private String niNtcText;
 
-	private java.sql.Timestamp niNtcStartTime;
+	private Date niNtcStartTime;
 
-	private java.sql.Timestamp niNtcEndTime;
+	private Date niNtcEndTime;
 
 	private Integer niNtcCount;
 
 	private Integer niNtcRemindStatus;
-
-	private java.sql.Timestamp niNtcGmtCreate;
-
-	private java.sql.Timestamp niNtcGmtModified;
-
+	@JsonFormat(
+			pattern = "yyyy-MM-dd",
+			timezone = "GMT+8"
+	)
+	private Date niNtcGmtCreate;
+	@JsonFormat(
+			pattern = "yyyy-MM-dd",
+			timezone = "GMT+8"
+	)
+	private Date niNtcGmtModified;
 	private String niNtcGmtModifier;
-
 	private Integer nowsPage;//当前页数
-
 	private Integer pageSize;//页面显示条数
 }
