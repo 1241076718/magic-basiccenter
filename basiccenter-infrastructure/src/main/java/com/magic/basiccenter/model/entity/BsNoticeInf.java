@@ -7,7 +7,6 @@ import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
-import org.springframework.stereotype.Component;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -16,8 +15,7 @@ import java.util.Date;
 @EqualsAndHashCode(callSuper = false)
 @Accessors(chain = true)
 @TableName(value = "bs_notice_inf")
-//@Component
-public class CuNoticeInf implements Serializable{
+public class BsNoticeInf implements Serializable{
 
 //  @TableId("niNtcId") //niNtcId
 //  private Integer ni_ntc_id;
@@ -62,7 +60,7 @@ public class CuNoticeInf implements Serializable{
 
 
   @TableId("NI_NTC_ID") //niNtcId
-  private Integer niNtcId;
+  private String niNtcId;
 
   @TableField("NI_NTC_NAME")
   private String niNtcName;

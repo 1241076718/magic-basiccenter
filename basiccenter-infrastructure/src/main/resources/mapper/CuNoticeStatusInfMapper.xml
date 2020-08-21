@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.magic.basiccenter.model.mapper.CuNoticeStatusInfMapper">
-
-    <resultMap id="BaseResultMap" type="com.magic.basiccenter.model.entity.CuNoticeInf">
-        <id column="NI_NTC_ID" property="niNtcId" />
-        <result column="NI_NTC_STATUS" property="niNtcStatus" />
-    </resultMap>
-</mapper>

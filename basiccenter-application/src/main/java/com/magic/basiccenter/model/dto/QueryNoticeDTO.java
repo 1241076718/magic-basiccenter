@@ -6,8 +6,10 @@ import java.util.Date;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 import lombok.Data;
+import lombok.experimental.Accessors;
 
 @Data
+@Accessors(chain=true)
 public class QueryNoticeDTO implements Serializable {
 
 	/**
@@ -15,7 +17,7 @@ public class QueryNoticeDTO implements Serializable {
 	 */
 	private static final long serialVersionUID = -7279657644945871746L;
 
-	private Integer niNtcId;
+	private String niNtcId;
 
 	private String niNtcName;
 
@@ -48,6 +50,8 @@ public class QueryNoticeDTO implements Serializable {
 	)
 	private Date niNtcGmtModified;//修改日期
 	private String niNtcGmtModifier;
-	private Integer nowsPage;//当前页数
-	private Integer pageSize;//页面显示条数
+	private Long nowsPage;//当前页数
+	private Long pageSize;//页面显示条数
+
+
 }
