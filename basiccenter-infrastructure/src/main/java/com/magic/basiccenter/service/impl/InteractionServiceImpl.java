@@ -2,19 +2,15 @@ package com.magic.basiccenter.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.gift.domain.sequence.factory.SequenceFactory;
-import com.gift.domain.sequence.model.entity.PublicIdSegment;
 import com.magic.basiccenter.dto.DocumentFacadeDto;
 import com.magic.basiccenter.model.dto.*;
 import com.magic.basiccenter.model.entity.DocumentEntity;
-import com.magic.basiccenter.model.entity.constart.Constart;
 import com.magic.basiccenter.model.service.DocumentService;
 import com.magic.basiccenter.model.service.InteractionService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.swing.text.Document;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -23,8 +19,6 @@ import java.util.List;
 public class InteractionServiceImpl implements InteractionService {
     @Autowired
     DocumentService documentService;
-    @Autowired
-    SequenceFactory sequenceFactory;
     /**
      * 数据回显
      * @param documentIdDto
@@ -182,9 +176,7 @@ public class InteractionServiceImpl implements InteractionService {
         DocumentEntity entity = new DocumentEntity();
         inputDTO.setDocumentCtime(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()))
                 .setDocumentMtime(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()));
-        String id = sequenceFactory.getSegmentFillZeroId(Constart.DOC_ID);
         BeanUtils.copyProperties(inputDTO,entity);
-        entity.setDocsId(id);
 
         boolean b = documentService.save(entity);
         document.setDocumentUpdataStat(b ? 0 : 2);

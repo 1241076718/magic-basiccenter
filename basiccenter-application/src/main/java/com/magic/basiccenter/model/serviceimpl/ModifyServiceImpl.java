@@ -1,18 +1,18 @@
 package com.magic.basiccenter.model.serviceimpl;
 
 
+import com.gift.domain.sequence.factory.SequenceFactory;
 import com.magic.application.infrastructure.service.dto.MagicDTO;
 import com.magic.application.infrastructure.service.dto.MagicOutDTO;
 import com.magic.application.infrastructure.service.dto.data.RespHeader;
 import com.magic.basiccenter.dto.*;
 import com.magic.basiccenter.error.BasicErrorEnum;
 import com.magic.basiccenter.model.dto.*;
+import com.magic.basiccenter.model.dto.constart.Constart;
 import com.magic.basiccenter.model.service.InteractionService;
 import com.magic.basiccenter.service.ModifyService;
-import net.bytebuddy.asm.Advice;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 
 
 public class ModifyServiceImpl implements ModifyService {
@@ -22,6 +22,8 @@ public class ModifyServiceImpl implements ModifyService {
      */
     @Autowired
     InteractionService service;
+    @Autowired
+    SequenceFactory sequenceFactory;
     /**
      * 数据回显
      * @param requestDTO
@@ -257,8 +259,9 @@ public class ModifyServiceImpl implements ModifyService {
         RespHeader respHead = new RespHeader();
         documentFacadeDtoMagicDTO.setHeader(respHead);
         try {
+            String id = sequenceFactory.getSegmentFillZeroId(Constart.DOC_ID);
             DocumentFacadeDto body = requestDTO.getBody();
-
+            body.setDocsId(id);
             DocumentDto documentDto = new DocumentDto();
             BeanUtils.copyProperties(body,documentDto);
 
