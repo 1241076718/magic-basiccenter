@@ -1,10 +1,12 @@
 package com.magic.basiccenter.service.impl;
 
+import com.gift.domain.sequence.factory.SequenceFactory;
 import com.magic.application.infrastructure.service.dto.MagicDTO;
 import com.magic.application.infrastructure.service.dto.MagicOutDTO;
 import com.magic.application.infrastructure.service.dto.data.ReqHeader;
 import com.magic.application.infrastructure.service.dto.data.RespHeader;
 import com.magic.application.infrastructure.utils.ApplicationServiceUtil;
+import com.magic.basiccenter.constants.Constant;
 import com.magic.basiccenter.dto.AdvertAddDTO;
 import com.magic.basiccenter.dto.AdvertAddOutDTO;
 import com.magic.basiccenter.dto.AdvertSelDTO;
@@ -36,6 +38,12 @@ import org.springframework.stereotype.Service;
 @Service
 public class AdvertManageServiceImpl implements IAdvertManageService {
     /**
+     * 序列号生成工具
+     */
+    @Autowired
+    private SequenceFactory sequenceFactory;
+
+    /**
      * 广告配置表数据交互服务
      */
     @Autowired
@@ -57,6 +65,8 @@ public class AdvertManageServiceImpl implements IAdvertManageService {
         try {
             AddAdvertInfoDTO addAdvertInfoDTO = new AddAdvertInfoDTO();
             BeanUtils.copyProperties(requestDTO.getBody(), addAdvertInfoDTO);
+            String aiAdvId = sequenceFactory.getSegmentFillZeroId(Constant.ADVERT_ID_TAG);
+            addAdvertInfoDTO.setAiAdvId(aiAdvId);
             AddAdvertInfoOutDTO addAdvertInfoOutDTO = advertService.addAdvertInfo(addAdvertInfoDTO);
             BeanUtils.copyProperties(addAdvertInfoOutDTO, outData);
             respHeader.setErrorCode(AdvertErrorEnum.SUCCESS.code());
@@ -98,7 +108,7 @@ public class AdvertManageServiceImpl implements IAdvertManageService {
     }
 
     /**
-     * 删除广告
+     * 通过主键id删除广告
      * @param dto
      * @return
      */
@@ -109,7 +119,7 @@ public class AdvertManageServiceImpl implements IAdvertManageService {
 		RespHeader header = new RespHeader();
 		magicOutDTO.setHeader(header);
 		try{
-			Integer advId = dto.getBody().getAiAdvId();
+			String advId = dto.getBody().getAiAdvId();
 			DelAdvertInfoDTO advertNoticeDTO = new DelAdvertInfoDTO();
 			advertNoticeDTO.setAiAdvId(advId);
 			advertService.deleteAdvert(advertNoticeDTO);

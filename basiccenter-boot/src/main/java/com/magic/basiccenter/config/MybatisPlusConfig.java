@@ -31,8 +31,14 @@ import com.baomidou.mybatisplus.extension.plugins.PaginationInterceptor;
 //        return paginationInterceptor;
 //    }
 //}
+/**
+ * @description: MybatisPlus分页插件配置
+ * @author: jianggq@belink.com
+ * @create: 2020-08-20
+ */
 @Configuration
 public class MybatisPlusConfig {
+
     /**
      * 分页插件
      */

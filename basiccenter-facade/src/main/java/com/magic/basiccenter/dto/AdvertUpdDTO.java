@@ -19,7 +19,7 @@ public class AdvertUpdDTO implements Serializable {
     /**
      * 广告编号
      */
-    private Integer aiAdvId;
+    private String aiAdvId;
     /**
      * 广告主题
      */

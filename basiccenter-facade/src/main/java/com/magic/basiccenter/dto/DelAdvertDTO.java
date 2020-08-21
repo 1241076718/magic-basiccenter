@@ -11,5 +11,5 @@ public class DelAdvertDTO implements Serializable {
 	/**
 	 * 广告编号
 	 */
-	private Integer aiAdvId;
+	private String aiAdvId;
 }

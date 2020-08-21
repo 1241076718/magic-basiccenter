@@ -1,5 +1,6 @@
 package com.magic.basiccenter.service.impl;
 
+import com.magic.basiccenter.constants.Constant;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -82,15 +83,19 @@ public class AdvertServiceImpl implements IAdvertService {
     }
 
 	/**
-	 * 删除广告
-	 * @param advertDTO 通过主键id删除广告
+	 * 通过主键id删除广告
+	 * @param advertDTO
 	 * @return
 	 */
 	@Override
 	public DelAdvertInfoOutDTO deleteAdvert(DelAdvertInfoDTO advertDTO) {
 		DelAdvertInfoOutDTO outDTO = new DelAdvertInfoOutDTO();
-		Integer advId = advertDTO.getAiAdvId();
-		bsAdvertInfService.removeById(advId);
+
+		BsAdvertInf bsAdvertInf = new BsAdvertInf();
+		BeanUtils.copyProperties(advertDTO, bsAdvertInf);
+		bsAdvertInf.setAiAdvStatus(Constant.ADVERT_DELETE_STATUS_CODE);
+		bsAdvertInfService.updateById(bsAdvertInf);
+
 		return outDTO;
 	}
 

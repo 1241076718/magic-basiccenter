@@ -34,8 +34,8 @@ public interface IAdvertService {
     public AdvertSelOutPageDTO advertSelPageCond(AdvertSelDTO advertSelDTO);
     
     /**
-     * 删除广告
-     * @param advertDTO 通过主键id删除广告
+     * 通过主键id删除广告
+     * @param advertDTO
      * @return
      */
     public DelAdvertInfoOutDTO deleteAdvert(DelAdvertInfoDTO advertDTO);

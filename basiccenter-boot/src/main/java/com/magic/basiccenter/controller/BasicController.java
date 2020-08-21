@@ -59,7 +59,7 @@ public class BasicController {
      * @param requestDTO
      * @return
      */
-    @PostMapping("advert/delAdvert")
+    @PostMapping("advert/delAdvertInfo")
 	public MagicOutDTO<DelAdvertOutDTO> delAdvertInfo(@RequestBody MagicDTO<DelAdvertDTO> requestDTO){
 		return advertManageService.deleteAdvert(requestDTO);
 	}

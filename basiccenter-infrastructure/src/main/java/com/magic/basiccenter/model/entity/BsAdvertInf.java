@@ -30,7 +30,7 @@ public class BsAdvertInf implements Serializable {
      * 广告编号
      */
     @TableId("AI_ADV_ID")
-    private Integer aiAdvId;
+    private String aiAdvId;
     /**
      * 广告主题
      */
