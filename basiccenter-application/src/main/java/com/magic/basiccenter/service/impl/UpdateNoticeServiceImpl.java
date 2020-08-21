@@ -24,13 +24,6 @@ public class UpdateNoticeServiceImpl implements IBasicUpdateNoticeService{
 		QueryNoticeInfoInDTO body = requestDTO.getBody();
 		//3.1构建实体对象
 		QueryNoticeDTO updateNoticeDTO = new QueryNoticeDTO();
-//		updateNoticeDTO.setNoticeId(body.getNoticeId())
-//						.setNoticeName(body.getNoticeName())
-//						.setNoticeText(body.getNoticeText())
-//						.setRemindCount(body.getRemindCount())
-//						.setRemindEndTime(body.getRemindEndTime())
-//						.setRemindStartTime(body.getRemindStartTime())
-//						.setRemindStatus(body.getRemindStatus());
 		updateNoticeDTO.setNiNtcId(body.getNiNtcId())
 						.setNiNtcName(body.getNiNtcName())
 						.setNiNtcText(body.getNiNtcText())
@@ -40,12 +33,6 @@ public class UpdateNoticeServiceImpl implements IBasicUpdateNoticeService{
 						.setNiNtcStatus(body.getNiNtcStatus());
 		service.updateNotice(updateNoticeDTO);
 		//4.数据存放在响应对象中
-//		appNoticeOutDTO.setNoticeName(updateNoticeDTO.getNoticeName())
-//						.setNoticeText(updateNoticeDTO.getNoticeText())
-//						.setRemindCount(updateNoticeDTO.getRemindCount())
-//						.setRemindEndTime(updateNoticeDTO.getRemindEndTime())
-//						.setRemindStartTime(updateNoticeDTO.getRemindStartTime())
-//						.setRemindStatus(updateNoticeDTO.getRemindStatus());
 		appNoticeOutDTO.setNiNtcName(updateNoticeDTO.getNiNtcName())
 						.setNiNtcText(updateNoticeDTO.getNiNtcText())
 						.setNiNtcRemindStatus(updateNoticeDTO.getNiNtcStatus())
