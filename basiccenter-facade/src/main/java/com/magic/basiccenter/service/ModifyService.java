@@ -3,6 +3,8 @@ package com.magic.basiccenter.service;
 import com.magic.application.infrastructure.service.dto.MagicDTO;
 import com.magic.application.infrastructure.service.dto.MagicOutDTO;
 import com.magic.basiccenter.dto.*;
+import com.magic.basiccenter.model.dto.DocmentUpdataDto;
+import com.magic.basiccenter.model.dto.DocumentDto;
 
 public interface ModifyService {
     /**
@@ -39,5 +41,13 @@ public interface ModifyService {
      */
 
     MagicOutDTO<QueryDocumentListOutDTO> queryDocumentList(MagicDTO<QueryDocumentListDTO> requestDTO);
+
+    /**
+     * 新增文档状态
+     * @param requestDTO
+     * @return
+     */
+    MagicOutDTO<DocmentFacadeUpdataDto> addDocumentState(MagicDTO<DocumentFacadeDto> requestDTO);
+
 
 }

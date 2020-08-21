@@ -52,5 +52,11 @@ public interface InteractionService {
      */
     public QueryDocumentOutDTO queryPubdateList(QueryDocumentDTO inputDTO);
 
+    /**
+     * 新增
+     * @param inputDTO
+     * @return
+     */
+    public DocmentUpdataDto addDocumentState(DocumentDto inputDTO);
 
 }

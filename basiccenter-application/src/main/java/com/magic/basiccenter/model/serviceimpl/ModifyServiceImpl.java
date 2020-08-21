@@ -222,4 +222,36 @@ public class ModifyServiceImpl implements ModifyService {
 
         return magicOutDTO;
     }
+
+    /**
+     * 新增
+     * @param requestDTO
+     * @return
+     */
+    @Override
+    public MagicOutDTO<DocmentFacadeUpdataDto> addDocumentState(MagicDTO<DocumentFacadeDto> requestDTO) {
+        DocmentFacadeUpdataDto dto = new DocmentFacadeUpdataDto();
+        MagicOutDTO<DocmentFacadeUpdataDto> documentFacadeDtoMagicDTO = new MagicOutDTO<>(dto);
+
+        RespHeader respHead = new RespHeader();
+        documentFacadeDtoMagicDTO.setHeader(respHead);
+        try {
+
+            DocumentFacadeDto body = requestDTO.getBody();
+
+            DocumentDto documentDto = new DocumentDto();
+            BeanUtils.copyProperties(body,documentDto);
+
+            DocmentUpdataDto updataDto = service.addDocumentState(documentDto);
+
+            respHead.setErrorCode(BasicErrorEnum.SUCCESS.code());
+            respHead.setErrorMsg(BasicErrorEnum.SUCCESS.msg());
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            respHead.setErrorCode("-1");
+            respHead.setErrorMsg(e.getMessage());
+        }
+        return documentFacadeDtoMagicDTO;
+    }
 }

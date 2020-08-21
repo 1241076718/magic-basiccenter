@@ -12,6 +12,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.swing.text.Document;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -96,6 +98,7 @@ public class InteractionServiceImpl implements InteractionService {
         int total = (int)iPage.getTotal();
         List<DocumentEntity> docsList = iPage.getRecords();
 
+
         outData.setDocsList(docsList);
         outData.setTotal(total);
 
@@ -142,5 +145,23 @@ public class InteractionServiceImpl implements InteractionService {
         outData.setTotal(total);
 
         return outData;
+    }
+
+    /**
+     * 新增
+     * @param inputDTO
+     * @return
+     */
+    @Override
+    public DocmentUpdataDto addDocumentState(DocumentDto inputDTO) {
+
+        DocmentUpdataDto document =new DocmentUpdataDto();
+        DocumentEntity entity = new DocumentEntity();
+        inputDTO.setDocumentCtime(new SimpleDateFormat().format(new Date()))
+                .setDocumentMtime(new SimpleDateFormat().format(new Date()));
+        BeanUtils.copyProperties(inputDTO,entity);
+        boolean b = documentService.save(entity);
+        document.setDocumentUpdataStat(b ? 0 : 1);
+        return document;
     }
 }
