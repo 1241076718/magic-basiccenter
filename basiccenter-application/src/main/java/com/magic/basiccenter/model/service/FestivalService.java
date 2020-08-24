@@ -5,6 +5,7 @@ import com.magic.application.infrastructure.service.dto.MagicOutDTO;
 import com.magic.basiccenter.dto.*;
 import com.magic.basiccenter.entity.FestivalManageInf;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -34,8 +35,22 @@ public interface FestivalService {
     MagicOutDTO<FestivaldeleteOutDTO> FestivalDelete(MagicDTO<FestivaldeleteDTO> deleteDTO);
 
     /**
-     * 修改节假日
+     * 根据Id判断被修改节假日安排是否有效
      */
-    FestivalManageModifyOutDTO FestivalModify(FestivalManageModifyDTO festivalModifyDTO);
+    FestivalManageInf FestivalModifySelectId(String festivalId);
+
+
+    /**
+     *
+     * @param nowDate
+     * @return
+     */
+    List<FestivalManageInf> FestivalModifySelectList(Date nowDate);
+
+
+    void FestivalModifyUpdata(FestivalManageInf updateFestivalInf, String festivalId);
+
+
+
 
 }

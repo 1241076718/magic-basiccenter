@@ -70,4 +70,9 @@ public class FestivalManageInf {
 	 */
 	@TableField(value="FESTIVAL_VALID",exist=true)
 	private String festivalValid;
+	/**
+	 * 数据存在码
+	 */
+	@TableField(value="FESTIVAL_EXIST",exist=true)
+	private String festivalExist;
 }

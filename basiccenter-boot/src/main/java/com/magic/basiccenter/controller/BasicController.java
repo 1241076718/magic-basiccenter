@@ -21,8 +21,6 @@ import java.util.List;
  * @className basicController
  * @sine 2020/8/17 9:13
  */
-
-
 @RestController
 @Slf4j
 @RequestMapping("basic")
@@ -39,7 +37,6 @@ public class BasicController {
      */
     @PostMapping("/festival/festivalAdd")
     public MagicOutDTO<FestivalAddOutDTO> FestivalAdd(@RequestBody MagicDTO<FestivalAddDTO> magicDTO){
-        System.out.println(1);
         return festivalManageService.AddFestival(magicDTO);
     }
 
@@ -60,7 +57,6 @@ public class BasicController {
      */
     @PostMapping("/festival/festivalGet")
     public MagicOutDTO<FestivalQueryListOutDTO> FestivalYear(@RequestBody MagicDTO<FestivalQueryDTO> magicDTO){
-
         return festivalManageService.QueryFestival(magicDTO);
     }
 
