@@ -22,17 +22,27 @@ import java.util.Date;
 import java.util.List;
 
 /**
- * Created with IntelliJ IDEA.
- * User: GPC
- * Date: 2020/08/21 14:01
- * Description:
- * Version: V1.0
+ * <p>数据层service实现类</P>
+ *
+ * @author goupc1@belink.com
+ * @version 0.0.1
+ * @className basicCenterApplication
+ * @sine 2020/8/17 9:15
  */
 @Service
 public class NoticeServiceImpl implements INoticeService {
 
+
+
+
     @Autowired
     SequenceFactory sequenceFactory;
+
+    /**
+     * 查询公告方法
+     * @param inputDTO
+     * @return
+     */
 
     @Override
     public List<QueryNoticeOutDTO> queryNotice(QueryNoticeDTO inputDTO) {
@@ -48,6 +58,10 @@ public class NoticeServiceImpl implements INoticeService {
         return cuNoticeInfs;
 
     }
+
+
+
+
     @Override
     public AddNoticeInfoOutDTO addNotice(AddNoticeInfoInDTO inputDTO) {
         AddNoticeInfoOutDTO addNoticeInfoOutDTO = new AddNoticeInfoOutDTO();
@@ -86,13 +100,6 @@ public class NoticeServiceImpl implements INoticeService {
         BsNoticeInfServiceImpl bean = SpringContextUtils.getBean(BsNoticeInfServiceImpl.class);
         BsNoticeInfMapper baseMapper = bean.getBaseMapper();
         BsNoticeInf entity = new BsNoticeInf();
-//		entity.setNoticeName(requestDTO.getNoticeName())
-//				.setNoticeId(requestDTO.getNoticeId())
-//				.setNoticeText(requestDTO.getNoticeText())
-//				.setRemindCount(requestDTO.getRemindCount())
-//				.setRemindEndTime(requestDTO.getRemindEndTime())
-//				.setRemindStartTime(requestDTO.getRemindStartTime())
-//				.setRemindStatus(requestDTO.getRemindStatus());
         entity.setNiNtcName(requestDTO.getNiNtcName())
                 .setNiNtcId(requestDTO.getNiNtcId())
                 .setNiNtcText(requestDTO.getNiNtcText())
@@ -104,12 +111,6 @@ public class NoticeServiceImpl implements INoticeService {
         baseMapper.updateById(entity);
         //4.1获取数据库中数据
         BsNoticeInf notice = baseMapper.selectById(requestDTO.getNiNtcId());
-//		outDTO.setNoticeName(notice.getNoticeName())
-//				.setNoticeText(notice.getNoticeText())
-//				.setRemindCount(notice.getRemindCount())
-//				.setRemindEndTime(notice.getRemindEndTime())
-//				.setRemindStartTime(notice.getRemindStartTime())
-//				.setRemindStatus(notice.getRemindStatus());
 
         outDTO.setNiNtcName(notice.getNiNtcName())
                 .setNiNtcText(notice.getNiNtcText())

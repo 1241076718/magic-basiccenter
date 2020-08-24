@@ -42,6 +42,7 @@ public interface IBasicService {
 
     MagicOutDTO<AddNoticeInfoOutDTO> addNoticeInfo(MagicDTO<AddNoticeInfoInDTO> requestDTO);
 
+
     /**
      * 公告上架下架
      * @param requestDTO
