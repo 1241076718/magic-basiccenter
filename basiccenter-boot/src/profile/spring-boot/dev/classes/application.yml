@@ -1,5 +1,5 @@
 server:
-  port: 9606
+  port: 9601
   servlet:
     context-path: /basic-center
 spring:

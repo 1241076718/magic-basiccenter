@@ -3,22 +3,22 @@ package com.magic.basiccenter.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.gift.domain.sequence.factory.SequenceFactory;
 import com.magic.application.infrastructure.service.dto.MagicDTO;
 import com.magic.application.infrastructure.service.dto.MagicOutDTO;
 import com.magic.application.infrastructure.service.dto.data.RespHeader;
 import com.magic.application.infrastructure.utils.ApplicationServiceUtil;
+import com.magic.basiccenter.constants.Constant;
 import com.magic.basiccenter.dto.*;
 import com.magic.basiccenter.entity.FestivalManageInf;
 import com.magic.basiccenter.entity.FestivalQueryListInf;
-import com.magic.basiccenter.error.FestivalDeleteMessageEnum;
-import com.magic.basiccenter.error.FestivalModifyMessageEnum;
+import com.magic.basiccenter.error.FestivalMessageEnum;
 import com.magic.basiccenter.model.mapper.FestManageMapper;
 import com.magic.basiccenter.model.service.FestivalService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -33,6 +33,9 @@ public class FestivalServiceImpl implements FestivalService {
     @Autowired(required = false)
     private FestManageMapper festManageMapper;
 
+    @Autowired
+    private SequenceFactory sequenceFactory;
+
 
     /**
      * 向数据库添加节日
@@ -40,26 +43,28 @@ public class FestivalServiceImpl implements FestivalService {
      * @return
      */
     @Override
-    public FestivalAddOutDTO FestivalAdd(FestivalManageInf festivalManageInf) {
-        //定义输出报文
-        FestivalAddOutDTO festivalAddOutDTO = new FestivalAddOutDTO();
-        //冲突查询
+    public void FestivalAdd(FestivalManageInf festivalManageInf) {
+        //添加Id
+        festivalManageInf.setFestivalId(sequenceFactory.getSegmentDateId(Constant.FESTIVAL_BIZ_TAG));
+        festManageMapper.insert(festivalManageInf);
+    }
+    /**
+     * 冲突查询
+     * @param festivalName
+     * @param festivalYear
+     * @return
+     */
+    @Override
+    public List<FestivalManageInf> FestivalSelectNameYear(String festivalName, String festivalYear) {
         QueryWrapper<FestivalManageInf> queryWrapper = new QueryWrapper<>();
-        queryWrapper.eq("FESTIVAL_YEAR", festivalManageInf.getFestivalYear()).eq("FESTIVAL_NAME", festivalManageInf.getFestivalName());
+        queryWrapper.eq("FESTIVAL_YEAR", festivalYear).eq("FESTIVAL_NAME", festivalName);
         List<FestivalManageInf> festivalManageInfs = festManageMapper.selectList(queryWrapper);
-        if (festivalManageInfs.isEmpty()){
-            festManageMapper.insert(festivalManageInf);
-            festivalAddOutDTO.setAddResult("添加成功");
-        }else {
-            festivalAddOutDTO.setAddResult("添加失败");
-
-        }
-        return festivalAddOutDTO;
-
+        return festivalManageInfs;
     }
 
+
     /**
-     * 查询
+     * 查询当前年份的节假日
      * @return
      */
     @Override
@@ -88,8 +93,11 @@ public class FestivalServiceImpl implements FestivalService {
 
     }
 
+
     /**
      * 根据节假日年份查询节假日列表
+     * @param year
+     * @return
      */
     @Override
     public FestivalQueryListOutDTO FestivalQueryForYear(String year) {
@@ -111,6 +119,11 @@ public class FestivalServiceImpl implements FestivalService {
         return result;
     }
 
+    /**
+     * 删除选定节假日
+     * @param deleteDTO
+     * @return
+     */
     @Override
     public MagicOutDTO<FestivaldeleteOutDTO> FestivalDelete(MagicDTO<FestivaldeleteDTO> deleteDTO) {
             //日期格式转换
@@ -128,16 +141,16 @@ public class FestivalServiceImpl implements FestivalService {
             }catch (Exception e){
                 e.printStackTrace();
             }
-            //判断
+            //判断日期是否过时
             if (getdate.getTime()<=nowdate.getTime()){
-                respHeader.setErrorCode(FestivalDeleteMessageEnum.FAIL.code());
-                respHeader.setErrorMsg(FestivalDeleteMessageEnum.FAIL.msg());
+                respHeader.setErrorCode(FestivalMessageEnum.FAIL.code());
+                respHeader.setErrorMsg(FestivalMessageEnum.FAIL.msg());
                 magicOutDTO.setHeader(respHeader);
                 //festManageMapper.updateById()
                 return magicOutDTO;
             }else {
-                respHeader.setErrorCode(FestivalDeleteMessageEnum.SUCCESS.code());
-                respHeader.setErrorMsg(FestivalDeleteMessageEnum.SUCCESS.msg());
+                respHeader.setErrorCode(FestivalMessageEnum.SUCCESS.code());
+                respHeader.setErrorMsg(FestivalMessageEnum.SUCCESS.msg());
                 magicOutDTO.setHeader(respHeader);
                 QueryWrapper<FestivalManageInf> queryWrapper= new QueryWrapper<>();
                 FestivalManageInf festivalManageInf=new FestivalManageInf();
@@ -150,7 +163,7 @@ public class FestivalServiceImpl implements FestivalService {
 
     /**
      * 根据Id判断被修改节假日安排是否有效
-     * @param festivalModifyDTO
+     * @param festivalId
      * @return
      */
     @Override
@@ -158,6 +171,12 @@ public class FestivalServiceImpl implements FestivalService {
         FestivalManageInf oldFestival = festManageMapper.selectById(festivalId);
         return oldFestival;
     }
+
+    /**
+     * 获取所有有效的节假日安排的日期数据(大于当前系统日期)
+     * @param nowDate
+     * @return
+     */
     @Override
     public List<FestivalManageInf> FestivalModifySelectList(Date nowDate) {
         QueryWrapper<FestivalManageInf> QueryWrapper = new QueryWrapper<>();
@@ -165,6 +184,13 @@ public class FestivalServiceImpl implements FestivalService {
                 .selectList(QueryWrapper.gt("FESTIVAL_START_TIME", nowDate));
         return  selectList;
     }
+
+
+    /**
+     * 修改数据库对应数据
+     * @param updateFestivalInf
+     * @param festivalId
+     */
     @Override
     public void FestivalModifyUpdata(FestivalManageInf updateFestivalInf, String festivalId) {
         QueryWrapper<FestivalManageInf> QueryWrapper = new QueryWrapper<>();

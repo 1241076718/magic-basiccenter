@@ -20,24 +20,28 @@ public interface IFestivalService {
      */
     MagicOutDTO<FestivalAddOutDTO> AddFestival(MagicDTO<FestivalAddDTO> magicDTO);
 
+
     /**
      * 查询节假日列表
-     * @param
+     * @param magicDTO
      * @return
      */
     MagicOutDTO<FestivalQueryListOutDTO> QueryFestivalList(MagicDTO<FestivalQueryListDTO> magicDTO);
 
+
+
     /**
      * 根据节假日年份查询节假日列表
-     * @param festivalYear 节假日年份
+     * @param magicDTO
      * @return
      */
     MagicOutDTO<FestivalQueryListOutDTO> QueryFestival(MagicDTO<FestivalQueryDTO> magicDTO);
 
 
+
     /**
-     * 删除
-     * @param requsetDTO
+     * 删除指定节假日
+     * @param magicDTO
      * @return
      */
     MagicOutDTO<FestivaldeleteOutDTO> DeleteFestival(MagicDTO<FestivaldeleteDTO> magicDTO);
