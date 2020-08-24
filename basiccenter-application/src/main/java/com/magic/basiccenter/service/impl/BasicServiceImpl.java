@@ -126,7 +126,6 @@ public class BasicServiceImpl implements IBasicService {
      * @param requestDTO
      * @return
      */
-
     @Override
     public MagicOutDTO<UpdateNoticeInfoOutDTO> updateNotice(MagicDTO<QueryNoticeInfoInDTO> requestDTO) {
         //1.返回DTO构造
@@ -134,7 +133,7 @@ public class BasicServiceImpl implements IBasicService {
         MagicOutDTO<UpdateNoticeInfoOutDTO> magicOutDTO = new MagicOutDTO<>();
         //2.获取请求数据
         QueryNoticeInfoInDTO body = requestDTO.getBody();
-        //3.1构建实体对象
+        //3构建实体对象
         QueryNoticeDTO updateNoticeDTO = new QueryNoticeDTO();
         updateNoticeDTO.setNiNtcId(body.getNiNtcId())
                 .setNiNtcName(body.getNiNtcName())
@@ -143,6 +142,7 @@ public class BasicServiceImpl implements IBasicService {
                 .setNiNtcEndTime(body.getNiNtcEndTime())
                 .setNiNtcStartTime(body.getNiNtcStartTime())
                 .setNiNtcStatus(body.getNiNtcStatus());
+        //4.调用基础层服务
         QueryNoticeOutDTO queryNoticeOutDTO = service.updateNotice(updateNoticeDTO);
         RespHeader respHeader = new RespHeader();
         if(queryNoticeOutDTO !=null){
