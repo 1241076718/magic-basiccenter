@@ -1,7 +1,5 @@
 package com.magic.basiccenter.model.dto;
 
-import java.io.Serializable;
-
 /**
  * <p>广告配置新增出参</P>
  *

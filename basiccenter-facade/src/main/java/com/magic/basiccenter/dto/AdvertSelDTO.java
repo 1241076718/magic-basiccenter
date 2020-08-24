@@ -1,8 +1,7 @@
 package com.magic.basiccenter.dto;
 
-import java.io.Serializable;
-
 import com.magic.application.infrastructure.service.dto.SelectPageDTO;
+
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 

@@ -12,13 +12,10 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.magic.basiccenter.model.dto.AddAdvertInfoDTO;
-import com.magic.basiccenter.model.dto.AddAdvertInfoOutDTO;
 import com.magic.basiccenter.model.dto.DelAdvertInfoDTO;
-import com.magic.basiccenter.model.dto.DelAdvertInfoOutDTO;
 import com.magic.basiccenter.model.dto.SelAdvertInfoDTO;
 import com.magic.basiccenter.model.dto.SelAdvertInfoOutDTO;
 import com.magic.basiccenter.model.dto.UpdAdvertInfoDTO;
-import com.magic.basiccenter.model.dto.UpdAdvertInfoOutDTO;
 import com.magic.basiccenter.model.entity.BsAdvertInf;
 import com.magic.basiccenter.model.service.IAdvertService;
 import com.magic.basiccenter.model.service.IBsAdvertInfService;
@@ -56,17 +53,15 @@ public class AdvertServiceImpl implements IAdvertService {
 	 * @author laiqx@belink.com
 	 */
 	@Override
-    public AddAdvertInfoOutDTO addAdvertInfo(AddAdvertInfoDTO inputDTO) {
-        AddAdvertInfoOutDTO outData = new AddAdvertInfoOutDTO();
-
+    public boolean addAdvertInfo(AddAdvertInfoDTO inputDTO) {
         BsAdvertInf bsAdvertInf = new BsAdvertInf();
         BeanUtils.copyProperties(inputDTO, bsAdvertInf);
 		String aiAdvId = sequenceFactory.getSegmentFillZeroId(Constant.ADVERT_ID_TAG);
 		bsAdvertInf.setAiAdvId(aiAdvId);
+		bsAdvertInf.setAiAdvStatus(Constant.ADVERT_ADD_STATUS_CODE);
         bsAdvertInf.setAiAdvCreateTime(LocalDateTime.now()).setAiAdvUpdateTime(LocalDateTime.now());
-        bsAdvertInfService.save(bsAdvertInf);
-
-        return outData;
+        boolean successFlag = bsAdvertInfService.save(bsAdvertInf);
+        return successFlag;
     }
 
 	/**
@@ -127,15 +122,12 @@ public class AdvertServiceImpl implements IAdvertService {
 	 * @author tangw@belink.com
 	 */
 	@Override
-	public DelAdvertInfoOutDTO delAdvertInfo(DelAdvertInfoDTO advertDelDTO) {
-		DelAdvertInfoOutDTO outDTO = new DelAdvertInfoOutDTO();
-
+	public boolean delAdvertInfo(DelAdvertInfoDTO advertDelDTO) {
 		BsAdvertInf bsAdvertInf = new BsAdvertInf();
 		BeanUtils.copyProperties(advertDelDTO, bsAdvertInf);
 		bsAdvertInf.setAiAdvStatus(Constant.ADVERT_DELETE_STATUS_CODE).setAiAdvUpdateTime(LocalDateTime.now());
-		bsAdvertInfService.updateById(bsAdvertInf);
-
-		return outDTO;
+		boolean successFlag = bsAdvertInfService.updateById(bsAdvertInf);
+		return successFlag;
 	}
 
 	/**
@@ -145,15 +137,12 @@ public class AdvertServiceImpl implements IAdvertService {
 	 * @author luolf@belink.com
 	 */
 	@Override
-	public UpdAdvertInfoOutDTO updAdvertInfo(UpdAdvertInfoDTO updDTO) {
-		UpdAdvertInfoOutDTO  updOutDate= new UpdAdvertInfoOutDTO();
-
+	public boolean updAdvertInfo(UpdAdvertInfoDTO updDTO) {
 		BsAdvertInf bsAdvertInf = new BsAdvertInf();
-		bsAdvertInf.setAiAdvUpdateTime(LocalDateTime.now());
 		BeanUtils.copyProperties(updDTO, bsAdvertInf);
-		bsAdvertInfService.updateById(bsAdvertInf);
-
-		return updOutDate;
+		bsAdvertInf.setAiAdvUpdateTime(LocalDateTime.now());
+		boolean successFlag = bsAdvertInfService.updateById(bsAdvertInf);
+		return successFlag;
 	}
 
 }
