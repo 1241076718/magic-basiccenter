@@ -6,7 +6,19 @@ import java.util.Map;
 public enum BasicErrorEnum {
 
 	SUCCESS("0","交易成功"),
-    FAIL("2","交易失败");
+    FAIL("2","交易失败"),
+	ADD("BAS0040","新增成功"),
+    ADDFATL("BAS004001","新增失败"),
+    REFER("BAS0040","查询成功"),
+    REFERFATL("BAS004002","查询失败"),
+    MODIFY("BAS0040","修改成功"),
+    MODIFYFATL("BAS004003","修改失败"),
+    SHELVES("BAS0040","上架成功"),
+    SHELVESFATL("BAS004004","上架失败"),
+    THEAHWLVES("BAS0040","下架成功"),
+    THESHELVESFATL("BAS004005","下架失败"),
+    DELETE("BAS0040","删除成功"),
+    DeleteFATL("BAS004006","删除失败");
     
     
     private final Map<String, String> errorMap = new HashMap<String, String>();

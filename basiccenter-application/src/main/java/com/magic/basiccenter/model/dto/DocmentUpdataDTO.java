@@ -5,7 +5,7 @@ import lombok.Data;
 import java.io.Serializable;
 
 @Data
-public class DocmentUpdataDto implements Serializable {
+public class DocmentUpdataDTO implements Serializable {
     /**
      * 序列号
      */

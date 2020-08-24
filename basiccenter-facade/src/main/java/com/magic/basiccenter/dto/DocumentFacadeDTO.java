@@ -1,10 +1,9 @@
-package com.magic.basiccenter.model.dto;
+package com.magic.basiccenter.dto;
 
 import lombok.Data;
 import lombok.experimental.Accessors;
 
 import java.io.Serializable;
-import java.util.Date;
 
 /**
  * 文档数据
@@ -12,11 +11,11 @@ import java.util.Date;
  */
 @Data
 @Accessors(chain = true)
-public class DocumentDto implements Serializable {
+public class DocumentFacadeDTO implements Serializable {
     /**
-     * 序列号
+     * 文档编号
      */
-    private static final long serialVersionUID = 4912085102147959511L;
+    private static final long serialVersionUID = 1396306900926885526L;
     /**
      * 文档编号
      */
@@ -48,7 +47,7 @@ public class DocumentDto implements Serializable {
     /**
      * 权限
      */
-    private Integer documentPermissions;
+    private String documentPermissions;
     /**
      * 创建人
      */

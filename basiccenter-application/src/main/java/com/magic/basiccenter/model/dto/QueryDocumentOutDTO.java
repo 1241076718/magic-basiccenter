@@ -1,28 +1,25 @@
 package com.magic.basiccenter.model.dto;
 
-import com.magic.basiccenter.dto.DocumentFacadeDto;
-import lombok.Data;
-
-import javax.swing.event.DocumentEvent;
 import java.io.Serializable;
 import java.util.List;
 
+import com.magic.application.infrastructure.service.dto.SelectPageOutDTO;
+import com.magic.basiccenter.dto.entity.DocumentBean;
+
+import lombok.Data;
+
 @Data
-public class QueryDocumentOutDTO implements Serializable {
+public class QueryDocumentOutDTO extends SelectPageOutDTO implements Serializable {
 	
 	/**
-	 * 序列号
+	 * 
 	 */
 	private static final long serialVersionUID = -1024716140048009045L;
 
 	/**
 	 * 返回文档列表
 	 */
-	private List<DocumentFacadeDto> docsList;
+	private List<DocumentBean> docsList;
 
-	/**
-	 * 返回列表总数
-	 */
-	private Integer total;
 
 }

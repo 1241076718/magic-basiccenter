@@ -1,15 +1,15 @@
-package com.magic.basiccenter.dto;
+package com.magic.basiccenter.model.dto;
 
 import lombok.Data;
 
 import java.io.Serializable;
 
 @Data
-public class DocumentFacadeInputDto implements Serializable {
+public class DocumentInputDTO implements Serializable {
     /**
      * 序列号
      */
-    private static final long serialVersionUID = 237854697375976405L;
+    private static final long serialVersionUID = 5819729677068562274L;
     /**
      * 文件编号
      */

@@ -1,12 +1,15 @@
 package com.magic.basiccenter.dto;
 
-import lombok.Data;
-
 import java.io.Serializable;
 import java.util.List;
 
+import com.magic.application.infrastructure.service.dto.SelectPageOutDTO;
+import com.magic.basiccenter.dto.entity.DocumentBean;
+
+import lombok.Data;
+
 @Data
-public class QueryDocumentListOutDTO implements Serializable {
+public class QueryDocumentListOutDTO extends SelectPageOutDTO implements Serializable {
 	
 	/**
 	 * 
@@ -15,11 +18,6 @@ public class QueryDocumentListOutDTO implements Serializable {
 	/**
 	 * 返回文档列表
 	 */
-	private List<DocumentFacadeDto> docsList;
-
-	/**
-	 * 返回页码
-	 */
-	private Integer total;
+	private List<DocumentBean> docsList;
 
 }

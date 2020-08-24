@@ -5,17 +5,13 @@ import lombok.Data;
 import java.io.Serializable;
 
 @Data
-public class DocumentInputDto implements Serializable {
+public class DocumentIdDTO implements Serializable {
     /**
      * 序列号
      */
-    private static final long serialVersionUID = 5819729677068562274L;
+    private static final long serialVersionUID = 1333502404570143765L;
     /**
      * 文件编号
      */
     private String docsId;
-    /**
-     * 文件状态码
-     */
-    private Integer state;
 }

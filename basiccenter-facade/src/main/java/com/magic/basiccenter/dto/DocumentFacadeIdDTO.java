@@ -5,7 +5,7 @@ import lombok.Data;
 import java.io.Serializable;
 
 @Data
-public class DocumentFacadeIdDto implements Serializable {
+public class DocumentFacadeIdDTO implements Serializable {
     /**
      * 序列号
      */

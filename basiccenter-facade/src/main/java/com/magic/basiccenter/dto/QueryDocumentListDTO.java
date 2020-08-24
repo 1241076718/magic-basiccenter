@@ -1,15 +1,16 @@
 package com.magic.basiccenter.dto;
 
 
-import lombok.Data;
-
 import java.io.Serializable;
+import java.util.List;
+
+import lombok.Data;
 
 @Data
 public class QueryDocumentListDTO implements Serializable {
 	
 	/**
-	 * 序列号
+	 * 
 	 */
 	private static final long serialVersionUID = -3056442781619793847L;
 	/**
@@ -21,10 +22,19 @@ public class QueryDocumentListDTO implements Serializable {
 	 */
 	private String catalogName;
 	
+//	/**
+//	 * 发布时间段
+//	 */
+//	private List<String> docsCtime;
+	
 	/**
-	 * 发布时间
+	 * 起始时间
 	 */
-	private String documentPubdate;
+	private String startTime;
+	/**
+	 * 终止时间
+	 */
+	private String endTime;
 	/**
 	 * 当前页码
 	 */
@@ -33,9 +43,4 @@ public class QueryDocumentListDTO implements Serializable {
 	 * 页面展示数据条数
 	 */
 	private Integer turnPageShowNum;
-	/**
-	 * 当前文档状态
-	 */
-	private Integer state;
-
 }
