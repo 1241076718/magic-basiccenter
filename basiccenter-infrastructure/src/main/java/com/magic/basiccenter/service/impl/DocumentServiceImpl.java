@@ -108,6 +108,8 @@ public class DocumentServiceImpl implements DocumentService {
         //获取当前时间
         inputDTO.setDocumentCtime(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()))
                 .setDocumentMtime(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()));
+        //设置文档状态
+        inputDTO.setState(00);
         //属性克隆
         BeanUtils.copyProperties(inputDTO,entity);
 
