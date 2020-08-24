@@ -11,6 +11,17 @@ import lombok.experimental.Accessors;
 import java.io.Serializable;
 import java.util.Date;
 
+
+
+
+/**
+ * @author ：goupc1@belink.com
+ * @date ：Created in 2020/8/620 9:54
+ * @description：  公告信息表实体类
+ * @modified By：
+ * @version: $1.0.0
+ */
+
 @Data
 @EqualsAndHashCode(callSuper = false)
 @Accessors(chain = true)
