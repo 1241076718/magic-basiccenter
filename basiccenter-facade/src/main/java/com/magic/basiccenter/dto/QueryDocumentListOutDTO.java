@@ -19,5 +19,9 @@ public class QueryDocumentListOutDTO extends SelectPageOutDTO implements Seriali
 	 * 返回文档列表
 	 */
 	private List<DocumentBean> docsList;
+    /**
+     * 返还文档类型列表
+     */
+    private List<String> catalogNameList;
 
 }

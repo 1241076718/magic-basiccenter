@@ -3,6 +3,8 @@ package com.magic.basiccenter.service.impl;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.gift.domain.sequence.factory.SequenceFactory;
+import com.magic.basiccenter.constart.Constart;
 import com.magic.basiccenter.dto.entity.DocumentBean;
 import com.magic.basiccenter.model.dto.*;
 import com.magic.basiccenter.model.entity.BsDocumentInf;
@@ -29,6 +31,8 @@ public class DocumentServiceImpl implements DocumentService {
     private IBsDocumentService documentService;
     @Autowired
 	private BsDocumentInfMapper bsDocumentInfMapper;
+    @Autowired
+    SequenceFactory sequenceFactory;
     /**
      * 数据回显
      * @param documentIdDto
@@ -110,6 +114,9 @@ public class DocumentServiceImpl implements DocumentService {
                 .setDocumentMtime(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()));
         //设置文档状态
         inputDTO.setState(00);
+        //id生成
+        String id = sequenceFactory.getSegmentFillZeroId(Constart.DOC_ID);
+        inputDTO.setDocsId(id);
         //属性克隆
         BeanUtils.copyProperties(inputDTO,entity);
 
@@ -160,8 +167,10 @@ public class DocumentServiceImpl implements DocumentService {
 			BeanUtils.copyProperties(docsList.get(i), documentBean);
 			documentBeanList.add(documentBean);
 		}
-		outData.setDocsList(documentBeanList);
+        List<String> catalogNameList = bsDocumentInfMapper.queryCatalogNameList();
+        outData.setDocsList(documentBeanList);
 		outData.setTurnPageTotalNum(total);
+		outData.setCatalogNameList(catalogNameList);
 		return outData;
 	
 	}

@@ -1,4 +1,4 @@
-package com.magic.basiccenter.model.dto.constart;
+package com.magic.basiccenter.constart;
 
 
 

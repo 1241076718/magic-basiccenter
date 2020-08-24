@@ -32,6 +32,10 @@
    		from bs_document_inf
    		<include refid="queryWhere"/>
    	</select>
+    <!--查询文档类型列表-->
+    <select id="queryCatalogNameList" resultType="String">
+      select distinct DOC_TYPE from bs_document_inf
+    </select>
    
    
 </mapper>

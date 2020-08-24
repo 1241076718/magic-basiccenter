@@ -24,5 +24,8 @@ public interface BsDocumentInfMapper extends BaseMapper<BsDocumentInf> {
 			   		 @Param("docType") String docType,
 			   		 @Param("startTime") String startTime,
 			   		 @Param("endTime") String endTime);
+
+    //查询文档类型列表
+    List<String> queryCatalogNameList();
 	
 }
