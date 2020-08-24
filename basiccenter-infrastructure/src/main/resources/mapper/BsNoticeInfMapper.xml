@@ -55,11 +55,13 @@
             <if test="1 != 0">
                 and NI_NTC_STATUS != 1
             </if>
-            <if test=" nowsPage!= null and nowsPage>0  and pageSize !=null">
-                limit #{nowsPage}, #{pageSize}
-            </if>
+
             <if test=" niNtcId == null and pageSize!=null ">
                 ORDER BY  NI_NTC_GMT_MODIFIED DESC
+            </if>
+
+            <if test=" pageSize!=null and nowsPage >=0">
+                limit #{nowsPage}, #{pageSize}
             </if>
         </where>
 
