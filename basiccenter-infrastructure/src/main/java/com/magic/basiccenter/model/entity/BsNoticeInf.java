@@ -17,45 +17,7 @@ import java.util.Date;
 @TableName(value = "bs_notice_inf")
 public class BsNoticeInf implements Serializable{
 
-//  @TableId("niNtcId") //niNtcId
-//  private Integer ni_ntc_id;
-//
-//  @TableField("NI_NTC_NAME")
-//  private String ni_ntc_name;
-//
-//  @TableField("NI_NTC_STATUS")
-//  private Integer ni_ntc_status;
-//
-//  @TableField("NI_NTC_ID_RELEASE_TIME")
-//  private java.sql.Timestamp ni_ntc_id_release_time;
-//
-//  @TableField("NI_NTC_CREATOR")
-//  private String ni_ntc_creator;
-//
-//  @TableField("NI_NTC_TEXT")
-//  private String ni_ntc_text;
-//
-//  @TableField("NI_NTC_START_TIME")
-//  private java.sql.Timestamp ni_ntc_start_time;
-//
-//  @TableField("NI_NTC_END_TIME")
-//  private java.sql.Timestamp ni_ntc_end_time;
-//
-//  @TableField("NI_NTC_COUNT")
-//  private Integer ni_ntc_count;
-//
-//  @TableField("NI_NTC_REMIND_STATUS")
-//  private Integer ni_ntc_remind_status;
-//
-//  @TableField("NI_NTC_GMT_CREATE")
-//  private java.sql.Timestamp ni_ntc_gmt_create;
-//
-//  @TableField("NI_NTC_GMT_MODIFIED")
-//  private java.sql.Timestamp ni_ntc_gmt_modified;
-//
-//  @TableField("NI_NTC_GMT_MODIFIER")
-//  private String ni_ntc_gmt_modifier;
-//
+
 	/**
 	 * 公告id
 	 */

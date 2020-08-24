@@ -8,7 +8,7 @@ import java.util.Date;
 
 /**
  * 公告查询列表
- * 返回数据
+ * 传入的数据
  * @author ：wzr
  * @date ：Created in 2020/7/20 15:45
  * @description：查询账户信息
