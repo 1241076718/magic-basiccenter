@@ -48,6 +48,12 @@ public class NoticeServiceImpl implements INoticeService {
         return cuNoticeInfs;
 
     }
+
+    /**
+     * 公告新增
+     * @param inputDTO
+     * @return
+     */
     @Override
     public AddNoticeInfoOutDTO addNotice(AddNoticeInfoInDTO inputDTO) {
         AddNoticeInfoOutDTO addNoticeInfoOutDTO = new AddNoticeInfoOutDTO();

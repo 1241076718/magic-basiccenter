@@ -14,11 +14,8 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/notice")
 public class NoticeController {
 
-
-
     @Autowired(required = false)
     IBasicService service;
-
 
     /**
      * 添加公告
