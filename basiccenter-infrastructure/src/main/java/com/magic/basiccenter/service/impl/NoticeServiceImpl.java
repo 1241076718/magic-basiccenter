@@ -6,12 +6,10 @@ import com.magic.basiccenter.constants.Constant;
 import com.magic.basiccenter.dto.AddNoticeInfoInDTO;
 import com.magic.basiccenter.dto.AddNoticeInfoOutDTO;
 import com.magic.basiccenter.dto.QueryNoticeInfoInDTO;
-import com.magic.basiccenter.dto.QueryNoticeInfoOutDTO;
 import com.magic.basiccenter.model.dto.QueryNoticeDTO;
 import com.magic.basiccenter.model.dto.QueryNoticeOutDTO;
 import com.magic.basiccenter.model.entity.BsNoticeInf;
 import com.magic.basiccenter.model.mapper.BsNoticeInfMapper;
-import com.magic.basiccenter.model.service.IBsNoticeInfService;
 import com.magic.basiccenter.model.service.INoticeService;
 import com.magic.basiccenter.model.service.impl.BsNoticeInfServiceImpl;
 import org.springframework.beans.BeanUtils;
@@ -78,9 +76,11 @@ public class NoticeServiceImpl implements INoticeService {
         return addNoticeInfoOutDTO;
     }
 
-    @Autowired
-    private IBsNoticeInfService iBsNoticeInfService;
-
+    /**
+     * 公告上下级、删除的方法
+     * @param inputDTO
+     * @return
+     */
     @Override
     public QueryNoticeOutDTO changeNoticeStatus(QueryNoticeInfoInDTO inputDTO) {
 
@@ -89,6 +89,7 @@ public class NoticeServiceImpl implements INoticeService {
         BsNoticeInfMapper baseMapper = been.getBaseMapper();
         BsNoticeInf bsNoticeInf = new BsNoticeInf();
         BeanUtils.copyProperties(inputDTO, bsNoticeInf);
+        //调用具体方法
         int i =baseMapper.updateById(bsNoticeInf);
         changeNoticeStatus.setNiNtcCount(i);
         return changeNoticeStatus;

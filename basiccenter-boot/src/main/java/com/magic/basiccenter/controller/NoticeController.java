@@ -68,7 +68,7 @@ public class NoticeController {
     }
 
     /**
-     * 公告上下架管理 改变公告状态
+     * 公告上下架、删除管理（改变公告状态）
      *
      * @param queryNoticeInfoInDTO
      * @return

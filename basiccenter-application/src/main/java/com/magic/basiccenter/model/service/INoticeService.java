@@ -40,7 +40,7 @@ public interface INoticeService {
      */
     QueryNoticeOutDTO updateNotice(QueryNoticeDTO requestDTO);
     /**
-     *
+     * 公告上下架、删除
      * @param inputDTO
      * @return
      */

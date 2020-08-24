@@ -161,6 +161,7 @@ public class BasicServiceImpl implements IBasicService {
         QueryNoticeOutDTO changeNoticeStatus = service.changeNoticeStatus(body);
 
         int i = changeNoticeStatus.getNiNtcCount();
+        //判断是否更改
         if(i > 0){
             respHeader.setErrorCode(BasicErrorEnum.SUCCESS.code());
             respHeader.setErrorMsg(BasicErrorEnum.SUCCESS.msg());
