@@ -39,27 +39,22 @@ spring:
       # DruidFilterConfiguration
       filter:
         slf4j:
-          enabled: true
+          enabled: false
         wall:
-          enabled: true
+          enabled: false
         stat:
-          enabled: true
+          enabled: false
       # 通过connectProperties属性来打开mergeSql功能；慢SQL记录
       connectionProperties: druid.stat.mergeSql\=true;druid.stat.slowSqlMillis\=5000
       # 配置DruidStatFilter
       web-stat-filter:
-        enabled: true
+        enabled: false
         url-pattern: "/*"
         exclusions: "*.js,*.gif,*.jpg,*.bmp,*.png,*.css,*.ico,/druid/*"
   redis:
-<<<<<<< HEAD
-    host: 127.0.0.1
-#    password: Ifp0p9o8i7u
-=======
     host: 47.100.119.48
     #password: Ifp0p9o8i7u
     #password: Ifp0p9o8i7u
->>>>>>> festival
     port: 6379
     databasic: 0
 
@@ -75,6 +70,7 @@ eureka:
   client:
     service-url:
       defaultZone: http://127.0.0.1:8081/eureka
+    register-with-eureka: false
     fetch-registry: false
   instance:
     prefer-ip-address: true

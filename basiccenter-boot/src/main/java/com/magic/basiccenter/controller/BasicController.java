@@ -5,6 +5,15 @@ import com.magic.application.infrastructure.service.dto.MagicOutDTO;
 import com.magic.basiccenter.dto.*;
 import com.magic.basiccenter.service.BasicService;
 import lombok.extern.slf4j.Slf4j;
+import com.magic.basiccenter.dto.AdvertAddDTO;
+import com.magic.basiccenter.dto.AdvertAddOutDTO;
+import com.magic.basiccenter.dto.AdvertSelDTO;
+import com.magic.basiccenter.dto.AdvertSelOutDTO;
+import com.magic.basiccenter.dto.AdvertUpdDTO;
+import com.magic.basiccenter.dto.AdvertUpdOutDTO;
+import com.magic.basiccenter.dto.AdvertDelDTO;
+import com.magic.basiccenter.dto.AdvertDelOutDTO;
+import com.magic.basiccenter.service.IAdvertManageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -19,78 +28,55 @@ import org.springframework.web.bind.annotation.RestController;
  * @className basicController
  * @sine 2020/8/17 9:13
  */
-@RestController
-@Slf4j
-@RequestMapping("/basic")
+@RequestMapping("basic")
 public class BasicController {
+    /**
+     * 广告管理模块服务
+     */
     @Autowired
-    BasicService basicService;
+    private IAdvertManageService advertManageService;
 
     /**
-     * 文档回显
+     * 广告配置新增
      * @param requestDTO
      * @return
+     * @author laiqx@belink.com
      */
-    @PostMapping("/doucment/queryData")
-    public MagicOutDTO<DocumentFacadeDTO> queryData(@RequestBody MagicDTO<DocumentFacadeIdDTO> requestDTO){
-        return basicService.queryData(requestDTO);
-    }
-
-    /**
-     * 文档修改
-     * @param requestDTO
-     * @return
-     */
-    @PostMapping("/doucment/modify")
-    public MagicOutDTO<DocmentFacadeUpdataDTO> queryModify(@RequestBody MagicDTO<DocumentFacadeDTO> requestDTO){
-        return basicService.queryModify(requestDTO);
+    @PostMapping("/advert/addAdvertInfo")
+    public MagicOutDTO<AdvertAddOutDTO> addAdvertInfo(@RequestBody MagicDTO<AdvertAddDTO> requestDTO) {
+        return advertManageService.addAdvertInfo(requestDTO);
     }
 
     /**
-     * 文档上架
+     * 广告列表查询
      * @param requestDTO
      * @return
+     * @author jianggq@belink.com
      */
-    @PostMapping("/doucment/upShelf")
-    public MagicOutDTO<DocumentFacadeOutDTO> upShelf( @RequestBody MagicDTO<DocumentFacadeInputDTO> requestDTO){
-        return basicService.publish(requestDTO);
-    }
-    /**
-     * 文档下架
-     * @param requestDTO
-     * @return
-     */
-    @PostMapping("/doucment/downShelf")
-    public MagicOutDTO<DocumentFacadeOutDTO> downShelf(@RequestBody MagicDTO<DocumentFacadeInputDTO> requestDTO){
-        return basicService.publish(requestDTO);
+    @PostMapping("/advert/selAdvertInfo")
+    public MagicOutDTO<AdvertSelOutDTO> selAdvertInfo(@RequestBody MagicDTO<AdvertSelDTO> requestDTO){
+        return advertManageService.selAdvertInfo(requestDTO);
     }
 
     /**
-     * 文档删除
+     * 删除广告
      * @param requestDTO
      * @return
+     * @author tangw@belink.com
      */
-    @PostMapping("/doucment/remove")
-    public MagicOutDTO<DocmentFacadeUpdataDTO> delete (@RequestBody MagicDTO<DocumentFacadeIdDTO> requestDTO){
-        return basicService.delete(requestDTO);
-    }
-    /**
-     * 查询文档列表
-     * @param requestDTO
-     * @return
-     */
-    @PostMapping("document/queryDocumentList")
-    public MagicOutDTO<QueryDocumentListOutDTO> queryDocumentList(@RequestBody MagicDTO<QueryDocumentListDTO> requestDTO){
-        return basicService.queryDocumentList(requestDTO);
-    }
+    @PostMapping("advert/delAdvertInfo")
+	public MagicOutDTO<AdvertDelOutDTO> delAdvertInfo(@RequestBody MagicDTO<AdvertDelDTO> requestDTO){
+		return advertManageService.delAdvertInfo(requestDTO);
+	}
 
     /**
-     * 新增
+     * 广告配置修改
      * @param requestDTO
      * @return
+     * @author luolf@belink.com
      */
-    @PostMapping("/document/addDocumentState")
-    public MagicOutDTO<DocmentFacadeUpdataDTO> addDocumentState(@RequestBody MagicDTO<DocumentFacadeDTO> requestDTO){
-        return basicService.addDocumentState(requestDTO);
+    @PostMapping("/advert/updAdvertInfo")
+    public MagicOutDTO<AdvertUpdOutDTO> updAdvertInfo(@RequestBody MagicDTO<AdvertUpdDTO> requestDTO) {
+        return advertManageService.updAdvertInfo(requestDTO);
     }
 }

@@ -1,4 +1,4 @@
-package com.magic.basiccenter.entity;
+package com.magic.basiccenter.dto.entity;
 
 import lombok.Data;
 

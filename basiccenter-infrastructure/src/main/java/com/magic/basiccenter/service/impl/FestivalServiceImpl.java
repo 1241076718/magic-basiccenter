@@ -11,7 +11,7 @@ import com.magic.application.infrastructure.utils.ApplicationServiceUtil;
 import com.magic.basiccenter.constants.Constant;
 import com.magic.basiccenter.dto.*;
 import com.magic.basiccenter.model.entity.FestivalManageInf;
-import com.magic.basiccenter.entity.FestivalQueryListInf;
+import com.magic.basiccenter.dto.entity.FestivalQueryListInf;
 import com.magic.basiccenter.error.FestivalMessageEnum;
 import com.magic.basiccenter.model.mapper.FestManageMapper;
 import com.magic.basiccenter.model.service.FestivalService;

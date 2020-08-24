@@ -1,8 +1,5 @@
 package com.magic.basiccenter.constants;
 
-import com.baomidou.mybatisplus.annotation.TableName;
-import lombok.Data;
-
 
 /**
  * @author ：goupc1@belink.com
@@ -25,4 +22,21 @@ public class Constant {
      * 文档Id
      */
     public static final String DOC_ID = "document_id";
+
+
+    /**
+     * 广告编号
+     */
+    public static final String ADVERT_ID_TAG = "advert_id";
+
+    /**
+     * 广告新建状态码
+     */
+    public static final Integer ADVERT_ADD_STATUS_CODE = 0;
+
+    /**
+     * 广告删除状态码
+     */
+    public static final Integer ADVERT_DELETE_STATUS_CODE = 3;
+
 }

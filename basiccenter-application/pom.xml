@@ -23,12 +23,43 @@
     </properties>
     <dependencies>
         <!--领域工程服务接口定义依赖开始-->
+<<<<<<< HEAD
 
 <<<<<<< HEAD
 =======
 
 >>>>>>> document
+=======
+		<dependency>
+            <groupId>com.gift</groupId>
+            <artifactId>gift-core</artifactId>
+            <version>1.0.0</version>
+            <exclusions>
+                <exclusion>
+                    <artifactId>fastjson</artifactId>
+                    <groupId>com.alibaba</groupId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+
+
+>>>>>>> advert
         <!--领域工程依赖结束-->
+        <dependency>
+            <artifactId>gift-sequence-domain</artifactId>
+            <exclusions>
+                <exclusion>
+                    <artifactId>mysql-connector-java</artifactId>
+                    <groupId>mysql</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>mybatis-plus-boot-starter</artifactId>
+                    <groupId>com.baomidou</groupId>
+                </exclusion>
+            </exclusions>
+            <groupId>com.gift</groupId>
+            <version>0.0.1-SNAPSHOT</version>
+        </dependency>
 
         <dependency>
             <groupId>org.projectlombok</groupId>

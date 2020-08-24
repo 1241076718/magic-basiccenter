@@ -1,10 +1,9 @@
 package com.magic.basiccenter.dto;
 
-import com.magic.basiccenter.entity.FestivalQueryListInf;
+import com.magic.basiccenter.dto.entity.FestivalQueryListInf;
 import lombok.Data;
 
 import java.io.Serializable;
-import java.util.Date;
 import java.util.List;
 
 /**
