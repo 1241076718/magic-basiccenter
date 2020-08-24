@@ -123,11 +123,8 @@ public class NoticeServiceImpl implements INoticeService {
                 .setNiNtcEndTime(requestDTO.getNiNtcEndTime())
                 .setNiNtcStartTime(requestDTO.getNiNtcStartTime())
                 .setNiNtcStatus(requestDTO.getNiNtcStatus());
-        //3.2.2修改数据库中的数据
         baseMapper.updateById(entity);
-        //4.1获取数据库中数据
         BsNoticeInf notice = baseMapper.selectById(requestDTO.getNiNtcId());
-
         outDTO.setNiNtcName(notice.getNiNtcName())
                 .setNiNtcText(notice.getNiNtcText())
                 .setNiNtcCount(notice.getNiNtcCount())

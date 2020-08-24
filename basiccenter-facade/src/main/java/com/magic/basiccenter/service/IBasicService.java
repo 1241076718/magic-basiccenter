@@ -41,7 +41,6 @@ public interface IBasicService {
      * @param requestDTO
      * @return
      */
-
     MagicOutDTO<AddNoticeInfoOutDTO> addNoticeInfo(MagicDTO<AddNoticeInfoInDTO> requestDTO);
 
 
