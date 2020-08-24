@@ -8,10 +8,13 @@ import java.io.Serializable;
  * @param <T>
  */
 @Data
-public class AddNoticeInfoOutDTO<T> implements Serializable {
+public class AddNoticeInfoOutDTO implements Serializable {
 
 
     private static final long serialVersionUID = 322192239362305089L;
 
+    /**
+     * 插入数目
+     */
     private Integer total;
 }

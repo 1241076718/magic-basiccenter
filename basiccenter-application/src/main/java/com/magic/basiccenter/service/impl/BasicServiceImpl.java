@@ -35,15 +35,9 @@ public class BasicServiceImpl implements IBasicService {
      * @param requestDTO
      * @return
      */
-
-
-
-
     @Override
     public MagicOutDTO<QueryNoticeInfoOutDTO> queryNoticeList(MagicDTO<QueryNoticeInfoInDTO> requestDTO) {
 
-        System.out.println(requestDTO + ")==========================queryNoticeList=======================11================");
-        System.out.println(requestDTO.getBody());
         MagicOutDTO<QueryNoticeInfoOutDTO> result = new MagicOutDTO<>();
         QueryNoticeDTO queryNoticeDTO = new QueryNoticeDTO();
 

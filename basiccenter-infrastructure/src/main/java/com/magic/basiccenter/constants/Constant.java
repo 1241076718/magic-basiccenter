@@ -7,7 +7,6 @@ import lombok.Data;
  * 序列ID获取
  */
 
-@TableName("public_id_segment")
 public class Constant {
 
     //公告ID获取常量

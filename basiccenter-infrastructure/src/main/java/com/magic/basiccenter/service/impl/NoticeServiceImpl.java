@@ -49,7 +49,6 @@ public class NoticeServiceImpl implements INoticeService {
     @Override
     public List<QueryNoticeOutDTO> queryNotice(QueryNoticeDTO inputDTO) {
 
-        QueryNoticeOutDTO outData = new QueryNoticeOutDTO();
 
         BsNoticeInfServiceImpl bean = SpringContextUtils.getBean(BsNoticeInfServiceImpl.class);
 
