@@ -20,7 +20,7 @@ import java.util.List;
  *
  * @author goupc1@belink.com
  * @version 0.0.1
- * @className basicCenterApplication
+ * @className BasicServiceImpl
  * @sine 2020/8/17 9:15
  */
 @Service

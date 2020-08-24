@@ -11,6 +11,17 @@ import lombok.experimental.Accessors;
 import java.io.Serializable;
 import java.util.Date;
 
+
+/**
+ * <p>
+ * 公告信息表 实体类 接口
+ * </p>
+ *
+ * @author yangquan
+ * @since 2020-08-19
+ */
+
+
 @Data
 @EqualsAndHashCode(callSuper = false)
 @Accessors(chain = true)

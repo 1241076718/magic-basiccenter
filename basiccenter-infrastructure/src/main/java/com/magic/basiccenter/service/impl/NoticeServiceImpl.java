@@ -29,21 +29,23 @@ import java.util.List;
  * @className basicCenterApplication
  * @sine 2020/8/17 9:15
  */
+
+
+
 @Service
 public class NoticeServiceImpl implements INoticeService {
 
 
 
-
-    @Autowired
+    @Autowired(required = false)
     SequenceFactory sequenceFactory;
+
 
     /**
      * 查询公告方法
      * @param inputDTO
      * @return
      */
-
     @Override
     public List<QueryNoticeOutDTO> queryNotice(QueryNoticeDTO inputDTO) {
 
@@ -60,7 +62,11 @@ public class NoticeServiceImpl implements INoticeService {
     }
 
 
-
+    /**
+     * 新增公告方法
+     * @param inputDTO
+     * @return
+     */
 
     @Override
     public AddNoticeInfoOutDTO addNotice(AddNoticeInfoInDTO inputDTO) {
@@ -80,6 +86,11 @@ public class NoticeServiceImpl implements INoticeService {
 
     @Autowired
     private IBsNoticeInfService iBsNoticeInfService;
+    /**
+     * 公告删除和上下架方法
+     * @param inputDTO
+     * @return
+     */
 
     @Override
     public QueryNoticeOutDTO changeNoticeStatus(QueryNoticeInfoInDTO inputDTO) {

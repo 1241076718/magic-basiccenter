@@ -74,7 +74,6 @@ public class NoticeController {
      * @return
      */
     @PostMapping("/changeNoticeStatus")
-//    @ApiOperation(value = "公告上架下架管理", notes = "公告上架下架", httpMethod = "POST", response = String.class)
     public MagicOutDTO<QueryNoticeInfoOutDTO> changeNoticeStatus(@RequestBody MagicDTO<QueryNoticeInfoInDTO> queryNoticeInfoInDTO) {
 
         MagicOutDTO<QueryNoticeInfoOutDTO> magicDTO = service.changeNoticeStatus(queryNoticeInfoInDTO);

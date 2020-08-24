@@ -24,6 +24,9 @@ public class QueryNoticeInfoOutDTO<T>  extends SelectPageOutDTO implements Seria
 
 
     private static final long serialVersionUID = -39884965805778633L;
+    /**
+     * 返回数据集合
+     */
 
     private List<T> data;
 
