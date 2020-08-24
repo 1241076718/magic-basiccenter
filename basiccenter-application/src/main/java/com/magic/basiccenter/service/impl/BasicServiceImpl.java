@@ -80,9 +80,11 @@ public class BasicServiceImpl implements IBasicService {
         return result;
     }
 
-
-
-
+    /**
+     * 公告新增
+     * @param requestDTO
+     * @return
+     */
     @Override
     public MagicOutDTO<AddNoticeInfoOutDTO> addNoticeInfo(MagicDTO<AddNoticeInfoInDTO> requestDTO) {
         //定义输出
@@ -94,7 +96,8 @@ public class BasicServiceImpl implements IBasicService {
         AddNoticeInfoInDTO body = requestDTO.getBody();
         AddNoticeInfoOutDTO addNoticeInfoOutDTO = service.addNotice(body);
         Integer rows = addNoticeInfoOutDTO.getTotal();
-        if (rows>=1){
+        //判断执行结果
+        if (rows!=null && rows>0){
             respHead.setErrorCode(BasicErrorEnum.SUCCESS.code());
             respHead.setErrorMsg(BasicErrorEnum.SUCCESS.msg());
             magicOutDTO.setBody(addNoticeInfoOutDTO);

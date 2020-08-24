@@ -12,7 +12,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 /**
  * <p>基础中心-启动类</P>
  *
- * @author zhuzh@belink.com
+ * @author goupc1@belink.com
  * @version 0.0.1
  * @className basicCenterApplication
  * @sine 2020/8/17 9:15
