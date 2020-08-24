@@ -15,13 +15,13 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-/**
- * <p>公告application层实现类</P>
- *
- * @author goupc1@belink.com
- * @version 0.0.1
- * @className BasicServiceImpl
- * @sine 2020/8/17 9:15
+
+ /**
+ * @author ：goupc1@belink.com
+ * @date ：Created in 2020/8/620 9:54
+ * @description：   公告application层实现类
+ * @modified By：
+ * @version: $1.0.0
  */
 @Service
 public class BasicServiceImpl implements IBasicService {
@@ -36,40 +36,30 @@ public class BasicServiceImpl implements IBasicService {
      * @return
      */
 
-
-
-
     @Override
-    public MagicOutDTO<QueryNoticeInfoOutDTO> queryNoticeList(MagicDTO<QueryNoticeInfoInDTO> requestDTO) {
+    public MagicOutDTO<QueryNoticeInfoOutDTO> queryNoticeList(MagicDTO<QueryNoticeInfoDTO> requestDTO) {
 
-        System.out.println(requestDTO + ")==========================queryNoticeList=======================11================");
-        System.out.println(requestDTO.getBody());
         MagicOutDTO<QueryNoticeInfoOutDTO> result = new MagicOutDTO<>();
+        RespHeader respHeader = new RespHeader();
         QueryNoticeDTO queryNoticeDTO = new QueryNoticeDTO();
-
-        QueryNoticeInfoInDTO body = requestDTO.getBody();
+        QueryNoticeInfoDTO body = requestDTO.getBody();
 
         queryNoticeDTO.setNiNtcCreator(body.getNiNtcCreator());
-
         queryNoticeDTO.setNiNtcId(body.getNiNtcId());
-
         queryNoticeDTO.setNiNtcName(body.getNiNtcName());
-
         queryNoticeDTO.setNiNtcStatus(body.getNiNtcStatus());
-
         queryNoticeDTO.setNiNtcStartTime(body.getNiNtcStartTime());
-
         queryNoticeDTO.setNiNtcEndTime(body.getNiNtcEndTime());
         if(body.getCurrentPage()>=0){
             queryNoticeDTO.setNowsPage(((body.getCurrentPage() - 1) * body.getTurnPageShowNum()));
-
             queryNoticeDTO.setPageSize(body.getTurnPageShowNum());
-
         }
 
-        List<QueryNoticeOutDTO> queryNoticeOutDTOS = service.queryNotice(queryNoticeDTO);
 
-        RespHeader respHeader = new RespHeader();
+        /**
+         * 调用方法查询公告列表
+         */
+        List<QueryNoticeOutDTO> queryNoticeOutDTOS = service.queryNotice(queryNoticeDTO);
         if (!queryNoticeOutDTOS.isEmpty()) {
             List<QueryNoticeOutDTO> totalNotices=null;
             if(queryNoticeDTO.getNowsPage()>=0){
@@ -128,12 +118,12 @@ public class BasicServiceImpl implements IBasicService {
      */
 
     @Override
-    public MagicOutDTO<UpdateNoticeInfoOutDTO> updateNotice(MagicDTO<QueryNoticeInfoInDTO> requestDTO) {
+    public MagicOutDTO<UpdateNoticeInfoOutDTO> updateNotice(MagicDTO<QueryNoticeInfoDTO> requestDTO) {
         //1.返回DTO构造
         UpdateNoticeInfoOutDTO appNoticeOutDTO = new UpdateNoticeInfoOutDTO();
         MagicOutDTO<UpdateNoticeInfoOutDTO> magicOutDTO = new MagicOutDTO<>();
         //2.获取请求数据
-        QueryNoticeInfoInDTO body = requestDTO.getBody();
+        QueryNoticeInfoDTO body = requestDTO.getBody();
         //3.1构建实体对象
         QueryNoticeDTO updateNoticeDTO = new QueryNoticeDTO();
         updateNoticeDTO.setNiNtcId(body.getNiNtcId())
@@ -171,12 +161,12 @@ public class BasicServiceImpl implements IBasicService {
      */
 
     @Override
-    public MagicOutDTO<QueryNoticeInfoOutDTO> changeNoticeStatus(MagicDTO<QueryNoticeInfoInDTO> requestDTO) {
+    public MagicOutDTO<QueryNoticeInfoOutDTO> changeNoticeStatus(MagicDTO<QueryNoticeInfoDTO> requestDTO) {
         QueryNoticeInfoOutDTO queryNoticeInfoOutDTO = new QueryNoticeInfoOutDTO();
         MagicOutDTO<QueryNoticeInfoOutDTO> magicOutDTO = new MagicOutDTO<>(queryNoticeInfoOutDTO);
 
         RespHeader respHeader = new RespHeader();
-        QueryNoticeInfoInDTO body = requestDTO.getBody();
+        QueryNoticeInfoDTO body = requestDTO.getBody();
 
         QueryNoticeOutDTO changeNoticeStatus = service.changeNoticeStatus(body);
 

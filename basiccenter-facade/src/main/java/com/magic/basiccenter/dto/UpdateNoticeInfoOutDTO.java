@@ -7,6 +7,16 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 import lombok.experimental.Accessors;
 
+
+/**
+
+ * @author ：goupc1@belink.com
+ * @date ：
+ * @description* 公告修改返回数据
+ * @modified By：
+ * @version: $
+ */
+
 @Data
 @Accessors(chain=true)
 public class UpdateNoticeInfoOutDTO implements Serializable{

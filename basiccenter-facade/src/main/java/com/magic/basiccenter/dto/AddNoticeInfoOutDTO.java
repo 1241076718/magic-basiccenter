@@ -4,9 +4,14 @@ import lombok.Data;
 import java.io.Serializable;
 
 /**
- * 公告新增方法传出DTO
- * @param <T>
+
+ * @author ：goupc1@belink.com
+ * @date ：
+ * @description* 公告新增返回数据
+ * @modified By：
+ * @version: $
  */
+
 @Data
 public class AddNoticeInfoOutDTO<T> implements Serializable {
 

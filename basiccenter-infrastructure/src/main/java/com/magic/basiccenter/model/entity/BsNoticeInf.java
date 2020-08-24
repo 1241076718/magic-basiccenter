@@ -12,15 +12,15 @@ import java.io.Serializable;
 import java.util.Date;
 
 
-/**
- * <p>
- * 公告信息表 实体类 接口
- * </p>
- *
- * @author yangquan
- * @since 2020-08-19
- */
 
+
+/**
+ * @author ：goupc1@belink.com
+ * @date ：Created in 2020/8/620 9:54
+ * @description：  公告信息表实体类
+ * @modified By：
+ * @version: $1.0.0
+ */
 
 @Data
 @EqualsAndHashCode(callSuper = false)

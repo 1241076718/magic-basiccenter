@@ -12,20 +12,21 @@ import org.springframework.web.bind.annotation.RestController;
 
 
 /**
- * <p>基础中心-控制器</P>
- *
- * @author goupc1@belink.com
- * @version 0.0.1
- * @className basicCenterApplication
- * @sine 2020/8/17 9:15
+ * @author ：goupc1@belink.com
+ * @date ：Created in 2020/8/20 9:54
+ * @description：   基础中心控制器
+ * @modified By：
+ * @version: $1.0.0
  */
-
 
 @RestController
 @RequestMapping("/notice")
-public class NoticeController {
+public class BasicController {
     @Autowired(required = false)
     IBasicService service;
+
+
+
 
 
     /**
@@ -34,11 +35,12 @@ public class NoticeController {
      * @param requestDTO
      * @return
      */
-
     @PostMapping("/addNotice")
     public MagicOutDTO<AddNoticeInfoOutDTO> addNotice(@RequestBody MagicDTO<AddNoticeInfoInDTO> requestDTO) {
         return service.addNoticeInfo(requestDTO);
     }
+
+
     /**
      * 修改公告
      *
@@ -46,7 +48,7 @@ public class NoticeController {
      * @return
      */
     @PostMapping("/updateNotice")
-    public MagicOutDTO<UpdateNoticeInfoOutDTO> updateNoticeData(@RequestBody MagicDTO<QueryNoticeInfoInDTO> requestDTO) {
+    public MagicOutDTO<UpdateNoticeInfoOutDTO> updateNoticeData(@RequestBody MagicDTO<QueryNoticeInfoDTO> requestDTO) {
         return service.updateNotice(requestDTO);
     }
 
@@ -60,7 +62,7 @@ public class NoticeController {
      */
 
     @PostMapping("/select")
-    public MagicOutDTO<QueryNoticeInfoOutDTO> selectNotice(@RequestBody MagicDTO<QueryNoticeInfoInDTO> queryNoticeInfoInDTO) {
+    public MagicOutDTO<QueryNoticeInfoOutDTO> selectNotice(@RequestBody MagicDTO<QueryNoticeInfoDTO> queryNoticeInfoInDTO) {
         MagicOutDTO<QueryNoticeInfoOutDTO> querynoticeinfo = service.queryNoticeList(queryNoticeInfoInDTO);
         return querynoticeinfo;
 
@@ -68,13 +70,13 @@ public class NoticeController {
     }
 
     /**
-     * 公告上下架管理 改变公告状态
+     * 公告上下架管理和改变公告状态
      *
      * @param queryNoticeInfoInDTO
      * @return
      */
     @PostMapping("/changeNoticeStatus")
-    public MagicOutDTO<QueryNoticeInfoOutDTO> changeNoticeStatus(@RequestBody MagicDTO<QueryNoticeInfoInDTO> queryNoticeInfoInDTO) {
+    public MagicOutDTO<QueryNoticeInfoOutDTO> changeNoticeStatus(@RequestBody MagicDTO<QueryNoticeInfoDTO> queryNoticeInfoInDTO) {
 
         MagicOutDTO<QueryNoticeInfoOutDTO> magicDTO = service.changeNoticeStatus(queryNoticeInfoInDTO);
 

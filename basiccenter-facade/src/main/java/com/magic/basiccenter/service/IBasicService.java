@@ -5,11 +5,11 @@ import com.magic.application.infrastructure.service.dto.MagicOutDTO;
 import com.magic.basiccenter.dto.*;
 
 /**
- * @author ：
- * @date ：Created in 2020/7/6 9:54
+ * @author ：goupc1@belink.com
+ * @date ：Created in 2020/8/620 9:54
  * @description：  对外暴露业务层接口
  * @modified By：
- * @version: $
+ * @version: $1.0.0
  */
 public interface IBasicService {
 
@@ -19,11 +19,10 @@ public interface IBasicService {
 
     /**
      * 查询公告接口方法
-     *
      * @param requestDTO
      * @return
      */
-    MagicOutDTO<QueryNoticeInfoOutDTO>  queryNoticeList(MagicDTO<QueryNoticeInfoInDTO>  requestDTO);
+    MagicOutDTO<QueryNoticeInfoOutDTO>  queryNoticeList(MagicDTO<QueryNoticeInfoDTO>  requestDTO);
 
 
 
@@ -34,7 +33,7 @@ public interface IBasicService {
      * @param requestDTO
      * @return
      */
-    MagicOutDTO<UpdateNoticeInfoOutDTO> updateNotice(MagicDTO<QueryNoticeInfoInDTO> requestDTO);
+    MagicOutDTO<UpdateNoticeInfoOutDTO> updateNotice(MagicDTO<QueryNoticeInfoDTO> requestDTO);
 
 
     /**
@@ -51,7 +50,7 @@ public interface IBasicService {
      * @param requestDTO
      * @return
      */
-    MagicOutDTO<QueryNoticeInfoOutDTO> changeNoticeStatus(MagicDTO<QueryNoticeInfoInDTO> requestDTO);
+    MagicOutDTO<QueryNoticeInfoOutDTO> changeNoticeStatus(MagicDTO<QueryNoticeInfoDTO> requestDTO);
 
 
 

@@ -3,8 +3,13 @@ package com.magic.basiccenter.constants;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
 
+
 /**
- * 序列ID获取
+ * @author ：goupc1@belink.com
+ * @date ：Created in 2020/8/620 9:54
+ * @description：  序列IDpublic_id_segment表实体类
+ * @modified By：
+ * @version: $1.0.0
  */
 
 @TableName("public_id_segment")

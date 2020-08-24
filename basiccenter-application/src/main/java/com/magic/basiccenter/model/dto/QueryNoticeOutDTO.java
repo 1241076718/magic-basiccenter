@@ -7,6 +7,16 @@ import java.util.Date;
 import lombok.Data;
 import lombok.experimental.Accessors;
 
+
+/**
+ * @author ：goupc1@belink.com
+ * @date ：Created in 2020/8/620 9:54
+ * @description：  应用层公告通用输出数据DTO
+ * @modified By：
+ * @version: $1.0.0
+ */
+
+
 @Data
 @Accessors(chain=true)  //可连输用set().set().set()......
 public class QueryNoticeOutDTO implements Serializable {
