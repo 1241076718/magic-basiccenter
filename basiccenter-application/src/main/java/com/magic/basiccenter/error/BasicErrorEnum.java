@@ -2,6 +2,13 @@ package com.magic.basiccenter.error;
 
 import java.util.HashMap;
 import java.util.Map;
+/**
+ * @author ：goupc1@belink.com
+ * @date ：Created in 2020/8/620 9:54
+ * @description：  返回信息枚举类
+ * @modified By：
+ * @version: $1.0.0
+ */
 
 public enum BasicErrorEnum {
 

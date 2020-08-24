@@ -5,8 +5,7 @@ import com.gift.domain.sequence.factory.SequenceFactory;
 import com.magic.basiccenter.constants.Constant;
 import com.magic.basiccenter.dto.AddNoticeInfoInDTO;
 import com.magic.basiccenter.dto.AddNoticeInfoOutDTO;
-import com.magic.basiccenter.dto.QueryNoticeInfoInDTO;
-import com.magic.basiccenter.dto.QueryNoticeInfoOutDTO;
+import com.magic.basiccenter.dto.QueryNoticeInfoDTO;
 import com.magic.basiccenter.model.dto.QueryNoticeDTO;
 import com.magic.basiccenter.model.dto.QueryNoticeOutDTO;
 import com.magic.basiccenter.model.entity.BsNoticeInf;
@@ -21,22 +20,24 @@ import org.springframework.stereotype.Service;
 import java.util.Date;
 import java.util.List;
 
+
+
 /**
- * <p>数据层service实现类</P>
- *
- * @author goupc1@belink.com
- * @version 0.0.1
- * @className basicCenterApplication
- * @sine 2020/8/17 9:15
+ * @author ：goupc1@belink.com
+ * @date ：Created in 2020/8/620 9:54
+ * @description：  数据层service实现类
+ * @modified By：
+ * @version: $1.0.0
  */
-
-
 
 @Service
 public class NoticeServiceImpl implements INoticeService {
 
 
-
+    /**
+     * 获取序列id工具类
+     *
+     */
     @Autowired(required = false)
     SequenceFactory sequenceFactory;
 
@@ -92,7 +93,7 @@ public class NoticeServiceImpl implements INoticeService {
      */
 
     @Override
-    public QueryNoticeOutDTO changeNoticeStatus(QueryNoticeInfoInDTO inputDTO) {
+    public QueryNoticeOutDTO changeNoticeStatus(QueryNoticeInfoDTO inputDTO) {
 
         QueryNoticeOutDTO changeNoticeStatus = new QueryNoticeOutDTO();
         BsNoticeInfServiceImpl been = SpringContextUtils.getBean(BsNoticeInfServiceImpl.class);
@@ -121,11 +122,8 @@ public class NoticeServiceImpl implements INoticeService {
                 .setNiNtcEndTime(requestDTO.getNiNtcEndTime())
                 .setNiNtcStartTime(requestDTO.getNiNtcStartTime())
                 .setNiNtcStatus(requestDTO.getNiNtcStatus());
-        //3.2.2修改数据库中的数据
         baseMapper.updateById(entity);
-        //4.1获取数据库中数据
         BsNoticeInf notice = baseMapper.selectById(requestDTO.getNiNtcId());
-
         outDTO.setNiNtcName(notice.getNiNtcName())
                 .setNiNtcText(notice.getNiNtcText())
                 .setNiNtcCount(notice.getNiNtcCount())
