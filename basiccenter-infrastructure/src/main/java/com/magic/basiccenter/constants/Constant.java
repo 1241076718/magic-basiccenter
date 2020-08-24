@@ -17,7 +17,12 @@ public class Constant {
     //公告ID获取常量
     public static final String CU_NOTICE_ID = "cu_notice_id";
     /**
-     * 节日IDgit
+     * 节日I
      */
     public static final String FESTIVAL_BIZ_TAG = "festival_biz_tag";
+
+    /**
+     * 文档Id
+     */
+    public static final String DOC_ID = "document_id";
 }

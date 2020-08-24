@@ -19,7 +19,6 @@ import org.springframework.context.annotation.ImportResource;
 @ImportResource(locations = {"classpath*:rpc-provider.xml", "classpath*:rpc-consumer.xml"})
 @ComponentScan(basePackages = {"com.gift", "com.magic.basiccenter"})
 @MapperScan("com.**.model.mapper")
-//@MapperScan({"com.magic.basiccenter.mapper","com.gift.domain"})
 @EnableDiscoveryClient
 public class BasicCenterApplication {
 

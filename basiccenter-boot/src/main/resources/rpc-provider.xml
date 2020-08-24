@@ -1,12 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-	   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	   xmlns:rpc="http://www.ifpcloud.com/ifp/rpc"
-	   xsi:schemaLocation="http://www.springframework.org/schema/beans
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:rpc="http://www.ifpcloud.com/ifp/rpc"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
         http://www.springframework.org/schema/beans/spring-beans.xsd
         http://www.ifpcloud.com/ifp/rpc http://www.ifpcloud.com/ifp/rpc.xsd"
-	   default-autowire="byName">
+       default-autowire="byName">
 
-
-
+    <bean id="basicService" class="com.magic.basiccenter.serviceimpl.BasicServiceImpl"/>
+    <rpc:provider id="basicProvider" ref="basicService"
+                  interface="com.magic.basiccenter.service.BasicService"
+                  group="basic-center"
+                  type="SpringCloudCreater">
+        <rpc:config key="contextId" value="basic"/>
+    </rpc:provider>
 </beans>
