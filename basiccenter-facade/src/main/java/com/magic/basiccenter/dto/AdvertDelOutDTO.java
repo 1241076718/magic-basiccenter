@@ -1,9 +1,18 @@
 package com.magic.basiccenter.dto;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import java.io.Serializable;
 
+/**
+ * <p>广告配置删除出参</P>
+ *
+ * @author tangw@belink.com
+ * @version 0.0.1
+ * @className AdvertDelOutDTO
+ * @sine 2020/8/19 16:18
+ */
 @JsonIgnoreProperties({"handler", "hibernateLazyInitializer", "fieldHandler"})
-public class DelAdvertOutDTO implements Serializable {
+public class AdvertDelOutDTO implements Serializable {
     private static final long serialVersionUID = 3091653635276732432L;
 }

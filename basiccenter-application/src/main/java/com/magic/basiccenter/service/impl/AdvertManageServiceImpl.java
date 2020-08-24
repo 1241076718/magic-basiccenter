@@ -1,24 +1,24 @@
 package com.magic.basiccenter.service.impl;
 
-import com.gift.domain.sequence.factory.SequenceFactory;
 import com.magic.application.infrastructure.service.dto.MagicDTO;
 import com.magic.application.infrastructure.service.dto.MagicOutDTO;
 import com.magic.application.infrastructure.service.dto.data.ReqHeader;
 import com.magic.application.infrastructure.service.dto.data.RespHeader;
 import com.magic.application.infrastructure.utils.ApplicationServiceUtil;
-import com.magic.basiccenter.constants.Constant;
 import com.magic.basiccenter.dto.AdvertAddDTO;
 import com.magic.basiccenter.dto.AdvertAddOutDTO;
-import com.magic.basiccenter.dto.AdvertSelDTO;
-import com.magic.basiccenter.dto.AdvertSelOutPageDTO;
+import com.magic.basiccenter.dto.AdvertSelPageDTO;
+import com.magic.basiccenter.dto.AdvertSelPageOutDTO;
 import com.magic.basiccenter.dto.AdvertUpdDTO;
 import com.magic.basiccenter.dto.AdvertUpdOutDTO;
-import com.magic.basiccenter.dto.DelAdvertDTO;
-import com.magic.basiccenter.dto.DelAdvertOutDTO;
+import com.magic.basiccenter.dto.AdvertDelDTO;
+import com.magic.basiccenter.dto.AdvertDelOutDTO;
 import com.magic.basiccenter.error.AdvertErrorEnum;
 import com.magic.basiccenter.model.dto.AddAdvertInfoDTO;
 import com.magic.basiccenter.model.dto.AddAdvertInfoOutDTO;
 import com.magic.basiccenter.model.dto.DelAdvertInfoDTO;
+import com.magic.basiccenter.model.dto.SelAdvertInfoPageDTO;
+import com.magic.basiccenter.model.dto.SelAdvertInfoPageOutDTO;
 import com.magic.basiccenter.model.dto.UpdAdvertInfoDTO;
 import com.magic.basiccenter.model.dto.UpdAdvertInfoOutDTO;
 import com.magic.basiccenter.model.service.IAdvertService;
@@ -38,12 +38,6 @@ import org.springframework.stereotype.Service;
 @Service
 public class AdvertManageServiceImpl implements IAdvertManageService {
     /**
-     * 序列号生成工具
-     */
-    @Autowired
-    private SequenceFactory sequenceFactory;
-
-    /**
      * 广告配置表数据交互服务
      */
     @Autowired
@@ -53,6 +47,7 @@ public class AdvertManageServiceImpl implements IAdvertManageService {
      * 广告配置新增
      * @param requestDTO
      * @return
+     * @author laiqx@belink.com
      */
     @Override
     public MagicOutDTO<AdvertAddOutDTO> addAdvertInfo(MagicDTO<AdvertAddDTO> requestDTO) {
@@ -65,16 +60,14 @@ public class AdvertManageServiceImpl implements IAdvertManageService {
         try {
             AddAdvertInfoDTO addAdvertInfoDTO = new AddAdvertInfoDTO();
             BeanUtils.copyProperties(requestDTO.getBody(), addAdvertInfoDTO);
-            String aiAdvId = sequenceFactory.getSegmentFillZeroId(Constant.ADVERT_ID_TAG);
-            addAdvertInfoDTO.setAiAdvId(aiAdvId);
             AddAdvertInfoOutDTO addAdvertInfoOutDTO = advertService.addAdvertInfo(addAdvertInfoDTO);
             BeanUtils.copyProperties(addAdvertInfoOutDTO, outData);
             respHeader.setErrorCode(AdvertErrorEnum.SUCCESS.code());
             respHeader.setErrorMsg(AdvertErrorEnum.SUCCESS.msg());
         } catch (Exception e) {
             e.printStackTrace();
-            respHeader.setErrorCode(AdvertErrorEnum.ERROR.code());
-            respHeader.setErrorMsg(e.getMessage());
+            respHeader.setErrorCode(AdvertErrorEnum.ADDFAIL.code());
+            respHeader.setErrorMsg(AdvertErrorEnum.ADDFAIL.msg());
         }
 
         return magicOutDTO;
@@ -84,51 +77,67 @@ public class AdvertManageServiceImpl implements IAdvertManageService {
      * 广告列表查询
      * @param requestDTO
      * @return
+     * @author jianggq@belink.com
      */
     @Override
-    public MagicOutDTO<AdvertSelOutPageDTO> advertSelCond(MagicDTO<AdvertSelDTO> requestDTO) {
-        AdvertSelOutPageDTO advertSelOutPageDTO = new AdvertSelOutPageDTO<>();
-        MagicOutDTO<AdvertSelOutPageDTO> magicOutDTO = new MagicOutDTO<>();
+    public MagicOutDTO<AdvertSelPageOutDTO> advertSelCond(MagicDTO<AdvertSelPageDTO> requestDTO) {
+        //定义出参
+        AdvertSelPageOutDTO advertSelOutPageDTO = new AdvertSelPageOutDTO();
+        MagicOutDTO<AdvertSelPageOutDTO> magicOutDTO = new MagicOutDTO<>(advertSelOutPageDTO);
+
+        //定义返回头
         RespHeader respHeader = new RespHeader();
         magicOutDTO.setHeader(respHeader);
+
+        //获取请求头
         ReqHeader reqHead = requestDTO.getHeader();
-        AdvertSelDTO reqBody = requestDTO.getBody();
+
+        //转换请求DTO
+        AdvertSelPageDTO reqBody = requestDTO.getBody();
+        SelAdvertInfoPageDTO selAdvertInfoPageDTO = new SelAdvertInfoPageDTO();
+        BeanUtils.copyProperties(reqBody,selAdvertInfoPageDTO);
+
         try {
-            advertSelOutPageDTO = advertService.advertSelPageCond(reqBody);
+            //执行查询
+            SelAdvertInfoPageOutDTO selAdvertInfoPageOutDTO = advertService.advertSelPageCond(selAdvertInfoPageDTO);
+            //转换返回DTO
+            BeanUtils.copyProperties(selAdvertInfoPageOutDTO,advertSelOutPageDTO);
+            //封装返回的数据
             respHeader.setErrorCode(AdvertErrorEnum.SUCCESS.code());
             respHeader.setErrorMsg(AdvertErrorEnum.SUCCESS.msg());
             magicOutDTO.setBody(advertSelOutPageDTO);
             ApplicationServiceUtil.supplementaryRespHeader(reqHead, respHeader);
         } catch (Exception e) {
             e.printStackTrace();
-            respHeader.setErrorCode(AdvertErrorEnum.ERROR.code());
-            respHeader.setErrorMsg(e.getMessage());
+            respHeader.setErrorCode(AdvertErrorEnum.SELFAIL.code());
+            respHeader.setErrorMsg(AdvertErrorEnum.SELFAIL.msg());
         }
         return magicOutDTO;
     }
 
     /**
      * 通过主键id删除广告
-     * @param dto
+     * @param requestDTO
      * @return
+     * @author tangw@belink.com
      */
 	@Override
-	public MagicOutDTO<DelAdvertOutDTO> deleteAdvert(MagicDTO<DelAdvertDTO> dto) {
-		DelAdvertOutDTO bodyDTO = new DelAdvertOutDTO();
-		MagicOutDTO<DelAdvertOutDTO> magicOutDTO = new MagicOutDTO<>(bodyDTO);
-		RespHeader header = new RespHeader();
-		magicOutDTO.setHeader(header);
+	public MagicOutDTO<AdvertDelOutDTO> delAdvertInfo(MagicDTO<AdvertDelDTO> requestDTO) {
+		AdvertDelOutDTO delOutDTO = new AdvertDelOutDTO();
+        MagicOutDTO<AdvertDelOutDTO> magicOutDTO = new MagicOutDTO<>(delOutDTO);
+        RespHeader respHeader = new RespHeader();
+        magicOutDTO.setHeader(respHeader);
 		try{
-			String advId = dto.getBody().getAiAdvId();
-			DelAdvertInfoDTO advertNoticeDTO = new DelAdvertInfoDTO();
-			advertNoticeDTO.setAiAdvId(advId);
-			advertService.deleteAdvert(advertNoticeDTO);
-			header.setErrorCode(AdvertErrorEnum.SUCCESS.code());
-			header.setErrorMsg(AdvertErrorEnum.SUCCESS.msg());
+			String advId = requestDTO.getBody().getAiAdvId();
+			DelAdvertInfoDTO delAdvertInfoDTO = new DelAdvertInfoDTO();
+            delAdvertInfoDTO.setAiAdvId(advId);
+			advertService.delAdvertInfo(delAdvertInfoDTO);
+            respHeader.setErrorCode(AdvertErrorEnum.SUCCESS.code());
+            respHeader.setErrorMsg(AdvertErrorEnum.SUCCESS.msg());
 		} catch (Exception e) {
 			e.getStackTrace();
-			header.setErrorCode(AdvertErrorEnum.ERROR.code());
-			header.setErrorMsg(e.getMessage());
+            respHeader.setErrorCode(AdvertErrorEnum.DELFAIL.code());
+            respHeader.setErrorMsg(AdvertErrorEnum.DELFAIL.msg());
 		}
 		return magicOutDTO;
 	}
@@ -137,6 +146,7 @@ public class AdvertManageServiceImpl implements IAdvertManageService {
      * 广告配置修改
      * @param requestDTO
      * @return
+     * @author luolf@belink.com
      */
     @Override
     public MagicOutDTO<AdvertUpdOutDTO> updAdvertInfo(MagicDTO<AdvertUpdDTO> requestDTO) {
@@ -155,8 +165,17 @@ public class AdvertManageServiceImpl implements IAdvertManageService {
             respHeader.setErrorMsg(AdvertErrorEnum.SUCCESS.msg());
         } catch (Exception e) {
             e.printStackTrace();
-            respHeader.setErrorCode(AdvertErrorEnum.ERROR.code());
-            respHeader.setErrorMsg(e.getMessage());
+            Integer advertStatus = requestDTO.getBody().getAiAdvStatus();
+            if (1 == advertStatus) {
+                respHeader.setErrorCode(AdvertErrorEnum.PUTFAIL.code());
+                respHeader.setErrorMsg(AdvertErrorEnum.PUTFAIL.msg());
+            } else if (2 == advertStatus) {
+                respHeader.setErrorCode(AdvertErrorEnum.SOLDFAIL.code());
+                respHeader.setErrorMsg(AdvertErrorEnum.SOLDFAIL.msg());
+            } else {
+                respHeader.setErrorCode(AdvertErrorEnum.UPDFAIL.code());
+                respHeader.setErrorMsg(AdvertErrorEnum.UPDFAIL.msg());
+            }
         }
 
         return magicOutDTO;
