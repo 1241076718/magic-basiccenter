@@ -24,14 +24,12 @@
     <dependencies>
         <!--领域工程服务接口定义依赖开始-->
 
-
-
-
         <!--领域工程依赖结束-->
 
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
+            <version>1.18.8</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
@@ -39,6 +37,9 @@
             <artifactId>basiccenter-facade</artifactId>
             <version>0.0.1-SNAPSHOT</version>
         </dependency>
+
+
+
         <!--mapStruct依赖 -->
         <dependency>
             <groupId>org.mapstruct</groupId>
@@ -51,29 +52,27 @@
             <version>${org.mapstruct.version}</version>
             <scope>provided</scope>
         </dependency>
-
-
         <dependency>
-            <groupId>com.gift</groupId>
-            <artifactId>domain-infrastructure</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
+            <groupId>com.baomidou</groupId>
+            <artifactId>mybatis-plus-core</artifactId>
+            <version>3.1.2</version>
+            <scope>compile</scope>
         </dependency>
+
         <dependency>
             <groupId>com.gift</groupId>
-            <artifactId>gift-core</artifactId>
-            <version>1.0.0</version>
+            <artifactId>gift-sequence-domain</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
             <exclusions>
                 <exclusion>
-                    <artifactId>fastjson</artifactId>
-                    <groupId>com.alibaba</groupId>
+                    <artifactId>mysql-connector-java</artifactId>
+                    <groupId>mysql</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>mybatis-plus-boot-starter</artifactId>
+                    <groupId>com.baomidou</groupId>
                 </exclusion>
             </exclusions>
-        </dependency>
-        <dependency>
-            <groupId>org.jetbrains</groupId>
-            <artifactId>annotations</artifactId>
-            <version>RELEASE</version>
-            <scope>compile</scope>
         </dependency>
     </dependencies>
 </project>
