@@ -6,6 +6,10 @@ import lombok.Data;
 import java.io.Serializable;
 import java.util.Date;
 
+/**
+ * 节假日添加功能传入实体类
+ * @author ChenFeiYang
+ */
 @Data
 public class FestivalAddDTO implements Serializable {
 

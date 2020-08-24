@@ -7,6 +7,10 @@ import lombok.Data;
 
 import java.util.Date;
 
+/**
+ * 节假日对应表DTO
+ * @Author Lei
+ */
 @Data
 @TableName(value="festival_info")
 public class FestivalManageInf {

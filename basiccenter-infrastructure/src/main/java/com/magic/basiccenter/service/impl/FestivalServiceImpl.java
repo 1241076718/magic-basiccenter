@@ -19,6 +19,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -26,6 +27,10 @@ import java.util.Date;
 import java.util.List;
 
 
+/**
+ * 节假日模块数据交互层功能
+ * @Author YuJiaYu
+ */
 @Slf4j
 @Service
 public class FestivalServiceImpl implements FestivalService {
@@ -37,16 +42,30 @@ public class FestivalServiceImpl implements FestivalService {
     private SequenceFactory sequenceFactory;
 
 
+
     /**
      * 向数据库添加节日
-     * @param festivalManageInf
-     * @return
+     * @param festivalAddDTO
      */
     @Override
-    public void FestivalAdd(FestivalManageInf festivalManageInf) {
+    public void FestivalAdd(FestivalAddDTO festivalAddDTO) {
+
+        FestivalManageInf festivalManageInf = new FestivalManageInf();
+
         //添加Id
+        //封装实体对象
+        festivalManageInf.setFestivalYear(festivalAddDTO.getFestivalYear());
+        festivalManageInf.setFestivalName(festivalAddDTO.getFestivalName());
+        festivalManageInf.setFestivalType(festivalAddDTO.getFestivalType());
+        festivalManageInf.setFestivalDeploy(festivalAddDTO.getFestivalDeploy());
+        festivalManageInf.setFestivalStartTime(festivalAddDTO.getFestivalStartTime());
+        festivalManageInf.setFestivalEndTime(festivalAddDTO.getFestivalEndTime());
+        festivalManageInf.setFestivalPutTime(festivalAddDTO.getFestivalPutTime());
+        festivalManageInf.setFestivalPutPerson(festivalAddDTO.getFestivalPutPerson());
+        festivalManageInf.setFestivalExist("0");
+        festivalManageInf.setFestivalValid("0");
         festivalManageInf.setFestivalId(sequenceFactory.getSegmentDateId(Constant.FESTIVAL_BIZ_TAG));
-        festManageMapper.insert(festivalManageInf);
+
     }
     /**
      * 冲突查询
@@ -55,11 +74,16 @@ public class FestivalServiceImpl implements FestivalService {
      * @return
      */
     @Override
-    public List<FestivalManageInf> FestivalSelectNameYear(String festivalName, String festivalYear) {
+    public Boolean FestivalSelectNameYear(String festivalName, String festivalYear) {
         QueryWrapper<FestivalManageInf> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("FESTIVAL_YEAR", festivalYear).eq("FESTIVAL_NAME", festivalName);
         List<FestivalManageInf> festivalManageInfs = festManageMapper.selectList(queryWrapper);
-        return festivalManageInfs;
+        if (festivalManageInfs.isEmpty()){
+            return true;
+            //festManageMapper.insert(festivalManageInf);
+        }else {
+            return false;
+        }
     }
 
 
@@ -161,39 +185,112 @@ public class FestivalServiceImpl implements FestivalService {
 
     }
 
-    /**
-     * 根据Id判断被修改节假日安排是否有效
-     * @param festivalId
-     * @return
-     */
     @Override
-    public FestivalManageInf FestivalModifySelectId(String festivalId) {
-        FestivalManageInf oldFestival = festManageMapper.selectById(festivalId);
-        return oldFestival;
-    }
+    public RespHeader FestivalModify(FestivalManageModifyDTO festivalModifyDTO) {
 
-    /**
-     * 获取所有有效的节假日安排的日期数据(大于当前系统日期)
-     * @param nowDate
-     * @return
-     */
-    @Override
-    public List<FestivalManageInf> FestivalModifySelectList(Date nowDate) {
+        RespHeader respHeader = new RespHeader();
+
+        String festivalId = festivalModifyDTO.getFestivalId();
+
+        // 根据Id判断被修改节假日安排是否有效
+        FestivalManageInf oldFestival = festManageMapper.selectById(festivalId);
+
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        String format = sdf.format(new Date());
+        Date nowDate = null;
+
+        try {
+            nowDate = sdf.parse(format);
+            if (oldFestival.getFestivalStartTime().getTime() <= nowDate.getTime()) {
+                // 获取的节假日开始的时间比当前系统时间小或相等(不能修改,选择的节假日无效)
+                respHeader.setErrorCode(FestivalMessageEnum.FAIL_FESTIVAL_INVALID.code());
+                respHeader.setErrorMsg(FestivalMessageEnum.FAIL_FESTIVAL_INVALID.msg());
+                return respHeader;
+            }
+        } catch (ParseException e) {
+            respHeader.setErrorCode(FestivalMessageEnum.FAIL.code());
+            respHeader.setErrorMsg(FestivalMessageEnum.FAIL.msg());
+            return respHeader;
+        }
+
+        // 获取节假日修改日期数据
+        String festivalDeploy = festivalModifyDTO.getFestivalDeploy();
+        String[] festivalArr = festivalDeploy.split(",");
+        Date festivalStartDate = null;
+        Date festivalEndDate = null;
+        try {
+            festivalStartDate = sdf.parse(festivalArr[0]);
+            festivalEndDate = sdf.parse(festivalArr[festivalArr.length - 1]);
+            if (festivalStartDate.getTime() < nowDate.getTime()) {
+                // 修改失败，传入的修改日期无效
+                respHeader.setErrorCode(FestivalMessageEnum.FAIL_IN_FESTIVAL_INVALID.code());
+                respHeader.setErrorMsg(FestivalMessageEnum.FAIL_IN_FESTIVAL_INVALID.msg());
+                return respHeader;
+            }
+        } catch (ParseException e) {
+            respHeader.setErrorCode(FestivalMessageEnum.FAIL.code());
+            respHeader.setErrorMsg(FestivalMessageEnum.FAIL.msg());
+            return respHeader;
+        }
+
+        // 获取所有有效的节假日安排的日期数据(大于当前系统日期)
         QueryWrapper<FestivalManageInf> QueryWrapper = new QueryWrapper<>();
         List<FestivalManageInf> selectList = festManageMapper
                 .selectList(QueryWrapper.gt("FESTIVAL_START_TIME", nowDate));
-        return  selectList;
+
+        // 判断节假日修改日期是否与其他日期冲突
+        // 创建判断失败flag
+        boolean conflict = false;
+        for (FestivalManageInf festivalRawDataDate : selectList) {
+            //判断日期是否存在
+            if (festivalRawDataDate.getFestivalExist().equals("0")) {
+
+                // 判断是否是其他日期
+                if (!festivalRawDataDate.getFestivalId().equals(festivalModifyDTO.getFestivalId())) {
+                    // 不冲突
+                    if (festivalRawDataDate.getFestivalStartTime().getTime() > festivalEndDate.getTime()
+                            || festivalRawDataDate.getFestivalEndTime().getTime() < festivalStartDate.getTime()) {
+                        conflict = true;
+                    } else {
+                        // 冲突：修改失败
+                        respHeader.setErrorCode(FestivalMessageEnum.FAIL_FESTIVAL_CONFLICT.code());
+                        respHeader.setErrorMsg(FestivalMessageEnum.FAIL_FESTIVAL_CONFLICT.msg());
+                        return respHeader;
+                    }
+                } else {
+                    conflict = true;
+                }
+            }
+        }
+        // 判断成功，修改数据
+        if (conflict) {
+            // 获取节假日修改的其他数据
+            // 将数据修改至数据库
+            FestivalManageInf updateFestivalInf = new FestivalManageInf();
+            updateFestivalInf.setFestivalDeploy(festivalDeploy);
+            updateFestivalInf.setFestivalName(festivalModifyDTO.getFestivalName());
+            updateFestivalInf.setFestivalUpdatePerson("LEI");
+            updateFestivalInf.setFestivalUpdateTime(nowDate);
+            updateFestivalInf.setFestivalStartTime(festivalStartDate);
+            updateFestivalInf.setFestivalEndTime(festivalEndDate);
+            updateFestivalInf.setFestivalType(festivalModifyDTO.getFestivalType());
+
+            Calendar calendar = Calendar.getInstance();
+            calendar.setTime(festivalStartDate);
+            updateFestivalInf.setFestivalYear(String.valueOf(calendar.get(Calendar.YEAR)));
+
+            festManageMapper.update(updateFestivalInf, QueryWrapper.eq("FESTIVAL_ID", festivalId));
+
+        }
+        // 返回修改成功
+        respHeader.setErrorCode(FestivalMessageEnum.SUCCESS.code());
+        respHeader.setErrorMsg(FestivalMessageEnum.SUCCESS.msg());
+
+        return respHeader;
+
     }
 
 
-    /**
-     * 修改数据库对应数据
-     * @param updateFestivalInf
-     * @param festivalId
-     */
-    @Override
-    public void FestivalModifyUpdata(FestivalManageInf updateFestivalInf, String festivalId) {
-        QueryWrapper<FestivalManageInf> QueryWrapper = new QueryWrapper<>();
-        festManageMapper.update(updateFestivalInf, QueryWrapper.eq("FESTIVAL_ID", festivalId));
-    }
+
+
 }

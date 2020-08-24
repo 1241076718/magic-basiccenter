@@ -12,9 +12,7 @@ import java.io.Serializable;
 @Data
 public class FestivalManageModifyOutDTO implements Serializable {
 
-	/**
-	 * 
-	 */
+
 	private static final long serialVersionUID = 1L;
 	/**
 	 * 修改信息状态
