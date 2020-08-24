@@ -32,20 +32,22 @@ public interface INoticeService {
      * @return
      */
     List<QueryNoticeOutDTO> queryNotice(QueryNoticeDTO inputDTO);
+
+    /**
+     * 修改管理公告
+     * @param requestDTO
+     * @return
+     */
+    QueryNoticeOutDTO updateNotice(QueryNoticeDTO requestDTO);
     /**
      *
      * @param inputDTO
      * @return
      */
-
     QueryNoticeOutDTO changeNoticeStatus(QueryNoticeInfoInDTO inputDTO);
-    /**
-     *
-     * @param
-     * @return
-     */
 
-    QueryNoticeOutDTO updateNotice(QueryNoticeDTO requestDTO);
+
+    
 
 
 }

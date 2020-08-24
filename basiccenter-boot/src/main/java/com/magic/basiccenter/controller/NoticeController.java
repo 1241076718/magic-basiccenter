@@ -23,11 +23,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/notice")
-
-
 public class NoticeController {
-
-
     @Autowired(required = false)
     IBasicService service;
 
@@ -43,7 +39,6 @@ public class NoticeController {
     public MagicOutDTO<AddNoticeInfoOutDTO> addNotice(@RequestBody MagicDTO<AddNoticeInfoInDTO> requestDTO) {
         return service.addNoticeInfo(requestDTO);
     }
-
     /**
      * 修改公告
      *

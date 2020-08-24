@@ -93,7 +93,11 @@ public class NoticeServiceImpl implements INoticeService {
         changeNoticeStatus.setNiNtcCount(i);
         return changeNoticeStatus;
     }
-
+    /**
+     * 修改公告管理列表
+     * @param requestDTO
+     * @return
+     */
     @Override
     public QueryNoticeOutDTO updateNotice(QueryNoticeDTO requestDTO) {
         QueryNoticeOutDTO outDTO = new QueryNoticeOutDTO();

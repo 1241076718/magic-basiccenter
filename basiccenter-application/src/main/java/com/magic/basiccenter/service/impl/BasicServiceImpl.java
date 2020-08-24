@@ -22,8 +22,6 @@ import java.util.List;
  * Description:
  * Version: V1.0
  */
-
-
 @Service
 public class BasicServiceImpl implements IBasicService {
 
@@ -32,18 +30,8 @@ public class BasicServiceImpl implements IBasicService {
 
 
 
-    /**
-     * <p>查询公告方法</P>
-     *
-     * @author goupc1@belink.com
-     * @version 0.0.1
-     * @className basicCenterApplication
-     * @sine 2020/8/17 9:15
-     */
-
     @Override
     public MagicOutDTO<QueryNoticeInfoOutDTO> queryNoticeList(MagicDTO<QueryNoticeInfoInDTO> requestDTO) {
-
         System.out.println(requestDTO + ")==========================queryNoticeList=======================11================");
         System.out.println(requestDTO.getBody());
         MagicOutDTO<QueryNoticeInfoOutDTO> result = new MagicOutDTO<>();
@@ -62,41 +50,41 @@ public class BasicServiceImpl implements IBasicService {
         queryNoticeDTO.setNiNtcStartTime(body.getNiNtcStartTime());
 
         queryNoticeDTO.setNiNtcEndTime(body.getNiNtcEndTime());
-        if(body.getCurrentPage()>=0){
+        if(body.getCurrentPage()!=0){
             queryNoticeDTO.setNowsPage(((body.getCurrentPage() - 1) * body.getTurnPageShowNum()));
 
-            queryNoticeDTO.setPageSize(body.getTurnPageShowNum());
+            queryNoticeDTO.setPageSize(body.getCurrentPage() * body.getTurnPageShowNum());
 
         }
 
-        List<QueryNoticeOutDTO> queryNoticeOutDTOS = service.queryNotice(queryNoticeDTO);
 
+
+//      BeanUtils.copyProperties(body,queryNoticeDTO);
+        List<QueryNoticeOutDTO> queryNoticeOutDTOS = service.queryNotice(queryNoticeDTO);
+        queryNoticeDTO.setPageSize(null);
         RespHeader respHeader = new RespHeader();
         if (!queryNoticeOutDTOS.isEmpty()) {
-            List<QueryNoticeOutDTO> totalNotices=null;
-            if(queryNoticeDTO.getNowsPage()>=0){
-                queryNoticeDTO.setPageSize(null);
-                 totalNotices = service.queryNotice(queryNoticeDTO);
-            }
+            List<QueryNoticeOutDTO> totalNotices = service.queryNotice(queryNoticeDTO);
             QueryNoticeInfoOutDTO outDTOd = new QueryNoticeInfoOutDTO();
             respHeader.setErrorCode(BasicErrorEnum.SUCCESS.code());
             respHeader.setErrorMsg(BasicErrorEnum.SUCCESS.msg());
-            if(totalNotices!=null) {
-                outDTOd.setTurnPageTotalNum(totalNotices.size());
-            }
-            outDTOd.setData(queryNoticeOutDTOS);
+            outDTOd.setTurnPageTotalNum(totalNotices.size());
+            outDTOd.setData(totalNotices);
+
             result.setBody(outDTOd);
         } else {
-            respHeader.setErrorCode(BasicErrorEnum.QFAIL.code());
-            respHeader.setErrorMsg(BasicErrorEnum.QFAIL.msg());
+            respHeader.setErrorCode(BasicErrorEnum.FAIL.code());
+            respHeader.setErrorMsg(BasicErrorEnum.FAIL.msg());
         }
         result.setHeader(respHeader);
         return result;
     }
 
-
-
-
+    /**
+     * 公告新增
+     * @param requestDTO
+     * @return
+     */
     @Override
     public MagicOutDTO<AddNoticeInfoOutDTO> addNoticeInfo(MagicDTO<AddNoticeInfoInDTO> requestDTO) {
         //定义输出
@@ -108,13 +96,14 @@ public class BasicServiceImpl implements IBasicService {
         AddNoticeInfoInDTO body = requestDTO.getBody();
         AddNoticeInfoOutDTO addNoticeInfoOutDTO = service.addNotice(body);
         Integer rows = addNoticeInfoOutDTO.getTotal();
-        if (rows>=1){
+        //判断执行结果
+        if (rows!=null && rows>0){
             respHead.setErrorCode(BasicErrorEnum.SUCCESS.code());
             respHead.setErrorMsg(BasicErrorEnum.SUCCESS.msg());
             magicOutDTO.setBody(addNoticeInfoOutDTO);
         }else{
-            respHead.setErrorCode(BasicErrorEnum.IFAIL.code());
-            respHead.setErrorMsg(BasicErrorEnum.IFAIL.msg());
+            respHead.setErrorCode(BasicErrorEnum.FAIL.code());
+            respHead.setErrorMsg(BasicErrorEnum.FAIL.msg());
         }
         magicOutDTO.setHeader(respHead);
         return magicOutDTO;
@@ -151,8 +140,8 @@ public class BasicServiceImpl implements IBasicService {
                     .setNiNtcEndTime(updateNoticeDTO.getNiNtcEndTime());
             magicOutDTO.setBody(appNoticeOutDTO);
         }else {
-            respHeader.setErrorCode(BasicErrorEnum.CFAIL.code());
-            respHeader.setErrorMsg(BasicErrorEnum.CFAIL.msg());
+            respHeader.setErrorCode(BasicErrorEnum.FAIL.code());
+            respHeader.setErrorMsg(BasicErrorEnum.FAIL.msg());
         }
         magicOutDTO.setHeader(respHeader);
         return magicOutDTO;
