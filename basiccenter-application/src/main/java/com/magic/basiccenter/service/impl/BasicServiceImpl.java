@@ -23,6 +23,7 @@ import java.util.List;
  * @modified By：
  * @version: $1.0.0
  */
+
 @Service
 public class BasicServiceImpl implements IBasicService {
 
@@ -40,26 +41,31 @@ public class BasicServiceImpl implements IBasicService {
     public MagicOutDTO<QueryNoticeInfoOutDTO> queryNoticeList(MagicDTO<QueryNoticeInfoDTO> requestDTO) {
 
         MagicOutDTO<QueryNoticeInfoOutDTO> result = new MagicOutDTO<>();
-        RespHeader respHeader = new RespHeader();
         QueryNoticeDTO queryNoticeDTO = new QueryNoticeDTO();
+
         QueryNoticeInfoDTO body = requestDTO.getBody();
 
         queryNoticeDTO.setNiNtcCreator(body.getNiNtcCreator());
+
         queryNoticeDTO.setNiNtcId(body.getNiNtcId());
+
         queryNoticeDTO.setNiNtcName(body.getNiNtcName());
+
         queryNoticeDTO.setNiNtcStatus(body.getNiNtcStatus());
+
         queryNoticeDTO.setNiNtcStartTime(body.getNiNtcStartTime());
+
         queryNoticeDTO.setNiNtcEndTime(body.getNiNtcEndTime());
         if(body.getCurrentPage()>=0){
             queryNoticeDTO.setNowsPage(((body.getCurrentPage() - 1) * body.getTurnPageShowNum()));
+
             queryNoticeDTO.setPageSize(body.getTurnPageShowNum());
+
         }
 
-
-        /**
-         * 调用方法查询公告列表
-         */
         List<QueryNoticeOutDTO> queryNoticeOutDTOS = service.queryNotice(queryNoticeDTO);
+
+        RespHeader respHeader = new RespHeader();
         if (!queryNoticeOutDTOS.isEmpty()) {
             List<QueryNoticeOutDTO> totalNotices=null;
             if(queryNoticeDTO.getNowsPage()>=0){
