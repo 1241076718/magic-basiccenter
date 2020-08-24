@@ -4,6 +4,9 @@ import lombok.Data;
 
 import java.io.Serializable;
 
+/**
+ * 文档发布封装类
+ */
 @Data
 public class DocumentInputDTO implements Serializable {
     /**

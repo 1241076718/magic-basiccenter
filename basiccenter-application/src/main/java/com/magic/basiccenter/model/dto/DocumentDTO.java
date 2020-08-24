@@ -66,5 +66,9 @@ public class DocumentDTO implements Serializable {
      * 修改时间
      */
     private String documentMtime;
+    /**
+     * 数据生命状态
+     */
+    private String docLife;
 
 }

@@ -4,6 +4,9 @@ import lombok.Data;
 
 import java.io.Serializable;
 
+/**
+ * 数据回显
+ */
 @Data
 public class DocumentIdDTO implements Serializable {
     /**
