@@ -1,4 +1,4 @@
-package com.magic.basiccenter.entity;
+package com.magic.basiccenter.constants;
 
 /**
  * 常量类
@@ -7,6 +7,5 @@ package com.magic.basiccenter.entity;
  * @date 2020/08/24
  */
 public class Constant {
-
     public static final String  FESTIVAL_BIZ_TAG = "festival_biz_tag";
 }

@@ -3,15 +3,15 @@ package com.magic.basiccenter.error;
 import java.util.HashMap;
 import java.util.Map;
 
-public enum FestivalModifyMessageEnum {
+public enum FestivalMessageEnum {
 	/**
 	 * 修改成功
 	 */
-	SUCCESS("0", "修改成功"),
+	SUCCESS("0", "操作成功"),
 	/**
 	 * 修改成功
 	 */
-	FAIL("-1", "修改失败"),
+	FAIL("-1", "操作失败"),
 	/**
 	 * 修改失败,节假日无效
 	 */
@@ -25,15 +25,16 @@ public enum FestivalModifyMessageEnum {
 	 */
 	FAIL_IN_FESTIVAL_INVALID("BAS003003", "修改失败,传入的修改日期无效"),
 
-
 	/**
 	 * 添加失败，已有新增的节点日
 	 */
 	FAIL_FESTIVAL_ADD_CONFLICT("BAS003004","添加失败，已有新增的节点日");
 
+
+
 	private Map<String, String> map = new HashMap<>();
 
-	FestivalModifyMessageEnum(String code, String msg) {
+	FestivalMessageEnum(String code, String msg) {
 		this.map.put("code", code);
 		this.map.put("msg", msg);
 	}

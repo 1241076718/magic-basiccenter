@@ -24,7 +24,7 @@ import java.util.List;
 @RestController
 @Slf4j
 @RequestMapping("basic")
-public class BasicController {
+public class FestivalController {
 
     @Autowired
     private FestivalManageService festivalManageService;
@@ -40,8 +40,11 @@ public class BasicController {
         return festivalManageService.AddFestival(magicDTO);
     }
 
+
+
     /**
      * 节假日管理 --返回列表
+     * @param magicDTO
      * @return
      */
     @PostMapping("/festival/festivalGetList")
@@ -74,15 +77,13 @@ public class BasicController {
 
     /**
      * 节假日管理--修改
+     * @param magicDTO
+     * @return
      */
     @PostMapping("/festival/festivalModify")
     public MagicOutDTO<FestivalManageModifyOutDTO> FestivalModify(@RequestBody MagicDTO<FestivalManageModifyDTO> magicDTO){
         return festivalManageService.ModifyFestival(magicDTO);
     }
-
-
-
-
 
 
 }
