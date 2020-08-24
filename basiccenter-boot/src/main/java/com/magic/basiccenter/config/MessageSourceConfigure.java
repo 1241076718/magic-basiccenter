@@ -6,6 +6,15 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.support.ReloadableResourceBundleMessageSource;
 
+/**
+ *
+ *
+ * @author goupc1@belink.com
+ * @version 0.0.1
+ * @className MessageSourceConfigure
+ * @sine 2020/8/17 9:15
+ */
+
 @Configuration
 public class MessageSourceConfigure {
 
@@ -15,7 +24,6 @@ public class MessageSourceConfigure {
         ReloadableResourceBundleMessageSource ms = new ReloadableResourceBundleMessageSource();
         ms.setDefaultEncoding("UTF-8");
         ms.setBasename("classpath:i18n/ValidationMessages");
-
         return ms;
     }
 }
