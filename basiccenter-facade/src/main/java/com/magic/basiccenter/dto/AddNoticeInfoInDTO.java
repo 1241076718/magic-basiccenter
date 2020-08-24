@@ -6,7 +6,7 @@ import java.io.Serializable;
 import java.util.Date;
 
 /**
- *
+ *公告新增信息传入DTO
  */
 @Data
 public class AddNoticeInfoInDTO implements Serializable {

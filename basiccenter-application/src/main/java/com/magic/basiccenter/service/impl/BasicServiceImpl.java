@@ -16,14 +16,13 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 /**
- * Created with IntelliJ IDEA.
- * User: GPC
- * Date: 2020/08/21 13:53
- * Description:
- * Version: V1.0
+ * <p>公告application层实现类</P>
+ *
+ * @author goupc1@belink.com
+ * @version 0.0.1
+ * @className basicCenterApplication
+ * @sine 2020/8/17 9:15
  */
-
-
 @Service
 public class BasicServiceImpl implements IBasicService {
 
@@ -31,15 +30,14 @@ public class BasicServiceImpl implements IBasicService {
     INoticeService service;
 
 
-
     /**
-     * <p>查询公告方法</P>
-     *
-     * @author goupc1@belink.com
-     * @version 0.0.1
-     * @className basicCenterApplication
-     * @sine 2020/8/17 9:15
+     * 公告查询
+     * @param requestDTO
+     * @return
      */
+
+
+
 
     @Override
     public MagicOutDTO<QueryNoticeInfoOutDTO> queryNoticeList(MagicDTO<QueryNoticeInfoInDTO> requestDTO) {
@@ -76,7 +74,7 @@ public class BasicServiceImpl implements IBasicService {
             List<QueryNoticeOutDTO> totalNotices=null;
             if(queryNoticeDTO.getNowsPage()>=0){
                 queryNoticeDTO.setPageSize(null);
-                 totalNotices = service.queryNotice(queryNoticeDTO);
+                totalNotices = service.queryNotice(queryNoticeDTO);
             }
             QueryNoticeInfoOutDTO outDTOd = new QueryNoticeInfoOutDTO();
             respHeader.setErrorCode(BasicErrorEnum.SUCCESS.code());
@@ -94,8 +92,11 @@ public class BasicServiceImpl implements IBasicService {
         return result;
     }
 
-
-
+    /**
+     * 公告新增
+     * @param requestDTO
+     * @return
+     */
     @Override
     public MagicOutDTO<AddNoticeInfoOutDTO> addNoticeInfo(MagicDTO<AddNoticeInfoInDTO> requestDTO) {
         //定义输出
@@ -107,7 +108,8 @@ public class BasicServiceImpl implements IBasicService {
         AddNoticeInfoInDTO body = requestDTO.getBody();
         AddNoticeInfoOutDTO addNoticeInfoOutDTO = service.addNotice(body);
         Integer rows = addNoticeInfoOutDTO.getTotal();
-        if (rows>=1){
+        //判断执行结果
+        if (rows!=null && rows>0){
             respHead.setErrorCode(BasicErrorEnum.SUCCESS.code());
             respHead.setErrorMsg(BasicErrorEnum.SUCCESS.msg());
             magicOutDTO.setBody(addNoticeInfoOutDTO);
@@ -117,14 +119,14 @@ public class BasicServiceImpl implements IBasicService {
         }
         magicOutDTO.setHeader(respHead);
         return magicOutDTO;
-
     }
 
     /**
-     * 修改公告管理列表
+     * 公告编辑
      * @param requestDTO
      * @return
      */
+
     @Override
     public MagicOutDTO<UpdateNoticeInfoOutDTO> updateNotice(MagicDTO<QueryNoticeInfoInDTO> requestDTO) {
         //1.返回DTO构造
@@ -162,7 +164,11 @@ public class BasicServiceImpl implements IBasicService {
     }
 
 
-
+    /**
+     * 公告删除与上下架
+     * @param requestDTO
+     * @return
+     */
 
     @Override
     public MagicOutDTO<QueryNoticeInfoOutDTO> changeNoticeStatus(MagicDTO<QueryNoticeInfoInDTO> requestDTO) {
@@ -179,8 +185,8 @@ public class BasicServiceImpl implements IBasicService {
             respHeader.setErrorCode(BasicErrorEnum.SUCCESS.code());
             respHeader.setErrorMsg(BasicErrorEnum.SUCCESS.msg());
         }else {
-            respHeader.setErrorCode(BasicErrorEnum.FAIL.code());
-            respHeader.setErrorMsg(BasicErrorEnum.FAIL.msg());
+            respHeader.setErrorCode(BasicErrorEnum.DFAIL.code());
+            respHeader.setErrorMsg(BasicErrorEnum.DFAIL.msg());
         }
         magicOutDTO.setHeader(respHeader);
         return magicOutDTO;
