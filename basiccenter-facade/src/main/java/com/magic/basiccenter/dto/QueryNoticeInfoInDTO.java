@@ -1,6 +1,5 @@
 package com.magic.basiccenter.dto;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.magic.application.infrastructure.service.dto.SelectPageDTO;
 import lombok.Data;
 
@@ -15,6 +14,8 @@ import java.util.Date;
  * @modified By：
  * @version: $
  */
+
+
 
 
 @Data
@@ -41,10 +42,7 @@ public class QueryNoticeInfoInDTO  extends SelectPageDTO implements Serializable
     /**
      * 公告发布时间
      */
-    @JsonFormat(
-            pattern = "yyyy-MM-dd",
-            timezone = "GMT+8"
-    )
+
     private Date niNtcIdReleaseTime;
     /**
      * 公告创建者
@@ -73,18 +71,12 @@ public class QueryNoticeInfoInDTO  extends SelectPageDTO implements Serializable
     /**
      * 创建时间
      */
-    @JsonFormat(
-            pattern = "yyyy-MM-dd",
-            timezone = "GMT+8"
-    )
+
     private Date niNtcGmtCreate;
     /**
      * 修改时间
      */
-    @JsonFormat(
-            pattern = "yyyy-MM-dd",
-            timezone = "GMT+8"
-    )
+
     private Date niNtcGmtModified;
     /**
      * 修改人
