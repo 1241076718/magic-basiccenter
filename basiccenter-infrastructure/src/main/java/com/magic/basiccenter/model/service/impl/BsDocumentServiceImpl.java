@@ -1,6 +1,7 @@
 package com.magic.basiccenter.model.service.impl;
 
 import java.util.Collection;
+import java.util.List;
 import java.util.Map;
 import java.util.function.Function;
 
@@ -17,4 +18,9 @@ import com.magic.basiccenter.model.service.IBsDocumentService;
 public class BsDocumentServiceImpl extends ServiceImpl<BsDocumentInfMapper, BsDocumentInf> implements IBsDocumentService {
 
 
+    @Override
+    public List<BsDocumentInf> selectDocumentList(Integer startIndex, Integer turnPageShowNum, String docTitle, String docType, String startTime, String endTime) {
+
+        return  baseMapper.selectDocumentList(startIndex,turnPageShowNum,docTitle,docType,startTime,endTime);
+    }
 }
