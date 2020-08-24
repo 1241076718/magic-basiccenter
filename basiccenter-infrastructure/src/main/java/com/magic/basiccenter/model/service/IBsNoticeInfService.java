@@ -1,8 +1,11 @@
 package com.magic.basiccenter.model.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.magic.basiccenter.model.dto.QueryNoticeDTO;
+import com.magic.basiccenter.model.dto.QueryNoticeOutDTO;
 import com.magic.basiccenter.model.entity.BsNoticeInf;
 
+import java.util.List;
 
 
 /**
@@ -13,5 +16,14 @@ import com.magic.basiccenter.model.entity.BsNoticeInf;
  * @version: $1.0.0
  */
 public interface IBsNoticeInfService extends IService<BsNoticeInf>{
+
+    /**
+     * 查询公告方法
+     *
+     * @param queryNoticeDTO
+     * @return
+     */
+
+    List<QueryNoticeOutDTO>  selectNotice(QueryNoticeDTO queryNoticeDTO);
 
 }
