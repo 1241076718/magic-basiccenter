@@ -15,7 +15,7 @@ import java.util.List;
  * @modified By：
  * @version: $1.0.0
  */
-public interface INoticeService {
+public interface NoticeAppService {
 
 
     /**

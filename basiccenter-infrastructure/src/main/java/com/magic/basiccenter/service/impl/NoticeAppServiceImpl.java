@@ -11,7 +11,7 @@ import com.magic.basiccenter.model.dto.QueryNoticeOutDTO;
 import com.magic.basiccenter.model.entity.BsNoticeInf;
 import com.magic.basiccenter.model.mapper.BsNoticeInfMapper;
 import com.magic.basiccenter.model.service.IBsNoticeInfService;
-import com.magic.basiccenter.model.service.INoticeService;
+import com.magic.basiccenter.model.service.NoticeAppService;
 import com.magic.basiccenter.model.service.impl.BsNoticeInfServiceImpl;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,7 +31,7 @@ import java.util.List;
  */
 
 @Service
-public class NoticeServiceImpl implements INoticeService {
+public class NoticeAppServiceImpl implements NoticeAppService {
 
 
     /**
