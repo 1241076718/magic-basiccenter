@@ -13,6 +13,11 @@ public final class Constant {
     public static final String ADVERT_ID_TAG = "advert_id";
 
     /**
+     * 广告新建状态码
+     */
+    public static final Integer ADVERT_ADD_STATUS_CODE = 0;
+
+    /**
      * 广告删除状态码
      */
     public static final Integer ADVERT_DELETE_STATUS_CODE = 3;

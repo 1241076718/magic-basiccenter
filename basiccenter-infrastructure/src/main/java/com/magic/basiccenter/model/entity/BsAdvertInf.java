@@ -37,7 +37,7 @@ public class BsAdvertInf implements Serializable {
     @TableField("AI_ADV_THEME")
     private String aiAdvTheme;
     /**
-     * 广告状态
+     * 广告状态（0：新建；1：已上架；2：已下架；3：已删除）
      */
     @TableField("AI_ADV_STATUS")
     private Integer aiAdvStatus;

@@ -4,8 +4,8 @@ import com.magic.application.infrastructure.service.dto.MagicDTO;
 import com.magic.application.infrastructure.service.dto.MagicOutDTO;
 import com.magic.basiccenter.dto.AdvertAddDTO;
 import com.magic.basiccenter.dto.AdvertAddOutDTO;
-import com.magic.basiccenter.dto.AdvertSelPageDTO;
-import com.magic.basiccenter.dto.AdvertSelPageOutDTO;
+import com.magic.basiccenter.dto.AdvertSelDTO;
+import com.magic.basiccenter.dto.AdvertSelOutDTO;
 import com.magic.basiccenter.dto.AdvertUpdDTO;
 import com.magic.basiccenter.dto.AdvertUpdOutDTO;
 import com.magic.basiccenter.dto.AdvertDelOutDTO;
@@ -35,7 +35,7 @@ public interface IAdvertManageService {
      * @return AdvertSelOutPageDTO currentPage,totalNum,bannerList
      * @author jianggq@belink.com
      */
-    public MagicOutDTO<AdvertSelPageOutDTO> advertSelCond (MagicDTO<AdvertSelPageDTO> requestDTO);
+    public MagicOutDTO<AdvertSelOutDTO> selAdvertInfo(MagicDTO<AdvertSelDTO> requestDTO);
 
     /**
      * 删除广告

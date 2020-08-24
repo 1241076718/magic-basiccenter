@@ -16,6 +16,7 @@ import java.time.LocalDateTime;
 @Data
 public class AdvertUpdDTO implements Serializable {
     private static final long serialVersionUID = -3927245797810151486L;
+
     /**
      * 广告编号
      */

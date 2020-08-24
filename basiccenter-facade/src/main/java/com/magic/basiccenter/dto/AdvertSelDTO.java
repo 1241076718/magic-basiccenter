@@ -1,8 +1,7 @@
 package com.magic.basiccenter.dto;
 
-import java.io.Serializable;
-
 import com.magic.application.infrastructure.service.dto.SelectPageDTO;
+
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -16,7 +15,7 @@ import lombok.EqualsAndHashCode;
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
-public class AdvertSelPageDTO extends SelectPageDTO {
+public class AdvertSelDTO extends SelectPageDTO {
     private static final long serialVersionUID = -5614916005362433547L;
 
     /**广告主题*/

@@ -1,6 +1,5 @@
 package com.magic.basiccenter.model.dto;
 
-
 import java.io.Serializable;
 
 import lombok.Data;
@@ -16,7 +15,7 @@ import lombok.experimental.Accessors;
  */
 @Data
 @Accessors(chain = true)
-public class SelAdvertInfoPageDTO implements Serializable {
+public class SelAdvertInfoDTO implements Serializable {
 	private static final long serialVersionUID = -906160292097290577L;
 
 	/**当前页*/
