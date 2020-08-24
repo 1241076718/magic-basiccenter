@@ -93,7 +93,7 @@ public class BasicServiceImpl implements BasicService {
             //获取业务流程状态
             dto.setDocumentUpdataStat(docmentUpdataDto.getDocumentUpdataStat());
             //判断业务流程状态
-            if (2 == dto.getDocumentUpdataStat()){
+            if (StateDTO.FAILURE.equals(dto.getDocumentUpdataStat())){
                 respHead.setErrorCode(BasicErrorEnum.MODIFYFATL.code());
                 respHead.setErrorMsg(BasicErrorEnum.MODIFYFATL.msg());
             }else {
@@ -136,8 +136,8 @@ public class BasicServiceImpl implements BasicService {
             //获取业务流程状态
             dto.setState(publish.getState());
             //判断业务流程状态
-            if (2 == dto.getState()){
-                if (20 == document.getState()) {
+            if (StateDTO.FAILURE.equals(dto.getState())){
+                if (ReleaseDTO.SHELVES.equals(document.getState())) {
                     respHead.setErrorCode(BasicErrorEnum.SHELVESFATL.code());
                     respHead.setErrorMsg(BasicErrorEnum.SHELVESFATL.msg());
                 }{
@@ -145,7 +145,7 @@ public class BasicServiceImpl implements BasicService {
                     respHead.setErrorMsg(BasicErrorEnum.THESHELVESFATL.msg());
                 }
             }else {
-                if (20 == document.getState()) {
+                if (ReleaseDTO.THESHELVES.equals(document.getState())) {
                     respHead.setErrorCode(BasicErrorEnum.SHELVES.code());
                     respHead.setErrorMsg(BasicErrorEnum.SHELVES.msg());
                 }{
@@ -187,7 +187,7 @@ public class BasicServiceImpl implements BasicService {
             //获取业务流程状态码
             dto.setDocumentUpdataStat(delete.getDocumentUpdataStat());
             //判断业务流程
-            if (2 == dto.getDocumentUpdataStat()){
+            if (StateDTO.FAILURE.equals(dto.getDocumentUpdataStat())){
                 respHead.setErrorCode(BasicErrorEnum.DeleteFATL.code());
                 respHead.setErrorMsg(BasicErrorEnum.DeleteFATL.msg());
             }else {
@@ -228,7 +228,7 @@ public class BasicServiceImpl implements BasicService {
             //业务实现
             DocmentUpdataDTO updataDto = documentService.addDocumentState(documentDto);
             //判断业务流程
-            if (2 == updataDto.getDocumentUpdataStat()){
+            if (StateDTO.FAILURE.equals(updataDto.getDocumentUpdataStat())){
                 respHead.setErrorCode(BasicErrorEnum.ADDFATL.code());
                 respHead.setErrorMsg(BasicErrorEnum.ADDFATL.msg());
             }else {

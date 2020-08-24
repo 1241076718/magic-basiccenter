@@ -1,5 +1,6 @@
 package com.magic.basiccenter.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.IService;
@@ -29,8 +30,6 @@ public class DocumentServiceImpl implements DocumentService {
 	
     @Autowired
     private IBsDocumentService documentService;
-    @Autowired
-	private BsDocumentInfMapper bsDocumentInfMapper;
     @Autowired
     SequenceFactory sequenceFactory;
     /**
@@ -75,7 +74,9 @@ public class DocumentServiceImpl implements DocumentService {
     public DocumentOutDTO publish(DocumentInputDTO documentDto) {
         DocumentOutDTO dto = new DocumentOutDTO();
         BsDocumentInf entity = new BsDocumentInf();
+
         entity.setDocsId(documentDto.getDocsId()).setState(documentDto.getState());
+        entity.setDocumentPubdate(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()));
         //调用Api实现发布
         boolean b = documentService.updateById(entity);
         //生成业务状态码
@@ -92,8 +93,11 @@ public class DocumentServiceImpl implements DocumentService {
     public DocmentUpdataDTO delete(DocumentIdDTO documentDto) {
         DocmentUpdataDTO dto = new DocmentUpdataDTO();
         BsDocumentInf entity = new BsDocumentInf();
+        //获取数据id
         entity.setDocsId(documentDto.getDocsId());
-        boolean b = documentService.removeById(entity);
+        //设置数据的生命id （0 生存，1 死亡）
+        entity.setDocLife("1");
+        boolean b = documentService.updateById(entity);
         //生成业务状态码
         dto.setDocumentUpdataStat(b ? 0 : 2);
         return dto;
@@ -114,6 +118,8 @@ public class DocumentServiceImpl implements DocumentService {
                 .setDocumentMtime(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()));
         //设置文档状态
         inputDTO.setState(00);
+        //设置数据的生命id （0 生存，1 死亡）
+        inputDTO.setDocLife("0");
         //id生成
         String id = sequenceFactory.getSegmentFillZeroId(Constart.DOC_ID);
         inputDTO.setDocsId(id);
@@ -123,6 +129,7 @@ public class DocumentServiceImpl implements DocumentService {
         boolean b = documentService.save(entity);
         //生成业务状态码
         document.setDocumentUpdataStat(b ? 0 : 2);
+        document.setDocsId(id);
         return document;
     }
     
@@ -138,8 +145,8 @@ public class DocumentServiceImpl implements DocumentService {
 		 * @param inputDTO
 		 * @return
 		 */
-			
-		QueryDocumentOutDTO outData = new QueryDocumentOutDTO();
+        BsDocumentInf inf = new BsDocumentInf();
+        QueryDocumentOutDTO outData = new QueryDocumentOutDTO();
 		Integer currentPage = inputDTO.getCurrentPage();
 		Integer turnPageShowNum = inputDTO.getTurnPageShowNum();
 		String docsName = inputDTO.getDocsName();
@@ -149,13 +156,16 @@ public class DocumentServiceImpl implements DocumentService {
 		
 		//mybatisPlus 分页API
 		Page<BsDocumentInf> iPage = new Page<BsDocumentInf>(currentPage,turnPageShowNum);
-		QueryWrapper<BsDocumentInf> queryWrapper = new QueryWrapper<BsDocumentInf>();
-		queryWrapper.eq(!StringUtils.isEmpty(docsName), "DOC_TYPE", docsName)
-					.like(!StringUtils.isEmpty(catalogName), "DOC_TITLE", catalogName)
-					.between(!StringUtils.isEmpty(startTime), "DOC_PUBDATE", startTime, endTime)
-					.orderByDesc("DOC_PUBDATE");
+        LambdaQueryWrapper<BsDocumentInf> queryWrapper = new LambdaQueryWrapper<>();
+
+        queryWrapper.eq(!StringUtils.isEmpty(docsName), BsDocumentInf::getDocsName, docsName)
+                .eq(BsDocumentInf::getDocLife, "0")
+                .like(!StringUtils.isEmpty(catalogName), BsDocumentInf::getCatalogName, catalogName)
+                .between(!StringUtils.isEmpty(startTime), BsDocumentInf::getDocumentPubdate, startTime, endTime)
+                .orderByDesc(BsDocumentInf::getDocumentPubdate);
+
 		//进行分页查询
-		iPage = bsDocumentInfMapper.selectPage(iPage, queryWrapper);
+		iPage = documentService.page(iPage,queryWrapper);
 		
 		//获取文档列表总数和列表信息
 		int total = (int) iPage.getTotal();
@@ -167,7 +177,8 @@ public class DocumentServiceImpl implements DocumentService {
 			BeanUtils.copyProperties(docsList.get(i), documentBean);
 			documentBeanList.add(documentBean);
 		}
-        List<String> catalogNameList = bsDocumentInfMapper.queryCatalogNameList();
+        System.out.println(documentBeanList.toString());
+        List<String> catalogNameList = documentService.queryCatalogNameList();
         outData.setDocsList(documentBeanList);
 		outData.setTurnPageTotalNum(total);
 		outData.setCatalogNameList(catalogNameList);

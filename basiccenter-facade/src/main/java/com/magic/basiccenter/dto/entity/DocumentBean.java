@@ -31,9 +31,9 @@ public class DocumentBean implements Serializable {
 	 */
 	private Integer state;
 	/**
-	 * 文档创建时间
+	 * 文档f发布时间
 	 */
-	private String documentCtime;
+	private String documentPubdate;
 	/**
 	 * 发布人
 	 */

@@ -81,5 +81,10 @@ public class BsDocumentInf implements Serializable {
      */
     @TableField(value = "DOC_MTIME")
     private String documentMtime;
+    /**
+     * 数据生命状态
+     */
+    @TableField(value = "DOC_LIFE")
+    private String docLife;
 
 }

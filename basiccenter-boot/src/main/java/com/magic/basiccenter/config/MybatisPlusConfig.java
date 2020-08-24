@@ -18,7 +18,7 @@ public class MybatisPlusConfig {
      * 分页插件
      */
     @Bean
-    @Qualifier("RolePaginationInterceptor")
+    //   @Qualifier("RolePaginationInterceptor")
     public PaginationInterceptor paginationInterceptor() {
         PaginationInterceptor paginationInterceptor = new PaginationInterceptor();
         //最大条数

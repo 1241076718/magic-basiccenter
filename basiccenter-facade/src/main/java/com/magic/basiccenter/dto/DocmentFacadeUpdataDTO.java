@@ -11,6 +11,10 @@ public class DocmentFacadeUpdataDTO implements Serializable {
      */
     private static final long serialVersionUID = 1392051448080490641L;
     /**
+     * 文档编号
+     */
+    private String docsId;
+    /**
      * 修改状态
      */
     private Integer documentUpdataStat;
