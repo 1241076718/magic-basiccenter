@@ -3,7 +3,7 @@ package com.magic.basiccenter.controller;
 import com.magic.application.infrastructure.service.dto.MagicDTO;
 import com.magic.application.infrastructure.service.dto.MagicOutDTO;
 import com.magic.basiccenter.dto.*;
-import com.magic.basiccenter.service.IBasicService;
+import com.magic.basiccenter.service.NoticeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -21,10 +21,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/notice")
-public class BasicController {
+public class NoticeController {
     @Autowired(required = false)
-    IBasicService service;
-
+    NoticeService service;
 
 
 
