@@ -11,7 +11,7 @@ import com.magic.basiccenter.dto.*;
  * @modified By：
  * @version: $1.0.0
  */
-public interface IBasicService {
+public interface NoticeService {
 
 
 

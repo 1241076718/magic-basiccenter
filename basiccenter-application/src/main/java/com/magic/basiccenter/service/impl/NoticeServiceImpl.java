@@ -8,8 +8,8 @@ import com.magic.basiccenter.dto.*;
 import com.magic.basiccenter.error.BasicErrorEnum;
 import com.magic.basiccenter.model.dto.QueryNoticeDTO;
 import com.magic.basiccenter.model.dto.QueryNoticeOutDTO;
-import com.magic.basiccenter.model.service.INoticeService;
-import com.magic.basiccenter.service.IBasicService;
+import com.magic.basiccenter.model.service.NoticeAppService;
+import com.magic.basiccenter.service.NoticeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -25,10 +25,10 @@ import java.util.List;
  */
 
 @Service
-public class BasicServiceImpl implements IBasicService {
+public class NoticeServiceImpl implements NoticeService {
 
     @Autowired(required = false)
-    INoticeService service;
+    NoticeAppService service;
 
 
     /**
