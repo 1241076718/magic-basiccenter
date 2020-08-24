@@ -82,7 +82,6 @@ public class BasicServiceImpl implements IBasicService {
 
 
 
-
     @Override
     public MagicOutDTO<AddNoticeInfoOutDTO> addNoticeInfo(MagicDTO<AddNoticeInfoInDTO> requestDTO) {
         //定义输出
@@ -107,7 +106,11 @@ public class BasicServiceImpl implements IBasicService {
 
     }
 
-
+    /**
+     * 修改公告管理列表
+     * @param requestDTO
+     * @return
+     */
     @Override
     public MagicOutDTO<UpdateNoticeInfoOutDTO> updateNotice(MagicDTO<QueryNoticeInfoInDTO> requestDTO) {
         //1.返回DTO构造
