@@ -1,6 +1,5 @@
 package com.magic.basiccenter.service.impl;
 
-import com.gift.core.utils.SpringContextUtils;
 import com.gift.domain.sequence.factory.SequenceFactory;
 import com.magic.basiccenter.constants.Constant;
 import com.magic.basiccenter.dto.AddNoticeInfoInDTO;
@@ -9,10 +8,8 @@ import com.magic.basiccenter.dto.QueryNoticeInfoDTO;
 import com.magic.basiccenter.model.dto.QueryNoticeDTO;
 import com.magic.basiccenter.model.dto.QueryNoticeOutDTO;
 import com.magic.basiccenter.model.entity.BsNoticeInf;
-import com.magic.basiccenter.model.mapper.BsNoticeInfMapper;
 import com.magic.basiccenter.model.service.IBsNoticeInfService;
 import com.magic.basiccenter.model.service.NoticeAppService;
-import com.magic.basiccenter.model.service.impl.BsNoticeInfServiceImpl;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -40,8 +37,13 @@ public class NoticeAppServiceImpl implements NoticeAppService {
      */
     @Autowired(required = false)
     SequenceFactory sequenceFactory;
+    /**
+     * 数据交互层服务IBsNoticeInfService接口
+     *
+     */
 
-
+    @Autowired(required = false)
+    IBsNoticeInfService iBService;
     /**
      * 查询公告方法
      * @param inputDTO
@@ -51,11 +53,7 @@ public class NoticeAppServiceImpl implements NoticeAppService {
     public List<QueryNoticeOutDTO> queryNotice(QueryNoticeDTO inputDTO) {
 
 
-        BsNoticeInfServiceImpl bean = SpringContextUtils.getBean(BsNoticeInfServiceImpl.class);
-
-        BsNoticeInfMapper baseMapper = bean.getBaseMapper();
-
-        List<QueryNoticeOutDTO> cuNoticeInfs = baseMapper.selectNotice(inputDTO);
+        List<QueryNoticeOutDTO> cuNoticeInfs =iBService.selectNotice(inputDTO);
 
         return cuNoticeInfs;
 
@@ -71,16 +69,13 @@ public class NoticeAppServiceImpl implements NoticeAppService {
     @Override
     public AddNoticeInfoOutDTO addNotice(AddNoticeInfoInDTO inputDTO) {
         AddNoticeInfoOutDTO addNoticeInfoOutDTO = new AddNoticeInfoOutDTO();
-        BsNoticeInfServiceImpl bean = SpringContextUtils.getBean(BsNoticeInfServiceImpl.class);
-        BsNoticeInfMapper baseMapper = bean.getBaseMapper();
         BsNoticeInf bsNoticeInf = new BsNoticeInf();
         //DTO转换为entity
         BeanUtils.copyProperties(inputDTO, bsNoticeInf);
         String noticeId = sequenceFactory.getSegmentDateId(Constant.CU_NOTICE_ID);
         bsNoticeInf.setNiNtcId(noticeId);
         bsNoticeInf.setNiNtcGmtCreate(new Date());
-        int row = baseMapper.insert(bsNoticeInf);
-        addNoticeInfoOutDTO.setTotal(row);
+        boolean row = iBService.save(bsNoticeInf);
         return addNoticeInfoOutDTO;
     }
 
@@ -96,12 +91,10 @@ public class NoticeAppServiceImpl implements NoticeAppService {
     public QueryNoticeOutDTO changeNoticeStatus(QueryNoticeInfoDTO inputDTO) {
 
         QueryNoticeOutDTO changeNoticeStatus = new QueryNoticeOutDTO();
-        BsNoticeInfServiceImpl been = SpringContextUtils.getBean(BsNoticeInfServiceImpl.class);
-        BsNoticeInfMapper baseMapper = been.getBaseMapper();
         BsNoticeInf bsNoticeInf = new BsNoticeInf();
         BeanUtils.copyProperties(inputDTO, bsNoticeInf);
-        int i =baseMapper.updateById(bsNoticeInf);
-        changeNoticeStatus.setNiNtcCount(i);
+        boolean update = iBService.updateById(bsNoticeInf);
+
         return changeNoticeStatus;
     }
     /**
@@ -112,8 +105,6 @@ public class NoticeAppServiceImpl implements NoticeAppService {
     @Override
     public QueryNoticeOutDTO updateNotice(QueryNoticeDTO requestDTO) {
         QueryNoticeOutDTO outDTO = new QueryNoticeOutDTO();
-        BsNoticeInfServiceImpl bean = SpringContextUtils.getBean(BsNoticeInfServiceImpl.class);
-        BsNoticeInfMapper baseMapper = bean.getBaseMapper();
         BsNoticeInf entity = new BsNoticeInf();
         entity.setNiNtcName(requestDTO.getNiNtcName())
                 .setNiNtcId(requestDTO.getNiNtcId())
@@ -122,8 +113,11 @@ public class NoticeAppServiceImpl implements NoticeAppService {
                 .setNiNtcEndTime(requestDTO.getNiNtcEndTime())
                 .setNiNtcStartTime(requestDTO.getNiNtcStartTime())
                 .setNiNtcStatus(requestDTO.getNiNtcStatus());
-        baseMapper.updateById(entity);
-        BsNoticeInf notice = baseMapper.selectById(requestDTO.getNiNtcId());
+
+        iBService.updateById(entity);
+
+        BsNoticeInf notice = iBService.getById(requestDTO.getNiNtcId());
+
         outDTO.setNiNtcName(notice.getNiNtcName())
                 .setNiNtcText(notice.getNiNtcText())
                 .setNiNtcCount(notice.getNiNtcCount())
