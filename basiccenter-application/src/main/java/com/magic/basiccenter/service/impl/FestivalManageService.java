@@ -1,11 +1,13 @@
 package com.magic.basiccenter.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.gift.domain.sequence.factory.SequenceFactory;
 import com.magic.application.infrastructure.service.dto.MagicDTO;
 import com.magic.application.infrastructure.service.dto.MagicOutDTO;
 import com.magic.application.infrastructure.service.dto.data.RespHeader;
 import com.magic.application.infrastructure.utils.ApplicationServiceUtil;
 import com.magic.basiccenter.dto.*;
+import com.magic.basiccenter.entity.Constant;
 import com.magic.basiccenter.entity.FestivalManageInf;
 import com.magic.basiccenter.error.FestivalModifyMessageEnum;
 import com.magic.basiccenter.model.service.FestivalService;
@@ -32,6 +34,8 @@ public class FestivalManageService implements IFestivalService {
     @Autowired(required = false)
     private FestivalService festivalService;
 
+    @Autowired
+    private SequenceFactory sequenceFactory;
 
     /**
      * 添加节日
@@ -50,8 +54,10 @@ public class FestivalManageService implements IFestivalService {
 
         //封装实体对象
         //获取当前系统时间转为字符串作为Id
-        String s = new Date().toString();
-        festivalManageInf.setFestivalId(s);
+//        System.out.println();
+//        String s = new Date().toString();
+//        festivalManageInf.setFestivalId(s);
+        festivalManageInf.setFestivalId(sequenceFactory.getSegmentDateId(Constant.FESTIVAL_BIZ_TAG));
         festivalManageInf.setFestivalYear(body.getFestivalYear());
         festivalManageInf.setFestivalName(body.getFestivalName());
         festivalManageInf.setFestivalType(body.getFestivalType());

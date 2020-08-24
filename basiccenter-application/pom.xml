@@ -55,5 +55,21 @@
             <version>3.1.2</version>
             <scope>compile</scope>
         </dependency>
+
+        <dependency>
+            <groupId>com.gift</groupId>
+            <artifactId>gift-sequence-domain</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+            <exclusions>
+                <exclusion>
+                    <artifactId>mysql-connector-java</artifactId>
+                    <groupId>mysql</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>mybatis-plus-boot-starter</artifactId>
+                    <groupId>com.baomidou</groupId>
+                </exclusion>
+            </exclusions>
+        </dependency>
     </dependencies>
 </project>
