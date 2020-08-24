@@ -10,6 +10,6 @@ import java.io.Serializable;
  * @className DelAdvertInfoOutDTO
  * @sine 2020/8/19 16:18
  */
-public class DelAdvertInfoOutDTO implements Serializable {
-	private static final long serialVersionUID = -2818834303907409559L;
+public class DelAdvertInfoOutDTO {
+
 }

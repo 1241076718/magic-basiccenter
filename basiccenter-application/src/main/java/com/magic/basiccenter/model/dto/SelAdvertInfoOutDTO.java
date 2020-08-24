@@ -18,7 +18,7 @@ import lombok.experimental.Accessors;
  */
 @Data
 @Accessors(chain = true)
-public class SelAdvertInfoPageOutDTO implements Serializable {
+public class SelAdvertInfoOutDTO implements Serializable {
 	private static final long serialVersionUID = -7154895539493619006L;
 	
 	/**一页显示记录数*/

@@ -3,8 +3,6 @@ package com.magic.basiccenter.service.impl;
 import com.gift.domain.sequence.factory.SequenceFactory;
 import com.magic.basiccenter.constants.Constant;
 import com.magic.basiccenter.dto.AdvertInfBean;
-import com.magic.basiccenter.error.AdvertErrorEnum;
-import org.apache.ibatis.jdbc.RuntimeSqlException;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,8 +15,8 @@ import com.magic.basiccenter.model.dto.AddAdvertInfoDTO;
 import com.magic.basiccenter.model.dto.AddAdvertInfoOutDTO;
 import com.magic.basiccenter.model.dto.DelAdvertInfoDTO;
 import com.magic.basiccenter.model.dto.DelAdvertInfoOutDTO;
-import com.magic.basiccenter.model.dto.SelAdvertInfoPageDTO;
-import com.magic.basiccenter.model.dto.SelAdvertInfoPageOutDTO;
+import com.magic.basiccenter.model.dto.SelAdvertInfoDTO;
+import com.magic.basiccenter.model.dto.SelAdvertInfoOutDTO;
 import com.magic.basiccenter.model.dto.UpdAdvertInfoDTO;
 import com.magic.basiccenter.model.dto.UpdAdvertInfoOutDTO;
 import com.magic.basiccenter.model.entity.BsAdvertInf;
@@ -73,20 +71,20 @@ public class AdvertServiceImpl implements IAdvertService {
 
 	/**
 	 * 广告列表查询
-	 * @param selAdvertInfoPageDTO
+	 * @param selAdvertInfoDTO
 	 * @return
 	 * @author jianggq@belink.com
 	 */
 	@Override
-    public SelAdvertInfoPageOutDTO advertSelPageCond(SelAdvertInfoPageDTO selAdvertInfoPageDTO) {
+    public SelAdvertInfoOutDTO selAdvertInfo(SelAdvertInfoDTO selAdvertInfoDTO) {
 		//构建返回对象
-		SelAdvertInfoPageOutDTO selAdvertInfoPageOutDTO = new SelAdvertInfoPageOutDTO();
+		SelAdvertInfoOutDTO selAdvertInfoOutDTO = new SelAdvertInfoOutDTO();
 
 		//获取分页参数
-		long currentPage = selAdvertInfoPageDTO.getCurrentPage();
-		long turnPageShowNum = selAdvertInfoPageDTO.getTurnPageShowNum();
-		Integer advertStatus = selAdvertInfoPageDTO.getAdvertStatus();
-		String advertTheme = selAdvertInfoPageDTO.getAdvertTheme();
+		long currentPage = selAdvertInfoDTO.getCurrentPage();
+		long turnPageShowNum = selAdvertInfoDTO.getTurnPageShowNum();
+		Integer advertStatus = selAdvertInfoDTO.getAdvertStatus();
+		String advertTheme = selAdvertInfoDTO.getAdvertTheme();
 
 		//构建分页对象
 		IPage<BsAdvertInf> page = new Page<>(currentPage,turnPageShowNum);
@@ -114,12 +112,12 @@ public class AdvertServiceImpl implements IAdvertService {
 			BeanUtils.copyProperties(bsAdvertInf, tempBean);
 			bannerList.add(tempBean);
 		}
-		selAdvertInfoPageOutDTO.setBannerList(bannerList)
+		selAdvertInfoOutDTO.setBannerList(bannerList)
 				.setCurrentPage(page.getCurrent())
 				.setTotalNum(page.getTotal())
 				.setTurnPageTotalNum(page.getSize());
 
-		return selAdvertInfoPageOutDTO;
+		return selAdvertInfoOutDTO;
     }
 
 	/**

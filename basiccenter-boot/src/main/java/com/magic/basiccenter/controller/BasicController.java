@@ -4,8 +4,8 @@ import com.magic.application.infrastructure.service.dto.MagicDTO;
 import com.magic.application.infrastructure.service.dto.MagicOutDTO;
 import com.magic.basiccenter.dto.AdvertAddDTO;
 import com.magic.basiccenter.dto.AdvertAddOutDTO;
-import com.magic.basiccenter.dto.AdvertSelPageDTO;
-import com.magic.basiccenter.dto.AdvertSelPageOutDTO;
+import com.magic.basiccenter.dto.AdvertSelDTO;
+import com.magic.basiccenter.dto.AdvertSelOutDTO;
 import com.magic.basiccenter.dto.AdvertUpdDTO;
 import com.magic.basiccenter.dto.AdvertUpdOutDTO;
 import com.magic.basiccenter.dto.AdvertDelDTO;
@@ -51,9 +51,9 @@ public class BasicController {
      * @return
      * @author jianggq@belink.com
      */
-    @PostMapping("/advert/advertSelCond")
-    public MagicOutDTO<AdvertSelPageOutDTO> advertSelCond(@RequestBody MagicDTO<AdvertSelPageDTO> requestDTO){
-        return advertManageService.advertSelCond(requestDTO);
+    @PostMapping("/advert/selAdvertInfo")
+    public MagicOutDTO<AdvertSelOutDTO> selAdvertInfo(@RequestBody MagicDTO<AdvertSelDTO> requestDTO){
+        return advertManageService.selAdvertInfo(requestDTO);
     }
 
     /**

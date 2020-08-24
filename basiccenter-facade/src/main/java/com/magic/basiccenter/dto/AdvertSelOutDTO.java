@@ -19,7 +19,7 @@ import lombok.experimental.Accessors;
 @Data
 @EqualsAndHashCode(callSuper = false)
 @Accessors(chain = true)
-public class AdvertSelPageOutDTO<T> extends SelectPageOutDTO {
+public class AdvertSelOutDTO extends SelectPageOutDTO {
     private static final long serialVersionUID = 8259207203485282299L;
 
     /**当前页码*/

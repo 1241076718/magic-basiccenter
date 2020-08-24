@@ -7,8 +7,8 @@ import com.magic.application.infrastructure.service.dto.data.RespHeader;
 import com.magic.application.infrastructure.utils.ApplicationServiceUtil;
 import com.magic.basiccenter.dto.AdvertAddDTO;
 import com.magic.basiccenter.dto.AdvertAddOutDTO;
-import com.magic.basiccenter.dto.AdvertSelPageDTO;
-import com.magic.basiccenter.dto.AdvertSelPageOutDTO;
+import com.magic.basiccenter.dto.AdvertSelDTO;
+import com.magic.basiccenter.dto.AdvertSelOutDTO;
 import com.magic.basiccenter.dto.AdvertUpdDTO;
 import com.magic.basiccenter.dto.AdvertUpdOutDTO;
 import com.magic.basiccenter.dto.AdvertDelDTO;
@@ -17,8 +17,8 @@ import com.magic.basiccenter.error.AdvertErrorEnum;
 import com.magic.basiccenter.model.dto.AddAdvertInfoDTO;
 import com.magic.basiccenter.model.dto.AddAdvertInfoOutDTO;
 import com.magic.basiccenter.model.dto.DelAdvertInfoDTO;
-import com.magic.basiccenter.model.dto.SelAdvertInfoPageDTO;
-import com.magic.basiccenter.model.dto.SelAdvertInfoPageOutDTO;
+import com.magic.basiccenter.model.dto.SelAdvertInfoDTO;
+import com.magic.basiccenter.model.dto.SelAdvertInfoOutDTO;
 import com.magic.basiccenter.model.dto.UpdAdvertInfoDTO;
 import com.magic.basiccenter.model.dto.UpdAdvertInfoOutDTO;
 import com.magic.basiccenter.model.service.IAdvertService;
@@ -80,10 +80,10 @@ public class AdvertManageServiceImpl implements IAdvertManageService {
      * @author jianggq@belink.com
      */
     @Override
-    public MagicOutDTO<AdvertSelPageOutDTO> advertSelCond(MagicDTO<AdvertSelPageDTO> requestDTO) {
+    public MagicOutDTO<AdvertSelOutDTO> selAdvertInfo(MagicDTO<AdvertSelDTO> requestDTO) {
         //定义出参
-        AdvertSelPageOutDTO advertSelOutPageDTO = new AdvertSelPageOutDTO();
-        MagicOutDTO<AdvertSelPageOutDTO> magicOutDTO = new MagicOutDTO<>(advertSelOutPageDTO);
+        AdvertSelOutDTO advertSelOutPageDTO = new AdvertSelOutDTO();
+        MagicOutDTO<AdvertSelOutDTO> magicOutDTO = new MagicOutDTO<>(advertSelOutPageDTO);
 
         //定义返回头
         RespHeader respHeader = new RespHeader();
@@ -93,15 +93,15 @@ public class AdvertManageServiceImpl implements IAdvertManageService {
         ReqHeader reqHead = requestDTO.getHeader();
 
         //转换请求DTO
-        AdvertSelPageDTO reqBody = requestDTO.getBody();
-        SelAdvertInfoPageDTO selAdvertInfoPageDTO = new SelAdvertInfoPageDTO();
-        BeanUtils.copyProperties(reqBody,selAdvertInfoPageDTO);
+        AdvertSelDTO reqBody = requestDTO.getBody();
+        SelAdvertInfoDTO selAdvertInfoDTO = new SelAdvertInfoDTO();
+        BeanUtils.copyProperties(reqBody, selAdvertInfoDTO);
 
         try {
             //执行查询
-            SelAdvertInfoPageOutDTO selAdvertInfoPageOutDTO = advertService.advertSelPageCond(selAdvertInfoPageDTO);
+            SelAdvertInfoOutDTO selAdvertInfoOutDTO = advertService.selAdvertInfo(selAdvertInfoDTO);
             //转换返回DTO
-            BeanUtils.copyProperties(selAdvertInfoPageOutDTO,advertSelOutPageDTO);
+            BeanUtils.copyProperties(selAdvertInfoOutDTO,advertSelOutPageDTO);
             //封装返回的数据
             respHeader.setErrorCode(AdvertErrorEnum.SUCCESS.code());
             respHeader.setErrorMsg(AdvertErrorEnum.SUCCESS.msg());
