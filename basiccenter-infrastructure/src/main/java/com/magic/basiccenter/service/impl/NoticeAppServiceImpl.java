@@ -40,8 +40,13 @@ public class NoticeAppServiceImpl implements NoticeAppService {
      */
     @Autowired(required = false)
     SequenceFactory sequenceFactory;
+    /**
+     * 数据交互层服务IBsNoticeInfService接口
+     *
+     */
 
-
+    @Autowired(required = false)
+    IBsNoticeInfService iBService;
     /**
      * 查询公告方法
      * @param inputDTO
@@ -50,13 +55,8 @@ public class NoticeAppServiceImpl implements NoticeAppService {
     @Override
     public List<QueryNoticeOutDTO> queryNotice(QueryNoticeDTO inputDTO) {
 
-        QueryNoticeOutDTO outData = new QueryNoticeOutDTO();
 
-        BsNoticeInfServiceImpl bean = SpringContextUtils.getBean(BsNoticeInfServiceImpl.class);
-
-        BsNoticeInfMapper baseMapper = bean.getBaseMapper();
-
-        List<QueryNoticeOutDTO> cuNoticeInfs = baseMapper.selectNotice(inputDTO);
+        List<QueryNoticeOutDTO> cuNoticeInfs =iBService.selectNotice(inputDTO);
 
         return cuNoticeInfs;
 
