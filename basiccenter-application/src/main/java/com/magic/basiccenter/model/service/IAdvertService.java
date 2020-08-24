@@ -1,11 +1,11 @@
 package com.magic.basiccenter.model.service;
 
-import com.magic.basiccenter.dto.AdvertSelDTO;
-import com.magic.basiccenter.dto.AdvertSelOutPageDTO;
 import com.magic.basiccenter.model.dto.AddAdvertInfoDTO;
 import com.magic.basiccenter.model.dto.AddAdvertInfoOutDTO;
 import com.magic.basiccenter.model.dto.DelAdvertInfoDTO;
 import com.magic.basiccenter.model.dto.DelAdvertInfoOutDTO;
+import com.magic.basiccenter.model.dto.SelAdvertInfoPageDTO;
+import com.magic.basiccenter.model.dto.SelAdvertInfoPageOutDTO;
 import com.magic.basiccenter.model.dto.UpdAdvertInfoDTO;
 import com.magic.basiccenter.model.dto.UpdAdvertInfoOutDTO;
 
@@ -23,27 +23,31 @@ public interface IAdvertService {
      * 广告配置新增
      * @param inputDTO
      * @return
+     * @author laiqx@belink.com
      */
     public AddAdvertInfoOutDTO addAdvertInfo(AddAdvertInfoDTO inputDTO);
     
     /**
      * 广告分页查询
-     * @param advertSelDTO
+     * @param selAdvertInfoPageDTO
      * @return
+     * @author jianggq@belink.com
      */
-    public AdvertSelOutPageDTO advertSelPageCond(AdvertSelDTO advertSelDTO);
+    public SelAdvertInfoPageOutDTO advertSelPageCond(SelAdvertInfoPageDTO selAdvertInfoPageDTO);
     
     /**
-     * 通过主键id删除广告
-     * @param advertDTO
+     * 通过主键id删除广告(逻辑删除，将广告状态置为3)
+     * @param advertDelDTO
      * @return
+     * @author tangw@belink.com
      */
-    public DelAdvertInfoOutDTO deleteAdvert(DelAdvertInfoDTO advertDTO);
+    public DelAdvertInfoOutDTO delAdvertInfo(DelAdvertInfoDTO advertDelDTO);
 
     /**
      * 广告配置修改
      * @param updDTO
      * @return
+     * @author luolf@belink.com
      * */
     public UpdAdvertInfoOutDTO updAdvertInfo(UpdAdvertInfoDTO updDTO);
 }

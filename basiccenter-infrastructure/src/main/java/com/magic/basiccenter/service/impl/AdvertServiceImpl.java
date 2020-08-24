@@ -1,20 +1,24 @@
 package com.magic.basiccenter.service.impl;
 
+import com.gift.domain.sequence.factory.SequenceFactory;
 import com.magic.basiccenter.constants.Constant;
+import com.magic.basiccenter.dto.AdvertInfBean;
+import com.magic.basiccenter.error.AdvertErrorEnum;
+import org.apache.ibatis.jdbc.RuntimeSqlException;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.magic.basiccenter.dto.AdvertSelDTO;
-import com.magic.basiccenter.dto.AdvertSelOutPageDTO;
 import com.magic.basiccenter.model.dto.AddAdvertInfoDTO;
 import com.magic.basiccenter.model.dto.AddAdvertInfoOutDTO;
 import com.magic.basiccenter.model.dto.DelAdvertInfoDTO;
 import com.magic.basiccenter.model.dto.DelAdvertInfoOutDTO;
+import com.magic.basiccenter.model.dto.SelAdvertInfoPageDTO;
+import com.magic.basiccenter.model.dto.SelAdvertInfoPageOutDTO;
 import com.magic.basiccenter.model.dto.UpdAdvertInfoDTO;
 import com.magic.basiccenter.model.dto.UpdAdvertInfoOutDTO;
 import com.magic.basiccenter.model.entity.BsAdvertInf;
@@ -22,6 +26,8 @@ import com.magic.basiccenter.model.service.IAdvertService;
 import com.magic.basiccenter.model.service.IBsAdvertInfService;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * <p>广告配置数据交互接口实现类</P>
@@ -33,6 +39,12 @@ import java.time.LocalDateTime;
  */
 @Service("advertService")
 public class AdvertServiceImpl implements IAdvertService {
+	/**
+	 * 序列号生成工具
+	 */
+	@Autowired
+	private SequenceFactory sequenceFactory;
+
     /**
      * 广告配置数据对应实体服务
      */
@@ -43,6 +55,7 @@ public class AdvertServiceImpl implements IAdvertService {
 	 * 广告配置表数据新增
 	 * @param inputDTO
 	 * @return
+	 * @author laiqx@belink.com
 	 */
 	@Override
     public AddAdvertInfoOutDTO addAdvertInfo(AddAdvertInfoDTO inputDTO) {
@@ -50,6 +63,8 @@ public class AdvertServiceImpl implements IAdvertService {
 
         BsAdvertInf bsAdvertInf = new BsAdvertInf();
         BeanUtils.copyProperties(inputDTO, bsAdvertInf);
+		String aiAdvId = sequenceFactory.getSegmentFillZeroId(Constant.ADVERT_ID_TAG);
+		bsAdvertInf.setAiAdvId(aiAdvId);
         bsAdvertInf.setAiAdvCreateTime(LocalDateTime.now()).setAiAdvUpdateTime(LocalDateTime.now());
         bsAdvertInfService.save(bsAdvertInf);
 
@@ -58,42 +73,68 @@ public class AdvertServiceImpl implements IAdvertService {
 
 	/**
 	 * 广告列表查询
-	 * @param advertSelDTO
+	 * @param selAdvertInfoPageDTO
 	 * @return
+	 * @author jianggq@belink.com
 	 */
 	@Override
-    public AdvertSelOutPageDTO advertSelPageCond(AdvertSelDTO advertSelDTO) {
-    	AdvertSelOutPageDTO advertSelOutPageDTO = new AdvertSelOutPageDTO();
-    	Integer currentPage = advertSelDTO.getCurrentPage();
-    	Integer turnPageShowNum = advertSelDTO.getTurnPageShowNum();
-    	Integer advertStatus = advertSelDTO.getAdvertStatus();
-    	String advertTheme = advertSelDTO.getAdvertTheme();
-    	IPage<BsAdvertInf> page = new Page<>(currentPage,turnPageShowNum);
-    	QueryWrapper<BsAdvertInf> queryWrapper = new QueryWrapper<>();
-    	queryWrapper.eq(!StringUtils.isEmpty(advertStatus), "AI_ADV_STATUS", advertStatus)
-    	.like(!StringUtils.isEmpty(advertTheme), "AI_ADV_THEME", advertTheme)
-    	.orderByDesc("AI_ADV_UPDATE_TIME");
-    	
-    	page = bsAdvertInfService.page(page, queryWrapper);
-    	advertSelOutPageDTO.setBannerList(page.getRecords())
-    	.setCurrentPage(page.getCurrent())
-    	.setTotalNum(page.getTotal())
-    	.setTurnPageShowNum(page.getSize());
-    	return advertSelOutPageDTO;
+    public SelAdvertInfoPageOutDTO advertSelPageCond(SelAdvertInfoPageDTO selAdvertInfoPageDTO) {
+		//构建返回对象
+		SelAdvertInfoPageOutDTO selAdvertInfoPageOutDTO = new SelAdvertInfoPageOutDTO();
+
+		//获取分页参数
+		long currentPage = selAdvertInfoPageDTO.getCurrentPage();
+		long turnPageShowNum = selAdvertInfoPageDTO.getTurnPageShowNum();
+		Integer advertStatus = selAdvertInfoPageDTO.getAdvertStatus();
+		String advertTheme = selAdvertInfoPageDTO.getAdvertTheme();
+
+		//构建分页对象
+		IPage<BsAdvertInf> page = new Page<>(currentPage,turnPageShowNum);
+		LambdaQueryWrapper<BsAdvertInf> queryWrapper = new LambdaQueryWrapper<>();
+		//构建条件查询
+		if (!StringUtils.isEmpty(advertStatus)) {
+			queryWrapper
+					.eq(BsAdvertInf::getAiAdvStatus, advertStatus)
+					.like(!StringUtils.isEmpty(advertTheme), BsAdvertInf::getAiAdvTheme, advertTheme)
+					.orderByDesc(BsAdvertInf::getAiAdvUpdateTime);
+		} else {
+			queryWrapper
+					.ne(BsAdvertInf::getAiAdvStatus, Constant.ADVERT_DELETE_STATUS_CODE)
+					.like(!StringUtils.isEmpty(advertTheme), BsAdvertInf::getAiAdvTheme, advertTheme)
+					.orderByDesc(BsAdvertInf::getAiAdvUpdateTime);
+		}
+		//执行查询
+		page = bsAdvertInfService.page(page, queryWrapper);
+
+		//对返回对象赋值
+		List<BsAdvertInf> records = page.getRecords();
+		List<AdvertInfBean> bannerList = new ArrayList<>(records.size());
+		for (BsAdvertInf bsAdvertInf : records) {
+			AdvertInfBean tempBean = new AdvertInfBean();
+			BeanUtils.copyProperties(bsAdvertInf, tempBean);
+			bannerList.add(tempBean);
+		}
+		selAdvertInfoPageOutDTO.setBannerList(bannerList)
+				.setCurrentPage(page.getCurrent())
+				.setTotalNum(page.getTotal())
+				.setTurnPageTotalNum(page.getSize());
+
+		return selAdvertInfoPageOutDTO;
     }
 
 	/**
-	 * 通过主键id删除广告
-	 * @param advertDTO
+	 * 通过主键id删除广告(逻辑删除，将广告状态置为3)
+	 * @param advertDelDTO
 	 * @return
+	 * @author tangw@belink.com
 	 */
 	@Override
-	public DelAdvertInfoOutDTO deleteAdvert(DelAdvertInfoDTO advertDTO) {
+	public DelAdvertInfoOutDTO delAdvertInfo(DelAdvertInfoDTO advertDelDTO) {
 		DelAdvertInfoOutDTO outDTO = new DelAdvertInfoOutDTO();
 
 		BsAdvertInf bsAdvertInf = new BsAdvertInf();
-		BeanUtils.copyProperties(advertDTO, bsAdvertInf);
-		bsAdvertInf.setAiAdvStatus(Constant.ADVERT_DELETE_STATUS_CODE);
+		BeanUtils.copyProperties(advertDelDTO, bsAdvertInf);
+		bsAdvertInf.setAiAdvStatus(Constant.ADVERT_DELETE_STATUS_CODE).setAiAdvUpdateTime(LocalDateTime.now());
 		bsAdvertInfService.updateById(bsAdvertInf);
 
 		return outDTO;
@@ -103,6 +144,7 @@ public class AdvertServiceImpl implements IAdvertService {
 	 * 广告配置表数据修改
 	 * @param updDTO
 	 * @return
+	 * @author luolf@belink.com
 	 */
 	@Override
 	public UpdAdvertInfoOutDTO updAdvertInfo(UpdAdvertInfoDTO updDTO) {

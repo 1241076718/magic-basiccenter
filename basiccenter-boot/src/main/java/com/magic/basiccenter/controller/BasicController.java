@@ -4,12 +4,12 @@ import com.magic.application.infrastructure.service.dto.MagicDTO;
 import com.magic.application.infrastructure.service.dto.MagicOutDTO;
 import com.magic.basiccenter.dto.AdvertAddDTO;
 import com.magic.basiccenter.dto.AdvertAddOutDTO;
-import com.magic.basiccenter.dto.AdvertSelDTO;
-import com.magic.basiccenter.dto.AdvertSelOutPageDTO;
+import com.magic.basiccenter.dto.AdvertSelPageDTO;
+import com.magic.basiccenter.dto.AdvertSelPageOutDTO;
 import com.magic.basiccenter.dto.AdvertUpdDTO;
 import com.magic.basiccenter.dto.AdvertUpdOutDTO;
-import com.magic.basiccenter.dto.DelAdvertDTO;
-import com.magic.basiccenter.dto.DelAdvertOutDTO;
+import com.magic.basiccenter.dto.AdvertDelDTO;
+import com.magic.basiccenter.dto.AdvertDelOutDTO;
 import com.magic.basiccenter.service.IAdvertManageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -38,6 +38,7 @@ public class BasicController {
      * 广告配置新增
      * @param requestDTO
      * @return
+     * @author laiqx@belink.com
      */
     @PostMapping("/advert/addAdvertInfo")
     public MagicOutDTO<AdvertAddOutDTO> addAdvertInfo(@RequestBody MagicDTO<AdvertAddDTO> requestDTO) {
@@ -48,9 +49,10 @@ public class BasicController {
      * 广告列表查询
      * @param requestDTO
      * @return
+     * @author jianggq@belink.com
      */
     @PostMapping("/advert/advertSelCond")
-    public MagicOutDTO<AdvertSelOutPageDTO> advertSelCond(@RequestBody MagicDTO<AdvertSelDTO> requestDTO){
+    public MagicOutDTO<AdvertSelPageOutDTO> advertSelCond(@RequestBody MagicDTO<AdvertSelPageDTO> requestDTO){
         return advertManageService.advertSelCond(requestDTO);
     }
 
@@ -58,16 +60,18 @@ public class BasicController {
      * 删除广告
      * @param requestDTO
      * @return
+     * @author tangw@belink.com
      */
     @PostMapping("advert/delAdvertInfo")
-	public MagicOutDTO<DelAdvertOutDTO> delAdvertInfo(@RequestBody MagicDTO<DelAdvertDTO> requestDTO){
-		return advertManageService.deleteAdvert(requestDTO);
+	public MagicOutDTO<AdvertDelOutDTO> delAdvertInfo(@RequestBody MagicDTO<AdvertDelDTO> requestDTO){
+		return advertManageService.delAdvertInfo(requestDTO);
 	}
 
     /**
      * 广告配置修改
      * @param requestDTO
      * @return
+     * @author luolf@belink.com
      */
     @PostMapping("/advert/updAdvertInfo")
     public MagicOutDTO<AdvertUpdOutDTO> updAdvertInfo(@RequestBody MagicDTO<AdvertUpdDTO> requestDTO) {
