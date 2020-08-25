@@ -146,7 +146,7 @@ public class DocumentServiceImpl implements DocumentService {
                     respHead.setErrorMsg(BasicErrorEnum.THESHELVESFATL.msg());
                 }
             }else {
-                if (ReleaseDTO.THESHELVES.equals(document.getState())) {
+                if (ReleaseDTO.SHELVES.equals(document.getState())) {
                     respHead.setErrorCode(BasicErrorEnum.SHELVES.code());
                     respHead.setErrorMsg(BasicErrorEnum.SHELVES.msg());
                 }if (ReleaseDTO.THESHELVES.equals(document.getState())){
