@@ -5,8 +5,6 @@ import com.magic.basiccenter.constants.Constant;
 import com.magic.basiccenter.dto.AddNoticeInfoInDTO;
 import com.magic.basiccenter.dto.AddNoticeInfoOutDTO;
 
-import com.magic.basiccenter.dto.QueryNoticeInfoDTO;
-
 import com.magic.basiccenter.model.dto.QueryNoticeDTO;
 import com.magic.basiccenter.model.dto.QueryNoticeOutDTO;
 import com.magic.basiccenter.model.entity.BsNoticeInf;
@@ -88,8 +86,8 @@ public class NoticeAppServiceImpl implements NoticeAppService {
 
 
     @Override
-    public QueryNoticeOutDTO changeNoticeStatus(QueryNoticeInfoDTO inputDTO) {
-        QueryNoticeOutDTO changeNoticeStatus = new QueryNoticeOutDTO();
+    public AddNoticeInfoOutDTO changeNoticeStatus(AddNoticeInfoInDTO inputDTO) {
+        AddNoticeInfoOutDTO changeNoticeStatus = new AddNoticeInfoOutDTO();
         BsNoticeInf bsNoticeInf = new BsNoticeInf();
         BeanUtils.copyProperties(inputDTO, bsNoticeInf);
         boolean update = iBService.updateById(bsNoticeInf);

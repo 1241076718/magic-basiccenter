@@ -2,7 +2,6 @@ package com.magic.basiccenter.model.service;
 
 import com.magic.basiccenter.dto.AddNoticeInfoInDTO;
 import com.magic.basiccenter.dto.AddNoticeInfoOutDTO;
-import com.magic.basiccenter.dto.QueryNoticeInfoDTO;
 import com.magic.basiccenter.model.dto.QueryNoticeDTO;
 import com.magic.basiccenter.model.dto.QueryNoticeOutDTO;
 
@@ -44,7 +43,7 @@ public interface NoticeAppService {
      * @param inputDTO
      * @return
      */
-    QueryNoticeOutDTO changeNoticeStatus(QueryNoticeInfoDTO inputDTO);
+    AddNoticeInfoOutDTO changeNoticeStatus(AddNoticeInfoInDTO inputDTO);
 
 
     

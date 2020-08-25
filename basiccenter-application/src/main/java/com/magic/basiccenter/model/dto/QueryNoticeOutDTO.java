@@ -80,9 +80,5 @@ public class QueryNoticeOutDTO implements Serializable {
 	 * 修改人
 	 */
 	private String niNtcGmtModifier;
-	/**
-	 * 更改状态
-	 */
-	private Boolean update;
-	
+
 }
