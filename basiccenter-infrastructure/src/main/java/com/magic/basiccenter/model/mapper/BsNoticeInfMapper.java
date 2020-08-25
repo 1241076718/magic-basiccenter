@@ -1,6 +1,7 @@
 package com.magic.basiccenter.model.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.magic.basiccenter.dto.entity.NoticeBean;
 import com.magic.basiccenter.model.dto.QueryNoticeDTO;
 import com.magic.basiccenter.model.dto.QueryNoticeOutDTO;
 import com.magic.basiccenter.model.entity.BsNoticeInf;
@@ -20,13 +21,17 @@ import java.util.List;
 @Repository
 public interface BsNoticeInfMapper extends BaseMapper<BsNoticeInf> {
 
-
     /**
      *查询公告mapper接口方法
      * @param dto
      * @return  List<QueryNoticeOutDTO>
      */
-    List<QueryNoticeOutDTO>  selectNotice(QueryNoticeDTO dto);
+    List<NoticeBean>  selectNotice(QueryNoticeDTO dto);
+    /**
+     *查询公告总数mapper接口方法
+     * @param
+     * @return  List<QueryNoticeOutDTO>
+     */
 
-
+    Integer queryNoticeTotalNum(QueryNoticeDTO queryNoticeDTO);
 }

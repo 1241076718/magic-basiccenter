@@ -5,6 +5,7 @@ import com.magic.application.infrastructure.service.dto.MagicOutDTO;
 import com.magic.application.infrastructure.service.dto.data.ReqHeader;
 import com.magic.application.infrastructure.service.dto.data.RespHeader;
 import com.magic.basiccenter.dto.*;
+import com.magic.basiccenter.dto.entity.NoticeBean;
 import com.magic.basiccenter.error.BasicErrorEnum;
 import com.magic.basiccenter.model.dto.QueryNoticeDTO;
 import com.magic.basiccenter.model.dto.QueryNoticeOutDTO;
@@ -62,20 +63,18 @@ public class NoticeServiceImpl implements NoticeService {
 
         }
 
-        List<QueryNoticeOutDTO> queryNoticeOutDTOS = service.queryNotice(queryNoticeDTO);
+        List<NoticeBean> queryNoticeOutDTOS = service.queryNotice(queryNoticeDTO);
 
         RespHeader respHeader = new RespHeader();
         if (!queryNoticeOutDTOS.isEmpty()) {
-            List<QueryNoticeOutDTO> totalNotices=null;
-            if(queryNoticeDTO.getNowsPage()>=0){
+
                 queryNoticeDTO.setPageSize(null);
-                totalNotices = service.queryNotice(queryNoticeDTO);
-            }
+              Integer  totalNotices = service.queryNoticeTotalNum(queryNoticeDTO);
             QueryNoticeInfoOutDTO outDTOd = new QueryNoticeInfoOutDTO();
             respHeader.setErrorCode(BasicErrorEnum.SUCCESS.code());
             respHeader.setErrorMsg(BasicErrorEnum.SUCCESS.msg());
             if(totalNotices!=null) {
-                outDTOd.setTurnPageTotalNum(totalNotices.size());
+                outDTOd.setTurnPageTotalNum(totalNotices);
             }
             outDTOd.setData(queryNoticeOutDTOS);
             result.setBody(outDTOd);

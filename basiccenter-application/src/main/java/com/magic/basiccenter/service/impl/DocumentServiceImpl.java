@@ -12,10 +12,12 @@ import com.magic.basiccenter.model.service.DocumentManageService;
 import com.magic.basiccenter.service.DocumentService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 /**
  * 前端接口实现
  */
+@Service
 public class DocumentServiceImpl implements DocumentService {
 
     /**
@@ -146,7 +148,7 @@ public class DocumentServiceImpl implements DocumentService {
                     respHead.setErrorMsg(BasicErrorEnum.THESHELVESFATL.msg());
                 }
             }else {
-                if (ReleaseDTO.THESHELVES.equals(document.getState())) {
+                if (ReleaseDTO.SHELVES.equals(document.getState())) {
                     respHead.setErrorCode(BasicErrorEnum.SHELVES.code());
                     respHead.setErrorMsg(BasicErrorEnum.SHELVES.msg());
                 }if (ReleaseDTO.THESHELVES.equals(document.getState())){

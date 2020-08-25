@@ -1,6 +1,7 @@
 package com.magic.basiccenter.model.service.impl;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.magic.basiccenter.dto.entity.NoticeBean;
 import com.magic.basiccenter.model.dto.QueryNoticeDTO;
 import com.magic.basiccenter.model.dto.QueryNoticeOutDTO;
 import com.magic.basiccenter.model.entity.BsNoticeInf;
@@ -27,10 +28,16 @@ public class BsNoticeInfServiceImpl extends ServiceImpl<BsNoticeInfMapper, BsNot
 
 
     @Override
-    public List<QueryNoticeOutDTO>  selectNotice(QueryNoticeDTO queryNoticeDTO) {
+    public List<NoticeBean>  selectNotice(QueryNoticeDTO queryNoticeDTO) {
 
-        List<QueryNoticeOutDTO> cuNoticeInfs = bsNoticeInfMapper.selectNotice(queryNoticeDTO);
+        List<NoticeBean> cuNoticeInfs = bsNoticeInfMapper.selectNotice(queryNoticeDTO);
 
                     return cuNoticeInfs;
+    }
+
+    @Override
+    public Integer queryNoticeTotalNum(QueryNoticeDTO queryNoticeDTO) {
+
+                     return bsNoticeInfMapper.queryNoticeTotalNum(queryNoticeDTO);
     }
 }
