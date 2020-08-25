@@ -158,12 +158,13 @@ public class NoticeServiceImpl implements NoticeService {
     }
 
 
-    /**
-     * 公告删除与上下架
-     * @param requestDTO
-     * @return
-     */
 
+     /**
+      * 通过主键id上下架、删除广告
+      * @param requestDTO
+      * @return magicOutDTO
+      * @author kangjx1@belink.com
+      */
     @Override
     public MagicOutDTO<AddNoticeInfoOutDTO> changeNoticeStatus(MagicDTO<AddNoticeInfoInDTO> requestDTO) {
         AddNoticeInfoOutDTO infoOutDTO = new AddNoticeInfoOutDTO();
