@@ -71,10 +71,10 @@ public class DocumentServiceImpl implements DocumentService {
      * @return
      */
     @Override
-    public MagicOutDTO<DocmentFacadeUpdataDTO> queryModify(MagicDTO<DocumentFacadeDTO> requestDTO) {
-        DocmentFacadeUpdataDTO dto = new DocmentFacadeUpdataDTO();
+    public MagicOutDTO<DocumentFacadeStateDTO> queryModify(MagicDTO<DocumentFacadeDTO> requestDTO) {
+        DocumentFacadeStateDTO dto = new DocumentFacadeStateDTO();
         //创建响应
-        MagicOutDTO<DocmentFacadeUpdataDTO> documentDTO = new MagicOutDTO<>(dto);
+        MagicOutDTO<DocumentFacadeStateDTO> documentDTO = new MagicOutDTO<>(dto);
 
         //创建请求头
         RespHeader respHead = new RespHeader();
@@ -89,11 +89,12 @@ public class DocumentServiceImpl implements DocumentService {
             BeanUtils.copyProperties(Document,documentDto);
 
             //业务实现
-            DocmentUpdataDTO docmentUpdataDto = documentManageService.queryModify(documentDto);
+            DocumentStateDTO documentStateDto = documentManageService.queryModify(documentDto);
+            dto.setDocsId(documentStateDto.getDocsId());
             //获取业务流程状态
-            dto.setDocumentUpdataStat(docmentUpdataDto.getDocumentUpdataStat());
+            dto.setState(documentStateDto.getState());
             //判断业务流程状态
-            if (StateDTO.FAILURE.equals(dto.getDocumentUpdataStat())){
+            if (StateDTO.FAILURE.equals(dto.getState())){
                 respHead.setErrorCode(BasicErrorEnum.MODIFYFATL.code());
                 respHead.setErrorMsg(BasicErrorEnum.MODIFYFATL.msg());
             }else {
@@ -114,10 +115,10 @@ public class DocumentServiceImpl implements DocumentService {
      * @return
      */
     @Override
-    public MagicOutDTO<DocumentFacadeOutDTO> publish(MagicDTO<DocumentFacadeInputDTO> requestDTO) {
-        DocumentFacadeOutDTO dto = new DocumentFacadeOutDTO();
+    public MagicOutDTO<DocumentFacadeStateDTO> publish(MagicDTO<DocumentFacadeInputDTO> requestDTO) {
+        DocumentFacadeStateDTO dto = new DocumentFacadeStateDTO();
         //创建响应
-        MagicOutDTO<DocumentFacadeOutDTO> documentDTO = new MagicOutDTO<>(dto);
+        MagicOutDTO<DocumentFacadeStateDTO> documentDTO = new MagicOutDTO<>(dto);
         //创建请求头
         RespHeader respHead = new RespHeader();
         //封装响应头
@@ -131,7 +132,7 @@ public class DocumentServiceImpl implements DocumentService {
             BeanUtils.copyProperties(document,documentDto);
 
             //业务实现
-            DocumentOutDTO publish = documentManageService.publish(documentDto);
+            DocumentStateDTO publish = documentManageService.publish(documentDto);
 
             //获取业务流程状态
             dto.setState(publish.getState());
@@ -167,10 +168,10 @@ public class DocumentServiceImpl implements DocumentService {
      * @return
      */
     @Override
-    public MagicOutDTO<DocmentFacadeUpdataDTO> delete(MagicDTO<DocumentFacadeIdDTO> requestDTO) {
-        DocmentFacadeUpdataDTO dto = new DocmentFacadeUpdataDTO();
+    public MagicOutDTO<DocumentFacadeStateDTO> delete(MagicDTO<DocumentFacadeIdDTO> requestDTO) {
+        DocumentFacadeStateDTO dto = new DocumentFacadeStateDTO();
         //创建响应
-        MagicOutDTO<DocmentFacadeUpdataDTO> documentDTO = new MagicOutDTO<>(dto);
+        MagicOutDTO<DocumentFacadeStateDTO> documentDTO = new MagicOutDTO<>(dto);
         //创建请求头
         RespHeader respHead = new RespHeader();
         //封装响应头
@@ -183,11 +184,11 @@ public class DocumentServiceImpl implements DocumentService {
             //写入属性
             documentIdDto.setDocsId(body.getDocsId());
             //业务实现
-            DocmentUpdataDTO delete = documentManageService.delete(documentIdDto);
+            DocumentStateDTO delete = documentManageService.delete(documentIdDto);
             //获取业务流程状态码
-            dto.setDocumentUpdataStat(delete.getDocumentUpdataStat());
+            dto.setState(delete.getState());
             //判断业务流程
-            if (StateDTO.FAILURE.equals(dto.getDocumentUpdataStat())){
+            if (StateDTO.FAILURE.equals(dto.getState())){
                 respHead.setErrorCode(BasicErrorEnum.DeleteFATL.code());
                 respHead.setErrorMsg(BasicErrorEnum.DeleteFATL.msg());
             }else {
@@ -210,10 +211,10 @@ public class DocumentServiceImpl implements DocumentService {
      * @return
      */
     @Override
-    public MagicOutDTO<DocmentFacadeUpdataDTO> addDocumentState(MagicDTO<DocumentFacadeDTO> requestDTO) {
-        DocmentFacadeUpdataDTO dto = new DocmentFacadeUpdataDTO();
+    public MagicOutDTO<DocumentFacadeStateDTO> addDocumentState(MagicDTO<DocumentFacadeDTO> requestDTO) {
+        DocumentFacadeStateDTO dto = new DocumentFacadeStateDTO();
         //创建响应
-        MagicOutDTO<DocmentFacadeUpdataDTO> documentFacadeDtoMagicDTO = new MagicOutDTO<>(dto);
+        MagicOutDTO<DocumentFacadeStateDTO> documentFacadeDtoMagicDTO = new MagicOutDTO<>(dto);
         //创建请求头
         RespHeader respHead = new RespHeader();
         //封装响应头
@@ -226,9 +227,10 @@ public class DocumentServiceImpl implements DocumentService {
             //属性克隆
             BeanUtils.copyProperties(body,documentDto);
             //业务实现
-            DocmentUpdataDTO updataDto = documentManageService.addDocumentState(documentDto);
+            DocumentStateDTO updataDto = documentManageService.addDocumentState(documentDto);
+            dto.setDocsId(updataDto.getDocsId());
             //判断业务流程
-            if (StateDTO.FAILURE.equals(updataDto.getDocumentUpdataStat())){
+            if (StateDTO.FAILURE.equals(updataDto.getState())){
                 respHead.setErrorCode(BasicErrorEnum.ADDFATL.code());
                 respHead.setErrorMsg(BasicErrorEnum.ADDFATL.msg());
             }else {
