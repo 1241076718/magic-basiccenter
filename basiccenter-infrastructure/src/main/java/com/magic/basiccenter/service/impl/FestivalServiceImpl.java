@@ -107,6 +107,7 @@ public class FestivalServiceImpl implements FestivalService {
         for (BsFestivalInf festivalmanageInf : selectList) {
             FestivalQueryListInf queryFestivalListOutDTO=new FestivalQueryListInf();
             queryFestivalListOutDTO.setFestivalDeploy(festivalmanageInf.getFestivalDeploy());
+            queryFestivalListOutDTO.setFestivalId(festivalmanageInf.getFestivalId());
             queryFestivalListOutDTO.setFestivalName(festivalmanageInf.getFestivalName());
             queryFestivalListOutDTO.setFestivalYear(festivalmanageInf.getFestivalYear());
             queryFestivalListOutDTO.setFestivalType(festivalmanageInf.getFestivalType());

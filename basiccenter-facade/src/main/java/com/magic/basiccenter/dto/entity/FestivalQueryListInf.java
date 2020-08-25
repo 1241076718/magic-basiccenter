@@ -23,6 +23,11 @@ public class FestivalQueryListInf implements Serializable {
     private String festivalYear;
 
     /**
+     * 节假日Id
+     */
+    private String festivalId;
+
+    /**
      * 节假日类型
      */
     private String festivalType;

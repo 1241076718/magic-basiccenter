@@ -83,10 +83,12 @@ public class NoticeAppServiceImpl implements NoticeAppService {
 
 
 
+
     /**
-     * 公告删除和上下架方法
+     * 通过主键id上下架、删除广告
      * @param inputDTO
-     * @return
+     * @return magicOutDTO
+     * @author kangjx1@belink.com
      */
 
     @Override
