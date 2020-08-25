@@ -29,26 +29,25 @@ public interface FestivalService {
      */
     Boolean FestivalSelectNameYear(String festivalName,String festivalYear);
 
-    /**
-     * 查询当前库中所有节假日信息
-     */
-    FestivalQueryListOutDTO FestivalQuery();
+
+
 
 
     /**
      * 根据节假日年份查询节假日列表
-     * @param year
+     * @param festivalYear
      * @return
      */
-    FestivalQueryListOutDTO FestivalQueryForYear(String year);
+
+    FestivalQueryListOutDTO FestivalQueryByYear(String festivalYear);
 
 
     /**
      * 删除节假日
-     * @param deleteDTO
+     * @param magicDTO
      * @return
      */
-    MagicOutDTO<FestivaldeleteOutDTO> FestivalDelete(MagicDTO<FestivaldeleteDTO> deleteDTO);
+    MagicOutDTO<FestivaldeleteOutDTO> FestivalDelete(MagicDTO<FestivaldeleteDTO> magicDTO);
 
 
 
@@ -57,8 +56,7 @@ public interface FestivalService {
      * @param festivalModifyDTO
      * @return
      */
-    RespHeader FestivalModify(FestivalManageModifyDTO festivalModifyDTO);
-
+    RespHeader FestivalModify(FestivalModifyDTO festivalModifyDTO);
 
 
 }

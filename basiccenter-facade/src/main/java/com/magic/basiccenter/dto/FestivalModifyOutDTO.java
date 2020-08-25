@@ -10,10 +10,10 @@ import java.io.Serializable;
  *
  */
 @Data
-public class FestivalManageModifyOutDTO implements Serializable {
+public class FestivalModifyOutDTO implements Serializable {
 
 
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 7332191304156298683L;
 	/**
 	 * 修改信息状态
 	 */

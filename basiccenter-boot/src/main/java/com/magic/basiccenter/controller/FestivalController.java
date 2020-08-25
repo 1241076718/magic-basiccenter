@@ -11,14 +11,13 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.List;
 
 /**
  * <p>基础中心--控制器</P>
  *
- * @author zhuzh@belink.com
+ * @author FestivalGroup
  * @version 0.0.1
- * @className basicController
+ * @className festivalController
  * @sine 2020/8/17 9:13
  */
 @RestController
@@ -39,7 +38,6 @@ public class FestivalController {
     public MagicOutDTO<FestivalAddOutDTO> FestivalAdd(@RequestBody MagicDTO<FestivalAddDTO> magicDTO){
         return festivalManageService.AddFestival(magicDTO);
     }
-
 
 
     /**
@@ -81,7 +79,7 @@ public class FestivalController {
      * @return
      */
     @PostMapping("/festival/festivalModify")
-    public MagicOutDTO<FestivalManageModifyOutDTO> FestivalModify(@RequestBody MagicDTO<FestivalManageModifyDTO> magicDTO){
+    public MagicOutDTO<FestivalModifyOutDTO> FestivalModify(@RequestBody MagicDTO<FestivalModifyDTO> magicDTO){
         return festivalManageService.ModifyFestival(magicDTO);
     }
 
