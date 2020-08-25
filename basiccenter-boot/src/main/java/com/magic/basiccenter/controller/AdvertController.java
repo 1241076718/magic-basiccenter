@@ -25,7 +25,6 @@ import org.springframework.web.bind.annotation.RestController;
  * @className basicController
  * @sine 2020/8/17 9:13
  */
-@RequestMapping("basic")
 @RestController
 public class AdvertController {
     /**

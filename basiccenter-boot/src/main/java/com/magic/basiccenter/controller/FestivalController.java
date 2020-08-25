@@ -23,7 +23,6 @@ import java.util.List;
  */
 @RestController
 @Slf4j
-@RequestMapping("basic")
 public class FestivalController {
 
     @Autowired
