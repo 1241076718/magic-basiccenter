@@ -5,7 +5,7 @@ import com.magic.basiccenter.model.dto.*;
 /**
  * 后端接口
  */
-public interface DocumentService {
+public interface DocumentManageService {
     /**
      * 数据回显
      * @param documentIdDto

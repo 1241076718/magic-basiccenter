@@ -8,6 +8,7 @@ import com.magic.application.infrastructure.service.dto.data.RespHeader;
 import com.magic.basiccenter.dto.*;
 import com.magic.basiccenter.error.BasicErrorEnum;
 import com.magic.basiccenter.model.dto.*;
+import com.magic.basiccenter.model.service.DocumentManageService;
 import com.magic.basiccenter.service.DocumentService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +22,7 @@ public class DocumentServiceImpl implements DocumentService {
      * 公共数据交互端
      */
     @Autowired
-    com.magic.basiccenter.model.service.DocumentService documentService;
+    DocumentManageService documentManageService;
     /**
      * 文档数据回显
      * @param requestDTO
@@ -45,7 +46,7 @@ public class DocumentServiceImpl implements DocumentService {
             //写入数据
             documentDto.setDocsId(docsId);
             //业务实现
-            DocumentDTO documentDto1 = documentService.queryData(documentDto);
+            DocumentDTO documentDto1 = documentManageService.queryData(documentDto);
             //属性克隆
             BeanUtils.copyProperties(documentDto1,dto);
             //判断业务流程状态
@@ -88,7 +89,7 @@ public class DocumentServiceImpl implements DocumentService {
             BeanUtils.copyProperties(Document,documentDto);
 
             //业务实现
-            DocmentUpdataDTO docmentUpdataDto = documentService.queryModify(documentDto);
+            DocmentUpdataDTO docmentUpdataDto = documentManageService.queryModify(documentDto);
             //获取业务流程状态
             dto.setDocumentUpdataStat(docmentUpdataDto.getDocumentUpdataStat());
             //判断业务流程状态
@@ -130,7 +131,7 @@ public class DocumentServiceImpl implements DocumentService {
             BeanUtils.copyProperties(document,documentDto);
 
             //业务实现
-            DocumentOutDTO publish = documentService.publish(documentDto);
+            DocumentOutDTO publish = documentManageService.publish(documentDto);
 
             //获取业务流程状态
             dto.setState(publish.getState());
@@ -182,7 +183,7 @@ public class DocumentServiceImpl implements DocumentService {
             //写入属性
             documentIdDto.setDocsId(body.getDocsId());
             //业务实现
-            DocmentUpdataDTO delete = documentService.delete(documentIdDto);
+            DocmentUpdataDTO delete = documentManageService.delete(documentIdDto);
             //获取业务流程状态码
             dto.setDocumentUpdataStat(delete.getDocumentUpdataStat());
             //判断业务流程
@@ -225,7 +226,7 @@ public class DocumentServiceImpl implements DocumentService {
             //属性克隆
             BeanUtils.copyProperties(body,documentDto);
             //业务实现
-            DocmentUpdataDTO updataDto = documentService.addDocumentState(documentDto);
+            DocmentUpdataDTO updataDto = documentManageService.addDocumentState(documentDto);
             //判断业务流程
             if (StateDTO.FAILURE.equals(updataDto.getDocumentUpdataStat())){
                 respHead.setErrorCode(BasicErrorEnum.ADDFATL.code());
@@ -263,7 +264,7 @@ public class DocumentServiceImpl implements DocumentService {
 				//克隆属性
 				BeanUtils.copyProperties(requestDTO.getBody(), queryDocumentDTO);
 				//业务实现
-				QueryDocumentOutDTO queryDocumentList = documentService.queryDocumentList(queryDocumentDTO);
+				QueryDocumentOutDTO queryDocumentList = documentManageService.queryDocumentList(queryDocumentDTO);
 				//判断业务流程
 				if(null == queryDocumentList) {
 					respHead.setErrorCode(BasicErrorEnum.REFERFATL.code());

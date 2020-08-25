@@ -7,7 +7,7 @@ import com.magic.basiccenter.constants.Constant;
 import com.magic.basiccenter.dto.entity.DocumentBean;
 import com.magic.basiccenter.model.dto.*;
 import com.magic.basiccenter.model.entity.BsDocumentInf;
-import com.magic.basiccenter.model.service.DocumentService;
+import com.magic.basiccenter.model.service.DocumentManageService;
 import com.magic.basiccenter.model.service.IBsDocumentService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,10 +23,11 @@ import java.util.List;
  * 后端接口实现
  */
 @Service
-public class DocumentServiceImpl implements DocumentService {
+public class DocumentManageServiceImpl implements DocumentManageService {
 	
     @Autowired
-    private IBsDocumentService documentService;
+    private IBsDocumentService bsDocumentService;
+
     @Autowired
     SequenceFactory sequenceFactory;
     /**
@@ -38,7 +39,7 @@ public class DocumentServiceImpl implements DocumentService {
     public DocumentDTO queryData(DocumentIdDTO documentIdDto) {
         DocumentDTO dto = new DocumentDTO();
         //调用api实现回显
-        BsDocumentInf byId = documentService.getById(documentIdDto.getDocsId());
+        BsDocumentInf byId = bsDocumentService.getById(documentIdDto.getDocsId());
         //克隆对象属性
         BeanUtils.copyProperties(byId,dto);
         return dto;
@@ -56,7 +57,7 @@ public class DocumentServiceImpl implements DocumentService {
         //克隆对象属性
         BeanUtils.copyProperties(documentDto,entity);
         //调用api实现修改
-        boolean b = documentService.updateById(entity);
+        boolean b = bsDocumentService.updateById(entity);
         //生成业务状态码
         dto.setDocumentUpdataStat(b ? 0 : 2);
         return dto;
@@ -75,7 +76,7 @@ public class DocumentServiceImpl implements DocumentService {
         entity.setDocsId(documentDto.getDocsId()).setState(documentDto.getState());
         entity.setDocumentPubdate(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()));
         //调用Api实现发布
-        boolean b = documentService.updateById(entity);
+        boolean b = bsDocumentService.updateById(entity);
         //生成业务状态码
         dto.setState(b ? 0 : 2);
         return dto;
@@ -94,7 +95,7 @@ public class DocumentServiceImpl implements DocumentService {
         entity.setDocsId(documentDto.getDocsId());
         //设置数据的生命id （0 生存，1 死亡）
         entity.setDocLife("1");
-        boolean b = documentService.updateById(entity);
+        boolean b = bsDocumentService.updateById(entity);
         //生成业务状态码
         dto.setDocumentUpdataStat(b ? 0 : 2);
         return dto;
@@ -123,7 +124,7 @@ public class DocumentServiceImpl implements DocumentService {
         //属性克隆
         BeanUtils.copyProperties(inputDTO,entity);
 
-        boolean b = documentService.save(entity);
+        boolean b = bsDocumentService.save(entity);
         //生成业务状态码
         document.setDocumentUpdataStat(b ? 0 : 2);
         document.setDocsId(id);
@@ -162,7 +163,7 @@ public class DocumentServiceImpl implements DocumentService {
                 .orderByDesc(BsDocumentInf::getDocumentPubdate);
 
 		//进行分页查询
-		iPage = documentService.page(iPage,queryWrapper);
+		iPage = bsDocumentService.page(iPage,queryWrapper);
 		
 		//获取文档列表总数和列表信息
 		int total = (int) iPage.getTotal();
@@ -175,7 +176,7 @@ public class DocumentServiceImpl implements DocumentService {
 			documentBeanList.add(documentBean);
 		}
         System.out.println(documentBeanList.toString());
-        List<String> catalogNameList = documentService.queryCatalogNameList();
+        List<String> catalogNameList = bsDocumentService.queryCatalogNameList();
         outData.setDocsList(documentBeanList);
 		outData.setTurnPageTotalNum(total);
 		outData.setCatalogNameList(catalogNameList);
