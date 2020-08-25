@@ -21,5 +21,5 @@ public class AddNoticeInfoOutDTO implements Serializable {
     /**
      * 插入数目
      */
-    private Integer total;
+    private Boolean flag;
 }
