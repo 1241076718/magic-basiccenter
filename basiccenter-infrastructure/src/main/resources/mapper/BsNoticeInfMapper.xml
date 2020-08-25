@@ -24,6 +24,37 @@
     <!--NI_NTC_ID, NI_NTC_NAME, NI_NTC_STATUS, NI_NTC_ID_RELEASE_TIME, NI_NTC_CREATOR, NI_NTC_TEXT, NI_NTC_START_TIME, NI_NTC_END_TIME, NI_NTC_COUNT, NI_NTC_REMIND_STATUS, NI_NTC_GMT_CREATE, NI_NTC_GMT_MODIFIED, NI_NTC_GMT_MODIFIER-->
     <!--</sql>-->
 
+
+    <sql id="queryWhere">
+        <where>
+            <if test="niNtcName != null and niNtcName !=''">
+                NI_NTC_NAME like CONCAT ( '%',#{niNtcName},'%')
+            </if>
+
+            <if test="niNtcStartTime != null and niNtcStartTime !=''  ">
+                or  NI_NTC_START_TIME >= #{niNtcStartTime}
+            </if>
+            <if test="niNtcEndTime != null and niNtcEndTime !=''  ">
+                and  #{niNtcEndTime}  >=  NI_NTC_END_TIME
+            </if>
+
+            <if test="niNtcCreator != null and niNtcCreator !=''">
+                or NI_NTC_CREATOR like CONCAT ( '%',#{niNtcCreator},'%')
+            </if>
+
+            <if test="niNtcStatus != null and niNtcStatus != 0">
+                or NI_NTC_STATUS =  #{niNtcStatus}
+            </if>
+            <if test="niNtcId != null and niNtcId != ''">
+                and  NI_NTC_ID =  #{niNtcId}
+            </if>
+
+            <if test="1 != 0">
+                and NI_NTC_STATUS != 1
+            </if>
+        </where>
+
+    </sql>
     <!--查询公告sql方法语句-->
     <select id="selectNotice"  parameterType="com.magic.basiccenter.model.dto.QueryNoticeDTO"    resultType="com.magic.basiccenter.dto.entity.NoticeBean">
 
@@ -67,7 +98,6 @@
     <select id="queryNoticeTotalNum"   parameterType="com.magic.basiccenter.model.dto.QueryNoticeDTO"    resultType="Integer">
 
         select count(*) from bs_notice_inf
-
         <where>
             <if test="niNtcName != null and niNtcName !=''">
                 NI_NTC_NAME like CONCAT ( '%',#{niNtcName},'%')
@@ -93,6 +123,13 @@
 
             <if test="1 != 0">
                 and NI_NTC_STATUS != 1
+            </if>
+
+            <if test=" niNtcId == null and pageSize!=null ">
+                ORDER BY  NI_NTC_GMT_MODIFIED DESC
+            </if>
+            <if test=" pageSize!=null and nowsPage >=0">
+                limit #{nowsPage}, #{pageSize}
             </if>
         </where>
     </select>
