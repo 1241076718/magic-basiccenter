@@ -53,6 +53,7 @@ public class FestivalServiceImpl implements FestivalService {
         FestivalManageInf festivalManageInf = new FestivalManageInf();
 
         //添加Id
+        festivalManageInf.setFestivalId(sequenceFactory.getSegmentDateId(Constant.FESTIVAL_BIZ_TAG));
         //封装实体对象
         festivalManageInf.setFestivalYear(festivalAddDTO.getFestivalYear());
         festivalManageInf.setFestivalName(festivalAddDTO.getFestivalName());
@@ -64,7 +65,7 @@ public class FestivalServiceImpl implements FestivalService {
         festivalManageInf.setFestivalPutPerson(festivalAddDTO.getFestivalPutPerson());
         festivalManageInf.setFestivalExist("0");
         festivalManageInf.setFestivalValid("0");
-        festivalManageInf.setFestivalId(sequenceFactory.getSegmentDateId(Constant.FESTIVAL_BIZ_TAG));
+        festManageMapper.insert(festivalManageInf);
 
     }
     /**
@@ -80,61 +81,35 @@ public class FestivalServiceImpl implements FestivalService {
         List<FestivalManageInf> festivalManageInfs = festManageMapper.selectList(queryWrapper);
         if (festivalManageInfs.isEmpty()){
             return true;
-            //festManageMapper.insert(festivalManageInf);
         }else {
             return false;
         }
     }
 
 
-    /**
-     * 查询当前年份的节假日
-     * @return
-     */
-    @Override
-    public FestivalQueryListOutDTO FestivalQuery() {
-        //定义输出报文
-        FestivalQueryListOutDTO result=new FestivalQueryListOutDTO();
-        ArrayList<FestivalQueryListInf> festivalQueryListInfs = new ArrayList<>();
-        LambdaQueryWrapper<FestivalManageInf> wrapper =new LambdaQueryWrapper<FestivalManageInf>();
-        Calendar now = Calendar.getInstance();
-        Integer year = now.get(Calendar.YEAR);
-        //注意：测试时为0，之后要设置为1
-        wrapper.eq(FestivalManageInf::getFestivalExist,"0").eq(FestivalManageInf::getFestivalValid, "0").eq(FestivalManageInf::getFestivalYear, year);
-        List<FestivalManageInf> selectList = festManageMapper.selectList(wrapper);
-        for (FestivalManageInf festivalmanageInf : selectList) {
-            FestivalQueryListInf queryFestivalListOutDTO=new FestivalQueryListInf();
-            queryFestivalListOutDTO.setFestivalYear(festivalmanageInf.getFestivalYear());
-            queryFestivalListOutDTO.setFestivalType(festivalmanageInf.getFestivalType());
-            queryFestivalListOutDTO.setFestivalDeploy(festivalmanageInf.getFestivalDeploy());
-            queryFestivalListOutDTO.setFestivalName(festivalmanageInf.getFestivalName());
-            queryFestivalListOutDTO.setFestivalPutPerson(festivalmanageInf.getFestivalPutPerson());
-            queryFestivalListOutDTO.setFestivalPutTime(festivalmanageInf.getFestivalPutTime());
-            festivalQueryListInfs.add(queryFestivalListOutDTO);
-        }
-        result.setFestivalQueryListInfs(festivalQueryListInfs);
-        return result;
-
-    }
 
 
     /**
      * 根据节假日年份查询节假日列表
-     * @param year
+     * @param festivalYear
      * @return
      */
     @Override
-    public FestivalQueryListOutDTO FestivalQueryForYear(String year) {
+    public FestivalQueryListOutDTO FestivalQueryByYear(String festivalYear) {
+        //定义输出对象
         FestivalQueryListOutDTO result=new FestivalQueryListOutDTO();
         ArrayList<FestivalQueryListInf> festivalQueryListInfs = new ArrayList<>();
+
         LambdaQueryWrapper<FestivalManageInf> wrapper =new LambdaQueryWrapper<FestivalManageInf>();
-        wrapper.eq(FestivalManageInf::getFestivalExist,"0").eq(FestivalManageInf::getFestivalValid, "0").eq(FestivalManageInf::getFestivalYear, year);
+        //注意：测试时为0，之后要设置为1
+        wrapper.eq(FestivalManageInf::getFestivalExist,"0").eq(FestivalManageInf::getFestivalValid, "0").eq(FestivalManageInf::getFestivalYear, festivalYear);
         List<FestivalManageInf> selectList = festManageMapper.selectList(wrapper);
         for (FestivalManageInf festivalmanageInf : selectList) {
             FestivalQueryListInf queryFestivalListOutDTO=new FestivalQueryListInf();
             queryFestivalListOutDTO.setFestivalDeploy(festivalmanageInf.getFestivalDeploy());
             queryFestivalListOutDTO.setFestivalName(festivalmanageInf.getFestivalName());
             queryFestivalListOutDTO.setFestivalYear(festivalmanageInf.getFestivalYear());
+            queryFestivalListOutDTO.setFestivalType(festivalmanageInf.getFestivalType());
             queryFestivalListOutDTO.setFestivalPutPerson(festivalmanageInf.getFestivalPutPerson());
             queryFestivalListOutDTO.setFestivalPutTime(festivalmanageInf.getFestivalPutTime());
             festivalQueryListInfs.add(queryFestivalListOutDTO);
@@ -145,51 +120,73 @@ public class FestivalServiceImpl implements FestivalService {
 
     /**
      * 删除选定节假日
-     * @param deleteDTO
+     * @param magicDTO
      * @return
      */
     @Override
-    public MagicOutDTO<FestivaldeleteOutDTO> FestivalDelete(MagicDTO<FestivaldeleteDTO> deleteDTO) {
-            //日期格式转换
-            SimpleDateFormat dataformat=new SimpleDateFormat("yyyy-MM-dd");
-            Date date=new Date();
-            String format = dataformat.format(date);
-            Date getdate=null;
-            Date nowdate=null;
-            RespHeader respHeader=new RespHeader();
-            MagicOutDTO magicOutDTO = new MagicOutDTO();
-            ApplicationServiceUtil.supplementaryRespHeader(deleteDTO.getHeader(), respHeader);
-            try {
-                getdate = dataformat.parse(deleteDTO.getBody().getFestivalDeploy().split(",")[0]);
-                nowdate = dataformat.parse(format);
-            }catch (Exception e){
-                e.printStackTrace();
-            }
-            //判断日期是否过时
-            if (getdate.getTime()<=nowdate.getTime()){
-                respHeader.setErrorCode(FestivalMessageEnum.FAIL.code());
-                respHeader.setErrorMsg(FestivalMessageEnum.FAIL.msg());
-                magicOutDTO.setHeader(respHeader);
-                //festManageMapper.updateById()
-                return magicOutDTO;
-            }else {
-                respHeader.setErrorCode(FestivalMessageEnum.SUCCESS.code());
-                respHeader.setErrorMsg(FestivalMessageEnum.SUCCESS.msg());
-                magicOutDTO.setHeader(respHeader);
-                QueryWrapper<FestivalManageInf> queryWrapper= new QueryWrapper<>();
-                FestivalManageInf festivalManageInf=new FestivalManageInf();
-                festivalManageInf.setFestivalExist("-1");
-                festManageMapper.update(festivalManageInf,queryWrapper.eq("FESTIVAL_ID",deleteDTO.getBody().getFestivalId()));
-                return magicOutDTO;
-            }
+    public MagicOutDTO<FestivaldeleteOutDTO> FestivalDelete(MagicDTO<FestivaldeleteDTO> magicDTO) {
+
+        //定义输出对象
+        MagicOutDTO magicOutDTO = new MagicOutDTO();
+        RespHeader respHeader=new RespHeader();
+        ApplicationServiceUtil.supplementaryRespHeader(magicDTO.getHeader(), respHeader);
+
+        //日期格式转换
+        SimpleDateFormat dataformat=new SimpleDateFormat("yyyy-MM-dd");
+        Date date=new Date();
+        String format = dataformat.format(date);
+
+        //获取删除节假日时间
+        Date getdate=null;
+        //获取当前时间
+        Date nowdate=null;
+
+
+        try {
+            getdate = dataformat.parse(magicDTO.getBody().getFestivalDeploy().split(",")[0]);
+            nowdate = dataformat.parse(format);
+        }catch (Exception e){
+            respHeader.setErrorCode(FestivalMessageEnum.FAIL.code());
+            respHeader.setErrorMsg(FestivalMessageEnum.FAIL.msg());
+            e.printStackTrace();
+        }
+
+        //判断日期是否过时
+        if (getdate.getTime()<=nowdate.getTime()){
+            //日期过时
+            respHeader.setErrorCode(FestivalMessageEnum.FAIL_FESTIVAL_DELETE_INVALID.code());
+            respHeader.setErrorMsg(FestivalMessageEnum.FAIL_FESTIVAL_DELETE_INVALID.msg());
+
+            magicOutDTO.setHeader(respHeader);
+            return magicOutDTO;
+        }else {
+            //日期未过时
+            respHeader.setErrorCode(FestivalMessageEnum.SUCCESS.code());
+            respHeader.setErrorMsg(FestivalMessageEnum.SUCCESS.msg());
+            magicOutDTO.setHeader(respHeader);
+
+            QueryWrapper<FestivalManageInf> queryWrapper= new QueryWrapper<>();
+            FestivalManageInf festivalManageInf=new FestivalManageInf();
+            festivalManageInf.setFestivalExist("-1");
+            festManageMapper.update(festivalManageInf,queryWrapper.eq("FESTIVAL_ID",magicDTO.getBody().getFestivalId()));
+            return magicOutDTO;
+        }
 
     }
 
-    @Override
-    public RespHeader FestivalModify(FestivalManageModifyDTO festivalModifyDTO) {
 
+    /**
+     * 修改选定节假日
+     * @param festivalModifyDTO
+     * @return
+     */
+    @Override
+    public RespHeader FestivalModify(FestivalModifyDTO festivalModifyDTO) {
+
+        //定义响应头
         RespHeader respHeader = new RespHeader();
 
+        //获取Id
         String festivalId = festivalModifyDTO.getFestivalId();
 
         // 根据Id判断被修改节假日安排是否有效
@@ -207,6 +204,7 @@ public class FestivalServiceImpl implements FestivalService {
                 respHeader.setErrorMsg(FestivalMessageEnum.FAIL_FESTIVAL_INVALID.msg());
                 return respHeader;
             }
+
         } catch (ParseException e) {
             respHeader.setErrorCode(FestivalMessageEnum.FAIL.code());
             respHeader.setErrorMsg(FestivalMessageEnum.FAIL.msg());

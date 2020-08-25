@@ -13,10 +13,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestBody;
 
+import java.util.Calendar;
 
 
-
-
+/**
+ * 节假日管理服务实现类
+ */
 @Slf4j
 @Service
 public class FestivalManageService implements IFestivalService {
@@ -35,15 +37,19 @@ public class FestivalManageService implements IFestivalService {
     @Override
     public MagicOutDTO<FestivalAddOutDTO> AddFestival(MagicDTO<FestivalAddDTO> magicDTO) {
 
-        //定义实体对象
+        //获取响应体
         FestivalAddDTO body = magicDTO.getBody();
 
         //定义输出对象
+        MagicOutDTO<FestivalAddOutDTO> magicOutDTO= new MagicOutDTO<>();
         FestivalAddOutDTO festivalAddOutDTO = new FestivalAddOutDTO();
         RespHeader respHeader=new RespHeader();
-        MagicOutDTO<FestivalAddOutDTO> magicOutDTO;
         ApplicationServiceUtil.supplementaryRespHeader(magicDTO.getHeader(), respHeader);
 
+        //非空校验 TODO
+
+
+        //判断数据库中是否有冲突节日
         if(festivalService.FestivalSelectNameYear(body.getFestivalName(),body.getFestivalYear())){
             //无冲突则添加
             festivalService.FestivalAdd(body);
@@ -55,7 +61,8 @@ public class FestivalManageService implements IFestivalService {
             respHeader.setErrorMsg(FestivalMessageEnum.FAIL_FESTIVAL_ADD_CONFLICT.msg());
         }
 
-        magicOutDTO = new MagicOutDTO<>(festivalAddOutDTO);
+        //magicOutDTO = new MagicOutDTO<>(festivalAddOutDTO);
+        magicOutDTO.setBody(festivalAddOutDTO);
         magicOutDTO.setHeader(respHeader);
         return magicOutDTO;
     }
@@ -70,11 +77,19 @@ public class FestivalManageService implements IFestivalService {
     @Override
     public MagicOutDTO<FestivalQueryListOutDTO> QueryFestivalList(MagicDTO<FestivalQueryListDTO> magicDTO) {
 
+        //定义输出对象
         MagicOutDTO<FestivalQueryListOutDTO> magicOutDTO=new MagicOutDTO<FestivalQueryListOutDTO>();
-        FestivalQueryListOutDTO result = festivalService.FestivalQuery();
-        magicOutDTO.setBody(result);
         RespHeader respHeader=new RespHeader();
         ApplicationServiceUtil.supplementaryRespHeader(magicDTO.getHeader(), respHeader);
+
+        //获取当前时间年份
+        Calendar now = Calendar.getInstance();
+        String year = String.valueOf(now.get(Calendar.YEAR));
+
+        FestivalQueryListOutDTO result = festivalService.FestivalQueryByYear(year);
+
+        //封装输出对象
+        magicOutDTO.setBody(result);
         respHeader.setErrorCode(FestivalMessageEnum.SUCCESS.code());
         respHeader.setErrorMsg(FestivalMessageEnum.SUCCESS.msg());
         magicOutDTO.setHeader(respHeader);
@@ -91,12 +106,17 @@ public class FestivalManageService implements IFestivalService {
     @Override
     public MagicOutDTO<FestivalQueryListOutDTO> QueryFestival(MagicDTO<FestivalQueryDTO> magicDTO) {
 
+        //获取请求体
         FestivalQueryDTO body = magicDTO.getBody();
+        //定义输出对象
         MagicOutDTO<FestivalQueryListOutDTO> magicOutDTO=new MagicOutDTO<FestivalQueryListOutDTO>();
-        FestivalQueryListOutDTO result = festivalService.FestivalQueryForYear(body.getFestivalYear());
-        magicOutDTO.setBody(result);
         RespHeader respHeader=new RespHeader();
         ApplicationServiceUtil.supplementaryRespHeader(magicDTO.getHeader(), respHeader);
+
+        FestivalQueryListOutDTO result = festivalService.FestivalQueryByYear(body.getFestivalYear());
+
+        //封装输出对象
+        magicOutDTO.setBody(result);
         respHeader.setErrorCode(FestivalMessageEnum.SUCCESS.code());
         respHeader.setErrorMsg(FestivalMessageEnum.SUCCESS.msg());
         magicOutDTO.setHeader(respHeader);
@@ -118,21 +138,21 @@ public class FestivalManageService implements IFestivalService {
 
 
     /**
-     * 节假日修改日期冲突检查
+     * 节假日修改日期
      * @param magicDTO
      * @return
      */
     @Override
-    public MagicOutDTO<FestivalManageModifyOutDTO> ModifyFestival(MagicDTO<FestivalManageModifyDTO> magicDTO) {
+    public MagicOutDTO<FestivalModifyOutDTO> ModifyFestival(MagicDTO<FestivalModifyDTO> magicDTO) {
         // 获取输入类
-        FestivalManageModifyDTO festivalModifyDTO = magicDTO.getBody();
+        FestivalModifyDTO festivalModifyDTO = magicDTO.getBody();
 
-        // 获取输出类
-        MagicOutDTO<FestivalManageModifyOutDTO> magicOutDTO = new MagicOutDTO<>();
-
+        // 定义输出类
+        MagicOutDTO<FestivalModifyOutDTO> magicOutDTO = new MagicOutDTO<>();
         RespHeader respHeader = new RespHeader();
         ApplicationServiceUtil.supplementaryRespHeader(magicDTO.getHeader(), respHeader);
 
+        // 非空校验
         if (festivalModifyDTO.getFestivalDeploy() == null) {
             respHeader.setErrorCode(FestivalMessageEnum.FAIL_FESTIVAL_INVALID.code());
             respHeader.setErrorMsg(FestivalMessageEnum.FAIL_FESTIVAL_INVALID.msg());

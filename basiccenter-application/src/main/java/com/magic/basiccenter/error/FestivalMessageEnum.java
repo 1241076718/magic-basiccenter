@@ -26,6 +26,10 @@ public enum FestivalMessageEnum {
 	FAIL_IN_FESTIVAL_INVALID("BAS003003", "修改失败,传入的修改日期无效"),
 
 	/**
+	 * 删除失败,传入的修改日期无效
+	 */
+	FAIL_FESTIVAL_DELETE_INVALID("BAS003004", "删除失败,传入的修改日期无效"),
+	/**
 	 * 添加失败，已有新增的节点日
 	 */
 	FAIL_FESTIVAL_ADD_CONFLICT("BAS003004","添加失败，已有新增的节点日");

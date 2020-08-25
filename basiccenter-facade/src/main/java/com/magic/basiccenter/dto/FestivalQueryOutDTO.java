@@ -7,5 +7,7 @@ import java.io.Serializable;
  * @author ChenFeiYang
  */
 public class FestivalQueryOutDTO implements Serializable {
+
     private static final long serialVersionUID = -1727437319278515929L;
+
 }
