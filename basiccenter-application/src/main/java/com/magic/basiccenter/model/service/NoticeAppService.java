@@ -45,7 +45,7 @@ public interface NoticeAppService {
      * @param inputDTO
      * @return
      */
-    QueryNoticeOutDTO changeNoticeStatus(QueryNoticeInfoDTO inputDTO);
+    AddNoticeInfoOutDTO changeNoticeStatus(AddNoticeInfoInDTO inputDTO);
 
     /**
      * 查询公告总数

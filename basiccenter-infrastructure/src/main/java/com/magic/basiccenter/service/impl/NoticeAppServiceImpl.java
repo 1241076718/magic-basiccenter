@@ -80,16 +80,17 @@ public class NoticeAppServiceImpl implements NoticeAppService {
 
 
 
+
     /**
-     * 公告删除和上下架方法
+     * 通过主键id上下架、删除广告
      * @param inputDTO
-     * @return
+     * @return magicOutDTO
+     * @author kangjx1@belink.com
      */
 
-
     @Override
-    public QueryNoticeOutDTO changeNoticeStatus(QueryNoticeInfoDTO inputDTO) {
-        QueryNoticeOutDTO changeNoticeStatus = new QueryNoticeOutDTO();
+    public AddNoticeInfoOutDTO changeNoticeStatus(AddNoticeInfoInDTO inputDTO) {
+        AddNoticeInfoOutDTO changeNoticeStatus = new AddNoticeInfoOutDTO();
         BsNoticeInf bsNoticeInf = new BsNoticeInf();
         BeanUtils.copyProperties(inputDTO, bsNoticeInf);
         boolean update = iBService.updateById(bsNoticeInf);

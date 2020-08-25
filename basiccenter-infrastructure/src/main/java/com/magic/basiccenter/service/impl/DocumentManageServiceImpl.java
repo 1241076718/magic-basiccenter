@@ -38,11 +38,16 @@ public class DocumentManageServiceImpl implements DocumentManageService {
     @Override
     public DocumentDTO queryData(DocumentIdDTO documentIdDto) {
         DocumentDTO dto = new DocumentDTO();
-        //调用api实现回显
-        BsDocumentInf byId = bsDocumentService.getById(documentIdDto.getDocsId());
-        //克隆对象属性
-        BeanUtils.copyProperties(byId,dto);
-        return dto;
+        BsDocumentInf byId1 = bsDocumentService.getById(documentIdDto);
+        if (byId1.getDocLife().equals(LifeDTO.DEATH)){
+            return null;
+        }else {
+            //调用api实现回显
+            BsDocumentInf byId = bsDocumentService.getById(documentIdDto.getDocsId());
+            //克隆对象属性
+            BeanUtils.copyProperties(byId, dto);
+            return dto;
+        }
     }
 
     /**
@@ -54,14 +59,20 @@ public class DocumentManageServiceImpl implements DocumentManageService {
     public DocumentStateDTO queryModify(DocumentDTO documentDto) {
         DocumentStateDTO dto = new DocumentStateDTO();
         BsDocumentInf entity = new BsDocumentInf();
-        //克隆对象属性
-        BeanUtils.copyProperties(documentDto,entity);
-        //调用api实现修改
-        boolean b = bsDocumentService.updateById(entity);
-        //生成业务状态码
-        dto.setDocsId(entity.getDocsId());
-        dto.setState(b ? 0 : 2);
-        return dto;
+        BsDocumentInf byId1 = bsDocumentService.getById(documentDto);
+        if (byId1.getDocLife().equals(LifeDTO.DEATH)){
+            dto.setState(2);
+            return dto;
+        }else {
+            //克隆对象属性
+            BeanUtils.copyProperties(documentDto, entity);
+            //调用api实现修改
+            boolean b = bsDocumentService.updateById(entity);
+            //生成业务状态码
+            dto.setDocsId(entity.getDocsId());
+            dto.setState(b ? 0 : 2);
+            return dto;
+        }
     }
 
     /**
@@ -73,18 +84,24 @@ public class DocumentManageServiceImpl implements DocumentManageService {
     public DocumentStateDTO publish(DocumentInputDTO documentDto) {
         DocumentStateDTO dto = new DocumentStateDTO();
         BsDocumentInf entity = new BsDocumentInf();
-        //非空校验
-        if (null == documentDto.getState()){
+        BsDocumentInf byId1 = bsDocumentService.getById(documentDto);
+        if (byId1.getDocLife().equals(LifeDTO.DEATH)){
             dto.setState(2);
             return dto;
         }else {
-            entity.setDocsId(documentDto.getDocsId()).setState(documentDto.getState());
-            entity.setDocumentPubdate(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()));
-            //调用Api实现发布
-            boolean b = bsDocumentService.updateById(entity);
-            //生成业务状态码
-            dto.setState(b ? 0 : 2);
-            return dto;
+            //非空校验
+            if (null == documentDto.getState()) {
+                dto.setState(2);
+                return dto;
+            } else {
+                entity.setDocsId(documentDto.getDocsId()).setState(documentDto.getState());
+                entity.setDocumentPubdate(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()));
+                //调用Api实现发布
+                boolean b = bsDocumentService.updateById(entity);
+                //生成业务状态码
+                dto.setState(b ? 0 : 2);
+                return dto;
+            }
         }
     }
 
@@ -97,14 +114,20 @@ public class DocumentManageServiceImpl implements DocumentManageService {
     public DocumentStateDTO delete(DocumentIdDTO documentDto) {
         DocumentStateDTO dto = new DocumentStateDTO();
         BsDocumentInf entity = new BsDocumentInf();
-        //获取数据id
-        entity.setDocsId(documentDto.getDocsId());
-        //设置数据的生命id （0 生存，1 死亡）
-        entity.setDocLife("1");
-        boolean b = bsDocumentService.updateById(entity);
-        //生成业务状态码
-        dto.setState(b ? 0 : 2);
-        return dto;
+        BsDocumentInf byId1 = bsDocumentService.getById(documentDto);
+        if (byId1.getDocLife().equals(LifeDTO.DEATH)){
+            dto.setState(2);
+            return dto;
+        }else {
+            //获取数据id
+            entity.setDocsId(documentDto.getDocsId());
+            //设置数据的生命id （0 生存，1 死亡）
+            entity.setDocLife("1");
+            boolean b = bsDocumentService.updateById(entity);
+            //生成业务状态码
+            dto.setState(b ? 0 : 2);
+            return dto;
+        }
     }
 
     /**
