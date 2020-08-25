@@ -173,20 +173,41 @@ public class NoticeServiceImpl implements NoticeService {
         RespHeader respHeader = new RespHeader();
         QueryNoticeInfoDTO body = requestDTO.getBody();
 
-        QueryNoticeOutDTO changeNoticeStatus = service.changeNoticeStatus(body);
+        QueryNoticeOutDTO queryNoticeOutDTO = service.changeNoticeStatus(body);
 
-        int i = changeNoticeStatus.getNiNtcCount();
+        Boolean update = queryNoticeOutDTO.getUpdate();
         //判断是否更改
-        if(i > 0){
-            respHeader.setErrorCode(BasicErrorEnum.SUCCESS.code());
-            respHeader.setErrorMsg(BasicErrorEnum.SUCCESS.msg());
-        }else {
-            respHeader.setErrorCode(BasicErrorEnum.DFAIL.code());
-            respHeader.setErrorMsg(BasicErrorEnum.DFAIL.msg());
+        if (update) {
+            if (requestDTO.getBody().getNiNtcStatus() == 1) {
+                //删除成功返回消息
+                respHeader.setErrorCode(BasicErrorEnum.DELETE.code());
+                respHeader.setErrorMsg(BasicErrorEnum.DELETE.msg());
+            } else if (requestDTO.getBody().getNiNtcStatus() == 4) {
+                //上架成功返回消息
+                respHeader.setErrorCode(BasicErrorEnum.SHELVES.code());
+                respHeader.setErrorMsg(BasicErrorEnum.SHELVES.msg());
+            } else if (requestDTO.getBody().getNiNtcStatus() == 5) {
+                //下架成功返回消息
+                respHeader.setErrorCode(BasicErrorEnum.THEAHWLVES.code());
+                respHeader.setErrorMsg(BasicErrorEnum.THEAHWLVES.msg());
+            }
+        } else {
+            if (requestDTO.getBody().getNiNtcStatus() == 1) {
+                //删除失败返回消息
+                respHeader.setErrorCode(BasicErrorEnum.DeleteFATL.code());
+                respHeader.setErrorMsg(BasicErrorEnum.DeleteFATL.msg());
+            } else if (requestDTO.getBody().getNiNtcStatus() == 4) {
+                //上架失败返回消息
+                respHeader.setErrorCode(BasicErrorEnum.SHELVESFATL.code());
+                respHeader.setErrorMsg(BasicErrorEnum.SHELVESFATL.msg());
+            } else if (requestDTO.getBody().getNiNtcStatus() == 5) {
+                //下架失败返回消息
+                respHeader.setErrorCode(BasicErrorEnum.THESHELVESFATL.code());
+                respHeader.setErrorMsg(BasicErrorEnum.THESHELVESFATL.msg());
+            }
         }
-        magicOutDTO.setHeader(respHeader);
-        return magicOutDTO;
-    }
-
+            magicOutDTO.setHeader(respHeader);
+            return magicOutDTO;
+        }
 
 }

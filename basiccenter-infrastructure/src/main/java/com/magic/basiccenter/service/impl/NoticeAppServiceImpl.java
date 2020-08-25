@@ -93,6 +93,7 @@ public class NoticeAppServiceImpl implements NoticeAppService {
         BsNoticeInf bsNoticeInf = new BsNoticeInf();
         BeanUtils.copyProperties(inputDTO, bsNoticeInf);
         boolean update = iBService.updateById(bsNoticeInf);
+        changeNoticeStatus.setUpdate(update);
         return changeNoticeStatus;
     }
     /**
