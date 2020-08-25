@@ -46,10 +46,13 @@ public class NoticeAppServiceImpl implements NoticeAppService {
      */
     @Autowired(required = false)
     IBsNoticeInfService iBService;
+
+
     /**
-     * 查询公告方法
+     * 公告查询
      * @param inputDTO
-     * @return
+     * @return List<NoticeBean>
+     * @author goupc1@belink.com
      */
     @Override
     public List<NoticeBean> queryNotice(QueryNoticeDTO inputDTO) {
@@ -86,10 +89,9 @@ public class NoticeAppServiceImpl implements NoticeAppService {
      * @return
      */
 
-
     @Override
-    public QueryNoticeOutDTO changeNoticeStatus(QueryNoticeInfoDTO inputDTO) {
-        QueryNoticeOutDTO changeNoticeStatus = new QueryNoticeOutDTO();
+    public AddNoticeInfoOutDTO changeNoticeStatus(AddNoticeInfoInDTO inputDTO) {
+        AddNoticeInfoOutDTO changeNoticeStatus = new AddNoticeInfoOutDTO();
         BsNoticeInf bsNoticeInf = new BsNoticeInf();
         BeanUtils.copyProperties(inputDTO, bsNoticeInf);
         boolean update = iBService.updateById(bsNoticeInf);

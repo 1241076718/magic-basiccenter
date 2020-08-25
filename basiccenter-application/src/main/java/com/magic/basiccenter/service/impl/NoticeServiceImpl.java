@@ -32,11 +32,13 @@ public class NoticeServiceImpl implements NoticeService {
     NoticeAppService service;
 
 
-    /**
-     * 公告查询
-     * @param requestDTO
-     * @return
-     */
+
+     /**
+      * 公告查询
+      * @param requestDTO
+      * @return MagicOutDTO<QueryNoticeInfoOutDTO>
+      * @author goupc1@belink.com
+      */
     @Override
     public MagicOutDTO<QueryNoticeInfoOutDTO> queryNoticeList(MagicDTO<QueryNoticeInfoDTO> requestDTO) {
 
