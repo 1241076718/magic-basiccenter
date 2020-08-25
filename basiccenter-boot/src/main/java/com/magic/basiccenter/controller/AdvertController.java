@@ -2,9 +2,6 @@ package com.magic.basiccenter.controller;
 
 import com.magic.application.infrastructure.service.dto.MagicDTO;
 import com.magic.application.infrastructure.service.dto.MagicOutDTO;
-import com.magic.basiccenter.dto.*;
-import com.magic.basiccenter.service.BasicService;
-import lombok.extern.slf4j.Slf4j;
 import com.magic.basiccenter.dto.AdvertAddDTO;
 import com.magic.basiccenter.dto.AdvertAddOutDTO;
 import com.magic.basiccenter.dto.AdvertSelDTO;
@@ -18,7 +15,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
 
 /**
  * <p>基础中心--控制器</P>
@@ -29,7 +25,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @sine 2020/8/17 9:13
  */
 @RequestMapping("basic")
-public class BasicController {
+public class AdvertController {
     /**
      * 广告管理模块服务
      */
@@ -79,4 +75,7 @@ public class BasicController {
     public MagicOutDTO<AdvertUpdOutDTO> updAdvertInfo(@RequestBody MagicDTO<AdvertUpdDTO> requestDTO) {
         return advertManageService.updAdvertInfo(requestDTO);
     }
+
+
+
 }

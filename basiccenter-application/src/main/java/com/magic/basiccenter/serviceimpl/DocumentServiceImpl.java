@@ -8,21 +8,20 @@ import com.magic.application.infrastructure.service.dto.data.RespHeader;
 import com.magic.basiccenter.dto.*;
 import com.magic.basiccenter.error.BasicErrorEnum;
 import com.magic.basiccenter.model.dto.*;
-import com.magic.basiccenter.model.service.DocumentService;
-import com.magic.basiccenter.service.BasicService;
+import com.magic.basiccenter.service.DocumentService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 
 /**
  * 前端接口实现
  */
-public class BasicServiceImpl implements BasicService {
+public class DocumentServiceImpl implements DocumentService {
 
     /**
      * 公共数据交互端
      */
     @Autowired
-    DocumentService documentService;
+    com.magic.basiccenter.model.service.DocumentService documentService;
     /**
      * 文档数据回显
      * @param requestDTO

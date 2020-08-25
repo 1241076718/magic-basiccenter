@@ -10,7 +10,7 @@ import com.magic.basiccenter.dto.*;
  * 前端接口
  */
 
-public interface BasicService {
+public interface DocumentService {
     /**
      * 文档数据回显
      * @param requestDTO

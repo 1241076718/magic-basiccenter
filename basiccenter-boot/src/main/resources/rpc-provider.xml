@@ -13,9 +13,9 @@
 		<rpc:config key="contextId" value="basic"/>
 	</rpc:provider>
 
-    <bean id="basicService" class="com.magic.basiccenter.serviceimpl.BasicServiceImpl"/>
+    <bean id="basicService" class="com.magic.basiccenter.serviceimpl.DocumentServiceImpl"/>
     <rpc:provider id="basicProvider" ref="basicService"
-                  interface="com.magic.basiccenter.service.BasicService"
+                  interface="com.magic.basiccenter.service.DocumentService"
                   group="basic-center"
                   type="SpringCloudCreater">
         <rpc:config key="contextId" value="basic"/>
