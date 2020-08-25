@@ -24,7 +24,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/notice")
 public class NoticeController {
     @Autowired(required = false)
-    NoticeService service;
+    NoticeService noticeService;
 
 
 
@@ -37,7 +37,7 @@ public class NoticeController {
      */
     @PostMapping("/addNotice")
     public MagicOutDTO<AddNoticeInfoOutDTO> addNotice(@RequestBody MagicDTO<AddNoticeInfoInDTO> requestDTO) {
-        return service.addNoticeInfo(requestDTO);
+        return noticeService.addNoticeInfo(requestDTO);
     }
 
 
@@ -49,7 +49,7 @@ public class NoticeController {
      */
     @PostMapping("/updateNotice")
     public MagicOutDTO<UpdateNoticeInfoOutDTO> updateNoticeData(@RequestBody MagicDTO<QueryNoticeInfoDTO> requestDTO) {
-        return service.updateNotice(requestDTO);
+        return noticeService.updateNotice(requestDTO);
     }
 
 
@@ -63,7 +63,7 @@ public class NoticeController {
 
     @PostMapping("/select")
     public MagicOutDTO<QueryNoticeInfoOutDTO> selectNotice(@RequestBody MagicDTO<QueryNoticeInfoDTO> queryNoticeInfoInDTO) {
-        MagicOutDTO<QueryNoticeInfoOutDTO> querynoticeinfo = service.queryNoticeList(queryNoticeInfoInDTO);
+        MagicOutDTO<QueryNoticeInfoOutDTO> querynoticeinfo = noticeService.queryNoticeList(queryNoticeInfoInDTO);
         return querynoticeinfo;
 
 
@@ -78,7 +78,7 @@ public class NoticeController {
     @PostMapping("/changeNoticeStatus")
     public MagicOutDTO<QueryNoticeInfoOutDTO> changeNoticeStatus(@RequestBody MagicDTO<QueryNoticeInfoDTO> queryNoticeInfoInDTO) {
 
-        MagicOutDTO<QueryNoticeInfoOutDTO> magicDTO = service.changeNoticeStatus(queryNoticeInfoInDTO);
+        MagicOutDTO<QueryNoticeInfoOutDTO> magicDTO = noticeService.changeNoticeStatus(queryNoticeInfoInDTO);
 
         return magicDTO;
     }

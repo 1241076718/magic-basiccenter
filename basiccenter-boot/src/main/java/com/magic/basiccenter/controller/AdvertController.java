@@ -15,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 /**
  * <p>基础中心--控制器</P>
@@ -25,6 +26,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
  * @sine 2020/8/17 9:13
  */
 @RequestMapping("basic")
+@RestController
 public class AdvertController {
     /**
      * 广告管理模块服务
