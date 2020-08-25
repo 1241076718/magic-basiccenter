@@ -51,15 +51,16 @@ public class DocumentManageServiceImpl implements DocumentManageService {
      * @return
      */
     @Override
-    public DocmentUpdataDTO queryModify(DocumentDTO documentDto) {
-        DocmentUpdataDTO dto = new DocmentUpdataDTO();
+    public DocumentStateDTO queryModify(DocumentDTO documentDto) {
+        DocumentStateDTO dto = new DocumentStateDTO();
         BsDocumentInf entity = new BsDocumentInf();
         //克隆对象属性
         BeanUtils.copyProperties(documentDto,entity);
         //调用api实现修改
         boolean b = bsDocumentService.updateById(entity);
         //生成业务状态码
-        dto.setDocumentUpdataStat(b ? 0 : 2);
+        dto.setDocsId(entity.getDocsId());
+        dto.setState(b ? 0 : 2);
         return dto;
     }
 
@@ -69,8 +70,8 @@ public class DocumentManageServiceImpl implements DocumentManageService {
      * @return
      */
     @Override
-    public DocumentOutDTO publish(DocumentInputDTO documentDto) {
-        DocumentOutDTO dto = new DocumentOutDTO();
+    public DocumentStateDTO publish(DocumentInputDTO documentDto) {
+        DocumentStateDTO dto = new DocumentStateDTO();
         BsDocumentInf entity = new BsDocumentInf();
 
         entity.setDocsId(documentDto.getDocsId()).setState(documentDto.getState());
@@ -88,8 +89,8 @@ public class DocumentManageServiceImpl implements DocumentManageService {
      * @return
      */
     @Override
-    public DocmentUpdataDTO delete(DocumentIdDTO documentDto) {
-        DocmentUpdataDTO dto = new DocmentUpdataDTO();
+    public DocumentStateDTO delete(DocumentIdDTO documentDto) {
+        DocumentStateDTO dto = new DocumentStateDTO();
         BsDocumentInf entity = new BsDocumentInf();
         //获取数据id
         entity.setDocsId(documentDto.getDocsId());
@@ -97,7 +98,7 @@ public class DocumentManageServiceImpl implements DocumentManageService {
         entity.setDocLife("1");
         boolean b = bsDocumentService.updateById(entity);
         //生成业务状态码
-        dto.setDocumentUpdataStat(b ? 0 : 2);
+        dto.setState(b ? 0 : 2);
         return dto;
     }
 
@@ -107,9 +108,9 @@ public class DocumentManageServiceImpl implements DocumentManageService {
      * @return
      */
     @Override
-    public DocmentUpdataDTO addDocumentState(DocumentDTO inputDTO) {
+    public DocumentStateDTO addDocumentState(DocumentDTO inputDTO) {
 
-        DocmentUpdataDTO document =new DocmentUpdataDTO();
+        DocumentStateDTO document =new DocumentStateDTO();
         BsDocumentInf entity = new BsDocumentInf();
         //获取当前时间
         inputDTO.setDocumentCtime(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()))
@@ -126,7 +127,7 @@ public class DocumentManageServiceImpl implements DocumentManageService {
 
         boolean b = bsDocumentService.save(entity);
         //生成业务状态码
-        document.setDocumentUpdataStat(b ? 0 : 2);
+        document.setState(b ? 0 : 2);
         document.setDocsId(id);
         return document;
     }
