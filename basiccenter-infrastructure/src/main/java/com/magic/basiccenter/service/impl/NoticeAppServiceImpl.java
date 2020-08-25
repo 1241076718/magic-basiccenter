@@ -4,7 +4,9 @@ import com.gift.domain.sequence.factory.SequenceFactory;
 import com.magic.basiccenter.constants.Constant;
 import com.magic.basiccenter.dto.AddNoticeInfoInDTO;
 import com.magic.basiccenter.dto.AddNoticeInfoOutDTO;
+
 import com.magic.basiccenter.dto.QueryNoticeInfoDTO;
+
 import com.magic.basiccenter.model.dto.QueryNoticeDTO;
 import com.magic.basiccenter.model.dto.QueryNoticeOutDTO;
 import com.magic.basiccenter.model.entity.BsNoticeInf;
@@ -41,7 +43,6 @@ public class NoticeAppServiceImpl implements NoticeAppService {
      * 数据交互层服务IBsNoticeInfService接口
      *
      */
-
     @Autowired(required = false)
     IBsNoticeInfService iBService;
     /**
@@ -51,10 +52,7 @@ public class NoticeAppServiceImpl implements NoticeAppService {
      */
     @Override
     public List<QueryNoticeOutDTO> queryNotice(QueryNoticeDTO inputDTO) {
-
-
         List<QueryNoticeOutDTO> cuNoticeInfs =iBService.selectNotice(inputDTO);
-
         return cuNoticeInfs;
 
     }
@@ -75,27 +73,25 @@ public class NoticeAppServiceImpl implements NoticeAppService {
         String noticeId = sequenceFactory.getSegmentDateId(Constant.CU_NOTICE_ID);
         bsNoticeInf.setNiNtcId(noticeId);
         bsNoticeInf.setNiNtcGmtCreate(new Date());
-        boolean flag = iBService.save(bsNoticeInf);
-        addNoticeInfoOutDTO.setFlag(flag);
+        boolean row = iBService.save(bsNoticeInf);
         return addNoticeInfoOutDTO;
     }
 
-    @Autowired
-    private IBsNoticeInfService iBsNoticeInfService;
+
+
     /**
      * 公告删除和上下架方法
      * @param inputDTO
      * @return
      */
 
+
     @Override
     public QueryNoticeOutDTO changeNoticeStatus(QueryNoticeInfoDTO inputDTO) {
-
         QueryNoticeOutDTO changeNoticeStatus = new QueryNoticeOutDTO();
         BsNoticeInf bsNoticeInf = new BsNoticeInf();
         BeanUtils.copyProperties(inputDTO, bsNoticeInf);
         boolean update = iBService.updateById(bsNoticeInf);
-
         return changeNoticeStatus;
     }
     /**

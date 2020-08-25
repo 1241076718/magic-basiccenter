@@ -102,9 +102,9 @@ public class NoticeServiceImpl implements NoticeService {
         ReqHeader reqHead = requestDTO.getHeader();
         AddNoticeInfoInDTO body = requestDTO.getBody();
         AddNoticeInfoOutDTO addNoticeInfoOutDTO = service.addNotice(body);
-        Boolean flag = addNoticeInfoOutDTO.getFlag();
+        Integer rows = addNoticeInfoOutDTO.getTotal();
         //判断执行结果
-        if (flag){
+        if (rows!=null && rows>0){
             respHead.setErrorCode(BasicErrorEnum.SUCCESS.code());
             respHead.setErrorMsg(BasicErrorEnum.SUCCESS.msg());
             magicOutDTO.setBody(addNoticeInfoOutDTO);
@@ -176,6 +176,7 @@ public class NoticeServiceImpl implements NoticeService {
         QueryNoticeOutDTO changeNoticeStatus = service.changeNoticeStatus(body);
 
         int i = changeNoticeStatus.getNiNtcCount();
+        //判断是否更改
         if(i > 0){
             respHeader.setErrorCode(BasicErrorEnum.SUCCESS.code());
             respHeader.setErrorMsg(BasicErrorEnum.SUCCESS.msg());
