@@ -8,18 +8,24 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
-/**
- * <p>
- * 用户信息变更流水表 Mapper 接口
- * </p>
- *
- * @author yangquan
- * @since 2020-05-19
- */
 
+
+/**
+ * @author ：goupc1@belink.com
+ * @date ：Created in 2020/8/620 9:54
+ * @description：  公告表Mapper 接口
+ * @modified By：
+ * @version: $1.0.0
+ */
 @Repository
 public interface BsNoticeInfMapper extends BaseMapper<BsNoticeInf> {
 
+
+    /**
+     *查询公告mapper接口方法
+     * @param dto
+     * @return  List<QueryNoticeOutDTO>
+     */
     List<QueryNoticeOutDTO>  selectNotice(QueryNoticeDTO dto);
 
 
