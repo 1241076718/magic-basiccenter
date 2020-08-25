@@ -18,7 +18,7 @@ public class DocumentStateDTO implements Serializable {
      */
     private String docsId;
     /**
-     * 修改状态（0 成功， 1 失败）
+     * 修改状态（0 成功， 2 失败）
      */
     private Integer state;
 }
