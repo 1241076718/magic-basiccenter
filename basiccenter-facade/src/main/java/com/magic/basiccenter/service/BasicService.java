@@ -23,21 +23,21 @@ public interface BasicService {
      * @param requestDTO
      * @return
      */
-    MagicOutDTO<DocmentFacadeUpdataDTO> queryModify(MagicDTO<DocumentFacadeDTO> requestDTO);
+    MagicOutDTO<DocumentFacadeStateDTO> queryModify(MagicDTO<DocumentFacadeDTO> requestDTO);
 
     /**
      * 文档发布
      * @param requestDTO
      * @return
      */
-    MagicOutDTO<DocumentFacadeOutDTO> publish(MagicDTO<DocumentFacadeInputDTO> requestDTO);
+    MagicOutDTO<DocumentFacadeStateDTO> publish(MagicDTO<DocumentFacadeInputDTO> requestDTO);
 
     /**
      * 文档删除
      * @param requestDTO
      * @return
      */
-    MagicOutDTO<DocmentFacadeUpdataDTO> delete (MagicDTO<DocumentFacadeIdDTO> requestDTO);
+    MagicOutDTO<DocumentFacadeStateDTO> delete (MagicDTO<DocumentFacadeIdDTO> requestDTO);
     /**
      * 查询文档列表
      * @param requestDTO
@@ -51,7 +51,7 @@ public interface BasicService {
      * @param requestDTO
      * @return
      */
-    MagicOutDTO<DocmentFacadeUpdataDTO> addDocumentState(MagicDTO<DocumentFacadeDTO> requestDTO);
+    MagicOutDTO<DocumentFacadeStateDTO> addDocumentState(MagicDTO<DocumentFacadeDTO> requestDTO);
 
 
 }

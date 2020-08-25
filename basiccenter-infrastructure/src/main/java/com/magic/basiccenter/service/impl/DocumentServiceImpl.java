@@ -1,15 +1,12 @@
 package com.magic.basiccenter.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.baomidou.mybatisplus.extension.service.IService;
 import com.gift.domain.sequence.factory.SequenceFactory;
 import com.magic.basiccenter.constart.Constart;
 import com.magic.basiccenter.dto.entity.DocumentBean;
 import com.magic.basiccenter.model.dto.*;
 import com.magic.basiccenter.model.entity.BsDocumentInf;
-import com.magic.basiccenter.model.mapper.BsDocumentInfMapper;
 import com.magic.basiccenter.model.service.DocumentService;
 import com.magic.basiccenter.model.service.IBsDocumentService;
 import org.springframework.beans.BeanUtils;
@@ -53,15 +50,16 @@ public class DocumentServiceImpl implements DocumentService {
      * @return
      */
     @Override
-    public DocmentUpdataDTO queryModify(DocumentDTO documentDto) {
-        DocmentUpdataDTO dto = new DocmentUpdataDTO();
+    public DocumentStateDTO queryModify(DocumentDTO documentDto) {
+        DocumentStateDTO dto = new DocumentStateDTO();
         BsDocumentInf entity = new BsDocumentInf();
         //克隆对象属性
         BeanUtils.copyProperties(documentDto,entity);
         //调用api实现修改
         boolean b = documentService.updateById(entity);
+        dto.setDocsId(entity.getDocsId());
         //生成业务状态码
-        dto.setDocumentUpdataStat(b ? 0 : 2);
+        dto.setState(b ? 0 : 2);
         return dto;
     }
 
@@ -71,8 +69,8 @@ public class DocumentServiceImpl implements DocumentService {
      * @return
      */
     @Override
-    public DocumentOutDTO publish(DocumentInputDTO documentDto) {
-        DocumentOutDTO dto = new DocumentOutDTO();
+    public DocumentStateDTO publish(DocumentInputDTO documentDto) {
+        DocumentStateDTO dto = new DocumentStateDTO();
         BsDocumentInf entity = new BsDocumentInf();
 
         entity.setDocsId(documentDto.getDocsId()).setState(documentDto.getState());
@@ -90,8 +88,8 @@ public class DocumentServiceImpl implements DocumentService {
      * @return
      */
     @Override
-    public DocmentUpdataDTO delete(DocumentIdDTO documentDto) {
-        DocmentUpdataDTO dto = new DocmentUpdataDTO();
+    public DocumentStateDTO delete(DocumentIdDTO documentDto) {
+        DocumentStateDTO dto = new DocumentStateDTO();
         BsDocumentInf entity = new BsDocumentInf();
         //获取数据id
         entity.setDocsId(documentDto.getDocsId());
@@ -99,7 +97,7 @@ public class DocumentServiceImpl implements DocumentService {
         entity.setDocLife("1");
         boolean b = documentService.updateById(entity);
         //生成业务状态码
-        dto.setDocumentUpdataStat(b ? 0 : 2);
+        dto.setState(b ? 0 : 2);
         return dto;
     }
 
@@ -109,9 +107,9 @@ public class DocumentServiceImpl implements DocumentService {
      * @return
      */
     @Override
-    public DocmentUpdataDTO addDocumentState(DocumentDTO inputDTO) {
+    public DocumentStateDTO addDocumentState(DocumentDTO inputDTO) {
 
-        DocmentUpdataDTO document =new DocmentUpdataDTO();
+        DocumentStateDTO document =new DocumentStateDTO();
         BsDocumentInf entity = new BsDocumentInf();
         //获取当前时间
         inputDTO.setDocumentCtime(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()))
@@ -128,7 +126,7 @@ public class DocumentServiceImpl implements DocumentService {
 
         boolean b = documentService.save(entity);
         //生成业务状态码
-        document.setDocumentUpdataStat(b ? 0 : 2);
+        document.setState(b ? 0 : 2);
         document.setDocsId(id);
         return document;
     }

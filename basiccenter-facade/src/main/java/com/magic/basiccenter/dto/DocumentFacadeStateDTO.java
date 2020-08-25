@@ -1,4 +1,4 @@
-package com.magic.basiccenter.model.dto;
+package com.magic.basiccenter.dto;
 
 import lombok.Data;
 
@@ -8,7 +8,7 @@ import java.io.Serializable;
  * 后端数据回调封装
  */
 @Data
-public class DocmentUpdataDTO implements Serializable {
+public class DocumentFacadeStateDTO implements Serializable {
     /**
      * 序列号
      */
@@ -20,5 +20,5 @@ public class DocmentUpdataDTO implements Serializable {
     /**
      * 修改状态（0 成功， 1 失败）
      */
-    private Integer documentUpdataStat;
+    private Integer state;
 }
