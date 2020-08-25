@@ -5,7 +5,7 @@ import lombok.Data;
 import java.io.Serializable;
 
 @Data
-public class DocmentFacadeUpdataDTO implements Serializable {
+public class DocumentFacadeStateDTO implements Serializable {
     /**
      * 序列号
      */
@@ -17,5 +17,5 @@ public class DocmentFacadeUpdataDTO implements Serializable {
     /**
      * 修改状态
      */
-    private Integer documentUpdataStat;
+    private Integer state;
 }

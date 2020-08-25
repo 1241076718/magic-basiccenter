@@ -18,28 +18,28 @@ public interface DocumentManageService {
      * @param documentDto
      * @return
      */
-    DocmentUpdataDTO queryModify(DocumentDTO documentDto);
+    DocumentStateDTO queryModify(DocumentDTO documentDto);
 
     /**
      * 文档发布
      * @param documentDto
      * @return
      */
-    DocumentOutDTO publish(DocumentInputDTO documentDto);
+    DocumentStateDTO publish(DocumentInputDTO documentDto);
 
     /**
      * 文档删除
      * @param documentDto
      * @return
      */
-    DocmentUpdataDTO delete (DocumentIdDTO documentDto);
+    DocumentStateDTO delete (DocumentIdDTO documentDto);
 
     /**
      * 新增
      * @param inputDTO
      * @return
      */
-    public DocmentUpdataDTO addDocumentState(DocumentDTO inputDTO);
+    public DocumentStateDTO addDocumentState(DocumentDTO inputDTO);
 	
     /**
 	 * 查询文档列表
