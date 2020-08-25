@@ -1,5 +1,6 @@
 package com.magic.basiccenter.service.impl;
 
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.gift.domain.sequence.factory.SequenceFactory;
 import com.magic.basiccenter.constants.Constant;
 import com.magic.basiccenter.dto.AddNoticeInfoInDTO;
@@ -113,19 +114,15 @@ public class NoticeAppServiceImpl implements NoticeAppService {
                 .setNiNtcEndTime(requestDTO.getNiNtcEndTime())
                 .setNiNtcStartTime(requestDTO.getNiNtcStartTime())
                 .setNiNtcStatus(requestDTO.getNiNtcStatus());
-
         iBService.updateById(entity);
-
         BsNoticeInf notice = iBService.getById(requestDTO.getNiNtcId());
-
         outDTO.setNiNtcName(notice.getNiNtcName())
                 .setNiNtcText(notice.getNiNtcText())
                 .setNiNtcCount(notice.getNiNtcCount())
                 .setNiNtcEndTime(notice.getNiNtcEndTime())
                 .setNiNtcStartTime(notice.getNiNtcStartTime())
                 .setNiNtcStatus(notice.getNiNtcStatus());
+        System.out.println(outDTO);
         return outDTO;
     }
-
-
 }

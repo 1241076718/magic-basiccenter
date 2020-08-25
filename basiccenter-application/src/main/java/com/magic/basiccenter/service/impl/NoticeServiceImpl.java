@@ -129,7 +129,7 @@ public class NoticeServiceImpl implements NoticeService {
         MagicOutDTO<UpdateNoticeInfoOutDTO> magicOutDTO = new MagicOutDTO<>();
         //2.获取请求数据
         QueryNoticeInfoDTO body = requestDTO.getBody();
-        //3.1构建实体对象
+        //3构建实体对象
         QueryNoticeDTO updateNoticeDTO = new QueryNoticeDTO();
         updateNoticeDTO.setNiNtcId(body.getNiNtcId())
                 .setNiNtcName(body.getNiNtcName())
@@ -138,17 +138,21 @@ public class NoticeServiceImpl implements NoticeService {
                 .setNiNtcEndTime(body.getNiNtcEndTime())
                 .setNiNtcStartTime(body.getNiNtcStartTime())
                 .setNiNtcStatus(body.getNiNtcStatus());
+        //4.调用基础层服务
         QueryNoticeOutDTO queryNoticeOutDTO = service.updateNotice(updateNoticeDTO);
+        //5.请求header
+        ReqHeader reqHeader = requestDTO.getHeader();
         RespHeader respHeader = new RespHeader();
         if(queryNoticeOutDTO !=null){
+        	respHeader.setRequestTime(reqHeader.getRequestTime());
             respHeader.setErrorCode(BasicErrorEnum.SUCCESS.code());
             respHeader.setErrorMsg(BasicErrorEnum.SUCCESS.msg());
-            appNoticeOutDTO.setNiNtcName(updateNoticeDTO.getNiNtcName())
-                    .setNiNtcText(updateNoticeDTO.getNiNtcText())
-                    .setNiNtcRemindStatus(updateNoticeDTO.getNiNtcStatus())
-                    .setNiNtcCount(updateNoticeDTO.getNiNtcCount())
-                    .setNiNtcStartTime(updateNoticeDTO.getNiNtcStartTime())
-                    .setNiNtcEndTime(updateNoticeDTO.getNiNtcEndTime());
+            appNoticeOutDTO.setNiNtcName(queryNoticeOutDTO.getNiNtcName())
+                    .setNiNtcText(queryNoticeOutDTO.getNiNtcText())
+                    .setNiNtcRemindStatus(queryNoticeOutDTO.getNiNtcStatus())
+                    .setNiNtcCount(queryNoticeOutDTO.getNiNtcCount())
+                    .setNiNtcStartTime(queryNoticeOutDTO.getNiNtcStartTime())
+                    .setNiNtcEndTime(queryNoticeOutDTO.getNiNtcEndTime());
             magicOutDTO.setBody(appNoticeOutDTO);
         }else {
             respHeader.setErrorCode(BasicErrorEnum.CFAIL.code());
