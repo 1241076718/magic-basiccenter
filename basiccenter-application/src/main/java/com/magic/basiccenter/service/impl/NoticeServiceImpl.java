@@ -102,9 +102,9 @@ public class NoticeServiceImpl implements NoticeService {
         ReqHeader reqHead = requestDTO.getHeader();
         AddNoticeInfoInDTO body = requestDTO.getBody();
         AddNoticeInfoOutDTO addNoticeInfoOutDTO = service.addNotice(body);
-        Integer rows = addNoticeInfoOutDTO.getTotal();
+        Boolean flag = addNoticeInfoOutDTO.getFlag();
         //判断执行结果
-        if (rows!=null && rows>0){
+        if (flag){
             respHead.setErrorCode(BasicErrorEnum.SUCCESS.code());
             respHead.setErrorMsg(BasicErrorEnum.SUCCESS.msg());
             magicOutDTO.setBody(addNoticeInfoOutDTO);

@@ -73,7 +73,8 @@ public class NoticeAppServiceImpl implements NoticeAppService {
         String noticeId = sequenceFactory.getSegmentDateId(Constant.CU_NOTICE_ID);
         bsNoticeInf.setNiNtcId(noticeId);
         bsNoticeInf.setNiNtcGmtCreate(new Date());
-        boolean row = iBService.save(bsNoticeInf);
+        boolean flag = iBService.save(bsNoticeInf);
+        addNoticeInfoOutDTO.setFlag(flag);
         return addNoticeInfoOutDTO;
     }
 
