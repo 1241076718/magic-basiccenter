@@ -141,7 +141,7 @@ public class DocumentServiceImpl implements DocumentService {
                 if (ReleaseDTO.SHELVES.equals(document.getState())) {
                     respHead.setErrorCode(BasicErrorEnum.SHELVESFATL.code());
                     respHead.setErrorMsg(BasicErrorEnum.SHELVESFATL.msg());
-                }{
+                }if (ReleaseDTO.THESHELVES.equals(document.getState())){
                     respHead.setErrorCode(BasicErrorEnum.THESHELVESFATL.code());
                     respHead.setErrorMsg(BasicErrorEnum.THESHELVESFATL.msg());
                 }
@@ -149,7 +149,7 @@ public class DocumentServiceImpl implements DocumentService {
                 if (ReleaseDTO.THESHELVES.equals(document.getState())) {
                     respHead.setErrorCode(BasicErrorEnum.SHELVES.code());
                     respHead.setErrorMsg(BasicErrorEnum.SHELVES.msg());
-                }{
+                }if (ReleaseDTO.THESHELVES.equals(document.getState())){
                     respHead.setErrorCode(BasicErrorEnum.THEAHWLVES.code());
                     respHead.setErrorMsg(BasicErrorEnum.THEAHWLVES.msg());
                 }

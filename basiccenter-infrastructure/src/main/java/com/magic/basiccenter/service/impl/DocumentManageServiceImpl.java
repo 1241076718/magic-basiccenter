@@ -73,15 +73,20 @@ public class DocumentManageServiceImpl implements DocumentManageService {
     public DocumentStateDTO publish(DocumentInputDTO documentDto) {
         DocumentStateDTO dto = new DocumentStateDTO();
         BsDocumentInf entity = new BsDocumentInf();
-
-        entity.setDocsId(documentDto.getDocsId()).setState(documentDto.getState());
-        entity.setDocumentPubdate(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()));
-        //调用Api实现发布
-        boolean b = bsDocumentService.updateById(entity);
-        //生成业务状态码
-        dto.setState(b ? 0 : 2);
-        return dto;
+        //非空校验
+        if (null == documentDto.getState()){
+            dto.setState(2);
+            return dto;
+        }else {
+            entity.setDocsId(documentDto.getDocsId()).setState(documentDto.getState());
+            entity.setDocumentPubdate(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()));
+            //调用Api实现发布
+            boolean b = bsDocumentService.updateById(entity);
+            //生成业务状态码
+            dto.setState(b ? 0 : 2);
+            return dto;
         }
+    }
 
     /**
      * 文档删除
