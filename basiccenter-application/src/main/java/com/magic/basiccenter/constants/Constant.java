@@ -35,7 +35,17 @@ public class Constant {
     public static final Integer ADVERT_ADD_STATUS_CODE = 0;
 
     /**
-     * 广告删除状态码
+     * 广告已上架状态码
+     */
+    public static final Integer ADVERT_PUT_STATUS_CODE = 1;
+
+    /**
+     * 广告已下架状态码
+     */
+    public static final Integer ADVERT_SOLD_STATUS_CODE = 2;
+
+    /**
+     * 广告已删除状态码
      */
     public static final Integer ADVERT_DELETE_STATUS_CODE = 3;
 

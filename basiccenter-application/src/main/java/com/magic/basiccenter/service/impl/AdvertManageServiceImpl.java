@@ -5,6 +5,7 @@ import com.magic.application.infrastructure.service.dto.MagicOutDTO;
 import com.magic.application.infrastructure.service.dto.data.ReqHeader;
 import com.magic.application.infrastructure.service.dto.data.RespHeader;
 import com.magic.application.infrastructure.utils.ApplicationServiceUtil;
+import com.magic.basiccenter.constants.Constant;
 import com.magic.basiccenter.dto.AdvertAddDTO;
 import com.magic.basiccenter.dto.AdvertAddOutDTO;
 import com.magic.basiccenter.dto.AdvertSelDTO;
@@ -172,10 +173,10 @@ public class AdvertManageServiceImpl implements IAdvertManageService {
                 respHeader.setErrorMsg(AdvertErrorEnum.SUCCESS.msg());
             } else {
                 Integer advertStatus = requestDTO.getBody().getAiAdvStatus();
-                if (null != advertStatus && 1 == advertStatus) {
+                if (null != advertStatus && Constant.ADVERT_PUT_STATUS_CODE == advertStatus) {
                     respHeader.setErrorCode(AdvertErrorEnum.PUTFAIL.code());
                     respHeader.setErrorMsg(AdvertErrorEnum.PUTFAIL.msg());
-                } else if (null != advertStatus && 2 == advertStatus) {
+                } else if (null != advertStatus && Constant.ADVERT_SOLD_STATUS_CODE == advertStatus) {
                     respHeader.setErrorCode(AdvertErrorEnum.SOLDFAIL.code());
                     respHeader.setErrorMsg(AdvertErrorEnum.SOLDFAIL.msg());
                 } else {
