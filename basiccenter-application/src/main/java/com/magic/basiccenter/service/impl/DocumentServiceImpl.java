@@ -1,4 +1,4 @@
-package com.magic.basiccenter.serviceimpl;
+package com.magic.basiccenter.service.impl;
 
 
 

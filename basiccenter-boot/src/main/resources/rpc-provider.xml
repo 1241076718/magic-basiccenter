@@ -13,7 +13,7 @@
 		<rpc:config key="contextId" value="basic"/>
 	</rpc:provider>
 
-    <bean id="basicService" class="com.magic.basiccenter.serviceimpl.DocumentServiceImpl"/>
+    <bean id="basicService" class="com.magic.basiccenter.service.impl.DocumentServiceImpl"/>
     <rpc:provider id="basicProvider" ref="basicService"
                   interface="com.magic.basiccenter.service.DocumentService"
                   group="basic-center"
