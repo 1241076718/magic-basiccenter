@@ -14,7 +14,7 @@ public class NoticeTest {
 
     @Test
     public void test01() {
-     ApplicationContext context = new ClassPathXmlApplicationContext("application.yml");
+
 
     }
 

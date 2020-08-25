@@ -7,6 +7,7 @@ import com.magic.basiccenter.dto.AddNoticeInfoOutDTO;
 
 import com.magic.basiccenter.dto.QueryNoticeInfoDTO;
 
+import com.magic.basiccenter.dto.entity.NoticeBean;
 import com.magic.basiccenter.model.dto.QueryNoticeDTO;
 import com.magic.basiccenter.model.dto.QueryNoticeOutDTO;
 import com.magic.basiccenter.model.entity.BsNoticeInf;
@@ -51,8 +52,8 @@ public class NoticeAppServiceImpl implements NoticeAppService {
      * @return
      */
     @Override
-    public List<QueryNoticeOutDTO> queryNotice(QueryNoticeDTO inputDTO) {
-        List<QueryNoticeOutDTO> cuNoticeInfs =iBService.selectNotice(inputDTO);
+    public List<NoticeBean> queryNotice(QueryNoticeDTO inputDTO) {
+        List<NoticeBean> cuNoticeInfs =iBService.selectNotice(inputDTO);
         return cuNoticeInfs;
 
     }
@@ -96,6 +97,13 @@ public class NoticeAppServiceImpl implements NoticeAppService {
         changeNoticeStatus.setUpdate(update);
         return changeNoticeStatus;
     }
+
+    @Override
+    public Integer queryNoticeTotalNum(QueryNoticeDTO queryNoticeDTO) {
+
+             return iBService.queryNoticeTotalNum(queryNoticeDTO);
+    }
+
     /**
      * 修改公告管理列表
      * @param requestDTO
