@@ -35,7 +35,7 @@ public class FestivalManageService implements IFestivalService {
      * @return
      */
     @Override
-    public MagicOutDTO<FestivalAddOutDTO> AddFestival(MagicDTO<FestivalAddDTO> magicDTO) {
+    public MagicOutDTO<FestivalAddOutDTO> addFestival(MagicDTO<FestivalAddDTO> magicDTO) {
 
         //获取响应体
         FestivalAddDTO body = magicDTO.getBody();
@@ -45,13 +45,13 @@ public class FestivalManageService implements IFestivalService {
         FestivalAddOutDTO festivalAddOutDTO = new FestivalAddOutDTO();
         RespHeader respHeader=new RespHeader();
         ApplicationServiceUtil.supplementaryRespHeader(magicDTO.getHeader(), respHeader);
-        
+
 
 
         //判断数据库中是否有冲突节日
-        if(festivalService.FestivalSelectNameYear(body.getFestivalName(),body.getFestivalYear())){
+        if(festivalService.festivalSelectNameYear(body.getFestivalName(),body.getFestivalYear())){
             //无冲突则添加
-            festivalService.FestivalAdd(body);
+            festivalService.festivalAdd(body);
             respHeader.setErrorCode(FestivalMessageEnum.SUCCESS.code());
             respHeader.setErrorMsg(FestivalMessageEnum.SUCCESS.msg());
         }else {
@@ -74,7 +74,7 @@ public class FestivalManageService implements IFestivalService {
      * @return
      */
     @Override
-    public MagicOutDTO<FestivalQueryListOutDTO> QueryFestivalList(MagicDTO<FestivalQueryListDTO> magicDTO) {
+    public MagicOutDTO<FestivalQueryListOutDTO> queryFestivalList(MagicDTO<FestivalQueryListDTO> magicDTO) {
 
         //定义输出对象
         MagicOutDTO<FestivalQueryListOutDTO> magicOutDTO=new MagicOutDTO<FestivalQueryListOutDTO>();
@@ -85,7 +85,7 @@ public class FestivalManageService implements IFestivalService {
         Calendar now = Calendar.getInstance();
         String year = String.valueOf(now.get(Calendar.YEAR));
 
-        FestivalQueryListOutDTO result = festivalService.FestivalQueryByYear(year);
+        FestivalQueryListOutDTO result = festivalService.festivalQueryByYear(year);
 
         //封装输出对象
         magicOutDTO.setBody(result);
@@ -96,14 +96,13 @@ public class FestivalManageService implements IFestivalService {
     }
 
 
-
     /**
      * 根据节假日年份查询节假日列表
      * @param magicDTO
      * @return
      */
     @Override
-    public MagicOutDTO<FestivalQueryListOutDTO> QueryFestival(MagicDTO<FestivalQueryDTO> magicDTO) {
+    public MagicOutDTO<FestivalQueryListOutDTO> queryFestival(MagicDTO<FestivalQueryDTO> magicDTO) {
 
         //获取请求体
         FestivalQueryDTO body = magicDTO.getBody();
@@ -112,7 +111,7 @@ public class FestivalManageService implements IFestivalService {
         RespHeader respHeader=new RespHeader();
         ApplicationServiceUtil.supplementaryRespHeader(magicDTO.getHeader(), respHeader);
 
-        FestivalQueryListOutDTO result = festivalService.FestivalQueryByYear(body.getFestivalYear());
+        FestivalQueryListOutDTO result = festivalService.festivalQueryByYear(body.getFestivalYear());
 
         //封装输出对象
         magicOutDTO.setBody(result);
@@ -128,12 +127,11 @@ public class FestivalManageService implements IFestivalService {
      * @return
      */
     @Override
-    public MagicOutDTO<FestivaldeleteOutDTO> DeleteFestival(@RequestBody MagicDTO<FestivaldeleteDTO> magicDTO) {
-        MagicOutDTO<FestivaldeleteOutDTO> magicOutDTO = festivalService.FestivalDelete(magicDTO);
+    public MagicOutDTO<FestivaldeleteOutDTO> deleteFestival(@RequestBody MagicDTO<FestivaldeleteDTO> magicDTO) {
+        MagicOutDTO<FestivaldeleteOutDTO> magicOutDTO = festivalService.festivalDelete(magicDTO);
         return magicOutDTO;
 
     }
-
 
 
     /**
@@ -142,7 +140,7 @@ public class FestivalManageService implements IFestivalService {
      * @return
      */
     @Override
-    public MagicOutDTO<FestivalModifyOutDTO> ModifyFestival(MagicDTO<FestivalModifyDTO> magicDTO) {
+    public MagicOutDTO<FestivalModifyOutDTO> modifyFestival(MagicDTO<FestivalModifyDTO> magicDTO) {
         // 获取输入类
         FestivalModifyDTO festivalModifyDTO = magicDTO.getBody();
 
@@ -161,7 +159,7 @@ public class FestivalManageService implements IFestivalService {
 
 
         //修改节假日信息,获取响应头
-        respHeader = festivalService.FestivalModify(festivalModifyDTO);
+        respHeader = festivalService.festivalModify(festivalModifyDTO);
 
         magicOutDTO.setHeader(respHeader);
         return magicOutDTO;

@@ -34,8 +34,8 @@ public class FestivalController {
      * @return
      */
     @PostMapping("/festival/festivalAdd")
-    public MagicOutDTO<FestivalAddOutDTO> FestivalAdd(@RequestBody MagicDTO<FestivalAddDTO> magicDTO){
-        return festivalManageService.AddFestival(magicDTO);
+    public MagicOutDTO<FestivalAddOutDTO> festivalAdd(@RequestBody MagicDTO<FestivalAddDTO> magicDTO){
+        return festivalManageService.addFestival(magicDTO);
     }
 
 
@@ -45,8 +45,8 @@ public class FestivalController {
      * @return
      */
     @PostMapping("/festival/festivalGetList")
-    public MagicOutDTO<FestivalQueryListOutDTO> FestivalList(@RequestBody MagicDTO<FestivalQueryListDTO> magicDTO){
-        return festivalManageService.QueryFestivalList(magicDTO);
+    public MagicOutDTO<FestivalQueryListOutDTO> festivalList(@RequestBody MagicDTO<FestivalQueryListDTO> magicDTO){
+        return festivalManageService.queryFestivalList(magicDTO);
 
     }
 
@@ -56,8 +56,8 @@ public class FestivalController {
      * @return
      */
     @PostMapping("/festival/festivalGet")
-    public MagicOutDTO<FestivalQueryListOutDTO> FestivalYear(@RequestBody MagicDTO<FestivalQueryDTO> magicDTO){
-        return festivalManageService.QueryFestival(magicDTO);
+    public MagicOutDTO<FestivalQueryListOutDTO> festivalYear(@RequestBody MagicDTO<FestivalQueryDTO> magicDTO){
+        return festivalManageService.queryFestival(magicDTO);
     }
 
 
@@ -67,8 +67,8 @@ public class FestivalController {
      * @return
      */
     @PostMapping("/festival/festivalDelete")
-    public MagicOutDTO<FestivaldeleteOutDTO> FestivalDelete(@RequestBody MagicDTO<FestivaldeleteDTO> deleteDTO){
-        return festivalManageService.DeleteFestival(deleteDTO);
+    public MagicOutDTO<FestivaldeleteOutDTO> festivalDelete(@RequestBody MagicDTO<FestivaldeleteDTO> deleteDTO){
+        return festivalManageService.deleteFestival(deleteDTO);
     }
 
 
@@ -78,8 +78,8 @@ public class FestivalController {
      * @return
      */
     @PostMapping("/festival/festivalModify")
-    public MagicOutDTO<FestivalModifyOutDTO> FestivalModify(@RequestBody MagicDTO<FestivalModifyDTO> magicDTO){
-        return festivalManageService.ModifyFestival(magicDTO);
+    public MagicOutDTO<FestivalModifyOutDTO> festivalModify(@RequestBody MagicDTO<FestivalModifyDTO> magicDTO){
+        return festivalManageService.modifyFestival(magicDTO);
     }
 
 

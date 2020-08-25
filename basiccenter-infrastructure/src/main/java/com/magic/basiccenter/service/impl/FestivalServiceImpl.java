@@ -48,7 +48,7 @@ public class FestivalServiceImpl implements FestivalService {
      * @param festivalAddDTO
      */
     @Override
-    public void FestivalAdd(FestivalAddDTO festivalAddDTO) {
+    public void festivalAdd(FestivalAddDTO festivalAddDTO) {
 
         BsFestivalInf festivalManageInf = new BsFestivalInf();
 
@@ -75,7 +75,7 @@ public class FestivalServiceImpl implements FestivalService {
      * @return
      */
     @Override
-    public Boolean FestivalSelectNameYear(String festivalName, String festivalYear) {
+    public Boolean festivalSelectNameYear(String festivalName, String festivalYear) {
         QueryWrapper<BsFestivalInf> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("FESTIVAL_YEAR", festivalYear).eq("FESTIVAL_NAME", festivalName);
         List<BsFestivalInf> festivalManageInfs = festManageMapper.selectList(queryWrapper);
@@ -95,7 +95,7 @@ public class FestivalServiceImpl implements FestivalService {
      * @return
      */
     @Override
-    public FestivalQueryListOutDTO FestivalQueryByYear(String festivalYear) {
+    public FestivalQueryListOutDTO festivalQueryByYear(String festivalYear) {
         //定义输出对象
         FestivalQueryListOutDTO result=new FestivalQueryListOutDTO();
         ArrayList<FestivalQueryListInf> festivalQueryListInfs = new ArrayList<>();
@@ -124,7 +124,7 @@ public class FestivalServiceImpl implements FestivalService {
      * @return
      */
     @Override
-    public MagicOutDTO<FestivaldeleteOutDTO> FestivalDelete(MagicDTO<FestivaldeleteDTO> magicDTO) {
+    public MagicOutDTO<FestivaldeleteOutDTO> festivalDelete(MagicDTO<FestivaldeleteDTO> magicDTO) {
 
         //定义输出对象
         MagicOutDTO magicOutDTO = new MagicOutDTO();
@@ -181,7 +181,7 @@ public class FestivalServiceImpl implements FestivalService {
      * @return
      */
     @Override
-    public RespHeader FestivalModify(FestivalModifyDTO festivalModifyDTO) {
+    public RespHeader festivalModify(FestivalModifyDTO festivalModifyDTO) {
 
         //定义响应头
         RespHeader respHeader = new RespHeader();
