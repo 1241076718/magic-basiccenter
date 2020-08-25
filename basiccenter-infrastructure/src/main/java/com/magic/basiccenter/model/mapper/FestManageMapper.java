@@ -2,13 +2,13 @@ package com.magic.basiccenter.model.mapper;
 
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.magic.basiccenter.model.entity.FestivalManageInf;
+import com.magic.basiccenter.model.entity.BsFestivalInf;
 import org.apache.ibatis.annotations.Mapper;
 
 /**
  * 节假日管理信息表Mapper接口
  */
 @Mapper
-public interface FestManageMapper extends BaseMapper<FestivalManageInf> {
+public interface FestManageMapper extends BaseMapper<BsFestivalInf> {
 
 }

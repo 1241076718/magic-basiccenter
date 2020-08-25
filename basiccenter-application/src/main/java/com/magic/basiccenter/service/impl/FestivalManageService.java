@@ -45,8 +45,7 @@ public class FestivalManageService implements IFestivalService {
         FestivalAddOutDTO festivalAddOutDTO = new FestivalAddOutDTO();
         RespHeader respHeader=new RespHeader();
         ApplicationServiceUtil.supplementaryRespHeader(magicDTO.getHeader(), respHeader);
-
-        //非空校验 TODO
+        
 
 
         //判断数据库中是否有冲突节日
