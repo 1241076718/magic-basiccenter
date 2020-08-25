@@ -37,6 +37,7 @@ public interface NoticeAppService {
      * 修改管理公告
      * @param requestDTO
      * @return
+     * @author liubing1@belink.com
      */
     QueryNoticeOutDTO updateNotice(QueryNoticeDTO requestDTO);
     /**

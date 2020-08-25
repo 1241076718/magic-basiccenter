@@ -120,8 +120,8 @@ public class NoticeServiceImpl implements NoticeService {
      * 公告编辑
      * @param requestDTO
      * @return
+     * @author liubing1@belink.com
      */
-
     @Override
     public MagicOutDTO<UpdateNoticeInfoOutDTO> updateNotice(MagicDTO<QueryNoticeInfoDTO> requestDTO) {
         //1.返回DTO构造

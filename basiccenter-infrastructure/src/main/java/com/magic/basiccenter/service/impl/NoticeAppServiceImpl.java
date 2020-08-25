@@ -102,6 +102,7 @@ public class NoticeAppServiceImpl implements NoticeAppService {
      * 修改公告管理列表
      * @param requestDTO
      * @return
+     * @author liubing1@belink.com
      */
     @Override
     public QueryNoticeOutDTO updateNotice(QueryNoticeDTO requestDTO) {

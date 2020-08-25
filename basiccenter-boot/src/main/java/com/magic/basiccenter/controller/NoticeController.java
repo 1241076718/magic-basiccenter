@@ -43,9 +43,9 @@ public class NoticeController {
 
     /**
      * 修改公告
-     *
      * @param requestDTO
      * @return
+     * @author liubing1@belink.com
      */
     @PostMapping("/updateNotice")
     public MagicOutDTO<UpdateNoticeInfoOutDTO> updateNoticeData(@RequestBody MagicDTO<QueryNoticeInfoDTO> requestDTO) {
