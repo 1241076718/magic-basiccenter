@@ -10,12 +10,9 @@ import java.io.Serializable;
  *
  */
 @Data
-public class FestivalManageModifyDTO implements Serializable {
+public class FestivalModifyDTO implements Serializable {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = -3695293506487343349L;
 	/**
 	 * 节假日id
 	 */

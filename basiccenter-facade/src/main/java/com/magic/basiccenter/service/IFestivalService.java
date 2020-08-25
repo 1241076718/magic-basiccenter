@@ -4,7 +4,6 @@ import com.magic.application.infrastructure.service.dto.MagicDTO;
 import com.magic.application.infrastructure.service.dto.MagicOutDTO;
 import com.magic.basiccenter.dto.*;
 
-import java.util.List;
 
 /**
  * 节假日管理服务
@@ -13,7 +12,7 @@ public interface IFestivalService {
 
 
     /**
-     * 新增
+     * 新增节假日
      * @param magicDTO
      * @return
      */
@@ -46,14 +45,10 @@ public interface IFestivalService {
     MagicOutDTO<FestivaldeleteOutDTO> DeleteFestival(MagicDTO<FestivaldeleteDTO> magicDTO);
 
     /**
-     * 节假日修改日期冲突检查
+     * 节假日修改日期
      * @param magicDTO
      * @return
      */
-    MagicOutDTO<FestivalManageModifyOutDTO> ModifyFestival(MagicDTO<FestivalManageModifyDTO> magicDTO);
-
-
-
-
+    MagicOutDTO<FestivalModifyOutDTO> ModifyFestival(MagicDTO<FestivalModifyDTO> magicDTO);
 
 }
