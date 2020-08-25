@@ -12,8 +12,8 @@ import java.util.Date;
  * @Author Lei
  */
 @Data
-@TableName(value="festival_info")
-public class FestivalManageInf {
+@TableName(value="bs_festival_inf")
+public class BsFestivalInf {
 	/**
 	 * 节假日Id
 	 */

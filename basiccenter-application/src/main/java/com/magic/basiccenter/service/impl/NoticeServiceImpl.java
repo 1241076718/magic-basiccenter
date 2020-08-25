@@ -165,16 +165,16 @@ public class NoticeServiceImpl implements NoticeService {
      */
 
     @Override
-    public MagicOutDTO<QueryNoticeInfoOutDTO> changeNoticeStatus(MagicDTO<QueryNoticeInfoDTO> requestDTO) {
-        QueryNoticeInfoOutDTO queryNoticeInfoOutDTO = new QueryNoticeInfoOutDTO();
-        MagicOutDTO<QueryNoticeInfoOutDTO> magicOutDTO = new MagicOutDTO<>(queryNoticeInfoOutDTO);
+    public MagicOutDTO<AddNoticeInfoOutDTO> changeNoticeStatus(MagicDTO<AddNoticeInfoInDTO> requestDTO) {
+        AddNoticeInfoOutDTO infoOutDTO = new AddNoticeInfoOutDTO();
+        MagicOutDTO<AddNoticeInfoOutDTO> magicOutDTO = new MagicOutDTO<>(infoOutDTO);
 
         RespHeader respHeader = new RespHeader();
-        QueryNoticeInfoDTO body = requestDTO.getBody();
+        AddNoticeInfoInDTO body = requestDTO.getBody();
 
-        QueryNoticeOutDTO queryNoticeOutDTO = service.changeNoticeStatus(body);
+        AddNoticeInfoOutDTO outDTO = service.changeNoticeStatus(body);
 
-        Boolean update = queryNoticeOutDTO.getUpdate();
+        Boolean update = outDTO.getUpdate();
         //判断是否更改
         if (update) {
             if (requestDTO.getBody().getNiNtcStatus() == 1) {
@@ -206,7 +206,8 @@ public class NoticeServiceImpl implements NoticeService {
             }
         }
             magicOutDTO.setHeader(respHeader);
-            return magicOutDTO;
+            magicOutDTO.setBody(outDTO);
+        return magicOutDTO;
         }
 
 }

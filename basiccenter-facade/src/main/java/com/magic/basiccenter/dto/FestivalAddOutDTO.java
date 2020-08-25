@@ -13,4 +13,9 @@ public class FestivalAddOutDTO implements Serializable {
 
     private static final long serialVersionUID = 2156259868631512248L;
 
+    /**
+     * 添加节日返回结果
+     */
+    private String festivalAddResult;
+
 }

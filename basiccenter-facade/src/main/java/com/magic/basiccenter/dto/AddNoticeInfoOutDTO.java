@@ -22,4 +22,8 @@ public class AddNoticeInfoOutDTO implements Serializable {
      * 插入数目
      */
     private Boolean flag;
+    /**
+     * 更改状态
+     */
+    private Boolean update;
 }

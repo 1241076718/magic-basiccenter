@@ -14,7 +14,7 @@ public class Constant {
     //公告ID获取常量
     public static final String CU_NOTICE_ID = "cu_notice_id";
     /**
-     * 节日I
+     * 节日Id
      */
     public static final String FESTIVAL_BIZ_TAG = "festival_biz_tag";
 
