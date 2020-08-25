@@ -8,12 +8,10 @@ import java.io.Serializable;
 import java.util.List;
 
 /**
- * 公告查询列表
- * 返回数据
- *
- * @author ：wzr
+
+ * @author ：goupc1@belink.com
  * @date ：
- * @description
+ * @description* 公告查询列表返回数据
  * @modified By：
  * @version: $
  */
@@ -25,6 +23,11 @@ public class QueryNoticeInfoOutDTO<T>  extends SelectPageOutDTO implements Seria
 
     private static final long serialVersionUID = -39884965805778633L;
 
+
+
+    /**
+     * 返回数据集合
+     */
     private List<T> data;
 
 

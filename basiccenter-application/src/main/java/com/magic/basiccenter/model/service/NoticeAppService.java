@@ -2,24 +2,24 @@ package com.magic.basiccenter.model.service;
 
 import com.magic.basiccenter.dto.AddNoticeInfoInDTO;
 import com.magic.basiccenter.dto.AddNoticeInfoOutDTO;
-import com.magic.basiccenter.dto.QueryNoticeInfoInDTO;
+import com.magic.basiccenter.dto.QueryNoticeInfoDTO;
 import com.magic.basiccenter.model.dto.QueryNoticeDTO;
 import com.magic.basiccenter.model.dto.QueryNoticeOutDTO;
 
 import java.util.List;
 
 /**
- * Created with IntelliJ IDEA.
- * User: GPC
- * Date: 2020/08/21 14:00
- * Description:
- * Version: V1.0
+ * @author ：goupc1@belink.com
+ * @date ：Created in 2020/8/620 9:54
+ * @description：  应用层服务接口
+ * @modified By：
+ * @version: $1.0.0
  */
-public interface INoticeService {
+public interface NoticeAppService {
 
 
     /**
-     *
+     *新增公告
      * @param inputDTO
      * @return
      */
@@ -44,7 +44,7 @@ public interface INoticeService {
      * @param inputDTO
      * @return
      */
-    QueryNoticeOutDTO changeNoticeStatus(QueryNoticeInfoInDTO inputDTO);
+    QueryNoticeOutDTO changeNoticeStatus(QueryNoticeInfoDTO inputDTO);
 
 
     

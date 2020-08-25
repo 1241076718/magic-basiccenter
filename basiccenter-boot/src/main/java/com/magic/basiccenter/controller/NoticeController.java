@@ -35,7 +35,6 @@ public class NoticeController {
      * @return
      */
 
-
     @PostMapping("/addNotice")
     public MagicOutDTO<AddNoticeInfoOutDTO> addNotice(@RequestBody MagicDTO<AddNoticeInfoInDTO> requestDTO) {
         return service.addNoticeInfo(requestDTO);

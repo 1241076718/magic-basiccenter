@@ -11,13 +11,13 @@ import lombok.experimental.Accessors;
 
 
 
+
 /**
- * <p>查询公告输入数据DTO</P>
- *
- * @author goupc1@belink.com
- * @version 0.0.1
- * @className basicCenterApplication
- * @sine 2020/8/17 9:15
+ * @author ：goupc1@belink.com
+ * @date ：Created in 2020/8/620 9:54
+ * @description：  应用层公告通用输入数据DTO
+ * @modified By：
+ * @version: $1.0.0
  */
 
 

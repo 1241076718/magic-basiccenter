@@ -7,12 +7,11 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.support.ReloadableResourceBundleMessageSource;
 
 /**
- *
- *
- * @author goupc1@belink.com
- * @version 0.0.1
- * @className MessageSourceConfigure
- * @sine 2020/8/17 9:15
+ * @author ：goupc1@belink.com
+ * @date ：Created in 2020/8/620 9:54
+ * @description：   基础中心启动类
+ * @modified By：
+ * @version: $1.0.0
  */
 
 @Configuration

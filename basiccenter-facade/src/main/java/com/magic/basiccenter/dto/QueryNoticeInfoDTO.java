@@ -1,24 +1,27 @@
 package com.magic.basiccenter.dto;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
+import com.magic.application.infrastructure.service.dto.SelectPageDTO;
 import lombok.Data;
 
 import java.io.Serializable;
 import java.util.Date;
 
 /**
-
  * @author ：goupc1@belink.com
- * @date ：
- * @description* 公告新增返回数据
+ * @date ：Created in 2020/7/20 15:45
+ * @description：告查询接受数据列表
  * @modified By：
  * @version: $
  */
 
-@Data
-public class AddNoticeInfoInDTO implements Serializable {
-    private static final long serialVersionUID = -7046586321043892538L;
 
+
+
+@Data
+public class QueryNoticeInfoDTO extends SelectPageDTO implements Serializable {
+
+
+    private static final long serialVersionUID = -1095173736782363598L;
 
     /**
      *公告id
@@ -72,10 +75,14 @@ public class AddNoticeInfoInDTO implements Serializable {
     /**
      * 修改时间
      */
+
     private Date niNtcGmtModified;
     /**
      * 修改人
      */
     private String niNtcGmtModifier;
+
+
+
 
 }
