@@ -111,7 +111,15 @@ public class FestivalManageService implements IFestivalService {
         RespHeader respHeader=new RespHeader();
         ApplicationServiceUtil.supplementaryRespHeader(magicDTO.getHeader(), respHeader);
 
-        FestivalQueryListOutDTO result = festivalService.festivalQueryByYear(body.getFestivalYear());
+        String festivalYear = body.getFestivalYear();
+        if(null==festivalYear){
+            respHeader.setErrorCode(FestivalMessageEnum.FAIL_FESTIVAL_QUERY_INVALID.code());
+            respHeader.setErrorMsg(FestivalMessageEnum.FAIL_FESTIVAL_QUERY_INVALID.msg());
+            magicOutDTO.setHeader(respHeader);
+            return magicOutDTO;
+        }
+
+        FestivalQueryListOutDTO result = festivalService.festivalQueryByYear(festivalYear);
 
         //封装输出对象
         magicOutDTO.setBody(result);
