@@ -29,7 +29,7 @@ public class BasicController {
      * @param requestDTO
      * @return
      */
-    @PostMapping("/doucment/queryData")
+    @PostMapping("/document/queryData")
     public MagicOutDTO<DocumentFacadeDTO> queryData(@RequestBody MagicDTO<DocumentFacadeIdDTO> requestDTO){
         return documentService.queryData(requestDTO);
     }
@@ -39,7 +39,7 @@ public class BasicController {
      * @param requestDTO
      * @return
      */
-    @PostMapping("/doucment/modify")
+    @PostMapping("/document/modify")
     public MagicOutDTO<DocumentFacadeStateDTO> queryModify(@RequestBody MagicDTO<DocumentFacadeDTO> requestDTO){
         return documentService.queryModify(requestDTO);
     }
@@ -49,7 +49,7 @@ public class BasicController {
      * @param requestDTO
      * @return
      */
-    @PostMapping("/doucment/upShelf")
+    @PostMapping("/document/upShelf")
     public MagicOutDTO<DocumentFacadeStateDTO> upShelf( @RequestBody MagicDTO<DocumentFacadeInputDTO> requestDTO){
         return documentService.publish(requestDTO);
     }
@@ -58,7 +58,7 @@ public class BasicController {
      * @param requestDTO
      * @return
      */
-    @PostMapping("/doucment/downShelf")
+    @PostMapping("/document/downShelf")
     public MagicOutDTO<DocumentFacadeStateDTO> downShelf(@RequestBody MagicDTO<DocumentFacadeInputDTO> requestDTO){
         return documentService.publish(requestDTO);
     }
@@ -68,7 +68,7 @@ public class BasicController {
      * @param requestDTO
      * @return
      */
-    @PostMapping("/doucment/remove")
+    @PostMapping("/document/remove")
     public MagicOutDTO<DocumentFacadeStateDTO> delete (@RequestBody MagicDTO<DocumentFacadeIdDTO> requestDTO){
         return documentService.delete(requestDTO);
     }
