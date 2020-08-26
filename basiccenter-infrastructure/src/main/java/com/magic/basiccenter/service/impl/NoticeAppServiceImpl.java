@@ -115,21 +115,19 @@ public class NoticeAppServiceImpl implements NoticeAppService {
         entity.setNiNtcName(requestDTO.getNiNtcName())
                 .setNiNtcId(requestDTO.getNiNtcId())
                 .setNiNtcText(requestDTO.getNiNtcText())
+                .setNiNtcRemindStatus(requestDTO.getNiNtcRemindStatus())
                 .setNiNtcCount(requestDTO.getNiNtcCount())
                 .setNiNtcEndTime(requestDTO.getNiNtcEndTime())
-                .setNiNtcStartTime(requestDTO.getNiNtcStartTime())
-                .setNiNtcStatus(requestDTO.getNiNtcStatus());
-
+                .setNiNtcStartTime(requestDTO.getNiNtcStartTime());
         iBService.updateById(entity);
-
         BsNoticeInf notice = iBService.getById(requestDTO.getNiNtcId());
-
+        System.out.println("测试"+notice.getNiNtcRemindStatus());
         outDTO.setNiNtcName(notice.getNiNtcName())
                 .setNiNtcText(notice.getNiNtcText())
                 .setNiNtcCount(notice.getNiNtcCount())
                 .setNiNtcEndTime(notice.getNiNtcEndTime())
                 .setNiNtcStartTime(notice.getNiNtcStartTime())
-                .setNiNtcStatus(notice.getNiNtcStatus());
+                .setNiNtcRemindStatus(requestDTO.getNiNtcRemindStatus());
         return outDTO;
     }
 
