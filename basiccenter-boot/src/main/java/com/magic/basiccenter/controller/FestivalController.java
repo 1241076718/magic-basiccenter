@@ -40,7 +40,7 @@ public class FestivalController {
 
 
     /**
-     * 节假日管理 --返回列表
+     * 节假日管理 --返回指定年份的节假日列表
      * @param magicDTO
      * @return
      */

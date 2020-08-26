@@ -32,8 +32,11 @@ public enum FestivalMessageEnum {
 	/**
 	 * 添加失败，已有新增的节点日
 	 */
-	FAIL_FESTIVAL_ADD_CONFLICT("BAS003005","添加失败，已有新增的节点日");
-
+	FAIL_FESTIVAL_ADD_CONFLICT("BAS003005","添加失败，已有新增的节点日"),
+	/**
+	 * 查询失败，未传入查询年份
+	 */
+	FAIL_FESTIVAL_QUERY_INVALID("BAS003006","查询失败，未传入查询年份");
 
 
 	private Map<String, String> map = new HashMap<>();
