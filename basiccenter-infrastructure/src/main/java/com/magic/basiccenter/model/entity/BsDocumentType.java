@@ -1,5 +1,6 @@
 package com.magic.basiccenter.model.entity;
 
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
@@ -30,12 +31,12 @@ public class BsDocumentType implements Serializable {
 	/**
 	 * 文档类型
 	 */
-	@TableId(value = "DOC_TYPE")
+	@TableField(value = "DOC_TYPE")
 	private String docType;
 	/**
 	 * 文档类型是否失效(否：0，是：1)
 	 */
-	@TableId(value = "DOC_TYPE_INVALID")
+	@TableField(value = "DOC_TYPE_INVALID")
 	private String invalid;
 
 }
