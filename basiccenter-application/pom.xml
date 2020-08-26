@@ -80,7 +80,7 @@
             <scope>provided</scope>
         </dependency>
 
-        <dependency>
+        <!-- <dependency>
             <groupId>com.gift</groupId>
             <artifactId>gift-sequence-domain</artifactId>
             <version>0.0.1-SNAPSHOT</version>
@@ -94,6 +94,6 @@
                     <groupId>com.baomidou</groupId>
                 </exclusion>
             </exclusions>
-        </dependency>
+        </dependency> -->
     </dependencies>
 </project>
