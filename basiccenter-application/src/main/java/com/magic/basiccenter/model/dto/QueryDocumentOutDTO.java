@@ -6,6 +6,7 @@ import java.util.List;
 import com.magic.application.infrastructure.service.dto.SelectPageOutDTO;
 import com.magic.basiccenter.dto.entity.DocumentBean;
 
+import com.magic.basiccenter.dto.entity.DocumentTypeBean;
 import lombok.Data;
 
 @Data
@@ -23,7 +24,7 @@ public class QueryDocumentOutDTO extends SelectPageOutDTO implements Serializabl
     /**
      * 返还文档类型列表
      */
-    private List<String> catalogNameList;
+    private List<DocumentTypeBean> catalogNameList;
 
 
 }
