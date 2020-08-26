@@ -59,7 +59,6 @@ public class QueryNoticeInfoDTO extends SelectPageDTO implements Serializable {
 			pattern = "yyyy-MM-dd HH:mm:ss",
 			timezone = "GMT+8"
 	)
-    //yyyy-MM-dd HH:mm:ss
     private Date niNtcStartTime;
     /**
      * 公告强制提醒结束时间
