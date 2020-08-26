@@ -1,25 +1,21 @@
 package com.magic.basiccenter.service.impl;
 
-import com.gift.core.utils.SpringContextUtils;
 import com.gift.domain.sequence.factory.SequenceFactory;
 import com.magic.basiccenter.constants.Constant;
 import com.magic.basiccenter.dto.AddNoticeInfoInDTO;
 import com.magic.basiccenter.dto.AddNoticeInfoOutDTO;
-import com.magic.basiccenter.dto.QueryNoticeInfoDTO;
+import com.magic.basiccenter.dto.entity.NoticeBean;
 import com.magic.basiccenter.model.dto.QueryNoticeDTO;
 import com.magic.basiccenter.model.dto.QueryNoticeOutDTO;
 import com.magic.basiccenter.model.entity.BsNoticeInf;
-import com.magic.basiccenter.model.mapper.BsNoticeInfMapper;
 import com.magic.basiccenter.model.service.IBsNoticeInfService;
 import com.magic.basiccenter.model.service.NoticeAppService;
-import com.magic.basiccenter.model.service.impl.BsNoticeInfServiceImpl;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
 import java.util.List;
-
 
 
 /**
@@ -44,20 +40,19 @@ public class NoticeAppServiceImpl implements NoticeAppService {
      * 数据交互层服务IBsNoticeInfService接口
      *
      */
-
     @Autowired(required = false)
     IBsNoticeInfService iBService;
+
+
     /**
-     * 查询公告方法
+     * 公告查询
      * @param inputDTO
-     * @return
+     * @return List<NoticeBean>
+     * @author goupc1@belink.com
      */
     @Override
-    public List<QueryNoticeOutDTO> queryNotice(QueryNoticeDTO inputDTO) {
-
-
-        List<QueryNoticeOutDTO> cuNoticeInfs =iBService.selectNotice(inputDTO);
-
+    public List<NoticeBean> queryNotice(QueryNoticeDTO inputDTO) {
+        List<NoticeBean> cuNoticeInfs =iBService.selectNotice(inputDTO);
         return cuNoticeInfs;
 
     }
@@ -68,43 +63,46 @@ public class NoticeAppServiceImpl implements NoticeAppService {
      * @param inputDTO
      * @return
      */
-
     @Override
     public AddNoticeInfoOutDTO addNotice(AddNoticeInfoInDTO inputDTO) {
         AddNoticeInfoOutDTO addNoticeInfoOutDTO = new AddNoticeInfoOutDTO();
-        BsNoticeInfServiceImpl bean = SpringContextUtils.getBean(BsNoticeInfServiceImpl.class);
-        BsNoticeInfMapper baseMapper = bean.getBaseMapper();
         BsNoticeInf bsNoticeInf = new BsNoticeInf();
         //DTO转换为entity
         BeanUtils.copyProperties(inputDTO, bsNoticeInf);
         String noticeId = sequenceFactory.getSegmentDateId(Constant.CU_NOTICE_ID);
         bsNoticeInf.setNiNtcId(noticeId);
         bsNoticeInf.setNiNtcGmtCreate(new Date());
-        int row = baseMapper.insert(bsNoticeInf);
-        addNoticeInfoOutDTO.setTotal(row);
+        boolean flag = iBService.save(bsNoticeInf);
+        addNoticeInfoOutDTO.setFlag(flag);
         return addNoticeInfoOutDTO;
     }
 
-    @Autowired
-    private IBsNoticeInfService iBsNoticeInfService;
+
+
+
     /**
-     * 公告删除和上下架方法
+     * 通过主键id上下架、删除广告
      * @param inputDTO
-     * @return
+     * @return magicOutDTO
+     * @author kangjx1@belink.com
      */
 
     @Override
-    public QueryNoticeOutDTO changeNoticeStatus(QueryNoticeInfoDTO inputDTO) {
-
-        QueryNoticeOutDTO changeNoticeStatus = new QueryNoticeOutDTO();
-        BsNoticeInfServiceImpl been = SpringContextUtils.getBean(BsNoticeInfServiceImpl.class);
-        BsNoticeInfMapper baseMapper = been.getBaseMapper();
+    public AddNoticeInfoOutDTO changeNoticeStatus(AddNoticeInfoInDTO inputDTO) {
+        AddNoticeInfoOutDTO changeNoticeStatus = new AddNoticeInfoOutDTO();
         BsNoticeInf bsNoticeInf = new BsNoticeInf();
         BeanUtils.copyProperties(inputDTO, bsNoticeInf);
-        int i =baseMapper.updateById(bsNoticeInf);
-        changeNoticeStatus.setNiNtcCount(i);
+        boolean update = iBService.updateById(bsNoticeInf);
+        changeNoticeStatus.setUpdate(update);
         return changeNoticeStatus;
     }
+
+    @Override
+    public Integer queryNoticeTotalNum(QueryNoticeDTO queryNoticeDTO) {
+
+             return iBService.queryNoticeTotalNum(queryNoticeDTO);
+    }
+
     /**
      * 修改公告管理列表
      * @param requestDTO
@@ -113,8 +111,6 @@ public class NoticeAppServiceImpl implements NoticeAppService {
     @Override
     public QueryNoticeOutDTO updateNotice(QueryNoticeDTO requestDTO) {
         QueryNoticeOutDTO outDTO = new QueryNoticeOutDTO();
-        BsNoticeInfServiceImpl bean = SpringContextUtils.getBean(BsNoticeInfServiceImpl.class);
-        BsNoticeInfMapper baseMapper = bean.getBaseMapper();
         BsNoticeInf entity = new BsNoticeInf();
         entity.setNiNtcName(requestDTO.getNiNtcName())
                 .setNiNtcId(requestDTO.getNiNtcId())
@@ -123,8 +119,11 @@ public class NoticeAppServiceImpl implements NoticeAppService {
                 .setNiNtcEndTime(requestDTO.getNiNtcEndTime())
                 .setNiNtcStartTime(requestDTO.getNiNtcStartTime())
                 .setNiNtcStatus(requestDTO.getNiNtcStatus());
-        baseMapper.updateById(entity);
-        BsNoticeInf notice = baseMapper.selectById(requestDTO.getNiNtcId());
+
+        iBService.updateById(entity);
+
+        BsNoticeInf notice = iBService.getById(requestDTO.getNiNtcId());
+
         outDTO.setNiNtcName(notice.getNiNtcName())
                 .setNiNtcText(notice.getNiNtcText())
                 .setNiNtcCount(notice.getNiNtcCount())

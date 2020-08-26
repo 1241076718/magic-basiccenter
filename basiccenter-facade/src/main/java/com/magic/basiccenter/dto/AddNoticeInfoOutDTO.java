@@ -1,6 +1,7 @@
 package com.magic.basiccenter.dto;
 
 import lombok.Data;
+
 import java.io.Serializable;
 
 /**
@@ -13,10 +14,17 @@ import java.io.Serializable;
  */
 
 @Data
-public class AddNoticeInfoOutDTO<T> implements Serializable {
+public class AddNoticeInfoOutDTO implements Serializable {
 
 
     private static final long serialVersionUID = 322192239362305089L;
 
-    private Integer total;
+    /**
+     * 插入数目
+     */
+    private Boolean flag;
+    /**
+     * 更改状态
+     */
+    private Boolean update;
 }
