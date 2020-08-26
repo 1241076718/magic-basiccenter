@@ -10,7 +10,7 @@ import lombok.experimental.Accessors;
 
 /**
 
- * @author ：goupc1@belink.com
+ * @author ：liubing1@belink.com
  * @date ：
  * @description* 公告修改返回数据
  * @modified By：
@@ -20,11 +20,23 @@ import lombok.experimental.Accessors;
 @Data
 @Accessors(chain=true)
 public class UpdateNoticeInfoOutDTO implements Serializable{
-
-
 	private static final long serialVersionUID = -7679344017046727787L;
-
-
+	/**
+	 *公告名字
+	 */
+	private String niNtcName;
+	/**
+	 * 公告具体内容
+	 */
+	private String niNtcText;
+	/**
+	 * 提醒状态（是否提醒）（0：否 1:是）
+	 */
+	private Integer niNtcRemindStatus;
+	/**
+	 * 提醒次数
+	 */
+	private Integer niNtcCount;
 	/**
 	 * 公告强制提醒开始时间
 	 */
@@ -41,39 +53,4 @@ public class UpdateNoticeInfoOutDTO implements Serializable{
 			timezone = "GMT+8"
 	)
 	private Date niNtcEndTime;
-	/**
-	 * 提醒次数
-	 */
-	private Integer niNtcCount;
-	/**
-	 * 提醒状态（是否提醒）（0：否 1:是）
-	 */
-	private Integer niNtcRemindStatus;
-	/**
-	 *公告名字
-	 */
-	private String niNtcName;
-	/**
-
-	 * 公告状态（1：已删除 2：新建 3:已发布 4：已上架 5：已下架 6：已驳回 ）
-	 */
-
-	private Integer niNtcStatus;
-
-	/**
-	 * 公告发布时间
-	 */
-	@JsonFormat(
-			pattern = "yyyy-MM-dd",
-			timezone = "GMT+8"
-	)
-	private Date niNtcIdReleaseTime;
-	/**
-	 * 公告创建者
-	 */
-	private String niNtcCreator;
-	/**
-	 * 公告具体内容
-	 */
-	private String niNtcText;
 }

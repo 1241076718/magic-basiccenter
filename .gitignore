@@ -1,7 +1,5 @@
-.gitignore
 .idea
-.settings
+.gitignore
 **.iml
-**/**.iml
 target
-**/target
+/.metadata/

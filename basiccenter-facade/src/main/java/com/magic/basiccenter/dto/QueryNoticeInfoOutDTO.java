@@ -1,6 +1,5 @@
 package com.magic.basiccenter.dto;
 
-import com.magic.application.infrastructure.service.dto.SelectPageDTO;
 import com.magic.application.infrastructure.service.dto.SelectPageOutDTO;
 import com.magic.basiccenter.dto.entity.NoticeBean;
 import lombok.Data;
@@ -19,7 +18,7 @@ import java.util.List;
 
 
 @Data
-public class QueryNoticeInfoOutDTO  extends SelectPageOutDTO implements Serializable {
+public class QueryNoticeInfoOutDTO extends SelectPageOutDTO implements Serializable {
 
 
     private static final long serialVersionUID = -39884965805778633L;

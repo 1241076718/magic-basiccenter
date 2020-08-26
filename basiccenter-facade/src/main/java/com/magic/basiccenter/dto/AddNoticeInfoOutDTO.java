@@ -1,6 +1,7 @@
 package com.magic.basiccenter.dto;
 
 import lombok.Data;
+
 import java.io.Serializable;
 
 /**
