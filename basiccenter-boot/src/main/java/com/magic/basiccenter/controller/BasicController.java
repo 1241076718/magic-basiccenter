@@ -3,7 +3,7 @@ package com.magic.basiccenter.controller;
 import com.magic.application.infrastructure.service.dto.MagicDTO;
 import com.magic.application.infrastructure.service.dto.MagicOutDTO;
 import com.magic.basiccenter.dto.*;
-import com.magic.basiccenter.service.BasicService;
+import com.magic.basiccenter.service.DocumentService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -20,11 +20,9 @@ import org.springframework.web.bind.annotation.RestController;
  * @sine 2020/8/17 9:13
  */
 @RestController
-@Slf4j
-@RequestMapping("/basic")
 public class BasicController {
     @Autowired
-    BasicService basicService;
+    DocumentService documentService;
 
     /**
      * 文档回显
@@ -33,7 +31,7 @@ public class BasicController {
      */
     @PostMapping("/doucment/queryData")
     public MagicOutDTO<DocumentFacadeDTO> queryData(@RequestBody MagicDTO<DocumentFacadeIdDTO> requestDTO){
-        return basicService.queryData(requestDTO);
+        return documentService.queryData(requestDTO);
     }
 
     /**
@@ -43,7 +41,7 @@ public class BasicController {
      */
     @PostMapping("/doucment/modify")
     public MagicOutDTO<DocumentFacadeStateDTO> queryModify(@RequestBody MagicDTO<DocumentFacadeDTO> requestDTO){
-        return basicService.queryModify(requestDTO);
+        return documentService.queryModify(requestDTO);
     }
 
     /**
@@ -53,7 +51,7 @@ public class BasicController {
      */
     @PostMapping("/doucment/upShelf")
     public MagicOutDTO<DocumentFacadeStateDTO> upShelf( @RequestBody MagicDTO<DocumentFacadeInputDTO> requestDTO){
-        return basicService.publish(requestDTO);
+        return documentService.publish(requestDTO);
     }
     /**
      * 文档下架
@@ -62,7 +60,7 @@ public class BasicController {
      */
     @PostMapping("/doucment/downShelf")
     public MagicOutDTO<DocumentFacadeStateDTO> downShelf(@RequestBody MagicDTO<DocumentFacadeInputDTO> requestDTO){
-        return basicService.publish(requestDTO);
+        return documentService.publish(requestDTO);
     }
 
     /**
@@ -72,7 +70,7 @@ public class BasicController {
      */
     @PostMapping("/doucment/remove")
     public MagicOutDTO<DocumentFacadeStateDTO> delete (@RequestBody MagicDTO<DocumentFacadeIdDTO> requestDTO){
-        return basicService.delete(requestDTO);
+        return documentService.delete(requestDTO);
     }
     /**
      * 查询文档列表
@@ -81,7 +79,7 @@ public class BasicController {
      */
     @PostMapping("document/queryDocumentList")
     public MagicOutDTO<QueryDocumentListOutDTO> queryDocumentList(@RequestBody MagicDTO<QueryDocumentListDTO> requestDTO){
-        return basicService.queryDocumentList(requestDTO);
+        return documentService.queryDocumentList(requestDTO);
     }
 
     /**
@@ -91,6 +89,6 @@ public class BasicController {
      */
     @PostMapping("/document/addDocumentState")
     public MagicOutDTO<DocumentFacadeStateDTO> addDocumentState(@RequestBody MagicDTO<DocumentFacadeDTO> requestDTO){
-        return basicService.addDocumentState(requestDTO);
+        return documentService.addDocumentState(requestDTO);
     }
 }
