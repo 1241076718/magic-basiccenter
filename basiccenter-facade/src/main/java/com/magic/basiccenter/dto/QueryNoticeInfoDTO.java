@@ -1,5 +1,6 @@
 package com.magic.basiccenter.dto;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.magic.application.infrastructure.service.dto.SelectPageDTO;
 import lombok.Data;
 
@@ -54,10 +55,19 @@ public class QueryNoticeInfoDTO extends SelectPageDTO implements Serializable {
     /**
      * 公告强制提醒开始时间
      */
+    @JsonFormat(
+			pattern = "yyyy-MM-dd HH:mm:ss",
+			timezone = "GMT+8"
+	)
+    //yyyy-MM-dd HH:mm:ss
     private Date niNtcStartTime;
     /**
      * 公告强制提醒结束时间
      */
+    @JsonFormat(
+			pattern = "yyyy-MM-dd HH:mm:ss",
+			timezone = "GMT+8"
+	)
     private Date niNtcEndTime;
     /**
      * 提醒次数
