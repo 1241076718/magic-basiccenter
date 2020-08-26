@@ -1,7 +1,0 @@
-.gitignore
-.idea
-.settings
-**.iml
-**/**.iml
-target
-**/target
