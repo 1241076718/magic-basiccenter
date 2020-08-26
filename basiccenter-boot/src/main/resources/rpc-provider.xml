@@ -7,6 +7,7 @@
         http://www.ifpcloud.com/ifp/rpc http://www.ifpcloud.com/ifp/rpc.xsd"
 	   default-autowire="byName">
 
+
 	<bean id="advertManageService" class="com.magic.basiccenter.service.impl.AdvertManageServiceImpl"/>
 	<rpc:provider id="advertManageServiceProvider" interface="com.magic.basiccenter.service.IAdvertManageService"
 				  ref="advertManageService" group="basic-center" type="SpringCloudCreater">

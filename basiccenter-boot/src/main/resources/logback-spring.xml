@@ -1,3 +1,4 @@
+
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration debug="false">
 
@@ -120,4 +121,5 @@
             <appender-ref ref="ERROR_FILE" />
         </logger>
     </springProfile>
+
 </configuration>

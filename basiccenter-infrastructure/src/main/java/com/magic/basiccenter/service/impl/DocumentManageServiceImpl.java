@@ -1,26 +1,33 @@
 package com.magic.basiccenter.service.impl;
 
-import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.gift.domain.sequence.factory.SequenceFactory;
-import com.magic.basiccenter.constants.Constant;
-import com.magic.basiccenter.dto.entity.DocumentTypeBean;
-import com.magic.basiccenter.dto.entity.DocumentBean;
-import com.magic.basiccenter.model.dto.*;
-import com.magic.basiccenter.model.entity.BsDocumentInf;
-import com.magic.basiccenter.model.entity.BsDocumentType;
-import com.magic.basiccenter.model.service.DocumentManageService;
-import com.magic.basiccenter.model.service.IBsDocumentService;
-import com.magic.basiccenter.model.service.IBsDocumentTypeService;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.gift.domain.sequence.factory.SequenceFactory;
+import com.magic.basiccenter.constants.Constant;
+import com.magic.basiccenter.dto.entity.DocumentBean;
+import com.magic.basiccenter.dto.entity.DocumentTypeBean;
+import com.magic.basiccenter.model.dto.DocumentDTO;
+import com.magic.basiccenter.model.dto.DocumentIdDTO;
+import com.magic.basiccenter.model.dto.DocumentInputDTO;
+import com.magic.basiccenter.model.dto.DocumentStateDTO;
+import com.magic.basiccenter.model.dto.LifeDTO;
+import com.magic.basiccenter.model.dto.QueryDocumentDTO;
+import com.magic.basiccenter.model.dto.QueryDocumentOutDTO;
+import com.magic.basiccenter.model.entity.BsDocumentInf;
+import com.magic.basiccenter.model.entity.BsDocumentType;
+import com.magic.basiccenter.model.service.DocumentManageService;
+import com.magic.basiccenter.model.service.IBsDocumentService;
+import com.magic.basiccenter.model.service.IBsDocumentTypeService;
 
 /**
  * 后端接口实现
