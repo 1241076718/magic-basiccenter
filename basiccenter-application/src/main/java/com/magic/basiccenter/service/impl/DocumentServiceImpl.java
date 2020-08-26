@@ -1,4 +1,4 @@
-package com.magic.basiccenter.serviceimpl;
+package com.magic.basiccenter.service.impl;
 
 
 
@@ -8,21 +8,23 @@ import com.magic.application.infrastructure.service.dto.data.RespHeader;
 import com.magic.basiccenter.dto.*;
 import com.magic.basiccenter.error.BasicErrorEnum;
 import com.magic.basiccenter.model.dto.*;
-import com.magic.basiccenter.model.service.DocumentService;
-import com.magic.basiccenter.service.BasicService;
+import com.magic.basiccenter.model.service.DocumentManageService;
+import com.magic.basiccenter.service.DocumentService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 /**
  * 前端接口实现
  */
-public class BasicServiceImpl implements BasicService {
+@Service
+public class DocumentServiceImpl implements DocumentService {
 
     /**
      * 公共数据交互端
      */
     @Autowired
-    DocumentService documentService;
+    DocumentManageService documentManageService;
     /**
      * 文档数据回显
      * @param requestDTO
@@ -46,7 +48,7 @@ public class BasicServiceImpl implements BasicService {
             //写入数据
             documentDto.setDocsId(docsId);
             //业务实现
-            DocumentDTO documentDto1 = documentService.queryData(documentDto);
+            DocumentDTO documentDto1 = documentManageService.queryData(documentDto);
             //属性克隆
             BeanUtils.copyProperties(documentDto1,dto);
             //判断业务流程状态
@@ -89,12 +91,10 @@ public class BasicServiceImpl implements BasicService {
             BeanUtils.copyProperties(Document,documentDto);
 
             //业务实现
-            DocumentStateDTO documentStateDto = documentService.queryModify(documentDto);
-
+            DocumentStateDTO documentStateDto = documentManageService.queryModify(documentDto);
             dto.setDocsId(documentStateDto.getDocsId());
             //获取业务流程状态
             dto.setState(documentStateDto.getState());
-
             //判断业务流程状态
             if (StateDTO.FAILURE.equals(dto.getState())){
                 respHead.setErrorCode(BasicErrorEnum.MODIFYFATL.code());
@@ -134,7 +134,7 @@ public class BasicServiceImpl implements BasicService {
             BeanUtils.copyProperties(document,documentDto);
 
             //业务实现
-            DocumentStateDTO publish = documentService.publish(documentDto);
+            DocumentStateDTO publish = documentManageService.publish(documentDto);
 
             //获取业务流程状态
             dto.setState(publish.getState());
@@ -143,15 +143,15 @@ public class BasicServiceImpl implements BasicService {
                 if (ReleaseDTO.SHELVES.equals(document.getState())) {
                     respHead.setErrorCode(BasicErrorEnum.SHELVESFATL.code());
                     respHead.setErrorMsg(BasicErrorEnum.SHELVESFATL.msg());
-                }{
+                }if (ReleaseDTO.THESHELVES.equals(document.getState())){
                     respHead.setErrorCode(BasicErrorEnum.THESHELVESFATL.code());
                     respHead.setErrorMsg(BasicErrorEnum.THESHELVESFATL.msg());
                 }
             }else {
-                if (ReleaseDTO.THESHELVES.equals(document.getState())) {
+                if (ReleaseDTO.SHELVES.equals(document.getState())) {
                     respHead.setErrorCode(BasicErrorEnum.SHELVES.code());
                     respHead.setErrorMsg(BasicErrorEnum.SHELVES.msg());
-                }{
+                }if (ReleaseDTO.THESHELVES.equals(document.getState())){
                     respHead.setErrorCode(BasicErrorEnum.THEAHWLVES.code());
                     respHead.setErrorMsg(BasicErrorEnum.THEAHWLVES.msg());
                 }
@@ -186,7 +186,7 @@ public class BasicServiceImpl implements BasicService {
             //写入属性
             documentIdDto.setDocsId(body.getDocsId());
             //业务实现
-            DocumentStateDTO delete = documentService.delete(documentIdDto);
+            DocumentStateDTO delete = documentManageService.delete(documentIdDto);
             //获取业务流程状态码
             dto.setState(delete.getState());
             //判断业务流程
@@ -229,11 +229,10 @@ public class BasicServiceImpl implements BasicService {
             //属性克隆
             BeanUtils.copyProperties(body,documentDto);
             //业务实现
-            DocumentStateDTO updataDto = documentService.addDocumentState(documentDto);
-            //判断业务流程
+            DocumentStateDTO updataDto = documentManageService.addDocumentState(documentDto);
             dto.setDocsId(updataDto.getDocsId());
-            dto.setState(updataDto.getState());
-            if (StateDTO.FAILURE.equals(dto.getState())){
+            //判断业务流程
+            if (StateDTO.FAILURE.equals(updataDto.getState())){
                 respHead.setErrorCode(BasicErrorEnum.ADDFATL.code());
                 respHead.setErrorMsg(BasicErrorEnum.ADDFATL.msg());
             }else {
@@ -269,7 +268,7 @@ public class BasicServiceImpl implements BasicService {
 				//克隆属性
 				BeanUtils.copyProperties(requestDTO.getBody(), queryDocumentDTO);
 				//业务实现
-				QueryDocumentOutDTO queryDocumentList = documentService.queryDocumentList(queryDocumentDTO);
+				QueryDocumentOutDTO queryDocumentList = documentManageService.queryDocumentList(queryDocumentDTO);
 				//判断业务流程
 				if(null == queryDocumentList) {
 					respHead.setErrorCode(BasicErrorEnum.REFERFATL.code());
