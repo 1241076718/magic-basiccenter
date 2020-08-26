@@ -46,11 +46,7 @@
 			<version>${druid.version}</version>
 		</dependency>
 		<!-- databasic config end -->
-        <dependency>
-            <groupId>com.magic</groupId>
-            <artifactId>basiccenter-application</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
-        </dependency>
+
 
 
         <dependency>
