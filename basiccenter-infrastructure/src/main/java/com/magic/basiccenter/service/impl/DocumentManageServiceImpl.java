@@ -208,7 +208,7 @@ public class DocumentManageServiceImpl implements DocumentManageService {
         }
         //查询文档类型列表
         LambdaQueryWrapper<BsDocumentType> queryTypeWrapper = new LambdaQueryWrapper<>();
-        queryTypeWrapper.eq(BsDocumentType::getInvalid, "0");
+        queryTypeWrapper.eq(BsDocumentType::getInvalid, LifeDTO.SURVIVAL);
         List<BsDocumentType> documentTypeList = bsDocumentTypeService.list(queryTypeWrapper);
         //遍历将数据放入BsDocumentType
         ArrayList<DocumentTypeBean> typeBeanList = new ArrayList<>();
