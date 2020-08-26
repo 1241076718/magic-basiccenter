@@ -20,11 +20,12 @@ import org.springframework.web.bind.annotation.RestController;
  * @version: $1.0.0
  */
 
+
 @RestController
 @RequestMapping("/notice")
 public class NoticeController {
     @Autowired(required = false)
-    NoticeService service;
+    NoticeService noticeService;
 
 
 
@@ -37,7 +38,7 @@ public class NoticeController {
      */
     @PostMapping("/addNotice")
     public MagicOutDTO<AddNoticeInfoOutDTO> addNotice(@RequestBody MagicDTO<AddNoticeInfoInDTO> requestDTO) {
-        return service.addNoticeInfo(requestDTO);
+        return noticeService.addNoticeInfo(requestDTO);
     }
 
 
@@ -49,7 +50,7 @@ public class NoticeController {
      */
     @PostMapping("/updateNotice")
     public MagicOutDTO<UpdateNoticeInfoOutDTO> updateNoticeData(@RequestBody MagicDTO<QueryNoticeInfoDTO> requestDTO) {
-        return service.updateNotice(requestDTO);
+        return noticeService.updateNotice(requestDTO);
     }
 
 
@@ -63,22 +64,22 @@ public class NoticeController {
 
     @PostMapping("/select")
     public MagicOutDTO<QueryNoticeInfoOutDTO> selectNotice(@RequestBody MagicDTO<QueryNoticeInfoDTO> queryNoticeInfoInDTO) {
-        MagicOutDTO<QueryNoticeInfoOutDTO> querynoticeinfo = service.queryNoticeList(queryNoticeInfoInDTO);
+        MagicOutDTO<QueryNoticeInfoOutDTO> querynoticeinfo = noticeService.queryNoticeList(queryNoticeInfoInDTO);
         return querynoticeinfo;
 
 
     }
 
     /**
-     * 公告上下架管理和改变公告状态
      *
-     * @param queryNoticeInfoInDTO
+     * 公告上下架管理和改变公告状态
+     * @param requestDTO
      * @return
      */
     @PostMapping("/changeNoticeStatus")
-    public MagicOutDTO<QueryNoticeInfoOutDTO> changeNoticeStatus(@RequestBody MagicDTO<QueryNoticeInfoDTO> queryNoticeInfoInDTO) {
+    public MagicOutDTO<AddNoticeInfoOutDTO> changeNoticeStatus(@RequestBody MagicDTO<AddNoticeInfoInDTO> requestDTO) {
 
-        MagicOutDTO<QueryNoticeInfoOutDTO> magicDTO = service.changeNoticeStatus(queryNoticeInfoInDTO);
+        MagicOutDTO<AddNoticeInfoOutDTO> magicDTO = noticeService.changeNoticeStatus(requestDTO);
 
         return magicDTO;
     }
