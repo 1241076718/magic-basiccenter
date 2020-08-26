@@ -32,7 +32,7 @@ public enum FestivalMessageEnum {
 	/**
 	 * 添加失败，已有新增的节点日
 	 */
-	FAIL_FESTIVAL_ADD_CONFLICT("BAS003004","添加失败，已有新增的节点日");
+	FAIL_FESTIVAL_ADD_CONFLICT("BAS003005","添加失败，已有新增的节点日");
 
 
 

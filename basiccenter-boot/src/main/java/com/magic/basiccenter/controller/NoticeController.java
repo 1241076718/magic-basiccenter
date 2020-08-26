@@ -72,13 +72,13 @@ public class NoticeController {
     /**
      *
      * 公告上下架管理和改变公告状态
-     * @param queryNoticeInfoInDTO
+     * @param requestDTO
      * @return
      */
     @PostMapping("/changeNoticeStatus")
-    public MagicOutDTO<QueryNoticeInfoOutDTO> changeNoticeStatus(@RequestBody MagicDTO<QueryNoticeInfoDTO> queryNoticeInfoInDTO) {
+    public MagicOutDTO<AddNoticeInfoOutDTO> changeNoticeStatus(@RequestBody MagicDTO<AddNoticeInfoInDTO> requestDTO) {
 
-        MagicOutDTO<QueryNoticeInfoOutDTO> magicDTO = noticeService.changeNoticeStatus(queryNoticeInfoInDTO);
+        MagicOutDTO<AddNoticeInfoOutDTO> magicDTO = noticeService.changeNoticeStatus(requestDTO);
 
         return magicDTO;
     }

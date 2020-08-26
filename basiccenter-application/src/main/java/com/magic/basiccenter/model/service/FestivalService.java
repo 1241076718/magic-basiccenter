@@ -19,7 +19,7 @@ public interface FestivalService {
      * 向数据库添加一条节日信息
      * @param festivalAddDTO
      */
-    void FestivalAdd(FestivalAddDTO festivalAddDTO);
+    void festivalAdd(FestivalAddDTO festivalAddDTO);
 
     /**
      * 判断数据库中是否有指定节假日
@@ -27,7 +27,7 @@ public interface FestivalService {
      * @param festivalYear
      * @return
      */
-    Boolean FestivalSelectNameYear(String festivalName,String festivalYear);
+    Boolean festivalSelectNameYear(String festivalName,String festivalYear);
 
 
 
@@ -39,7 +39,7 @@ public interface FestivalService {
      * @return
      */
 
-    FestivalQueryListOutDTO FestivalQueryByYear(String festivalYear);
+    FestivalQueryListOutDTO festivalQueryByYear(String festivalYear);
 
 
     /**
@@ -47,7 +47,7 @@ public interface FestivalService {
      * @param magicDTO
      * @return
      */
-    MagicOutDTO<FestivaldeleteOutDTO> FestivalDelete(MagicDTO<FestivaldeleteDTO> magicDTO);
+    MagicOutDTO<FestivaldeleteOutDTO> festivalDelete(MagicDTO<FestivaldeleteDTO> magicDTO);
 
 
 
@@ -56,7 +56,7 @@ public interface FestivalService {
      * @param festivalModifyDTO
      * @return
      */
-    RespHeader FestivalModify(FestivalModifyDTO festivalModifyDTO);
+    RespHeader festivalModify(FestivalModifyDTO festivalModifyDTO);
 
 
 }

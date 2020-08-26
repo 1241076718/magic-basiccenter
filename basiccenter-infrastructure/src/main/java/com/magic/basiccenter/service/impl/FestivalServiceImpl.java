@@ -10,7 +10,7 @@ import com.magic.application.infrastructure.service.dto.data.RespHeader;
 import com.magic.application.infrastructure.utils.ApplicationServiceUtil;
 import com.magic.basiccenter.constants.Constant;
 import com.magic.basiccenter.dto.*;
-import com.magic.basiccenter.model.entity.FestivalManageInf;
+import com.magic.basiccenter.model.entity.BsFestivalInf;
 import com.magic.basiccenter.dto.entity.FestivalQueryListInf;
 import com.magic.basiccenter.error.FestivalMessageEnum;
 import com.magic.basiccenter.model.mapper.FestManageMapper;
@@ -48,9 +48,9 @@ public class FestivalServiceImpl implements FestivalService {
      * @param festivalAddDTO
      */
     @Override
-    public void FestivalAdd(FestivalAddDTO festivalAddDTO) {
+    public void festivalAdd(FestivalAddDTO festivalAddDTO) {
 
-        FestivalManageInf festivalManageInf = new FestivalManageInf();
+        BsFestivalInf festivalManageInf = new BsFestivalInf();
 
         //添加Id
         festivalManageInf.setFestivalId(sequenceFactory.getSegmentDateId(Constant.FESTIVAL_BIZ_TAG));
@@ -75,10 +75,10 @@ public class FestivalServiceImpl implements FestivalService {
      * @return
      */
     @Override
-    public Boolean FestivalSelectNameYear(String festivalName, String festivalYear) {
-        QueryWrapper<FestivalManageInf> queryWrapper = new QueryWrapper<>();
+    public Boolean festivalSelectNameYear(String festivalName, String festivalYear) {
+        QueryWrapper<BsFestivalInf> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("FESTIVAL_YEAR", festivalYear).eq("FESTIVAL_NAME", festivalName);
-        List<FestivalManageInf> festivalManageInfs = festManageMapper.selectList(queryWrapper);
+        List<BsFestivalInf> festivalManageInfs = festManageMapper.selectList(queryWrapper);
         if (festivalManageInfs.isEmpty()){
             return true;
         }else {
@@ -95,18 +95,19 @@ public class FestivalServiceImpl implements FestivalService {
      * @return
      */
     @Override
-    public FestivalQueryListOutDTO FestivalQueryByYear(String festivalYear) {
+    public FestivalQueryListOutDTO festivalQueryByYear(String festivalYear) {
         //定义输出对象
         FestivalQueryListOutDTO result=new FestivalQueryListOutDTO();
         ArrayList<FestivalQueryListInf> festivalQueryListInfs = new ArrayList<>();
 
-        LambdaQueryWrapper<FestivalManageInf> wrapper =new LambdaQueryWrapper<FestivalManageInf>();
+        LambdaQueryWrapper<BsFestivalInf> wrapper =new LambdaQueryWrapper<BsFestivalInf>();
         //注意：测试时为0，之后要设置为1
-        wrapper.eq(FestivalManageInf::getFestivalExist,"0").eq(FestivalManageInf::getFestivalValid, "0").eq(FestivalManageInf::getFestivalYear, festivalYear);
-        List<FestivalManageInf> selectList = festManageMapper.selectList(wrapper);
-        for (FestivalManageInf festivalmanageInf : selectList) {
+        wrapper.eq(BsFestivalInf::getFestivalExist,"0").eq(BsFestivalInf::getFestivalValid, "0").eq(BsFestivalInf::getFestivalYear, festivalYear);
+        List<BsFestivalInf> selectList = festManageMapper.selectList(wrapper);
+        for (BsFestivalInf festivalmanageInf : selectList) {
             FestivalQueryListInf queryFestivalListOutDTO=new FestivalQueryListInf();
             queryFestivalListOutDTO.setFestivalDeploy(festivalmanageInf.getFestivalDeploy());
+            queryFestivalListOutDTO.setFestivalId(festivalmanageInf.getFestivalId());
             queryFestivalListOutDTO.setFestivalName(festivalmanageInf.getFestivalName());
             queryFestivalListOutDTO.setFestivalYear(festivalmanageInf.getFestivalYear());
             queryFestivalListOutDTO.setFestivalType(festivalmanageInf.getFestivalType());
@@ -124,7 +125,7 @@ public class FestivalServiceImpl implements FestivalService {
      * @return
      */
     @Override
-    public MagicOutDTO<FestivaldeleteOutDTO> FestivalDelete(MagicDTO<FestivaldeleteDTO> magicDTO) {
+    public MagicOutDTO<FestivaldeleteOutDTO> festivalDelete(MagicDTO<FestivaldeleteDTO> magicDTO) {
 
         //定义输出对象
         MagicOutDTO magicOutDTO = new MagicOutDTO();
@@ -165,8 +166,8 @@ public class FestivalServiceImpl implements FestivalService {
             respHeader.setErrorMsg(FestivalMessageEnum.SUCCESS.msg());
             magicOutDTO.setHeader(respHeader);
 
-            QueryWrapper<FestivalManageInf> queryWrapper= new QueryWrapper<>();
-            FestivalManageInf festivalManageInf=new FestivalManageInf();
+            QueryWrapper<BsFestivalInf> queryWrapper= new QueryWrapper<>();
+            BsFestivalInf festivalManageInf=new BsFestivalInf();
             festivalManageInf.setFestivalExist("-1");
             festManageMapper.update(festivalManageInf,queryWrapper.eq("FESTIVAL_ID",magicDTO.getBody().getFestivalId()));
             return magicOutDTO;
@@ -181,7 +182,7 @@ public class FestivalServiceImpl implements FestivalService {
      * @return
      */
     @Override
-    public RespHeader FestivalModify(FestivalModifyDTO festivalModifyDTO) {
+    public RespHeader festivalModify(FestivalModifyDTO festivalModifyDTO) {
 
         //定义响应头
         RespHeader respHeader = new RespHeader();
@@ -190,7 +191,7 @@ public class FestivalServiceImpl implements FestivalService {
         String festivalId = festivalModifyDTO.getFestivalId();
 
         // 根据Id判断被修改节假日安排是否有效
-        FestivalManageInf oldFestival = festManageMapper.selectById(festivalId);
+        BsFestivalInf oldFestival = festManageMapper.selectById(festivalId);
 
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         String format = sdf.format(new Date());
@@ -232,14 +233,14 @@ public class FestivalServiceImpl implements FestivalService {
         }
 
         // 获取所有有效的节假日安排的日期数据(大于当前系统日期)
-        QueryWrapper<FestivalManageInf> QueryWrapper = new QueryWrapper<>();
-        List<FestivalManageInf> selectList = festManageMapper
+        QueryWrapper<BsFestivalInf> QueryWrapper = new QueryWrapper<>();
+        List<BsFestivalInf> selectList = festManageMapper
                 .selectList(QueryWrapper.gt("FESTIVAL_START_TIME", nowDate));
 
         // 判断节假日修改日期是否与其他日期冲突
         // 创建判断失败flag
         boolean conflict = false;
-        for (FestivalManageInf festivalRawDataDate : selectList) {
+        for (BsFestivalInf festivalRawDataDate : selectList) {
             //判断日期是否存在
             if (festivalRawDataDate.getFestivalExist().equals("0")) {
 
@@ -264,7 +265,7 @@ public class FestivalServiceImpl implements FestivalService {
         if (conflict) {
             // 获取节假日修改的其他数据
             // 将数据修改至数据库
-            FestivalManageInf updateFestivalInf = new FestivalManageInf();
+            BsFestivalInf updateFestivalInf = new BsFestivalInf();
             updateFestivalInf.setFestivalDeploy(festivalDeploy);
             updateFestivalInf.setFestivalName(festivalModifyDTO.getFestivalName());
             updateFestivalInf.setFestivalUpdatePerson("LEI");

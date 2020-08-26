@@ -16,7 +16,7 @@ public interface IFestivalService {
      * @param magicDTO
      * @return
      */
-    MagicOutDTO<FestivalAddOutDTO> AddFestival(MagicDTO<FestivalAddDTO> magicDTO);
+    MagicOutDTO<FestivalAddOutDTO> addFestival(MagicDTO<FestivalAddDTO> magicDTO);
 
 
     /**
@@ -24,7 +24,7 @@ public interface IFestivalService {
      * @param magicDTO
      * @return
      */
-    MagicOutDTO<FestivalQueryListOutDTO> QueryFestivalList(MagicDTO<FestivalQueryListDTO> magicDTO);
+    MagicOutDTO<FestivalQueryListOutDTO> queryFestivalList(MagicDTO<FestivalQueryListDTO> magicDTO);
 
 
 
@@ -33,7 +33,7 @@ public interface IFestivalService {
      * @param magicDTO
      * @return
      */
-    MagicOutDTO<FestivalQueryListOutDTO> QueryFestival(MagicDTO<FestivalQueryDTO> magicDTO);
+    MagicOutDTO<FestivalQueryListOutDTO> queryFestival(MagicDTO<FestivalQueryDTO> magicDTO);
 
 
 
@@ -42,13 +42,13 @@ public interface IFestivalService {
      * @param magicDTO
      * @return
      */
-    MagicOutDTO<FestivaldeleteOutDTO> DeleteFestival(MagicDTO<FestivaldeleteDTO> magicDTO);
+    MagicOutDTO<FestivaldeleteOutDTO> deleteFestival(MagicDTO<FestivaldeleteDTO> magicDTO);
 
     /**
      * 节假日修改日期
      * @param magicDTO
      * @return
      */
-    MagicOutDTO<FestivalModifyOutDTO> ModifyFestival(MagicDTO<FestivalModifyDTO> magicDTO);
+    MagicOutDTO<FestivalModifyOutDTO> modifyFestival(MagicDTO<FestivalModifyDTO> magicDTO);
 
 }
