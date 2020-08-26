@@ -72,7 +72,7 @@ public class NoticeController {
     /**
      *
      * 公告上下架管理和改变公告状态
-     * @param queryNoticeInfoInDTO
+     * @param requestDTO
      * @return
      */
     @PostMapping("/changeNoticeStatus")
