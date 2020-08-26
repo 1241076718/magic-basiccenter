@@ -35,7 +35,7 @@ public class BsDocumentType implements Serializable {
 	/**
 	 * 文档类型是否失效(否：0，是：1)
 	 */
-	@TableId(value = "INVALID")
+	@TableId(value = "DOC_TYPE_INVALID")
 	private String invalid;
 
 }
