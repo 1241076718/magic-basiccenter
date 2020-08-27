@@ -23,4 +23,9 @@ public class FestivaldeleteDTO implements Serializable {
      * 删除节假日的Id
      */
     private String festivalId;
+
+    /**
+     * eCIFID,用作修改人
+     */
+    private String eCIFID;
 }

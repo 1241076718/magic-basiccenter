@@ -13,7 +13,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestBody;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 
 
 /**
@@ -46,21 +49,42 @@ public class FestivalManageService implements IFestivalService {
         RespHeader respHeader=new RespHeader();
         ApplicationServiceUtil.supplementaryRespHeader(magicDTO.getHeader(), respHeader);
 
+        //获取当前时间并格式化
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        String format = sdf.format(new Date());
+        Date nowDate;
+
+        //判断传入日期是否有效
+        try {
+            nowDate = sdf.parse(format);
+            if (body.getFestivalStartTime().getTime() <= nowDate.getTime()) {
+                // 新增的节假日开始的时间比当前系统时间小或相等(不能添加,选择的节假日无效)
+                respHeader.setErrorCode(FestivalMessageEnum.FAIL_FESTIVAL_ADD_INVALID.code());
+                respHeader.setErrorMsg(FestivalMessageEnum.FAIL_FESTIVAL_ADD_INVALID.msg());
+                magicOutDTO.setHeader(respHeader);
+                return magicOutDTO;
+            }
+        } catch (ParseException e) {
+            respHeader.setErrorCode(FestivalMessageEnum.FAIL.code());
+            respHeader.setErrorMsg(FestivalMessageEnum.FAIL.msg());
+            magicOutDTO.setHeader(respHeader);
+            e.printStackTrace();
+            return magicOutDTO;
+        }
+
 
 
         //判断数据库中是否有冲突节日
-        if(festivalService.festivalSelectNameYear(body.getFestivalName(),body.getFestivalYear())){
+        if(festivalService.festivalSelectNameYear(body.getFestivalName(),body.getFestivalYear(),body.getFestivalStartTime(),body.getFestivalEndTime())){
             //无冲突则添加
             festivalService.festivalAdd(body);
             respHeader.setErrorCode(FestivalMessageEnum.SUCCESS.code());
             respHeader.setErrorMsg(FestivalMessageEnum.SUCCESS.msg());
         }else {
             //有冲突则返回失败
-            respHeader.setErrorCode(FestivalMessageEnum.FAIL_FESTIVAL_ADD_CONFLICT.code());
-            respHeader.setErrorMsg(FestivalMessageEnum.FAIL_FESTIVAL_ADD_CONFLICT.msg());
+            respHeader.setErrorCode(FestivalMessageEnum.FAIL_FESTIVAL_ADD_NAMECONFLICT.code());
+            respHeader.setErrorMsg(FestivalMessageEnum.FAIL_FESTIVAL_ADD_NAMECONFLICT.msg());
         }
-
-        //magicOutDTO = new MagicOutDTO<>(festivalAddOutDTO);
         magicOutDTO.setBody(festivalAddOutDTO);
         magicOutDTO.setHeader(respHeader);
         return magicOutDTO;
@@ -138,7 +162,6 @@ public class FestivalManageService implements IFestivalService {
     public MagicOutDTO<FestivaldeleteOutDTO> deleteFestival(@RequestBody MagicDTO<FestivaldeleteDTO> magicDTO) {
         MagicOutDTO<FestivaldeleteOutDTO> magicOutDTO = festivalService.festivalDelete(magicDTO);
         return magicOutDTO;
-
     }
 
 
@@ -168,7 +191,6 @@ public class FestivalManageService implements IFestivalService {
 
         //修改节假日信息,获取响应头
         respHeader = festivalService.festivalModify(festivalModifyDTO);
-
         magicOutDTO.setHeader(respHeader);
         return magicOutDTO;
     }
