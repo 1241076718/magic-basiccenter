@@ -101,7 +101,7 @@ public class DocumentManageServiceImpl implements DocumentManageService {
                 return dto;
             } else {
                 entity.setDocsId(documentDto.getDocsId()).setState(documentDto.getState());
-                entity.setDocumentPubdate(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()));
+                entity.setDocumentPubdate(new SimpleDateFormat("yyyy-MM-dd").format(new Date()));
                 //调用Api实现发布
                 boolean b = bsDocumentService.updateById(entity);
                 //生成业务状态码
