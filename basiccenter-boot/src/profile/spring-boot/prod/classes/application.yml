@@ -11,9 +11,9 @@ spring:
   datasource:
     type: com.alibaba.druid.pool.DruidDataSource
     driver-class-name: com.mysql.cj.jdbc.Driver
-    username: root
-    password: root
-    url: jdbc:mysql://localhost:3306/magic-basiccenter?characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=false&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=GMT%2B8
+    url: jdbc:mysql://139.9.1.216:3306/magic-basiccenter?useUnicode=true&characterEncoding=utf-8&serverTimezone=GMT%2B8
+    username: ifpcloud
+    password: ifpcloud&1q2w3e4r
     druid:
       # 连接池的配置信息
       # 初始化大小，最小，最大
@@ -50,10 +50,10 @@ spring:
         url-pattern: "/*"
         exclusions: "*.js,*.gif,*.jpg,*.bmp,*.png,*.css,*.ico,/druid/*"
   redis:
-    host: 127.0.0.1
+    host: 47.106.163.51
     password: Ifp0p9o8i7u
     port: 6379
-    databasic: 0
+    database: 0
 
 common-rpc:
   debugger: true
@@ -66,7 +66,7 @@ common-rpc:
 eureka:
   client:
     service-url:
-      defaultZone: http://127.0.0.1:8081/eureka
+      defaultZone: http://139.9.1.216:8081/eureka
   instance:
     prefer-ip-address: true
 #eureka:
