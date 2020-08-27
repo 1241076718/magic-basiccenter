@@ -67,7 +67,7 @@ public class DocumentManageServiceImpl implements DocumentManageService {
         BsDocumentInf entity = new BsDocumentInf();
         BsDocumentInf byId1 = bsDocumentService.getById(documentDto);
         if (byId1.getDocLife().equals(LifeDTO.DEATH)){
-            dto.setState(2);
+            dto.setState(3);
             return dto;
         }else {
             //克隆对象属性
@@ -123,17 +123,16 @@ public class DocumentManageServiceImpl implements DocumentManageService {
         BsDocumentInf byId1 = bsDocumentService.getById(documentDto);
         if (byId1.getDocLife().equals(LifeDTO.DEATH)){
             dto.setState(2);
-            return dto;
-        }else {
-            //获取数据id
-            entity.setDocsId(documentDto.getDocsId());
-            //设置数据的生命id （0 生存，1 死亡）
-            entity.setDocLife("1");
-            boolean b = bsDocumentService.updateById(entity);
-            //生成业务状态码
-            dto.setState(b ? 0 : 2);
-            return dto;
+        }if (byId1.getState().equals(ReleaseDTO.THESHELVES)){
+                //获取数据id
+                entity.setDocsId(documentDto.getDocsId());
+                //设置数据的生命id （0 生存，1 死亡）
+                entity.setDocLife("1");
+                boolean b = bsDocumentService.updateById(entity);
+                //生成业务状态码
+                dto.setState(b ? 0 : 2);
         }
+        return dto;
     }
 
     /**
@@ -148,7 +147,8 @@ public class DocumentManageServiceImpl implements DocumentManageService {
         BsDocumentInf entity = new BsDocumentInf();
         //获取当前时间
         inputDTO.setDocumentCtime(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()))
-                .setDocumentMtime(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()));
+                .setDocumentMtime(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()))
+                .setDocumentPubdate(new SimpleDateFormat("yyyy-MM-dd").format(new Date()));
         //设置文档状态
         inputDTO.setState(00);
         //设置数据的生命id （0 生存，1 死亡）
