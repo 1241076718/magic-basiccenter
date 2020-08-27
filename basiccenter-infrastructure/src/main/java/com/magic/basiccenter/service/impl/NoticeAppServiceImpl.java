@@ -1,5 +1,12 @@
 package com.magic.basiccenter.service.impl;
 
+import java.util.Date;
+import java.util.List;
+
+import org.springframework.beans.BeanUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 import com.gift.domain.sequence.factory.SequenceFactory;
 import com.magic.basiccenter.constants.Constant;
 import com.magic.basiccenter.dto.AddNoticeInfoInDTO;
@@ -10,12 +17,8 @@ import com.magic.basiccenter.model.dto.QueryNoticeOutDTO;
 import com.magic.basiccenter.model.entity.BsNoticeInf;
 import com.magic.basiccenter.model.service.IBsNoticeInfService;
 import com.magic.basiccenter.model.service.NoticeAppService;
-import org.springframework.beans.BeanUtils;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 
-import java.util.Date;
-import java.util.List;
+import lombok.extern.slf4j.Slf4j;
 
 
 /**
@@ -25,7 +28,7 @@ import java.util.List;
  * @modified By：
  * @version: $1.0.0
  */
-
+@Slf4j
 @Service
 public class NoticeAppServiceImpl implements NoticeAppService {
 
@@ -122,13 +125,13 @@ public class NoticeAppServiceImpl implements NoticeAppService {
                 .setNiNtcStartTime(requestDTO.getNiNtcStartTime());
         iBService.updateById(entity);
         BsNoticeInf notice = iBService.getById(requestDTO.getNiNtcId());
-        System.out.println("测试"+notice.getNiNtcRemindStatus());
         outDTO.setNiNtcName(notice.getNiNtcName())
                 .setNiNtcText(notice.getNiNtcText())
                 .setNiNtcCount(notice.getNiNtcCount())
                 .setNiNtcEndTime(notice.getNiNtcEndTime())
                 .setNiNtcStartTime(notice.getNiNtcStartTime())
                 .setNiNtcRemindStatus(requestDTO.getNiNtcRemindStatus());
+        log.info("基础数据返回:{}", outDTO);
         return outDTO;
     }
 

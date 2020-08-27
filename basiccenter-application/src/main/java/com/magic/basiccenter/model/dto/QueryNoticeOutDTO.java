@@ -102,5 +102,4 @@ public class QueryNoticeOutDTO implements Serializable {
 	 */
 	private String niNtcGmtModifier;
 
-	
 }
