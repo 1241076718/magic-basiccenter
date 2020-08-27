@@ -144,7 +144,7 @@ public class NoticeServiceImpl implements NoticeService {
         MagicOutDTO<UpdateNoticeInfoOutDTO> magicOutDTO = new MagicOutDTO<>();
         //2.获取请求数据
         QueryNoticeInfoDTO body = requestDTO.getBody();
-        //3.1构建实体对象
+        //3构建实体对象
         QueryNoticeDTO updateNoticeDTO = new QueryNoticeDTO();
         updateNoticeDTO.setNiNtcId(body.getNiNtcId())
                 .setNiNtcName(body.getNiNtcName())
@@ -170,6 +170,7 @@ public class NoticeServiceImpl implements NoticeService {
             respHeader.setErrorMsg(NoticeErrorEnum.CFAIL.msg());
         }
         magicOutDTO.setHeader(respHeader);
+        log.info("返回数据:{}", magicOutDTO);
         return magicOutDTO;
     }
 
