@@ -30,4 +30,9 @@ public class FestivalModifyDTO implements Serializable {
 	 */
 	private String festivalDeploy;
 
+	/**
+	 * eCIFID,用作修改人
+	 */
+	private String eCIFID;
+
 }

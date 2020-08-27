@@ -53,7 +53,9 @@ public class FestivalAddDTO implements Serializable {
     private Date festivalPutTime;
 
     /**
-     * 发布人
+     * eCIFID,用作发布人
      */
-    private String festivalPutPerson;
+    private String eCFID;
+
+
 }
