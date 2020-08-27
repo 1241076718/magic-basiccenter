@@ -2,7 +2,6 @@ package com.magic.basiccenter.model.service;
 
 import com.magic.basiccenter.dto.AddNoticeInfoInDTO;
 import com.magic.basiccenter.dto.AddNoticeInfoOutDTO;
-
 import com.magic.basiccenter.dto.entity.NoticeBean;
 import com.magic.basiccenter.model.dto.QueryNoticeDTO;
 import com.magic.basiccenter.model.dto.QueryNoticeOutDTO;
