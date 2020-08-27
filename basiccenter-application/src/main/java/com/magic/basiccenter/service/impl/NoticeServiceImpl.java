@@ -58,7 +58,8 @@ public class NoticeServiceImpl implements NoticeService {
        queryNoticeDTO.setNiNtcStartTime(body.getNiNtcStartTime());
 
        queryNoticeDTO.setNiNtcEndTime(body.getNiNtcEndTime());
-       if(body.getCurrentPage()>=0){
+       if(body.getCurrentPage()>0){
+
            queryNoticeDTO.setNowsPage(((body.getCurrentPage() - 1) * body.getTurnPageShowNum()));
 
            queryNoticeDTO.setPageSize(body.getTurnPageShowNum());
