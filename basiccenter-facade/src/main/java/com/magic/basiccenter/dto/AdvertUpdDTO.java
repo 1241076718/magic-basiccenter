@@ -58,14 +58,6 @@ public class AdvertUpdDTO implements Serializable {
      */
     private String aiAdvCover;
     /**
-     * 广告创建人
-     */
-    private String aiAdvCreateUser;
-    /**
-     * 广告创建时间
-     */
-    private LocalDateTime aiAdvCreateTime;
-    /**
      * 广告修改人
      */
     private String aiAdvUpdateUser;
