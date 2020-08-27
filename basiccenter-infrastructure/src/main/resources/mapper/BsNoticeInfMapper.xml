@@ -87,10 +87,11 @@
                 and NI_NTC_STATUS != 1
             </if>
 
+
             <if test=" niNtcId == null and pageSize!=null ">
                 ORDER BY  NI_NTC_GMT_MODIFIED DESC
             </if>
-            <if test=" pageSize!=null and nowsPage >=0">
+            <if test=" pageSize >0 and nowsPage >=0">
                 limit #{nowsPage}, #{pageSize}
             </if>
         </where>
@@ -128,7 +129,7 @@
             <if test=" niNtcId == null and pageSize!=null ">
                 ORDER BY  NI_NTC_GMT_MODIFIED DESC
             </if>
-            <if test=" pageSize!=null and nowsPage >=0">
+            <if test=" pageSize >0 and nowsPage >=0">
                 limit #{nowsPage}, #{pageSize}
             </if>
         </where>
