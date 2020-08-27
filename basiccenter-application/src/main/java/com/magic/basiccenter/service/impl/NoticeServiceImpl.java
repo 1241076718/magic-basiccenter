@@ -218,8 +218,8 @@ public class NoticeServiceImpl implements NoticeService {
                 respHeader.setErrorMsg(NoticeErrorEnum.FAIL.msg());
                 respHeader.setErrorCode(NoticeErrorEnum.FAIL.code());
             }
-        String errorCode = respHeader.getErrorCode();
         String errorMsg = respHeader.getErrorMsg();
+        String errorCode = respHeader.getErrorCode();
         log.info("公告上下架和删除-日志打印：errorCode:{},errorMsg:{}",errorCode,errorMsg);
         magicOutDTO.setHeader(respHeader);
         magicOutDTO.setBody(outDTO);
