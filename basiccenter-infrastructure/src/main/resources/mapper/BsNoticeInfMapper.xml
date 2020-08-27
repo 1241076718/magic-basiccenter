@@ -65,10 +65,10 @@
                 NI_NTC_NAME like CONCAT ( '%',#{niNtcName},'%')
             </if>
 
-            <if test="niNtcStartTime != null and niNtcStartTime !=''  ">
+            <if test="niNtcStartTime != null   ">
                 or  NI_NTC_START_TIME >= #{niNtcStartTime}
             </if>
-            <if test="niNtcEndTime != null and niNtcEndTime !=''  ">
+            <if test="niNtcEndTime != null  ">
                 and  #{niNtcEndTime}  >=  NI_NTC_END_TIME
             </if>
 
@@ -86,7 +86,6 @@
             <if test="1 != 0">
                 and NI_NTC_STATUS != 1
             </if>
-
 
             <if test=" niNtcId == null and pageSize!=null ">
                 ORDER BY  NI_NTC_GMT_MODIFIED DESC
@@ -96,6 +95,7 @@
             </if>
         </where>
     </select>
+
     <select id="queryNoticeTotalNum"   parameterType="com.magic.basiccenter.model.dto.QueryNoticeDTO"    resultType="Integer">
 
         select count(*) from bs_notice_inf
@@ -104,10 +104,10 @@
                 NI_NTC_NAME like CONCAT ( '%',#{niNtcName},'%')
             </if>
 
-            <if test="niNtcStartTime != null and niNtcStartTime !=''  ">
+            <if test="niNtcStartTime != null  ">
                 or  NI_NTC_START_TIME >= #{niNtcStartTime}
             </if>
-            <if test="niNtcEndTime != null and niNtcEndTime !=''  ">
+            <if test="niNtcEndTime != null  ">
                 and  #{niNtcEndTime}  >=  NI_NTC_END_TIME
             </if>
 
@@ -127,7 +127,7 @@
             </if>
 
             <if test=" niNtcId == null and pageSize!=null ">
-                ORDER BY  NI_NTC_GMT_MODIFIED DESC
+                ORDER BY  NI_NTC_GMT_MODIFIED ASC
             </if>
             <if test=" pageSize >0 and nowsPage >=0">
                 limit #{nowsPage}, #{pageSize}
