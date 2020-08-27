@@ -183,45 +183,44 @@ public class NoticeServiceImpl implements NoticeService {
      */
     @Override
     public MagicOutDTO<AddNoticeInfoOutDTO> changeNoticeStatus(MagicDTO<AddNoticeInfoInDTO> requestDTO) {
+        //定义出参
         AddNoticeInfoOutDTO infoOutDTO = new AddNoticeInfoOutDTO();
         MagicOutDTO<AddNoticeInfoOutDTO> magicOutDTO = new MagicOutDTO<>(infoOutDTO);
-
+        //定义返回头
         RespHeader respHeader = new RespHeader();
         AddNoticeInfoInDTO body = requestDTO.getBody();
-
         AddNoticeInfoOutDTO outDTO = service.changeNoticeStatus(body);
-
         Boolean update = outDTO.getUpdate();
-        //判断是否更改
-        if (update) {
-            if (requestDTO.getBody().getNiNtcStatus() == 1) {
-                //删除成功返回消息
+        try {
+            //判断是否更改
+            if (update) {
+                //统一操作成功返回消息
                 respHeader.setErrorCode(NoticeErrorEnum.SUCCESS.code());
                 respHeader.setErrorMsg(NoticeErrorEnum.SUCCESS.msg());
-            } else if (requestDTO.getBody().getNiNtcStatus() == 4) {
-                //上架成功返回消息
-                respHeader.setErrorCode(NoticeErrorEnum.SUCCESS.code());
-                respHeader.setErrorMsg(NoticeErrorEnum.SUCCESS.msg());
-            } else if (requestDTO.getBody().getNiNtcStatus() == 5) {
-                //下架成功返回消息
-                respHeader.setErrorCode(NoticeErrorEnum.SUCCESS.code());
-                respHeader.setErrorMsg(NoticeErrorEnum.SUCCESS.msg());
+            } else {
+                if (requestDTO.getBody().getNiNtcStatus() == 1) {
+                    //删除失败返回消息
+                    respHeader.setErrorCode(NoticeErrorEnum.DFAIL.code());
+                    respHeader.setErrorMsg(NoticeErrorEnum.DFAIL.msg());
+                } else if (requestDTO.getBody().getNiNtcStatus() == 4) {
+                    //上架失败返回消息
+                    respHeader.setErrorCode(NoticeErrorEnum.UFAIL.code());
+                    respHeader.setErrorMsg(NoticeErrorEnum.UFAIL.msg());
+                } else if (requestDTO.getBody().getNiNtcStatus() == 5) {
+                    //下架失败返回消息
+                    respHeader.setErrorCode(NoticeErrorEnum.SFATL.code());
+                    respHeader.setErrorMsg(NoticeErrorEnum.SFATL.msg());
+                }
             }
-        } else {
-            if (requestDTO.getBody().getNiNtcStatus() == 1) {
-                //删除失败返回消息
-                respHeader.setErrorCode(NoticeErrorEnum.DFAIL.code());
-                respHeader.setErrorMsg(NoticeErrorEnum.DFAIL.msg());
-            } else if (requestDTO.getBody().getNiNtcStatus() == 4) {
-                //上架失败返回消息
-                respHeader.setErrorCode(NoticeErrorEnum.UFAIL.code());
-                respHeader.setErrorMsg(NoticeErrorEnum.UFAIL.msg());
-            } else if (requestDTO.getBody().getNiNtcStatus() == 5) {
-                //下架失败返回消息
-                respHeader.setErrorCode(NoticeErrorEnum.SFATL.code());
-                respHeader.setErrorMsg(NoticeErrorEnum.SFATL.msg());
+            }catch(Exception e){
+                //统一异常处理
+                e.printStackTrace();
+                respHeader.setErrorMsg(NoticeErrorEnum.FAIL.msg());
+                respHeader.setErrorCode(NoticeErrorEnum.FAIL.code());
             }
-        }
+        String errorCode = respHeader.getErrorCode();
+        String errorMsg = respHeader.getErrorMsg();
+        log.info("公告上下架和删除-日志打印：errorCode:{},errorMsg:{}",errorCode,errorMsg);
         magicOutDTO.setHeader(respHeader);
         magicOutDTO.setBody(outDTO);
         return magicOutDTO;
