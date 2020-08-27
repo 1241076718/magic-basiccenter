@@ -92,12 +92,12 @@ public class DocumentManageServiceImpl implements DocumentManageService {
         BsDocumentInf entity = new BsDocumentInf();
         BsDocumentInf byId1 = bsDocumentService.getById(documentDto);
         if (byId1.getDocLife().equals(LifeDTO.DEATH)){
-            dto.setState(2);
+            dto.setState(3);
             return dto;
         }else {
             //非空校验
             if (null == documentDto.getState()) {
-                dto.setState(2);
+                dto.setState(4);
                 return dto;
             } else {
                 entity.setDocsId(documentDto.getDocsId()).setState(documentDto.getState());

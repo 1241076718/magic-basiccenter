@@ -12,6 +12,14 @@ public class StateDTO {
      * 失败
      */
     public static final Integer FAILURE = 2;
+    /**
+     * 数据为空
+     */
+    public static final Integer DATA = 3;
+    /**
+     * 参数异常
+     */
+    public static final Integer PARAMETER = 4;
 
 
 }
