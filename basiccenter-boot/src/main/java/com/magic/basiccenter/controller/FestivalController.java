@@ -30,6 +30,7 @@ public class FestivalController {
 
     /**
      * 节假日管理--新增
+     * 
      * @param magicDTO
      * @return
      */
