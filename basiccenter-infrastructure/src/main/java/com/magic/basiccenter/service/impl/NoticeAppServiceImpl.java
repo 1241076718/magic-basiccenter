@@ -4,9 +4,6 @@ import com.gift.domain.sequence.factory.SequenceFactory;
 import com.magic.basiccenter.constants.Constant;
 import com.magic.basiccenter.dto.AddNoticeInfoInDTO;
 import com.magic.basiccenter.dto.AddNoticeInfoOutDTO;
-
-import com.magic.basiccenter.dto.QueryNoticeInfoDTO;
-
 import com.magic.basiccenter.dto.entity.NoticeBean;
 import com.magic.basiccenter.model.dto.QueryNoticeDTO;
 import com.magic.basiccenter.model.dto.QueryNoticeOutDTO;
@@ -19,7 +16,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.Date;
 import java.util.List;
-
 
 
 /**
@@ -119,21 +115,19 @@ public class NoticeAppServiceImpl implements NoticeAppService {
         entity.setNiNtcName(requestDTO.getNiNtcName())
                 .setNiNtcId(requestDTO.getNiNtcId())
                 .setNiNtcText(requestDTO.getNiNtcText())
+                .setNiNtcRemindStatus(requestDTO.getNiNtcRemindStatus())
                 .setNiNtcCount(requestDTO.getNiNtcCount())
                 .setNiNtcEndTime(requestDTO.getNiNtcEndTime())
-                .setNiNtcStartTime(requestDTO.getNiNtcStartTime())
-                .setNiNtcStatus(requestDTO.getNiNtcStatus());
-
+                .setNiNtcStartTime(requestDTO.getNiNtcStartTime());
         iBService.updateById(entity);
-
         BsNoticeInf notice = iBService.getById(requestDTO.getNiNtcId());
-
+        System.out.println("测试"+notice.getNiNtcRemindStatus());
         outDTO.setNiNtcName(notice.getNiNtcName())
                 .setNiNtcText(notice.getNiNtcText())
                 .setNiNtcCount(notice.getNiNtcCount())
                 .setNiNtcEndTime(notice.getNiNtcEndTime())
                 .setNiNtcStartTime(notice.getNiNtcStartTime())
-                .setNiNtcStatus(notice.getNiNtcStatus());
+                .setNiNtcRemindStatus(requestDTO.getNiNtcRemindStatus());
         return outDTO;
     }
 

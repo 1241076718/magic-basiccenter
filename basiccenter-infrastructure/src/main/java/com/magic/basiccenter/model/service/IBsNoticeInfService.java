@@ -3,7 +3,6 @@ package com.magic.basiccenter.model.service;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.magic.basiccenter.dto.entity.NoticeBean;
 import com.magic.basiccenter.model.dto.QueryNoticeDTO;
-import com.magic.basiccenter.model.dto.QueryNoticeOutDTO;
 import com.magic.basiccenter.model.entity.BsNoticeInf;
 
 import java.util.List;

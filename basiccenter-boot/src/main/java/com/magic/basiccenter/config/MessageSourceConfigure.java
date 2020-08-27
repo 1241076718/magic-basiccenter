@@ -1,3 +1,4 @@
+
 package com.magic.basiccenter.config;
 
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -25,4 +26,5 @@ public class MessageSourceConfigure {
         ms.setBasename("classpath:i18n/ValidationMessages");
         return ms;
     }
+
 }

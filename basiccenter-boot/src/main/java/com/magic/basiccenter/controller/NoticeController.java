@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @version: $1.0.0
  */
 
+
 @RestController
 @RequestMapping("/notice")
 public class NoticeController {
@@ -43,9 +44,9 @@ public class NoticeController {
 
     /**
      * 修改公告
-     *
      * @param requestDTO
      * @return
+     * @author liubing1@belink.com
      */
     @PostMapping("/updateNotice")
     public MagicOutDTO<UpdateNoticeInfoOutDTO> updateNoticeData(@RequestBody MagicDTO<QueryNoticeInfoDTO> requestDTO) {
