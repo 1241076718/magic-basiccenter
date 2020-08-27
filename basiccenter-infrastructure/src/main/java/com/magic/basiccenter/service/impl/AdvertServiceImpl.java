@@ -126,7 +126,10 @@ public class AdvertServiceImpl implements IAdvertService {
 		BsAdvertInf bsAdvertInf = new BsAdvertInf();
 		BeanUtils.copyProperties(advertDelDTO, bsAdvertInf);
 		bsAdvertInf.setAiAdvStatus(Constant.ADVERT_DELETE_STATUS_CODE).setAiAdvUpdateTime(LocalDateTime.now());
-		boolean successFlag = bsAdvertInfService.updateById(bsAdvertInf);
+		LambdaQueryWrapper<BsAdvertInf> delQueryWrapper = new LambdaQueryWrapper<>();
+		delQueryWrapper.eq(BsAdvertInf::getAiAdvId, bsAdvertInf.getAiAdvId())
+				.ne(BsAdvertInf::getAiAdvStatus, Constant.ADVERT_DELETE_STATUS_CODE);
+		boolean successFlag = bsAdvertInfService.update(bsAdvertInf, delQueryWrapper);
 		return successFlag;
 	}
 
@@ -141,7 +144,10 @@ public class AdvertServiceImpl implements IAdvertService {
 		BsAdvertInf bsAdvertInf = new BsAdvertInf();
 		BeanUtils.copyProperties(updDTO, bsAdvertInf);
 		bsAdvertInf.setAiAdvUpdateTime(LocalDateTime.now());
-		boolean successFlag = bsAdvertInfService.updateById(bsAdvertInf);
+		LambdaQueryWrapper<BsAdvertInf> updQueryWrapper = new LambdaQueryWrapper<>();
+		updQueryWrapper.eq(BsAdvertInf::getAiAdvId, bsAdvertInf.getAiAdvId())
+				.ne(BsAdvertInf::getAiAdvStatus, Constant.ADVERT_DELETE_STATUS_CODE);
+		boolean successFlag = bsAdvertInfService.update(bsAdvertInf, updQueryWrapper);
 		return successFlag;
 	}
 
