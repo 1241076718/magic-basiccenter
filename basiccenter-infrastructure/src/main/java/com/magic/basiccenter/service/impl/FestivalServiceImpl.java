@@ -1,6 +1,5 @@
 package com.magic.basiccenter.service.impl;
 
-
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.gift.domain.sequence.factory.SequenceFactory;
@@ -10,9 +9,9 @@ import com.magic.application.infrastructure.service.dto.data.RespHeader;
 import com.magic.application.infrastructure.utils.ApplicationServiceUtil;
 import com.magic.basiccenter.constants.Constant;
 import com.magic.basiccenter.dto.*;
-import com.magic.basiccenter.model.entity.BsFestivalInf;
 import com.magic.basiccenter.dto.entity.FestivalQueryListInf;
 import com.magic.basiccenter.error.FestivalMessageEnum;
+import com.magic.basiccenter.model.entity.BsFestivalInf;
 import com.magic.basiccenter.model.mapper.FestManageMapper;
 import com.magic.basiccenter.model.service.FestivalService;
 import lombok.extern.slf4j.Slf4j;
@@ -62,7 +61,7 @@ public class FestivalServiceImpl implements FestivalService {
         festivalManageInf.setFestivalStartTime(festivalAddDTO.getFestivalStartTime());
         festivalManageInf.setFestivalEndTime(festivalAddDTO.getFestivalEndTime());
         festivalManageInf.setFestivalPutTime(festivalAddDTO.getFestivalPutTime());
-        festivalManageInf.setFestivalPutPerson(festivalAddDTO.getFestivalPutPerson());
+        festivalManageInf.setFestivalPutPerson(festivalAddDTO.getECFID());
         festivalManageInf.setFestivalExist("0");
         festivalManageInf.setFestivalValid("0");
         festManageMapper.insert(festivalManageInf);
@@ -75,19 +74,34 @@ public class FestivalServiceImpl implements FestivalService {
      * @return
      */
     @Override
-    public Boolean festivalSelectNameYear(String festivalName, String festivalYear) {
+    public Boolean festivalSelectNameYear(String festivalName, String festivalYear,Date startTime,Date endTime) {
+
+        Boolean f=false;
         QueryWrapper<BsFestivalInf> queryWrapper = new QueryWrapper<>();
+
+        LambdaQueryWrapper<BsFestivalInf> wrapper =new LambdaQueryWrapper<BsFestivalInf>();
+
+        LambdaQueryWrapper<BsFestivalInf> wrapper1 = wrapper.eq(BsFestivalInf::getFestivalExist, "0").eq(BsFestivalInf::getFestivalYear, festivalYear);
+
+
+        List<BsFestivalInf> bsFestivalInfs = festManageMapper.selectList(wrapper1);
+        for (BsFestivalInf bsFestivalInf : bsFestivalInfs) {
+            if(startTime.getTime()>bsFestivalInf.getFestivalEndTime().getTime()||endTime.getTime()<bsFestivalInf.getFestivalStartTime().getTime()){
+                f=true;
+            }
+            else return false;
+        }
+
+        //判断年份和名称
         queryWrapper.eq("FESTIVAL_YEAR", festivalYear).eq("FESTIVAL_NAME", festivalName);
         List<BsFestivalInf> festivalManageInfs = festManageMapper.selectList(queryWrapper);
         if (festivalManageInfs.isEmpty()){
-            return true;
+            f=true;
         }else {
-            return false;
+            f=false;
         }
+        return f;
     }
-
-
-
 
     /**
      * 根据节假日年份查询节假日列表
@@ -169,6 +183,10 @@ public class FestivalServiceImpl implements FestivalService {
             QueryWrapper<BsFestivalInf> queryWrapper= new QueryWrapper<>();
             BsFestivalInf festivalManageInf=new BsFestivalInf();
             festivalManageInf.setFestivalExist("-1");
+
+            festivalManageInf.setFestivalUpdatePerson(magicDTO.getBody().getECIFID());
+            festivalManageInf.setFestivalUpdateTime(nowdate);
+
             festManageMapper.update(festivalManageInf,queryWrapper.eq("FESTIVAL_ID",magicDTO.getBody().getFestivalId()));
             return magicOutDTO;
         }
@@ -268,7 +286,7 @@ public class FestivalServiceImpl implements FestivalService {
             BsFestivalInf updateFestivalInf = new BsFestivalInf();
             updateFestivalInf.setFestivalDeploy(festivalDeploy);
             updateFestivalInf.setFestivalName(festivalModifyDTO.getFestivalName());
-            updateFestivalInf.setFestivalUpdatePerson("LEI");
+            updateFestivalInf.setFestivalUpdatePerson(festivalModifyDTO.getECIFID());
             updateFestivalInf.setFestivalUpdateTime(nowDate);
             updateFestivalInf.setFestivalStartTime(festivalStartDate);
             updateFestivalInf.setFestivalEndTime(festivalEndDate);

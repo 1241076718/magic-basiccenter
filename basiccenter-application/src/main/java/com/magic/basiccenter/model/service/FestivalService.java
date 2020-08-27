@@ -5,6 +5,7 @@ import com.magic.application.infrastructure.service.dto.MagicOutDTO;
 import com.magic.application.infrastructure.service.dto.data.RespHeader;
 import com.magic.basiccenter.dto.*;
 
+import java.util.Date;
 
 
 /**
@@ -27,7 +28,7 @@ public interface FestivalService {
      * @param festivalYear
      * @return
      */
-    Boolean festivalSelectNameYear(String festivalName,String festivalYear);
+    Boolean festivalSelectNameYear(String festivalName,String festivalYear,Date startTime,Date endTime);
 
 
 
