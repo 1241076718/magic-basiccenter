@@ -137,7 +137,7 @@ public class NoticeServiceImpl implements NoticeService {
                .setNiNtcCount(body.getNiNtcCount())
                .setNiNtcEndTime(body.getNiNtcEndTime())
                .setNiNtcStartTime(body.getNiNtcStartTime())
-               .setNiNtcStatus(body.getNiNtcStatus());
+               .setNiNtcRemindStatus(body.getNiNtcRemindStatus());
        QueryNoticeOutDTO queryNoticeOutDTO = service.updateNotice(updateNoticeDTO);
        RespHeader respHeader = new RespHeader();
        if(queryNoticeOutDTO !=null){
@@ -145,7 +145,7 @@ public class NoticeServiceImpl implements NoticeService {
            respHeader.setErrorMsg(NoticeErrorEnum.SUCCESS.msg());
            appNoticeOutDTO.setNiNtcName(updateNoticeDTO.getNiNtcName())
                    .setNiNtcText(updateNoticeDTO.getNiNtcText())
-                   .setNiNtcRemindStatus(updateNoticeDTO.getNiNtcStatus())
+                   .setNiNtcRemindStatus(updateNoticeDTO.getNiNtcRemindStatus())
                    .setNiNtcCount(updateNoticeDTO.getNiNtcCount())
                    .setNiNtcStartTime(updateNoticeDTO.getNiNtcStartTime())
                    .setNiNtcEndTime(updateNoticeDTO.getNiNtcEndTime());
