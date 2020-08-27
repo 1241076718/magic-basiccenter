@@ -131,9 +131,8 @@ public class AdvertManageServiceImpl implements IAdvertManageService {
         RespHeader respHeader = new RespHeader();
         magicOutDTO.setHeader(respHeader);
 		try{
-			String advId = requestDTO.getBody().getAiAdvId();
 			DelAdvertInfoDTO delAdvertInfoDTO = new DelAdvertInfoDTO();
-            delAdvertInfoDTO.setAiAdvId(advId);
+			delAdvertInfoDTO.setAiAdvId(requestDTO.getBody().getAiAdvId());
 			boolean successFlag = advertService.delAdvertInfo(delAdvertInfoDTO);
 			if (successFlag) {
                 respHeader.setErrorCode(AdvertErrorEnum.SUCCESS.code());
@@ -165,6 +164,13 @@ public class AdvertManageServiceImpl implements IAdvertManageService {
         magicOutDTO.setHeader(respHeader);
 
         try {
+            //判断执行是否为修改操作，不是直接返回失败信息
+            Integer advertStatus = requestDTO.getBody().getAiAdvStatus();
+            if (null != advertStatus && Constant.ADVERT_DELETE_STATUS_CODE == advertStatus) {
+                respHeader.setErrorCode(AdvertErrorEnum.UPDFAIL.code());
+                respHeader.setErrorMsg(AdvertErrorEnum.UPDFAIL.msg());
+                return magicOutDTO;
+            }
             UpdAdvertInfoDTO updAdvertInfoDTO = new UpdAdvertInfoDTO();
             BeanUtils.copyProperties(requestDTO.getBody(), updAdvertInfoDTO);
             boolean successFlag = advertService.updAdvertInfo(updAdvertInfoDTO);
@@ -172,7 +178,6 @@ public class AdvertManageServiceImpl implements IAdvertManageService {
                 respHeader.setErrorCode(AdvertErrorEnum.SUCCESS.code());
                 respHeader.setErrorMsg(AdvertErrorEnum.SUCCESS.msg());
             } else {
-                Integer advertStatus = requestDTO.getBody().getAiAdvStatus();
                 if (null != advertStatus && Constant.ADVERT_PUT_STATUS_CODE == advertStatus) {
                     respHeader.setErrorCode(AdvertErrorEnum.PUTFAIL.code());
                     respHeader.setErrorMsg(AdvertErrorEnum.PUTFAIL.msg());
