@@ -23,21 +23,13 @@ import java.util.List;
 @Service
 public class BsNoticeInfServiceImpl extends ServiceImpl<BsNoticeInfMapper, BsNoticeInf> implements IBsNoticeInfService {
 
-    @Autowired
-    private BsNoticeInfMapper bsNoticeInfMapper;
-
-
     @Override
-    public List<NoticeBean>  selectNotice(QueryNoticeDTO queryNoticeDTO) {
-
-        List<NoticeBean> cuNoticeInfs = bsNoticeInfMapper.selectNotice(queryNoticeDTO);
-
-                    return cuNoticeInfs;
+    public List<NoticeBean> selectNotice(QueryNoticeDTO queryNoticeDTO) {
+        return baseMapper.selectNotice(queryNoticeDTO);
     }
 
     @Override
     public Integer queryNoticeTotalNum(QueryNoticeDTO queryNoticeDTO) {
-
-                     return bsNoticeInfMapper.queryNoticeTotalNum(queryNoticeDTO);
+        return baseMapper.queryNoticeTotalNum(queryNoticeDTO);
     }
 }
