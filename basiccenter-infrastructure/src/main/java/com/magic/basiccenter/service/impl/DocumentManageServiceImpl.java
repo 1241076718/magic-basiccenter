@@ -130,7 +130,7 @@ public class DocumentManageServiceImpl implements DocumentManageService {
         BsDocumentInf byId1 = bsDocumentService.getById(documentDto);
         if (byId1.getDocLife().equals(LifeDTO.DEATH)){
             dto.setState(2);
-        }if (byId1.getState().equals(LifeDTO.SURVIVAL)){
+        }if (!(byId1.getState().equals(ReleaseDTO.SHELVES))){
                 //获取数据id
                 entity.setDocsId(documentDto.getDocsId());
                 //设置数据的生命id （0 生存，1 死亡）
