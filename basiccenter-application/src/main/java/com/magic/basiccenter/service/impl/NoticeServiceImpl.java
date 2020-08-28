@@ -142,6 +142,7 @@ public class NoticeServiceImpl implements NoticeService {
         MagicOutDTO<UpdateNoticeInfoOutDTO> magicOutDTO = new MagicOutDTO<>();
         //2.获取请求数据
         QueryNoticeInfoDTO body = requestDTO.getBody();
+        System.out.println("测试1:"+body);
         //3构建实体对象
         QueryNoticeDTO updateNoticeDTO = new QueryNoticeDTO();
         updateNoticeDTO.setNiNtcId(body.getNiNtcId())
@@ -151,7 +152,8 @@ public class NoticeServiceImpl implements NoticeService {
                 .setNiNtcEndTime(body.getNiNtcEndTime())
                 .setNiNtcStartTime(body.getNiNtcStartTime())
                 .setNiNtcRemindStatus(body.getNiNtcRemindStatus())
-                .setNiNtcGmtModifier(body.getNiNtcGmtModifier());
+                .setNiNtcGmtModifier(body.getECIFID());
+        System.out.println("测试:"+body.getECIFID());
         QueryNoticeOutDTO queryNoticeOutDTO = service.updateNotice(updateNoticeDTO);
         RespHeader respHeader = new RespHeader();
         if (queryNoticeOutDTO != null) {
