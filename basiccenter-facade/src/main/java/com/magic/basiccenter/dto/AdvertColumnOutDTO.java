@@ -18,5 +18,5 @@ public class AdvertColumnOutDTO implements Serializable{
 	/*
 	 * 栏位信息集合
 	 */
-	private List<ColumnInfBean> ColumnList;
+	private List<ColumnInfBean> columnList;
 }
