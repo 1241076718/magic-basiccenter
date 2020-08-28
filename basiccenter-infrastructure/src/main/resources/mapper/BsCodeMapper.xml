@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.magic.basiccenter.model.mapper.IBsCodeMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.magic.basiccenter.model.entity.BsCode">
+        <id column="BS_CODE_TYPE" property="bsCodeType" />
+        <result column="BS_CODE_ALIAS" property="bsCodeAlias" />
+        <result column="BS_CODE" property="bsCode" />
+        <result column="BS_CODE_NAME" property="bsCodeName" />
+        <result column="BS_OTHER_CODE" property="bsOtherCode" />
+        <result column="BS_OTHER_NAME" property="bsOtherName" />
+        <result column="BS_CREATE_TIME" property="bsCreateTime" />
+        <result column="BS_CREATE_USER" property="bsCreateUser" />
+        <result column="BS_MODIFY_TIME" property="bsModifyTime" />
+        <result column="BS_MODIFY_USER" property="bsModifyUser" />
+        <result column="BS_LIFE" property="bsLife" />
+     </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List" >
+    	BS_CODE_TYPE,BS_CODE_ALIAS,BS_CODE,BS_CODE_NAME,BS_OTHER_CODE,BS_OTHER_NAME,BS_CREATE_TIME,BS_CREATE_USER,BS_MODIFY_TIME,BS_MODIFY_USER,BS_LIFE
+    </sql>
+
+</mapper>

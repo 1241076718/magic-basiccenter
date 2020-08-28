@@ -4,6 +4,8 @@ import com.magic.application.infrastructure.service.dto.MagicDTO;
 import com.magic.application.infrastructure.service.dto.MagicOutDTO;
 import com.magic.basiccenter.dto.AdvertAddDTO;
 import com.magic.basiccenter.dto.AdvertAddOutDTO;
+import com.magic.basiccenter.dto.AdvertColumnDTO;
+import com.magic.basiccenter.dto.AdvertColumnOutDTO;
 import com.magic.basiccenter.dto.AdvertSelDTO;
 import com.magic.basiccenter.dto.AdvertSelOutDTO;
 import com.magic.basiccenter.dto.AdvertUpdDTO;
@@ -20,6 +22,14 @@ import com.magic.basiccenter.dto.AdvertDelDTO;
  * @sine 2020/8/19 10:18
  */
 public interface IAdvertManageService {
+	
+	/**
+     * 广告栏位查询
+     * @param requestDTO 
+     * @return 
+     * @author jianggq@belink.com
+     */
+    public MagicOutDTO<AdvertColumnOutDTO> selAdvertColInfo(MagicDTO<AdvertColumnDTO> requestDTO);
 
     /**
      * 广告配置新增

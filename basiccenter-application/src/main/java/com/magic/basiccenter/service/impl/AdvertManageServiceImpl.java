@@ -8,6 +8,8 @@ import com.magic.application.infrastructure.utils.ApplicationServiceUtil;
 import com.magic.basiccenter.constants.Constant;
 import com.magic.basiccenter.dto.AdvertAddDTO;
 import com.magic.basiccenter.dto.AdvertAddOutDTO;
+import com.magic.basiccenter.dto.AdvertColumnDTO;
+import com.magic.basiccenter.dto.AdvertColumnOutDTO;
 import com.magic.basiccenter.dto.AdvertSelDTO;
 import com.magic.basiccenter.dto.AdvertSelOutDTO;
 import com.magic.basiccenter.dto.AdvertUpdDTO;
@@ -17,6 +19,8 @@ import com.magic.basiccenter.dto.AdvertDelOutDTO;
 import com.magic.basiccenter.error.AdvertErrorEnum;
 import com.magic.basiccenter.model.dto.AddAdvertInfoDTO;
 import com.magic.basiccenter.model.dto.DelAdvertInfoDTO;
+import com.magic.basiccenter.model.dto.SelAdvertColInfoDTO;
+import com.magic.basiccenter.model.dto.SelAdvertColInfoOutDTO;
 import com.magic.basiccenter.model.dto.SelAdvertInfoDTO;
 import com.magic.basiccenter.model.dto.SelAdvertInfoOutDTO;
 import com.magic.basiccenter.model.dto.UpdAdvertInfoDTO;
@@ -197,5 +201,50 @@ public class AdvertManageServiceImpl implements IAdvertManageService {
 
         return magicOutDTO;
     }
+    
+    /**
+     * 广告栏位基础字典查询
+     * @param requestDTO
+     * @return
+     * @author jianggq@belink.com
+     */
+	@Override
+	public MagicOutDTO<AdvertColumnOutDTO> selAdvertColInfo(MagicDTO<AdvertColumnDTO> requestDTO) {
+		//定义出参
+		AdvertColumnOutDTO advertColumnOutDTO = new AdvertColumnOutDTO();
+        MagicOutDTO<AdvertColumnOutDTO> magicOutDTO = new MagicOutDTO<>(advertColumnOutDTO);
+
+        //定义返回头
+        RespHeader respHeader = new RespHeader();
+        magicOutDTO.setHeader(respHeader);
+
+        //获取请求头
+        ReqHeader reqHead = requestDTO.getHeader();
+        AdvertColumnDTO reqbody = requestDTO.getBody();
+        //参数判断
+        String bsCodeType = reqbody.getBsCodeType();
+        if(!bsCodeType.equals(Constant.ADVERT_COLUMN_TYPE))
+        	throw new RuntimeException("广告栏位类型不匹配");
+        
+        //转换请求DTO
+        SelAdvertColInfoDTO selAdvertColInfoDTO = new SelAdvertColInfoDTO();
+        BeanUtils.copyProperties(reqbody, selAdvertColInfoDTO);
+        try {
+            //执行查询
+        	SelAdvertColInfoOutDTO selAdvertColInfoOutDTO = advertService.selAdvertColInfo(selAdvertColInfoDTO);
+            //转换返回DTO
+            BeanUtils.copyProperties(selAdvertColInfoOutDTO,advertColumnOutDTO);
+            //封装返回的数据
+            respHeader.setErrorCode(AdvertErrorEnum.SUCCESS.code());
+            respHeader.setErrorMsg(AdvertErrorEnum.SUCCESS.msg());
+            magicOutDTO.setBody(advertColumnOutDTO);
+            ApplicationServiceUtil.supplementaryRespHeader(reqHead, respHeader);
+        } catch (Exception e) {
+            e.printStackTrace();
+            respHeader.setErrorCode(AdvertErrorEnum.SELFAIL.code());
+            respHeader.setErrorMsg(AdvertErrorEnum.SELFAIL.msg());
+        }
+        return magicOutDTO;
+	}
 
 }

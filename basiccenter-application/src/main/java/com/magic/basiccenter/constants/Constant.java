@@ -6,7 +6,15 @@ package com.magic.basiccenter.constants;
  *@create: 2020/8/21
  */
 public final class Constant {
-
+	/**
+     * 生效的广告栏位
+     */
+    public static final Integer ADVERT_COLUMN_ISLIVE = 0 ;
+	/**
+     * 广告栏位类型
+     */
+    public static final String ADVERT_COLUMN_TYPE = "advert_column_type";
+	
     /**
      * 广告编号
      */
