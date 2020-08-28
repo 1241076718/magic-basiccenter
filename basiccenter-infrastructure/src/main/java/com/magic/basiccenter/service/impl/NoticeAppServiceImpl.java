@@ -121,7 +121,9 @@ public class NoticeAppServiceImpl implements NoticeAppService {
                 .setNiNtcRemindStatus(requestDTO.getNiNtcRemindStatus())
                 .setNiNtcCount(requestDTO.getNiNtcCount())
                 .setNiNtcEndTime(requestDTO.getNiNtcEndTime())
-                .setNiNtcStartTime(requestDTO.getNiNtcStartTime());
+                .setNiNtcStartTime(requestDTO.getNiNtcStartTime())
+                .setNiNtcGmtModifier(requestDTO.getNiNtcGmtModifier())
+                .setNiNtcGmtModified(new Date());
         iBService.updateById(entity);
         BsNoticeInf notice = iBService.getById(requestDTO.getNiNtcId());
         outDTO.setNiNtcName(notice.getNiNtcName())

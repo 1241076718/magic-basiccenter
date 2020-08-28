@@ -150,7 +150,8 @@ public class NoticeServiceImpl implements NoticeService {
                 .setNiNtcCount(body.getNiNtcCount())
                 .setNiNtcEndTime(body.getNiNtcEndTime())
                 .setNiNtcStartTime(body.getNiNtcStartTime())
-                .setNiNtcRemindStatus(body.getNiNtcRemindStatus());
+                .setNiNtcRemindStatus(body.getNiNtcRemindStatus())
+                .setNiNtcGmtModifier(body.getNiNtcGmtModifier());
         QueryNoticeOutDTO queryNoticeOutDTO = service.updateNotice(updateNoticeDTO);
         RespHeader respHeader = new RespHeader();
         if (queryNoticeOutDTO != null) {
