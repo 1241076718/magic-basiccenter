@@ -1,6 +1,5 @@
 package com.magic.basiccenter.dto;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 
 import java.io.Serializable;
@@ -52,6 +51,7 @@ public class AddNoticeInfoInDTO implements Serializable {
      * 公告强制提醒开始时间
      */
     private Date niNtcStartTime;
+
     /**
      * 公告强制提醒结束时间
      */
@@ -64,14 +64,17 @@ public class AddNoticeInfoInDTO implements Serializable {
      * 提醒状态（是否提醒）（0：否 1:是）
      */
     private Integer niNtcRemindStatus;
+
     /**
      * 创建时间
      */
 
     private Date niNtcGmtCreate;
+
     /**
      * 修改时间
      */
+
     private Date niNtcGmtModified;
     /**
      * 修改人

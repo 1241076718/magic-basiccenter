@@ -22,7 +22,7 @@ public interface NoticeService {
      * @param requestDTO
      * @return
      */
-    MagicOutDTO<QueryNoticeInfoOutDTO>  queryNoticeList(MagicDTO<QueryNoticeInfoDTO>  requestDTO);
+    MagicOutDTO<QueryNoticeInfoOutDTO>  queryNoticeList(MagicDTO<QueryNoticeInfoDTO> requestDTO);
 
 
 
@@ -32,6 +32,7 @@ public interface NoticeService {
      * 修改公告方法
      * @param requestDTO
      * @return
+     * @author liubing1@belink.com
      */
     MagicOutDTO<UpdateNoticeInfoOutDTO> updateNotice(MagicDTO<QueryNoticeInfoDTO> requestDTO);
 
@@ -49,7 +50,7 @@ public interface NoticeService {
      * @param requestDTO
      * @return
      */
-    MagicOutDTO<QueryNoticeInfoOutDTO> changeNoticeStatus(MagicDTO<QueryNoticeInfoDTO> requestDTO);
+    MagicOutDTO<AddNoticeInfoOutDTO> changeNoticeStatus(MagicDTO<AddNoticeInfoInDTO> requestDTO);
 
 
 

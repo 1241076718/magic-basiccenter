@@ -1,6 +1,7 @@
 package com.magic.basiccenter.dto;
 
 import lombok.Data;
+
 import java.io.Serializable;
 
 /**
@@ -21,5 +22,9 @@ public class AddNoticeInfoOutDTO implements Serializable {
     /**
      * 插入数目
      */
-    private Integer total;
+    private Boolean flag;
+    /**
+     * 更改状态
+     */
+    private Boolean update;
 }

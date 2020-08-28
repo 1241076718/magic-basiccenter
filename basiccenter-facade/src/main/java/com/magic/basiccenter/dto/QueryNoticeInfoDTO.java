@@ -1,10 +1,12 @@
 package com.magic.basiccenter.dto;
 
-import com.magic.application.infrastructure.service.dto.SelectPageDTO;
-import lombok.Data;
-
 import java.io.Serializable;
 import java.util.Date;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.magic.application.infrastructure.service.dto.SelectPageDTO;
+
+import lombok.Data;
 
 /**
  * @author ：goupc1@belink.com
@@ -54,11 +56,14 @@ public class QueryNoticeInfoDTO extends SelectPageDTO implements Serializable {
     /**
      * 公告强制提醒开始时间
      */
+
     private Date niNtcStartTime;
     /**
      * 公告强制提醒结束时间
      */
+
     private Date niNtcEndTime;
+
     /**
      * 提醒次数
      */
@@ -81,7 +86,11 @@ public class QueryNoticeInfoDTO extends SelectPageDTO implements Serializable {
      * 修改人
      */
     private String niNtcGmtModifier;
-
+    /**
+     * 修改人id
+     */
+    @JsonProperty("eCIFID")
+    private String eCIFID;
 
 
 

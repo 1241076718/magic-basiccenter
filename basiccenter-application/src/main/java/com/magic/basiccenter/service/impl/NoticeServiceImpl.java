@@ -5,26 +5,30 @@ import com.magic.application.infrastructure.service.dto.MagicOutDTO;
 import com.magic.application.infrastructure.service.dto.data.ReqHeader;
 import com.magic.application.infrastructure.service.dto.data.RespHeader;
 import com.magic.basiccenter.dto.*;
-import com.magic.basiccenter.error.BasicErrorEnum;
+import com.magic.basiccenter.dto.entity.NoticeBean;
+import com.magic.basiccenter.error.NoticeErrorEnum;
 import com.magic.basiccenter.model.dto.QueryNoticeDTO;
 import com.magic.basiccenter.model.dto.QueryNoticeOutDTO;
 import com.magic.basiccenter.model.service.NoticeAppService;
 import com.magic.basiccenter.service.NoticeService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.logging.log4j2.ColorConverter;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 
- /**
+/**
  * @author ：goupc1@belink.com
  * @date ：Created in 2020/8/620 9:54
- * @description：   公告application层实现类
+ * @description： 公告application层实现类
  * @modified By：
  * @version: $1.0.0
  */
 
 @Service
+@Slf4j
 public class NoticeServiceImpl implements NoticeService {
 
     @Autowired(required = false)
@@ -33,62 +37,70 @@ public class NoticeServiceImpl implements NoticeService {
 
     /**
      * 公告查询
+     *
      * @param requestDTO
-     * @return
+     * @return MagicOutDTO<QueryNoticeInfoOutDTO>
+     * @author goupc1@belink.com
      */
     @Override
     public MagicOutDTO<QueryNoticeInfoOutDTO> queryNoticeList(MagicDTO<QueryNoticeInfoDTO> requestDTO) {
-
+        //定义输出
         MagicOutDTO<QueryNoticeInfoOutDTO> result = new MagicOutDTO<>();
         QueryNoticeDTO queryNoticeDTO = new QueryNoticeDTO();
-
-        QueryNoticeInfoDTO body = requestDTO.getBody();
-
-        queryNoticeDTO.setNiNtcCreator(body.getNiNtcCreator());
-
-        queryNoticeDTO.setNiNtcId(body.getNiNtcId());
-
-        queryNoticeDTO.setNiNtcName(body.getNiNtcName());
-
-        queryNoticeDTO.setNiNtcStatus(body.getNiNtcStatus());
-
-        queryNoticeDTO.setNiNtcStartTime(body.getNiNtcStartTime());
-
-        queryNoticeDTO.setNiNtcEndTime(body.getNiNtcEndTime());
-        if(body.getCurrentPage()>=0){
-            queryNoticeDTO.setNowsPage(((body.getCurrentPage() - 1) * body.getTurnPageShowNum()));
-
-            queryNoticeDTO.setPageSize(body.getTurnPageShowNum());
-
-        }
-
-        List<QueryNoticeOutDTO> queryNoticeOutDTOS = service.queryNotice(queryNoticeDTO);
-
+        //定义响应头
         RespHeader respHeader = new RespHeader();
-        if (!queryNoticeOutDTOS.isEmpty()) {
-            List<QueryNoticeOutDTO> totalNotices=null;
-            if(queryNoticeDTO.getNowsPage()>=0){
-                queryNoticeDTO.setPageSize(null);
-                totalNotices = service.queryNotice(queryNoticeDTO);
+        try {
+
+            QueryNoticeInfoDTO body = requestDTO.getBody();
+
+            queryNoticeDTO.setNiNtcCreator(body.getNiNtcCreator());
+
+            queryNoticeDTO.setNiNtcId(body.getNiNtcId());
+
+            queryNoticeDTO.setNiNtcName(body.getNiNtcName());
+
+            queryNoticeDTO.setNiNtcStatus(body.getNiNtcStatus());
+
+            queryNoticeDTO.setNiNtcStartTime(body.getNiNtcStartTime());
+
+            queryNoticeDTO.setNiNtcEndTime(body.getNiNtcEndTime());
+
+            if (body.getCurrentPage() > 0) {
+                queryNoticeDTO.setNowsPage(((body.getCurrentPage() - 1) * body.getTurnPageShowNum()));
+                queryNoticeDTO.setPageSize(body.getTurnPageShowNum());
             }
-            QueryNoticeInfoOutDTO outDTOd = new QueryNoticeInfoOutDTO();
-            respHeader.setErrorCode(BasicErrorEnum.SUCCESS.code());
-            respHeader.setErrorMsg(BasicErrorEnum.SUCCESS.msg());
-            if(totalNotices!=null) {
-                outDTOd.setTurnPageTotalNum(totalNotices.size());
+            List<NoticeBean> queryNoticeOutDTOS = service.queryNotice(queryNoticeDTO);
+
+            if (!queryNoticeOutDTOS.isEmpty()) {
+                Integer totalNotices = service.queryNoticeTotalNum(queryNoticeDTO);
+                QueryNoticeInfoOutDTO outDTOd = new QueryNoticeInfoOutDTO();
+                respHeader.setErrorCode(NoticeErrorEnum.SUCCESS.code());
+                respHeader.setErrorMsg(NoticeErrorEnum.SUCCESS.msg());
+                if (totalNotices != null) {
+                    outDTOd.setTurnPageTotalNum(totalNotices);
+                }
+                outDTOd.setData(queryNoticeOutDTOS);
+                result.setBody(outDTOd);
+            } else {
+                respHeader.setErrorCode(NoticeErrorEnum.QFAIL.code());
+                respHeader.setErrorMsg(NoticeErrorEnum.QFAIL.msg());
             }
-            outDTOd.setData(queryNoticeOutDTOS);
-            result.setBody(outDTOd);
-        } else {
-            respHeader.setErrorCode(BasicErrorEnum.QFAIL.code());
-            respHeader.setErrorMsg(BasicErrorEnum.QFAIL.msg());
+            result.setHeader(respHeader);
+            return result;
+
+        } catch (Exception e) {
+            log.error(e.getMessage(), e);
+            e.printStackTrace();
+            respHeader.setErrorCode(NoticeErrorEnum.FAIL.code());
+            respHeader.setErrorMsg(NoticeErrorEnum.FAIL.msg());
+            result.setHeader(respHeader);
+            return result;
         }
-        result.setHeader(respHeader);
-        return result;
     }
 
     /**
      * 公告新增
+     *
      * @param requestDTO
      * @return
      */
@@ -102,15 +114,15 @@ public class NoticeServiceImpl implements NoticeService {
         ReqHeader reqHead = requestDTO.getHeader();
         AddNoticeInfoInDTO body = requestDTO.getBody();
         AddNoticeInfoOutDTO addNoticeInfoOutDTO = service.addNotice(body);
-        Integer rows = addNoticeInfoOutDTO.getTotal();
+        Boolean flag = addNoticeInfoOutDTO.getFlag();
         //判断执行结果
-        if (rows!=null && rows>0){
-            respHead.setErrorCode(BasicErrorEnum.SUCCESS.code());
-            respHead.setErrorMsg(BasicErrorEnum.SUCCESS.msg());
+        if (flag) {
+            respHead.setErrorCode(NoticeErrorEnum.SUCCESS.code());
+            respHead.setErrorMsg(NoticeErrorEnum.SUCCESS.msg());
             magicOutDTO.setBody(addNoticeInfoOutDTO);
-        }else{
-            respHead.setErrorCode(BasicErrorEnum.IFAIL.code());
-            respHead.setErrorMsg(BasicErrorEnum.IFAIL.msg());
+        } else {
+            respHead.setErrorCode(NoticeErrorEnum.IFAIL.code());
+            respHead.setErrorMsg(NoticeErrorEnum.IFAIL.msg());
         }
         magicOutDTO.setHeader(respHead);
         return magicOutDTO;
@@ -119,6 +131,7 @@ public class NoticeServiceImpl implements NoticeService {
 
     /**
      * 公告编辑
+     *
      * @param requestDTO
      * @return
      */
@@ -130,7 +143,8 @@ public class NoticeServiceImpl implements NoticeService {
         MagicOutDTO<UpdateNoticeInfoOutDTO> magicOutDTO = new MagicOutDTO<>();
         //2.获取请求数据
         QueryNoticeInfoDTO body = requestDTO.getBody();
-        //3.1构建实体对象
+        System.out.println("测试1:"+body);
+        //3构建实体对象
         QueryNoticeDTO updateNoticeDTO = new QueryNoticeDTO();
         updateNoticeDTO.setNiNtcId(body.getNiNtcId())
                 .setNiNtcName(body.getNiNtcName())
@@ -138,55 +152,81 @@ public class NoticeServiceImpl implements NoticeService {
                 .setNiNtcCount(body.getNiNtcCount())
                 .setNiNtcEndTime(body.getNiNtcEndTime())
                 .setNiNtcStartTime(body.getNiNtcStartTime())
-                .setNiNtcStatus(body.getNiNtcStatus());
+                .setNiNtcRemindStatus(body.getNiNtcRemindStatus())
+                .setNiNtcGmtModifier(body.getECIFID());
+        System.out.println("测试:"+body.getECIFID());
         QueryNoticeOutDTO queryNoticeOutDTO = service.updateNotice(updateNoticeDTO);
         RespHeader respHeader = new RespHeader();
-        if(queryNoticeOutDTO !=null){
-            respHeader.setErrorCode(BasicErrorEnum.SUCCESS.code());
-            respHeader.setErrorMsg(BasicErrorEnum.SUCCESS.msg());
+        if (queryNoticeOutDTO != null) {
+            respHeader.setErrorCode(NoticeErrorEnum.SUCCESS.code());
+            respHeader.setErrorMsg(NoticeErrorEnum.SUCCESS.msg());
             appNoticeOutDTO.setNiNtcName(updateNoticeDTO.getNiNtcName())
                     .setNiNtcText(updateNoticeDTO.getNiNtcText())
-                    .setNiNtcRemindStatus(updateNoticeDTO.getNiNtcStatus())
+                    .setNiNtcRemindStatus(updateNoticeDTO.getNiNtcRemindStatus())
                     .setNiNtcCount(updateNoticeDTO.getNiNtcCount())
                     .setNiNtcStartTime(updateNoticeDTO.getNiNtcStartTime())
                     .setNiNtcEndTime(updateNoticeDTO.getNiNtcEndTime());
             magicOutDTO.setBody(appNoticeOutDTO);
-        }else {
-            respHeader.setErrorCode(BasicErrorEnum.CFAIL.code());
-            respHeader.setErrorMsg(BasicErrorEnum.CFAIL.msg());
+        } else {
+            respHeader.setErrorCode(NoticeErrorEnum.CFAIL.code());
+            respHeader.setErrorMsg(NoticeErrorEnum.CFAIL.msg());
         }
         magicOutDTO.setHeader(respHeader);
+        log.info("返回数据:{}", magicOutDTO);
         return magicOutDTO;
     }
 
 
     /**
-     * 公告删除与上下架
+     * 通过主键id上下架、删除广告
+     *
      * @param requestDTO
-     * @return
+     * @return magicOutDTO
+     * @author kangjx1@belink.com
      */
-
     @Override
-    public MagicOutDTO<QueryNoticeInfoOutDTO> changeNoticeStatus(MagicDTO<QueryNoticeInfoDTO> requestDTO) {
-        QueryNoticeInfoOutDTO queryNoticeInfoOutDTO = new QueryNoticeInfoOutDTO();
-        MagicOutDTO<QueryNoticeInfoOutDTO> magicOutDTO = new MagicOutDTO<>(queryNoticeInfoOutDTO);
-
+    public MagicOutDTO<AddNoticeInfoOutDTO> changeNoticeStatus(MagicDTO<AddNoticeInfoInDTO> requestDTO) {
+        //定义出参
+        AddNoticeInfoOutDTO infoOutDTO = new AddNoticeInfoOutDTO();
+        MagicOutDTO<AddNoticeInfoOutDTO> magicOutDTO = new MagicOutDTO<>(infoOutDTO);
+        //定义返回头
         RespHeader respHeader = new RespHeader();
-        QueryNoticeInfoDTO body = requestDTO.getBody();
-
-        QueryNoticeOutDTO changeNoticeStatus = service.changeNoticeStatus(body);
-
-        int i = changeNoticeStatus.getNiNtcCount();
-        if(i > 0){
-            respHeader.setErrorCode(BasicErrorEnum.SUCCESS.code());
-            respHeader.setErrorMsg(BasicErrorEnum.SUCCESS.msg());
-        }else {
-            respHeader.setErrorCode(BasicErrorEnum.DFAIL.code());
-            respHeader.setErrorMsg(BasicErrorEnum.DFAIL.msg());
-        }
+        AddNoticeInfoInDTO body = requestDTO.getBody();
+        AddNoticeInfoOutDTO outDTO = service.changeNoticeStatus(body);
+        Boolean update = outDTO.getUpdate();
+        try {
+            //判断是否更改
+            if (update) {
+                //统一操作成功返回消息
+                respHeader.setErrorCode(NoticeErrorEnum.SUCCESS.code());
+                respHeader.setErrorMsg(NoticeErrorEnum.SUCCESS.msg());
+            } else {
+                if (requestDTO.getBody().getNiNtcStatus() == 1) {
+                    //删除失败返回消息
+                    respHeader.setErrorCode(NoticeErrorEnum.DFAIL.code());
+                    respHeader.setErrorMsg(NoticeErrorEnum.DFAIL.msg());
+                } else if (requestDTO.getBody().getNiNtcStatus() == 4) {
+                    //上架失败返回消息
+                    respHeader.setErrorCode(NoticeErrorEnum.UFAIL.code());
+                    respHeader.setErrorMsg(NoticeErrorEnum.UFAIL.msg());
+                } else if (requestDTO.getBody().getNiNtcStatus() == 5) {
+                    //下架失败返回消息
+                    respHeader.setErrorCode(NoticeErrorEnum.SFATL.code());
+                    respHeader.setErrorMsg(NoticeErrorEnum.SFATL.msg());
+                }
+            }
+            }catch(Exception e){
+                //统一异常处理
+                e.printStackTrace();
+                respHeader.setErrorMsg(NoticeErrorEnum.FAIL.msg());
+                respHeader.setErrorCode(NoticeErrorEnum.FAIL.code());
+            }
+        String errorMsg = respHeader.getErrorMsg();
+        String errorCode = respHeader.getErrorCode();
+        log.info("公告上下架和删除-日志打印：errorCode:{},errorMsg:{}",errorCode,errorMsg);
         magicOutDTO.setHeader(respHeader);
+        magicOutDTO.setBody(outDTO);
         return magicOutDTO;
     }
-
 
 }
