@@ -28,4 +28,12 @@ public class FestivaldeleteDTO implements Serializable {
      * eCIFID,用作修改人
      */
     private String eCIFID;
+
+    public String geteCIFID() {
+        return eCIFID;
+    }
+
+    public void seteCIFID(String eCIFID) {
+        this.eCIFID = eCIFID;
+    }
 }
