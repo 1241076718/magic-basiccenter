@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.magic.basiccenter.model.dto.AddAdvertInfoDTO;
@@ -139,10 +140,10 @@ public class AdvertServiceImpl implements IAdvertService {
 		BsAdvertInf bsAdvertInf = new BsAdvertInf();
 		BeanUtils.copyProperties(advertDelDTO, bsAdvertInf);
 		bsAdvertInf.setAiAdvStatus(Constant.ADVERT_DELETE_STATUS_CODE).setAiAdvUpdateTime(LocalDateTime.now());
-		LambdaQueryWrapper<BsAdvertInf> delQueryWrapper = new LambdaQueryWrapper<>();
-		delQueryWrapper.eq(BsAdvertInf::getAiAdvId, bsAdvertInf.getAiAdvId())
+		LambdaUpdateWrapper<BsAdvertInf> updateWrapper = new LambdaUpdateWrapper<>();
+		updateWrapper.eq(BsAdvertInf::getAiAdvId, bsAdvertInf.getAiAdvId())
 				.ne(BsAdvertInf::getAiAdvStatus, Constant.ADVERT_DELETE_STATUS_CODE);
-		boolean successFlag = bsAdvertInfService.update(bsAdvertInf, delQueryWrapper);
+		boolean successFlag = bsAdvertInfService.update(bsAdvertInf, updateWrapper);
 		return successFlag;
 	}
 
@@ -157,10 +158,10 @@ public class AdvertServiceImpl implements IAdvertService {
 		BsAdvertInf bsAdvertInf = new BsAdvertInf();
 		BeanUtils.copyProperties(updDTO, bsAdvertInf);
 		bsAdvertInf.setAiAdvUpdateTime(LocalDateTime.now());
-		LambdaQueryWrapper<BsAdvertInf> updQueryWrapper = new LambdaQueryWrapper<>();
-		updQueryWrapper.eq(BsAdvertInf::getAiAdvId, bsAdvertInf.getAiAdvId())
+		LambdaUpdateWrapper<BsAdvertInf> updateWrapper = new LambdaUpdateWrapper<>();
+		updateWrapper.eq(BsAdvertInf::getAiAdvId, bsAdvertInf.getAiAdvId())
 				.ne(BsAdvertInf::getAiAdvStatus, Constant.ADVERT_DELETE_STATUS_CODE);
-		boolean successFlag = bsAdvertInfService.update(bsAdvertInf, updQueryWrapper);
+		boolean successFlag = bsAdvertInfService.update(bsAdvertInf, updateWrapper);
 		return successFlag;
 	}
 	
