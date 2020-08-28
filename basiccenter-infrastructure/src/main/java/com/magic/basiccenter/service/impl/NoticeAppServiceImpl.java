@@ -55,6 +55,7 @@ public class NoticeAppServiceImpl implements NoticeAppService {
      */
     @Override
     public List<NoticeBean> queryNotice(QueryNoticeDTO inputDTO) {
+
         List<NoticeBean> cuNoticeInfs =iBService.selectNotice(inputDTO);
         return cuNoticeInfs;
     }

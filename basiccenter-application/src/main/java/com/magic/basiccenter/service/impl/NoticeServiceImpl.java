@@ -44,11 +44,11 @@ public class NoticeServiceImpl implements NoticeService {
      */
     @Override
     public MagicOutDTO<QueryNoticeInfoOutDTO> queryNoticeList(MagicDTO<QueryNoticeInfoDTO> requestDTO) {
-
+        //定义输出
         MagicOutDTO<QueryNoticeInfoOutDTO> result = new MagicOutDTO<>();
         QueryNoticeDTO queryNoticeDTO = new QueryNoticeDTO();
+        //定义响应头
         RespHeader respHeader = new RespHeader();
-
         try {
 
             QueryNoticeInfoDTO body = requestDTO.getBody();
@@ -67,12 +67,9 @@ public class NoticeServiceImpl implements NoticeService {
 
             if (body.getCurrentPage() > 0) {
                 queryNoticeDTO.setNowsPage(((body.getCurrentPage() - 1) * body.getTurnPageShowNum()));
-
                 queryNoticeDTO.setPageSize(body.getTurnPageShowNum());
-
             }
             List<NoticeBean> queryNoticeOutDTOS = service.queryNotice(queryNoticeDTO);
-
 
             if (!queryNoticeOutDTOS.isEmpty()) {
                 Integer totalNotices = service.queryNoticeTotalNum(queryNoticeDTO);
@@ -93,6 +90,7 @@ public class NoticeServiceImpl implements NoticeService {
 
         } catch (Exception e) {
             log.error(e.getMessage(), e);
+            e.printStackTrace();
             respHeader.setErrorCode(NoticeErrorEnum.FAIL.code());
             respHeader.setErrorMsg(NoticeErrorEnum.FAIL.msg());
             result.setHeader(respHeader);
