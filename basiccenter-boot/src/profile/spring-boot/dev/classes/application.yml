@@ -50,9 +50,10 @@ spring:
         url-pattern: "/*"
         exclusions: "*.js,*.gif,*.jpg,*.bmp,*.png,*.css,*.ico,/druid/*"
   redis:
-    host: 127.0.0.1
+    #host: 127.0.0.1
     #password: Ifp0p9o8i7u
-    password: 123456
+    #password: 123456
+    host: 47.100.119.48
     port: 6379
     databasic: 0
 

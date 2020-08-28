@@ -43,6 +43,7 @@ public class FestivalManageService implements IFestivalService {
         //获取响应体
         FestivalAddDTO body = magicDTO.getBody();
 
+        log.info("eCIFID:{}",body.geteCIFID());
         //定义输出对象
         MagicOutDTO<FestivalAddOutDTO> magicOutDTO= new MagicOutDTO<>();
         FestivalAddOutDTO festivalAddOutDTO = new FestivalAddOutDTO();

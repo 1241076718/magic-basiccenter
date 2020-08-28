@@ -15,6 +15,7 @@ import com.magic.basiccenter.model.entity.BsFestivalInf;
 import com.magic.basiccenter.model.mapper.FestManageMapper;
 import com.magic.basiccenter.model.service.FestivalService;
 import lombok.extern.slf4j.Slf4j;
+import org.nustaq.serialization.coders.FSTBytezDecoder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -61,7 +62,8 @@ public class FestivalServiceImpl implements FestivalService {
         festivalManageInf.setFestivalStartTime(festivalAddDTO.getFestivalStartTime());
         festivalManageInf.setFestivalEndTime(festivalAddDTO.getFestivalEndTime());
         festivalManageInf.setFestivalPutTime(festivalAddDTO.getFestivalPutTime());
-        festivalManageInf.setFestivalPutPerson(festivalAddDTO.getECFID());
+        System.out.println(festivalAddDTO.geteCIFID());
+        festivalManageInf.setFestivalPutPerson(festivalAddDTO.geteCIFID());
         festivalManageInf.setFestivalExist("0");
         festivalManageInf.setFestivalValid("0");
         festManageMapper.insert(festivalManageInf);
@@ -77,19 +79,35 @@ public class FestivalServiceImpl implements FestivalService {
     public Boolean festivalSelectNameYear(String festivalName, String festivalYear,Date startTime,Date endTime) {
 
         Boolean f=false;
+
         QueryWrapper<BsFestivalInf> queryWrapper = new QueryWrapper<>();
-
         LambdaQueryWrapper<BsFestivalInf> wrapper =new LambdaQueryWrapper<BsFestivalInf>();
-
         LambdaQueryWrapper<BsFestivalInf> wrapper1 = wrapper.eq(BsFestivalInf::getFestivalExist, "0").eq(BsFestivalInf::getFestivalYear, festivalYear);
 
 
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+
         List<BsFestivalInf> bsFestivalInfs = festManageMapper.selectList(wrapper1);
         for (BsFestivalInf bsFestivalInf : bsFestivalInfs) {
-            if(startTime.getTime()>bsFestivalInf.getFestivalEndTime().getTime()||endTime.getTime()<bsFestivalInf.getFestivalStartTime().getTime()){
-                f=true;
+
+
+            String sT = sdf.format(startTime);
+            String eT = sdf.format(endTime);
+            String fST = sdf.format(bsFestivalInf.getFestivalStartTime());
+            String fET = sdf.format(bsFestivalInf.getFestivalEndTime());
+            try{
+                Date psT = sdf.parse(sT);
+                Date peT = sdf.parse(eT);
+                Date pfST = sdf.parse(fST);
+                Date pfET = sdf.parse(fET);
+                if(peT.getTime()>=pfST.getTime()&&psT.getTime()<=pfET.getTime()){
+                    //日期配置冲突
+                    return  f;
+                }
+            }catch (ParseException e){
+                e.printStackTrace();
             }
-            else return false;
+
         }
 
         //判断年份和名称
@@ -184,7 +202,7 @@ public class FestivalServiceImpl implements FestivalService {
             BsFestivalInf festivalManageInf=new BsFestivalInf();
             festivalManageInf.setFestivalExist("-1");
 
-            festivalManageInf.setFestivalUpdatePerson(magicDTO.getBody().getECIFID());
+            festivalManageInf.setFestivalUpdatePerson(magicDTO.getBody().geteCIFID());
             festivalManageInf.setFestivalUpdateTime(nowdate);
 
             festManageMapper.update(festivalManageInf,queryWrapper.eq("FESTIVAL_ID",magicDTO.getBody().getFestivalId()));
@@ -286,7 +304,7 @@ public class FestivalServiceImpl implements FestivalService {
             BsFestivalInf updateFestivalInf = new BsFestivalInf();
             updateFestivalInf.setFestivalDeploy(festivalDeploy);
             updateFestivalInf.setFestivalName(festivalModifyDTO.getFestivalName());
-            updateFestivalInf.setFestivalUpdatePerson(festivalModifyDTO.getECIFID());
+            updateFestivalInf.setFestivalUpdatePerson(festivalModifyDTO.geteCIFID());
             updateFestivalInf.setFestivalUpdateTime(nowDate);
             updateFestivalInf.setFestivalStartTime(festivalStartDate);
             updateFestivalInf.setFestivalEndTime(festivalEndDate);
