@@ -34,7 +34,6 @@ import org.springframework.stereotype.Service;
  * @className AdvertManageServiceImpl
  * @sine 2020/8/19 10:18
  */
-@Service
 public class AdvertManageServiceImpl implements IAdvertManageService {
     /**
      * 广告配置表数据交互服务

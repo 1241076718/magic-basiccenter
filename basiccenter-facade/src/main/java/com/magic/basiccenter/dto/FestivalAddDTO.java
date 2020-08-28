@@ -13,7 +13,6 @@ import java.util.Date;
 @Data
 public class FestivalAddDTO implements Serializable {
 
-    private static final long serialVersionUID = -4842629116799107620L;
     /**
      * 节假日名称
      */
@@ -55,7 +54,14 @@ public class FestivalAddDTO implements Serializable {
     /**
      * eCIFID,用作发布人
      */
-    private String eCFID;
+    private String eCIFID;
 
 
+    public String geteCIFID() {
+        return eCIFID;
+    }
+
+    public void seteCIFID(String eCIFID) {
+        this.eCIFID = eCIFID;
+    }
 }

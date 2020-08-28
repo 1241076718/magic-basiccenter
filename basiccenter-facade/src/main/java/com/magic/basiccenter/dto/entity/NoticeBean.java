@@ -15,7 +15,6 @@ import java.util.Date;
  */
 
 
-
 @Data
 public class NoticeBean implements Serializable {
 
@@ -40,8 +39,7 @@ public class NoticeBean implements Serializable {
      * 公告发布时间
      */
     @JsonFormat(
-            pattern = "yyyy-MM-dd HH:mm:ss",
-            timezone = "GMT+8"
+            pattern = "yyyy-MM-dd HH:mm:ss"
     )
     private Date niNtcIdReleaseTime;
     /**
@@ -56,16 +54,14 @@ public class NoticeBean implements Serializable {
      * 公告强制提醒开始时间
      */
     @JsonFormat(
-            pattern = "yyyy-MM-dd HH:mm:ss",
-            timezone = "GMT+8"
+            pattern = "yyyy-MM-dd"
     )
     private Date niNtcStartTime;
     /**
      * 公告强制提醒结束时间
      */
     @JsonFormat(
-            pattern = "yyyy-MM-dd HH:mm:ss",
-            timezone = "GMT+8"
+            pattern = "yyyy-MM-dd"
     )
     private Date niNtcEndTime;
     /**
@@ -80,16 +76,14 @@ public class NoticeBean implements Serializable {
      * 创建时间
      */
     @JsonFormat(
-            pattern = "yyyy-MM-dd HH:mm:ss",
-            timezone = "GMT+8"
+            pattern = "yyyy-MM-dd"
     )
     private Date niNtcGmtCreate;
     /**
      * 修改时间
      */
     @JsonFormat(
-            pattern = "yyyy-MM-dd HH:mm:ss",
-            timezone = "GMT+8"
+            pattern = "yyyy-MM-dd HH:mm:ss"
     )
     private Date niNtcGmtModified;
     /**

@@ -17,7 +17,6 @@ import org.springframework.stereotype.Service;
 /**
  * 前端接口实现
  */
-@Service
 public class DocumentServiceImpl implements DocumentService {
 
     /**

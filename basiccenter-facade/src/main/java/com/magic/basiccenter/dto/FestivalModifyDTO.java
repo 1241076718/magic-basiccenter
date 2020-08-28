@@ -35,4 +35,11 @@ public class FestivalModifyDTO implements Serializable {
 	 */
 	private String eCIFID;
 
+	public String geteCIFID() {
+		return eCIFID;
+	}
+
+	public void seteCIFID(String eCIFID) {
+		this.eCIFID = eCIFID;
+	}
 }

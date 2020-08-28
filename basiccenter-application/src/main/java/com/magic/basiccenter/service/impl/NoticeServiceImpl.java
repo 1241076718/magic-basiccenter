@@ -51,11 +51,11 @@ public class NoticeServiceImpl implements NoticeService {
      */
     @Override
     public MagicOutDTO<QueryNoticeInfoOutDTO> queryNoticeList(MagicDTO<QueryNoticeInfoDTO> requestDTO) {
-
+        //定义输出
         MagicOutDTO<QueryNoticeInfoOutDTO> result = new MagicOutDTO<>();
         QueryNoticeDTO queryNoticeDTO = new QueryNoticeDTO();
+        //定义响应头
         RespHeader respHeader = new RespHeader();
-
         try {
 
             QueryNoticeInfoDTO body = requestDTO.getBody();
@@ -74,12 +74,9 @@ public class NoticeServiceImpl implements NoticeService {
 
             if (body.getCurrentPage() > 0) {
                 queryNoticeDTO.setNowsPage(((body.getCurrentPage() - 1) * body.getTurnPageShowNum()));
-
                 queryNoticeDTO.setPageSize(body.getTurnPageShowNum());
-
             }
             List<NoticeBean> queryNoticeOutDTOS = service.queryNotice(queryNoticeDTO);
-
 
             if (!queryNoticeOutDTOS.isEmpty()) {
                 Integer totalNotices = service.queryNoticeTotalNum(queryNoticeDTO);
@@ -100,6 +97,7 @@ public class NoticeServiceImpl implements NoticeService {
 
         } catch (Exception e) {
             log.error(e.getMessage(), e);
+            e.printStackTrace();
             respHeader.setErrorCode(NoticeErrorEnum.FAIL.code());
             respHeader.setErrorMsg(NoticeErrorEnum.FAIL.msg());
             result.setHeader(respHeader);
@@ -151,6 +149,7 @@ public class NoticeServiceImpl implements NoticeService {
         MagicOutDTO<UpdateNoticeInfoOutDTO> magicOutDTO = new MagicOutDTO<>();
         //2.获取请求数据
         QueryNoticeInfoDTO body = requestDTO.getBody();
+        System.out.println("测试1:"+body);
         //3构建实体对象
         QueryNoticeDTO updateNoticeDTO = new QueryNoticeDTO();
         updateNoticeDTO.setNiNtcId(body.getNiNtcId())
@@ -159,7 +158,9 @@ public class NoticeServiceImpl implements NoticeService {
                 .setNiNtcCount(body.getNiNtcCount())
                 .setNiNtcEndTime(body.getNiNtcEndTime())
                 .setNiNtcStartTime(body.getNiNtcStartTime())
-                .setNiNtcRemindStatus(body.getNiNtcRemindStatus());
+                .setNiNtcRemindStatus(body.getNiNtcRemindStatus())
+                .setNiNtcGmtModifier(body.getECIFID());
+        System.out.println("测试:"+body.getECIFID());
         QueryNoticeOutDTO queryNoticeOutDTO = service.updateNotice(updateNoticeDTO);
         RespHeader respHeader = new RespHeader();
         if (queryNoticeOutDTO != null) {
