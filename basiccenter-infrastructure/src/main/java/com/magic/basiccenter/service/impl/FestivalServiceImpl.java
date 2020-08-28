@@ -62,7 +62,6 @@ public class FestivalServiceImpl implements FestivalService {
         festivalManageInf.setFestivalStartTime(festivalAddDTO.getFestivalStartTime());
         festivalManageInf.setFestivalEndTime(festivalAddDTO.getFestivalEndTime());
         festivalManageInf.setFestivalPutTime(festivalAddDTO.getFestivalPutTime());
-        System.out.println(festivalAddDTO.geteCIFID());
         festivalManageInf.setFestivalPutPerson(festivalAddDTO.geteCIFID());
         festivalManageInf.setFestivalExist("0");
         festivalManageInf.setFestivalValid("0");
