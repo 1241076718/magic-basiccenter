@@ -44,13 +44,12 @@ public class DocumentManageServiceImpl implements DocumentManageService {
     @Override
     public DocumentDTO queryData(DocumentIdDTO documentIdDto) {
         DocumentDTO dto = new DocumentDTO();
-        BsDocumentInf entity = new BsDocumentInf();
-        BsDocumentInf byId1 = bsDocumentService.getById(entity.getDocsId());
+        BsDocumentInf byId1 = bsDocumentService.getById(documentIdDto);
         if (byId1.getDocLife().equals(LifeDTO.DEATH)){
             return null;
         }else {
             //调用api实现回显
-            BsDocumentInf byId = bsDocumentService.getById(entity.getDocsId());
+            BsDocumentInf byId = bsDocumentService.getById(documentIdDto.getDocsId());
             //克隆对象属性
             BeanUtils.copyProperties(byId, dto);
             return dto;
@@ -66,13 +65,14 @@ public class DocumentManageServiceImpl implements DocumentManageService {
     public DocumentStateDTO queryModify(DocumentDTO documentDto) {
         DocumentStateDTO dto = new DocumentStateDTO();
         BsDocumentInf entity = new BsDocumentInf();
-        //克隆对象属性
-        BeanUtils.copyProperties(documentDto, entity);
-        BsDocumentInf byId1 = bsDocumentService.getById(entity.getDocsId());
+        BsDocumentInf byId1 = bsDocumentService.getById(documentDto);
         if (byId1.getDocLife().equals(LifeDTO.DEATH)){
             dto.setState(3);
             return dto;
         }else {
+            //克隆对象属性
+            BeanUtils.copyProperties(documentDto, entity);
+            entity.setDocumentMtime(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()));
             //调用api实现修改
             boolean b = bsDocumentService.updateById(entity);
             //生成业务状态码
@@ -91,8 +91,7 @@ public class DocumentManageServiceImpl implements DocumentManageService {
     public DocumentStateDTO publish(DocumentInputDTO documentDto) {
         DocumentStateDTO dto = new DocumentStateDTO();
         BsDocumentInf entity = new BsDocumentInf();
-        entity.setDocsId(documentDto.getDocsId()).setState(documentDto.getState());
-        BsDocumentInf byId1 = bsDocumentService.getById(entity.getDocsId());
+        BsDocumentInf byId1 = bsDocumentService.getById(documentDto);
         if (byId1.getDocLife().equals(LifeDTO.DEATH)){
             dto.setState(3);
             return dto;
@@ -102,6 +101,7 @@ public class DocumentManageServiceImpl implements DocumentManageService {
                 dto.setState(4);
                 return dto;
             } else {
+                entity.setDocsId(documentDto.getDocsId()).setState(documentDto.getState());
                 entity.setDocumentPubdate(new SimpleDateFormat("yyyy-MM-dd").format(new Date()));
                 //调用Api实现发布
                 boolean b = bsDocumentService.updateById(entity);
@@ -121,12 +121,12 @@ public class DocumentManageServiceImpl implements DocumentManageService {
     public DocumentStateDTO delete(DocumentIdDTO documentDto) {
         DocumentStateDTO dto = new DocumentStateDTO();
         BsDocumentInf entity = new BsDocumentInf();
-        //获取数据id
-        entity.setDocsId(documentDto.getDocsId());
-        BsDocumentInf byId1 = bsDocumentService.getById(entity.getDocsId());
+        BsDocumentInf byId1 = bsDocumentService.getById(documentDto);
         if (byId1.getDocLife().equals(LifeDTO.DEATH)){
             dto.setState(2);
         }if (byId1.getState().equals(ReleaseDTO.THESHELVES)){
+                //获取数据id
+                entity.setDocsId(documentDto.getDocsId());
                 //设置数据的生命id （0 生存，1 死亡）
                 entity.setDocLife("1");
                 boolean b = bsDocumentService.updateById(entity);
