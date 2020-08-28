@@ -40,17 +40,11 @@ public class UpdateNoticeInfoOutDTO implements Serializable{
 	/**
 	 * 公告强制提醒开始时间
 	 */
-	@JsonFormat(
-			pattern = "yyyy-MM-dd HH:mm:ss",
-			timezone = "GMT+8"
-	)
+	@JsonFormat(pattern="yyyy-MM-dd")
 	private Date niNtcStartTime;
 	/**
 	 * 公告强制提醒结束时间
 	 */
-	@JsonFormat(
-			pattern = "yyyy-MM-dd HH:mm:ss",
-			timezone = "GMT+8"
-	)
+	@JsonFormat(pattern="yyyy-MM-dd")
 	private Date niNtcEndTime;
 }

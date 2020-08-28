@@ -22,13 +22,13 @@ public interface BsNoticeInfMapper extends BaseMapper<BsNoticeInf> {
     /**
      *查询公告mapper接口方法
      * @param dto
-     * @return  List<QueryNoticeOutDTO>
+     * @return
      */
     List<NoticeBean>  selectNotice(QueryNoticeDTO dto);
     /**
      *查询公告总数mapper接口方法
-     * @param
-     * @return  List<QueryNoticeOutDTO>
+     * @param queryNoticeDTO
+     * @return
      */
 
     Integer queryNoticeTotalNum(QueryNoticeDTO queryNoticeDTO);
