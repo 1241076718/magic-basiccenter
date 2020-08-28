@@ -71,8 +71,12 @@ public class DocumentManageServiceImpl implements DocumentManageService {
             return dto;
         }else {
             //克隆对象属性
-            BeanUtils.copyProperties(documentDto, entity);
-            entity.setDocumentMtime(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()));
+            entity.setDocumentMtime(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()))
+                .setDocsId(documentDto.getDocsId())
+                .setDocsName(documentDto.getDocsName())
+                .setCatalogName(documentDto.getCatalogName())
+                .setDocsContents(documentDto.getDocsContents())
+                .setDocumentReviser(documentDto.getDocumentReviser());
             //调用api实现修改
             boolean b = bsDocumentService.updateById(entity);
             //生成业务状态码
@@ -101,8 +105,10 @@ public class DocumentManageServiceImpl implements DocumentManageService {
                 dto.setState(4);
                 return dto;
             } else {
-                entity.setDocsId(documentDto.getDocsId()).setState(documentDto.getState());
-                entity.setDocumentPubdate(new SimpleDateFormat("yyyy-MM-dd").format(new Date()));
+                entity.setDocsId(documentDto.getDocsId())
+                        .setState(documentDto.getState())
+                        .setDocumentPubdate(new SimpleDateFormat("yyyy-MM-dd").format(new Date()))
+                        .setDocsCreateUser(documentDto.getDocsCreateUser());
                 //调用Api实现发布
                 boolean b = bsDocumentService.updateById(entity);
                 //生成业务状态码
