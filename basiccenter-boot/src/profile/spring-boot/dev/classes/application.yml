@@ -69,6 +69,7 @@ eureka:
   client:
     service-url:
       defaultZone: http://127.0.0.1:8081/eureka
+    register-with-eureka: false
   instance:
     prefer-ip-address: true
 #eureka:
