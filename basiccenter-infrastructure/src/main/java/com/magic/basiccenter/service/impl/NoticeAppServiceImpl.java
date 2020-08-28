@@ -57,7 +57,6 @@ public class NoticeAppServiceImpl implements NoticeAppService {
     public List<NoticeBean> queryNotice(QueryNoticeDTO inputDTO) {
         List<NoticeBean> cuNoticeInfs =iBService.selectNotice(inputDTO);
         return cuNoticeInfs;
-
     }
 
 
