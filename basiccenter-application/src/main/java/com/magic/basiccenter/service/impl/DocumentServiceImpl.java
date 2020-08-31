@@ -95,12 +95,12 @@ public class DocumentServiceImpl implements DocumentService {
             //获取业务流程状态
             dto.setState(documentStateDto.getState());
             //判断业务流程状态
-            if (StateDTO.FAILURE.equals(dto.getState())){
-                respHead.setErrorCode(BasicErrorEnum.MODIFYFATL.code());
-                respHead.setErrorMsg(BasicErrorEnum.MODIFYFATL.msg());
-            }else {
+            if (StateDTO.SUCCESSFUL.equals(dto.getState())){
                 respHead.setErrorCode(BasicErrorEnum.MODIFY.code());
                 respHead.setErrorMsg(BasicErrorEnum.MODIFY.msg());
+            }else {
+                respHead.setErrorCode(BasicErrorEnum.MODIFYFATL.code());
+                respHead.setErrorMsg(BasicErrorEnum.MODIFYFATL.msg());
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -138,21 +138,21 @@ public class DocumentServiceImpl implements DocumentService {
             //获取业务流程状态
             dto.setState(publish.getState());
             //判断业务流程状态
-            if (StateDTO.FAILURE.equals(dto.getState())){
-                if (ReleaseDTO.SHELVES.equals(document.getState())) {
-                    respHead.setErrorCode(BasicErrorEnum.SHELVESFATL.code());
-                    respHead.setErrorMsg(BasicErrorEnum.SHELVESFATL.msg());
-                }if (ReleaseDTO.THESHELVES.equals(document.getState())){
-                    respHead.setErrorCode(BasicErrorEnum.THESHELVESFATL.code());
-                    respHead.setErrorMsg(BasicErrorEnum.THESHELVESFATL.msg());
-                }
-            }else {
+            if (StateDTO.SUCCESSFUL.equals(dto.getState())){
                 if (ReleaseDTO.SHELVES.equals(document.getState())) {
                     respHead.setErrorCode(BasicErrorEnum.SHELVES.code());
                     respHead.setErrorMsg(BasicErrorEnum.SHELVES.msg());
                 }if (ReleaseDTO.THESHELVES.equals(document.getState())){
                     respHead.setErrorCode(BasicErrorEnum.THEAHWLVES.code());
                     respHead.setErrorMsg(BasicErrorEnum.THEAHWLVES.msg());
+                }
+            }else {
+                if (ReleaseDTO.SHELVES.equals(document.getState())) {
+                    respHead.setErrorCode(BasicErrorEnum.SHELVESFATL.code());
+                    respHead.setErrorMsg(BasicErrorEnum.SHELVESFATL.msg());
+                }if (ReleaseDTO.THESHELVES.equals(document.getState())){
+                    respHead.setErrorCode(BasicErrorEnum.THESHELVESFATL.code());
+                    respHead.setErrorMsg(BasicErrorEnum.THESHELVESFATL.msg());
                 }
             }
         } catch (Exception e) {
@@ -189,12 +189,13 @@ public class DocumentServiceImpl implements DocumentService {
             //获取业务流程状态码
             dto.setState(delete.getState());
             //判断业务流程
-            if (StateDTO.FAILURE.equals(dto.getState())){
-                respHead.setErrorCode(BasicErrorEnum.DeleteFATL.code());
-                respHead.setErrorMsg(BasicErrorEnum.DeleteFATL.msg());
-            }else {
+            if (StateDTO.SUCCESSFUL.equals(dto.getState())){
                 respHead.setErrorCode(BasicErrorEnum.DELETE.code());
                 respHead.setErrorMsg(BasicErrorEnum.DELETE.msg());
+
+            }else {
+                respHead.setErrorCode(BasicErrorEnum.DeleteFATL.code());
+                respHead.setErrorMsg(BasicErrorEnum.DeleteFATL.msg());
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -231,12 +232,12 @@ public class DocumentServiceImpl implements DocumentService {
             DocumentStateDTO updataDto = documentManageService.addDocumentState(documentDto);
             dto.setDocsId(updataDto.getDocsId());
             //判断业务流程
-            if (StateDTO.FAILURE.equals(updataDto.getState())){
-                respHead.setErrorCode(BasicErrorEnum.ADDFATL.code());
-                respHead.setErrorMsg(BasicErrorEnum.ADDFATL.msg());
-            }else {
+            if (StateDTO.SUCCESSFUL.equals(updataDto.getState())){
                 respHead.setErrorCode(BasicErrorEnum.ADD.code());
                 respHead.setErrorMsg(BasicErrorEnum.ADD.msg());
+            }else {
+                respHead.setErrorCode(BasicErrorEnum.ADDFATL.code());
+                respHead.setErrorMsg(BasicErrorEnum.ADDFATL.msg());
             }
         } catch (Exception e) {
             e.printStackTrace();
