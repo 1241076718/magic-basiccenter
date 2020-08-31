@@ -54,12 +54,12 @@ public class NoticeServiceImpl implements NoticeService {
         //定义输出
         MagicOutDTO<QueryNoticeInfoOutDTO> result = new MagicOutDTO<>();
         QueryNoticeDTO queryNoticeDTO = new QueryNoticeDTO();
-        //定义响应头
         RespHeader respHeader = new RespHeader();
+        //获取请求数据
+        ReqHeader reqHead = requestDTO.getHeader();
+        QueryNoticeInfoDTO body = requestDTO.getBody();
         try {
-
-            QueryNoticeInfoDTO body = requestDTO.getBody();
-
+            //定义查询数据
             queryNoticeDTO.setNiNtcCreator(body.getNiNtcCreator());
 
             queryNoticeDTO.setNiNtcId(body.getNiNtcId());
@@ -76,10 +76,12 @@ public class NoticeServiceImpl implements NoticeService {
                 queryNoticeDTO.setNowsPage(((body.getCurrentPage() - 1) * body.getTurnPageShowNum()));
                 queryNoticeDTO.setPageSize(body.getTurnPageShowNum());
             }
+            //查询数据
             List<NoticeBean> queryNoticeOutDTOS = service.queryNotice(queryNoticeDTO);
 
             if (!queryNoticeOutDTOS.isEmpty()) {
                 Integer totalNotices = service.queryNoticeTotalNum(queryNoticeDTO);
+                //封装返回数据
                 QueryNoticeInfoOutDTO outDTOd = new QueryNoticeInfoOutDTO();
                 respHeader.setErrorCode(NoticeErrorEnum.SUCCESS.code());
                 respHeader.setErrorMsg(NoticeErrorEnum.SUCCESS.msg());
@@ -88,9 +90,9 @@ public class NoticeServiceImpl implements NoticeService {
                 }
                 outDTOd.setData(queryNoticeOutDTOS);
                 result.setBody(outDTOd);
-            } else {
-                respHeader.setErrorCode(NoticeErrorEnum.QFAIL.code());
-                respHeader.setErrorMsg(NoticeErrorEnum.QFAIL.msg());
+            } else if(queryNoticeOutDTOS.isEmpty()){
+                respHeader.setErrorCode(NoticeErrorEnum.QNFAIL.code());
+                respHeader.setErrorMsg(NoticeErrorEnum.QNFAIL.msg());
             }
             result.setHeader(respHeader);
             return result;
