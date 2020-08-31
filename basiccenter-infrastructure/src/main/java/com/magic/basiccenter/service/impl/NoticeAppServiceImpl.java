@@ -71,12 +71,17 @@ public class NoticeAppServiceImpl implements NoticeAppService {
         AddNoticeInfoOutDTO addNoticeInfoOutDTO = new AddNoticeInfoOutDTO();
         BsNoticeInf bsNoticeInf = new BsNoticeInf();
         //DTO转换为entity
-        BeanUtils.copyProperties(inputDTO, bsNoticeInf);
-        String noticeId = sequenceFactory.getSegmentDateId(Constant.CU_NOTICE_ID);
-        bsNoticeInf.setNiNtcId(noticeId);
-        bsNoticeInf.setNiNtcGmtCreate(new Date());
-        boolean flag = iBService.save(bsNoticeInf);
-        addNoticeInfoOutDTO.setFlag(flag);
+        try {
+            BeanUtils.copyProperties(inputDTO, bsNoticeInf);
+            String noticeId = sequenceFactory.getSegmentDateId(Constant.CU_NOTICE_ID);
+            bsNoticeInf.setNiNtcId(noticeId);
+            bsNoticeInf.setNiNtcGmtCreate(new Date());
+            bsNoticeInf.setNiNtcCreator(inputDTO.getECIFID());
+            boolean flag = iBService.save(bsNoticeInf);
+            addNoticeInfoOutDTO.setFlag(flag);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
         return addNoticeInfoOutDTO;
     }
 

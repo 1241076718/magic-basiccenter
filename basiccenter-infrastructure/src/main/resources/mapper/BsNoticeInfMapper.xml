@@ -88,7 +88,7 @@
             </if>
 
             <if test=" niNtcId == null and pageSize!=null ">
-                ORDER BY  NI_NTC_GMT_MODIFIED DESC
+                ORDER BY  NI_NTC_GMT_CREATE DESC
             </if>
             <if test=" pageSize >0 and nowsPage >=0">
                 limit #{nowsPage}, #{pageSize}
@@ -126,12 +126,6 @@
                 and NI_NTC_STATUS != 1
             </if>
 
-            <if test=" niNtcId == null and pageSize!=null ">
-                ORDER BY  NI_NTC_GMT_MODIFIED ASC
-            </if>
-            <if test=" pageSize >0 and nowsPage >=0">
-                limit #{nowsPage}, #{pageSize}
-            </if>
         </where>
     </select>
 </mapper>
