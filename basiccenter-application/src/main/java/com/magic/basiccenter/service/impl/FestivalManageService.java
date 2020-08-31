@@ -102,7 +102,7 @@ public class FestivalManageService implements IFestivalService {
     public MagicOutDTO<FestivalQueryListOutDTO> queryFestivalList(MagicDTO<FestivalQueryListDTO> magicDTO) {
 
         //定义输出对象
-        MagicOutDTO<FestivalQueryListOutDTO> magicOutDTO=new MagicOutDTO<FestivalQueryListOutDTO>();
+        MagicOutDTO<FestivalQueryListOutDTO> magicOutDTO=new MagicOutDTO<>();
         RespHeader respHeader=new RespHeader();
         ApplicationServiceUtil.supplementaryRespHeader(magicDTO.getHeader(), respHeader);
 
