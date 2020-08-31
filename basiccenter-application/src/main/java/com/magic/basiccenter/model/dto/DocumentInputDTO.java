@@ -21,4 +21,8 @@ public class DocumentInputDTO implements Serializable {
      * 文件状态码
      */
     private Integer state;
+    /**
+     * 发布人
+     */
+    private String docsCreateUser;
 }

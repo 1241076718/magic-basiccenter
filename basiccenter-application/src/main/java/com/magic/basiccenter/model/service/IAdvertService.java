@@ -2,6 +2,8 @@ package com.magic.basiccenter.model.service;
 
 import com.magic.basiccenter.model.dto.AddAdvertInfoDTO;
 import com.magic.basiccenter.model.dto.DelAdvertInfoDTO;
+import com.magic.basiccenter.model.dto.SelAdvertColInfoDTO;
+import com.magic.basiccenter.model.dto.SelAdvertColInfoOutDTO;
 import com.magic.basiccenter.model.dto.SelAdvertInfoDTO;
 import com.magic.basiccenter.model.dto.SelAdvertInfoOutDTO;
 import com.magic.basiccenter.model.dto.UpdAdvertInfoDTO;
@@ -47,4 +49,12 @@ public interface IAdvertService {
      * @author luolf@belink.com
      * */
     public boolean updAdvertInfo(UpdAdvertInfoDTO updDTO);
+    
+    /**
+     * 广告栏位查询
+     * @param SelAdvertColInfoDTO
+     * @return SelAdvertColInfoOutDTO
+     * @author jianggq@belink.com
+     */
+    public SelAdvertColInfoOutDTO selAdvertColInfo(SelAdvertColInfoDTO selAdvertColInfoDTO);
 }

@@ -1,5 +1,6 @@
 package com.magic.basiccenter.dto;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 
 import java.io.Serializable;
@@ -19,6 +20,11 @@ public class AddNoticeInfoInDTO implements Serializable {
     private static final long serialVersionUID = -7046586321043892538L;
 
 
+    /**
+     * 当前用户名
+     */
+    @JsonProperty("eCIFID")
+    private String eCIFID;
     /**
      *公告id
      */

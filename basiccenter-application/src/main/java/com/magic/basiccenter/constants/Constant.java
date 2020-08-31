@@ -23,7 +23,15 @@ public class Constant {
      */
     public static final String DOC_ID = "document_id";
 
-
+	/**
+     * 生效的广告栏位
+     */
+    public static final Integer ADVERT_COLUMN_ISLIVE = 0 ;
+	/**
+     * 广告栏位类型
+     */
+    public static final String ADVERT_COLUMN_TYPE = "advert_column_type";
+	
     /**
      * 广告编号
      */

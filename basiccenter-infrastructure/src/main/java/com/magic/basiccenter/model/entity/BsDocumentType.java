@@ -27,7 +27,7 @@ public class BsDocumentType implements Serializable {
 	 */
 	@TableId(value = "DOC_TYPE_ID")
 	private String docTypeId;
-	
+
 	/**
 	 * 文档类型
 	 */
@@ -38,5 +38,21 @@ public class BsDocumentType implements Serializable {
 	 */
 	@TableField(value = "DOC_TYPE_INVALID")
 	private String invalid;
+
+    /**
+     * 创建人
+     */
+    /**
+     * 创建时间
+     */
+    /**
+     * 修改人
+     */
+    /**
+     * 修改时间
+     */
+    /**
+     * 生命状态
+     */
 
 }
