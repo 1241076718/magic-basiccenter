@@ -54,14 +54,14 @@ public class NoticeBean implements Serializable {
      * 公告强制提醒开始时间
      */
     @JsonFormat(
-            pattern = "yyyy-MM-dd HH:mm:ss"
+            pattern = "yyyy-MM-dd"
     )
     private Date niNtcStartTime;
     /**
      * 公告强制提醒结束时间
      */
     @JsonFormat(
-            pattern = "yyyy-MM-dd HH:mm:ss"
+            pattern = "yyyy-MM-dd"
     )
     private Date niNtcEndTime;
     /**
@@ -76,7 +76,7 @@ public class NoticeBean implements Serializable {
      * 创建时间
      */
     @JsonFormat(
-            pattern = "yyyy-MM-dd HH:mm:ss"
+            pattern = "yyyy-MM-dd"
     )
     private Date niNtcGmtCreate;
     /**

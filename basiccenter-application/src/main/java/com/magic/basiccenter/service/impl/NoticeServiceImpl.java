@@ -110,23 +110,33 @@ public class NoticeServiceImpl implements NoticeService {
         AddNoticeInfoOutDTO addNoticeDTO = new AddNoticeInfoOutDTO();
         MagicOutDTO<AddNoticeInfoOutDTO> magicOutDTO = new MagicOutDTO<>(addNoticeDTO);
         RespHeader respHead = new RespHeader();
-        //请求头
-        ReqHeader reqHead = requestDTO.getHeader();
-        AddNoticeInfoInDTO body = requestDTO.getBody();
-        AddNoticeInfoOutDTO addNoticeInfoOutDTO = service.addNotice(body);
-        Boolean flag = addNoticeInfoOutDTO.getFlag();
-        //判断执行结果
-        if (flag) {
-            respHead.setErrorCode(NoticeErrorEnum.SUCCESS.code());
-            respHead.setErrorMsg(NoticeErrorEnum.SUCCESS.msg());
-            magicOutDTO.setBody(addNoticeInfoOutDTO);
-        } else {
-            respHead.setErrorCode(NoticeErrorEnum.IFAIL.code());
-            respHead.setErrorMsg(NoticeErrorEnum.IFAIL.msg());
-        }
+       try {
+           //请求头
+           ReqHeader reqHead = requestDTO.getHeader();
+           AddNoticeInfoInDTO body = requestDTO.getBody();
+           AddNoticeInfoOutDTO addNoticeInfoOutDTO = service.addNotice(body);
+           Boolean flag = addNoticeInfoOutDTO.getFlag();
+           //判断执行结果
+           if (flag) {
+               respHead.setErrorCode(NoticeErrorEnum.SUCCESS.code());
+               respHead.setErrorMsg(NoticeErrorEnum.SUCCESS.msg());
+               magicOutDTO.setBody(addNoticeInfoOutDTO);
+           } else {
+               respHead.setErrorCode(NoticeErrorEnum.IFAIL.code());
+               respHead.setErrorMsg(NoticeErrorEnum.IFAIL.msg());
+           }
+       }catch (Exception e){
+               e.printStackTrace();
+           respHead.setErrorCode(NoticeErrorEnum.FAIL.code());
+           respHead.setErrorMsg(NoticeErrorEnum.FAIL.msg());
+           }
+        String errorMsg_addNotice = respHead.getErrorMsg();
+        String errorCode_addNotice = respHead.getErrorCode();
+        log.info("新增公告,errorMsg_addNotice{},errorCode_addNotice{}",errorMsg_addNotice,errorCode_addNotice);
         magicOutDTO.setHeader(respHead);
         return magicOutDTO;
     }
+
 
     /**
      * 公告编辑
@@ -142,6 +152,7 @@ public class NoticeServiceImpl implements NoticeService {
         MagicOutDTO<UpdateNoticeInfoOutDTO> magicOutDTO = new MagicOutDTO<>();
         //2.获取请求数据
         QueryNoticeInfoDTO body = requestDTO.getBody();
+        System.out.println("测试1:"+body);
         //3构建实体对象
         QueryNoticeDTO updateNoticeDTO = new QueryNoticeDTO();
         updateNoticeDTO.setNiNtcId(body.getNiNtcId())
@@ -150,7 +161,9 @@ public class NoticeServiceImpl implements NoticeService {
                 .setNiNtcCount(body.getNiNtcCount())
                 .setNiNtcEndTime(body.getNiNtcEndTime())
                 .setNiNtcStartTime(body.getNiNtcStartTime())
-                .setNiNtcRemindStatus(body.getNiNtcRemindStatus());
+                .setNiNtcRemindStatus(body.getNiNtcRemindStatus())
+                .setNiNtcGmtModifier(body.getECIFID());
+        System.out.println("测试:"+body.getECIFID());
         QueryNoticeOutDTO queryNoticeOutDTO = service.updateNotice(updateNoticeDTO);
         RespHeader respHeader = new RespHeader();
         if (queryNoticeOutDTO != null) {

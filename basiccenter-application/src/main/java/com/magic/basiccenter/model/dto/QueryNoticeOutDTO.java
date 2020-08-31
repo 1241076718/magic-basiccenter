@@ -42,8 +42,7 @@ public class QueryNoticeOutDTO implements Serializable {
 	 * 公告发布时间
 	 */
 	@JsonFormat(
-			pattern = "yyyy-MM-dd HH:mm:ss",
-			timezone = "GMT+8"
+			pattern = "yyyy-MM-dd HH:mm:ss"
 	)
 
 	private Date niNtcIdReleaseTime;
@@ -58,18 +57,12 @@ public class QueryNoticeOutDTO implements Serializable {
 	/**
 	 * 公告强制提醒开始时间
 	 */
-	@JsonFormat(
-			pattern = "yyyy-MM-dd HH:mm:ss",
-			timezone = "GMT+8"
-	)
+	@JsonFormat(pattern = "yyyy-MM-dd")
 	private Date niNtcStartTime;
 	/**
 	 * 公告强制提醒结束时间
 	 */
-	@JsonFormat(
-			pattern = "yyyy-MM-dd HH:mm:ss",
-			timezone = "GMT+8"
-	)
+	@JsonFormat(pattern = "yyyy-MM-dd")
 	private Date niNtcEndTime;
 	/**
 	 * 提醒次数
@@ -83,7 +76,7 @@ public class QueryNoticeOutDTO implements Serializable {
 	 * 创建时间
 	 */
 	@JsonFormat(
-			pattern = "yyyy-MM-dd HH:mm:ss",
+			pattern = "yyyy-MM-dd",
 			timezone = "GMT+8"
 	)
 
@@ -91,10 +84,7 @@ public class QueryNoticeOutDTO implements Serializable {
 	/**
 	 * 修改时间
 	 */
-	@JsonFormat(
-			pattern = "yyyy-MM-dd HH:mm:ss",
-			timezone = "GMT+8"
-	)
+	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
 	private Date niNtcGmtModified;
 
 	/**

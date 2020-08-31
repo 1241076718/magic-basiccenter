@@ -1,12 +1,12 @@
 package com.magic.basiccenter.dto;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
-import com.magic.application.infrastructure.service.dto.SelectPageDTO;
-import lombok.Data;
-import org.springframework.format.annotation.DateTimeFormat;
-
 import java.io.Serializable;
 import java.util.Date;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.magic.application.infrastructure.service.dto.SelectPageDTO;
+
+import lombok.Data;
 
 /**
  * @author ：goupc1@belink.com
@@ -86,7 +86,11 @@ public class QueryNoticeInfoDTO extends SelectPageDTO implements Serializable {
      * 修改人
      */
     private String niNtcGmtModifier;
-
+    /**
+     * 修改人id
+     */
+    @JsonProperty("eCIFID")
+    private String eCIFID;
 
 
 
