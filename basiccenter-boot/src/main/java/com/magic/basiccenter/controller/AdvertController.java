@@ -4,6 +4,8 @@ import com.magic.application.infrastructure.service.dto.MagicDTO;
 import com.magic.application.infrastructure.service.dto.MagicOutDTO;
 import com.magic.basiccenter.dto.AdvertAddDTO;
 import com.magic.basiccenter.dto.AdvertAddOutDTO;
+import com.magic.basiccenter.dto.AdvertColumnDTO;
+import com.magic.basiccenter.dto.AdvertColumnOutDTO;
 import com.magic.basiccenter.dto.AdvertSelDTO;
 import com.magic.basiccenter.dto.AdvertSelOutDTO;
 import com.magic.basiccenter.dto.AdvertUpdDTO;
@@ -14,7 +16,6 @@ import com.magic.basiccenter.service.IAdvertManageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -32,7 +33,18 @@ public class AdvertController {
      */
     @Autowired
     private IAdvertManageService advertManageService;
-
+    
+    /**
+     * 广告栏位查询
+     * @param requestDTO
+     * @return
+     * @author jianggq@belink.com
+     */
+    @PostMapping("/advert/selAdvertColInfo")
+    public MagicOutDTO<AdvertColumnOutDTO> selAdvertColInfo(@RequestBody MagicDTO<AdvertColumnDTO> requestDTO){
+        return advertManageService.selAdvertColInfo(requestDTO);
+    }
+    
     /**
      * 广告配置新增
      * @param requestDTO

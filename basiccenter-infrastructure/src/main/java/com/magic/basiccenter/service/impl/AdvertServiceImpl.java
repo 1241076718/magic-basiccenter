@@ -3,26 +3,34 @@ package com.magic.basiccenter.service.impl;
 import com.gift.domain.sequence.factory.SequenceFactory;
 import com.magic.basiccenter.constants.Constant;
 import com.magic.basiccenter.dto.AdvertInfBean;
+import com.magic.basiccenter.dto.ColumnInfBean;
+
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.magic.basiccenter.model.dto.AddAdvertInfoDTO;
 import com.magic.basiccenter.model.dto.DelAdvertInfoDTO;
+import com.magic.basiccenter.model.dto.SelAdvertColInfoDTO;
+import com.magic.basiccenter.model.dto.SelAdvertColInfoOutDTO;
 import com.magic.basiccenter.model.dto.SelAdvertInfoDTO;
 import com.magic.basiccenter.model.dto.SelAdvertInfoOutDTO;
 import com.magic.basiccenter.model.dto.UpdAdvertInfoDTO;
 import com.magic.basiccenter.model.entity.BsAdvertInf;
+import com.magic.basiccenter.model.entity.BsCode;
 import com.magic.basiccenter.model.service.IAdvertService;
 import com.magic.basiccenter.model.service.IBsAdvertInfService;
+import com.magic.basiccenter.model.service.IBsCodeService;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * <p>广告配置数据交互接口实现类</P>
@@ -45,7 +53,13 @@ public class AdvertServiceImpl implements IAdvertService {
      */
     @Autowired
     private IBsAdvertInfService bsAdvertInfService;
-
+    
+    /**
+     * 基础字典数据对应实体服务
+     */
+    @Autowired
+    private IBsCodeService bsCodeService;
+    
 	/**
 	 * 广告配置表数据新增
 	 * @param inputDTO
@@ -126,10 +140,10 @@ public class AdvertServiceImpl implements IAdvertService {
 		BsAdvertInf bsAdvertInf = new BsAdvertInf();
 		BeanUtils.copyProperties(advertDelDTO, bsAdvertInf);
 		bsAdvertInf.setAiAdvStatus(Constant.ADVERT_DELETE_STATUS_CODE).setAiAdvUpdateTime(LocalDateTime.now());
-		LambdaQueryWrapper<BsAdvertInf> delQueryWrapper = new LambdaQueryWrapper<>();
-		delQueryWrapper.eq(BsAdvertInf::getAiAdvId, bsAdvertInf.getAiAdvId())
+		LambdaUpdateWrapper<BsAdvertInf> updateWrapper = new LambdaUpdateWrapper<>();
+		updateWrapper.eq(BsAdvertInf::getAiAdvId, bsAdvertInf.getAiAdvId())
 				.ne(BsAdvertInf::getAiAdvStatus, Constant.ADVERT_DELETE_STATUS_CODE);
-		boolean successFlag = bsAdvertInfService.update(bsAdvertInf, delQueryWrapper);
+		boolean successFlag = bsAdvertInfService.update(bsAdvertInf, updateWrapper);
 		return successFlag;
 	}
 
@@ -144,11 +158,31 @@ public class AdvertServiceImpl implements IAdvertService {
 		BsAdvertInf bsAdvertInf = new BsAdvertInf();
 		BeanUtils.copyProperties(updDTO, bsAdvertInf);
 		bsAdvertInf.setAiAdvUpdateTime(LocalDateTime.now());
-		LambdaQueryWrapper<BsAdvertInf> updQueryWrapper = new LambdaQueryWrapper<>();
-		updQueryWrapper.eq(BsAdvertInf::getAiAdvId, bsAdvertInf.getAiAdvId())
+		LambdaUpdateWrapper<BsAdvertInf> updateWrapper = new LambdaUpdateWrapper<>();
+		updateWrapper.eq(BsAdvertInf::getAiAdvId, bsAdvertInf.getAiAdvId())
 				.ne(BsAdvertInf::getAiAdvStatus, Constant.ADVERT_DELETE_STATUS_CODE);
-		boolean successFlag = bsAdvertInfService.update(bsAdvertInf, updQueryWrapper);
+		boolean successFlag = bsAdvertInfService.update(bsAdvertInf, updateWrapper);
 		return successFlag;
 	}
-
+	
+	/**
+	 * 广告栏位查询
+	 * @param selAdvertColInfoDTO
+	 * @return
+	 * @author jianggq@belink.com
+	 */
+	@Override
+	public SelAdvertColInfoOutDTO selAdvertColInfo(SelAdvertColInfoDTO selAdvertColInfoDTO) {
+		SelAdvertColInfoOutDTO selAdvertColInfoOutDTO = new SelAdvertColInfoOutDTO();
+		String bsCodeType = selAdvertColInfoDTO.getBsCodeType();
+		LambdaQueryWrapper<BsCode> queryWrapper = new LambdaQueryWrapper<>();
+		queryWrapper
+		.eq(BsCode::getBsCodeType, bsCodeType)
+		.eq(BsCode::getBsLife, Constant.ADVERT_COLUMN_ISLIVE);
+		List<BsCode> list = bsCodeService.list(queryWrapper);
+		List<ColumnInfBean> columnList=
+		list.stream().map(BsCode-> new ColumnInfBean(BsCode.getBsCode(),BsCode.getBsCodeName())).collect(Collectors.toList());
+		selAdvertColInfoOutDTO.setColumnList(columnList);
+		return selAdvertColInfoOutDTO;
+	}
 }
