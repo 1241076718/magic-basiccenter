@@ -15,8 +15,9 @@ public enum NoticeErrorEnum {
 
     //    公告域
     SUCCESS("0", "成功"),
-    FAIL("2", "失败"),
+    FAIL("2", "系统错误"),
     QFAIL("BAS001001", "查询失败"),
+    QNFAIL("BAS001002", "数据不存在"),
     IFAIL("BAS001003", "新增失败"),
     CFAIL("BAS001005", "修改失败"),
     DFAIL("BAS001007", "删除失败"),

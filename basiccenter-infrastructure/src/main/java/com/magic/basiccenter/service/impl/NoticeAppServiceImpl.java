@@ -1,8 +1,14 @@
 package com.magic.basiccenter.service.impl;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.magic.basiccenter.dto.AdvertInfBean;
+import com.magic.basiccenter.model.entity.BsAdvertInf;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,12 +25,13 @@ import com.magic.basiccenter.model.service.IBsNoticeInfService;
 import com.magic.basiccenter.model.service.NoticeAppService;
 
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.util.StringUtils;
 
 
 /**
  * @author ：goupc1@belink.com
  * @date ：Created in 2020/8/620 9:54
- * @description：  数据层service实现类
+ * @description： 数据层service实现类
  * @modified By：
  * @version: $1.0.0
  */
@@ -35,13 +42,11 @@ public class NoticeAppServiceImpl implements NoticeAppService {
 
     /**
      * 获取序列id工具类
-     *
      */
     @Autowired(required = false)
     SequenceFactory sequenceFactory;
     /**
      * 数据交互层服务IBsNoticeInfService接口
-     *
      */
     @Autowired(required = false)
     IBsNoticeInfService iBService;
@@ -49,20 +54,24 @@ public class NoticeAppServiceImpl implements NoticeAppService {
 
     /**
      * 公告查询
+     *
      * @param inputDTO
      * @return List<NoticeBean>
      * @author goupc1@belink.com
      */
     @Override
     public List<NoticeBean> queryNotice(QueryNoticeDTO inputDTO) {
-
+        //获取数据
         List<NoticeBean> cuNoticeInfs =iBService.selectNotice(inputDTO);
+
         return cuNoticeInfs;
     }
 
 
+
     /**
      * 新增公告方法
+     *
      * @param inputDTO
      * @return
      */
@@ -86,10 +95,9 @@ public class NoticeAppServiceImpl implements NoticeAppService {
     }
 
 
-
-
     /**
      * 通过主键id上下架、删除广告
+     *
      * @param inputDTO
      * @return magicOutDTO
      * @author kangjx1@belink.com
@@ -108,11 +116,12 @@ public class NoticeAppServiceImpl implements NoticeAppService {
     @Override
     public Integer queryNoticeTotalNum(QueryNoticeDTO queryNoticeDTO) {
 
-             return iBService.queryNoticeTotalNum(queryNoticeDTO);
+        return iBService.queryNoticeTotalNum(queryNoticeDTO);
     }
 
     /**
      * 修改公告管理列表
+     *
      * @param requestDTO
      * @return
      */
