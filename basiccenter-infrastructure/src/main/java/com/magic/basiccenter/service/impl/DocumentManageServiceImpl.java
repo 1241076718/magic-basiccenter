@@ -23,6 +23,7 @@ import com.magic.basiccenter.model.dto.DocumentStateDTO;
 import com.magic.basiccenter.model.dto.LifeDTO;
 import com.magic.basiccenter.model.dto.QueryDocumentDTO;
 import com.magic.basiccenter.model.dto.QueryDocumentOutDTO;
+import com.magic.basiccenter.model.dto.ReleaseDTO;
 import com.magic.basiccenter.model.entity.BsDocumentInf;
 import com.magic.basiccenter.model.entity.BsDocumentType;
 import com.magic.basiccenter.model.service.DocumentManageService;
