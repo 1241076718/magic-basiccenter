@@ -66,18 +66,18 @@
             </if>
 
             <if test="niNtcStartTime != null   ">
-                or  NI_NTC_START_TIME >= #{niNtcStartTime}
+                and  NI_NTC_START_TIME >= #{niNtcStartTime}
             </if>
             <if test="niNtcEndTime != null  ">
                 and  #{niNtcEndTime}  >=  NI_NTC_END_TIME
             </if>
 
             <if test="niNtcCreator != null and niNtcCreator !=''">
-                or NI_NTC_CREATOR like CONCAT ( '%',#{niNtcCreator},'%')
+                and NI_NTC_CREATOR like CONCAT ( '%',#{niNtcCreator},'%')
             </if>
 
             <if test="niNtcStatus != null and niNtcStatus != 0">
-                or NI_NTC_STATUS =  #{niNtcStatus}
+                and NI_NTC_STATUS =  #{niNtcStatus}
             </if>
             <if test="niNtcId != null and niNtcId != ''">
                 and  NI_NTC_ID =  #{niNtcId}
@@ -105,18 +105,18 @@
             </if>
 
             <if test="niNtcStartTime != null  ">
-                or  NI_NTC_START_TIME >= #{niNtcStartTime}
+                and  NI_NTC_START_TIME >= #{niNtcStartTime}
             </if>
             <if test="niNtcEndTime != null  ">
                 and  #{niNtcEndTime}  >=  NI_NTC_END_TIME
             </if>
 
             <if test="niNtcCreator != null and niNtcCreator !=''">
-                or NI_NTC_CREATOR like CONCAT ( '%',#{niNtcCreator},'%')
+                and NI_NTC_CREATOR like CONCAT ( '%',#{niNtcCreator},'%')
             </if>
 
             <if test="niNtcStatus != null and niNtcStatus != 0">
-                or NI_NTC_STATUS =  #{niNtcStatus}
+                and NI_NTC_STATUS =  #{niNtcStatus}
             </if>
             <if test="niNtcId != null and niNtcId != ''">
                 and  NI_NTC_ID =  #{niNtcId}
