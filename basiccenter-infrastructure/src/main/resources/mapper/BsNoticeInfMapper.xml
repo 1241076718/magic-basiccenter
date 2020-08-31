@@ -45,7 +45,7 @@
             <if test="niNtcStatus != null and niNtcStatus != 0">
                 or NI_NTC_STATUS =  #{niNtcStatus}
             </if>
-            <if test="niNtcId != null and niNtcId != ''">
+            <if test="niNtcId != null and niNtcId != 0">
                 and  NI_NTC_ID =  #{niNtcId}
             </if>
 
@@ -58,7 +58,8 @@
     <!--查询公告sql方法语句-->
     <select id="selectNotice"  parameterType="com.magic.basiccenter.model.dto.QueryNoticeDTO"    resultType="com.magic.basiccenter.dto.entity.NoticeBean">
 
-        select * from bs_notice_inf
+        select  (NI_NTC_ID, NI_NTC_NAME, NI_NTC_STATUS, NI_NTC_ID_RELEASE_TIME, NI_NTC_CREATOR, NI_NTC_TEXT, NI_NTC_START_TIME, NI_NTC_END_TIME, NI_NTC_COUNT, NI_NTC_REMIND_STATUS, NI_NTC_GMT_CREATE, NI_NTC_GMT_MODIFIED, NI_NTC_GMT_MODIFIER)
+        from bs_notice_inf
 
         <where>
             <if test="niNtcName != null and niNtcName !=''">
@@ -79,7 +80,7 @@
             <if test="niNtcStatus != null and niNtcStatus != 0">
                 and NI_NTC_STATUS =  #{niNtcStatus}
             </if>
-            <if test="niNtcId != null and niNtcId != ''">
+            <if test="niNtcId != null and niNtcId != 0">
                 and  NI_NTC_ID =  #{niNtcId}
             </if>
 
@@ -118,7 +119,7 @@
             <if test="niNtcStatus != null and niNtcStatus != 0">
                 and NI_NTC_STATUS =  #{niNtcStatus}
             </if>
-            <if test="niNtcId != null and niNtcId != ''">
+            <if test="niNtcId != null and niNtcId !=0">
                 and  NI_NTC_ID =  #{niNtcId}
             </if>
 
