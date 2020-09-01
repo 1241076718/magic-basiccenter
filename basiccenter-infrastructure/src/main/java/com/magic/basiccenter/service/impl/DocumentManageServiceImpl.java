@@ -200,9 +200,9 @@ public class DocumentManageServiceImpl implements DocumentManageService {
         Page<BsDocumentInf> iPage = new Page<BsDocumentInf>(currentPage,turnPageShowNum);
         LambdaQueryWrapper<BsDocumentInf> queryWrapper = new LambdaQueryWrapper<>();
 
-        queryWrapper.eq(!StringUtils.isEmpty(docsName), BsDocumentInf::getDocsName, docsName)
+        queryWrapper.like(!StringUtils.isEmpty(docsName), BsDocumentInf::getDocsName, docsName)
                 .eq(BsDocumentInf::getDocLife, "0")
-                .like(!StringUtils.isEmpty(catalogName), BsDocumentInf::getCatalogName, catalogName)
+                .eq(!StringUtils.isEmpty(catalogName), BsDocumentInf::getCatalogName, catalogName)
                 .ge((!StringUtils.isEmpty(startTime)) && (StringUtils.isEmpty(endTime)), BsDocumentInf::getDocumentPubdate, startTime)
                 .le((StringUtils.isEmpty(startTime)) && (!StringUtils.isEmpty(endTime)), BsDocumentInf::getDocumentPubdate, endTime)
                 .between((!StringUtils.isEmpty(startTime)) && (!StringUtils.isEmpty(endTime)), BsDocumentInf::getDocumentPubdate, startTime, endTime)
