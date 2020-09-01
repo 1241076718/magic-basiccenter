@@ -99,7 +99,7 @@
 
     <select id="queryNoticeTotalNum"   parameterType="com.magic.basiccenter.model.dto.QueryNoticeDTO"    resultType="Integer">
 
-        select count(*) from bs_notice_inf
+        select count(NI_NTC_ID) from bs_notice_inf
         <where>
             <if test="niNtcName != null and niNtcName !=''">
                 NI_NTC_NAME like CONCAT ( '%',#{niNtcName},'%')
@@ -108,6 +108,7 @@
             <if test="niNtcStartTime != null  ">
                 and  NI_NTC_START_TIME >= #{niNtcStartTime}
             </if>
+
             <if test="niNtcEndTime != null  ">
                 and  #{niNtcEndTime}  >=  NI_NTC_END_TIME
             </if>
@@ -119,6 +120,7 @@
             <if test="niNtcStatus != null and niNtcStatus != 0">
                 and NI_NTC_STATUS =  #{niNtcStatus}
             </if>
+
             <if test="niNtcId != null and niNtcId !=0">
                 and  NI_NTC_ID =  #{niNtcId}
             </if>
