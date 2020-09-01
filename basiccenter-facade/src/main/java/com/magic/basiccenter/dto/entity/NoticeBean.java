@@ -55,6 +55,7 @@ public class NoticeBean implements Serializable {
      */
     @JsonFormat(
             pattern = "yyyy-MM-dd"
+
     )
     private Date niNtcStartTime;
     /**
@@ -62,6 +63,7 @@ public class NoticeBean implements Serializable {
      */
     @JsonFormat(
             pattern = "yyyy-MM-dd"
+
     )
     private Date niNtcEndTime;
     /**
@@ -76,14 +78,16 @@ public class NoticeBean implements Serializable {
      * 创建时间
      */
     @JsonFormat(
-            pattern = "yyyy-MM-dd"
+            pattern = "yyyy-MM-dd HH:mm:ss",
+            timezone = "GMT+8"
     )
     private Date niNtcGmtCreate;
     /**
      * 修改时间
      */
     @JsonFormat(
-            pattern = "yyyy-MM-dd HH:mm:ss"
+            pattern = "yyyy-MM-dd HH:mm:ss",
+            timezone = "GMT+8"
     )
     private Date niNtcGmtModified;
     /**
